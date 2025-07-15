@@ -35,8 +35,7 @@
 > 2\. Click **"Windows hosts**" to download the VirtualBox installer for
 > Windows.
 >
-> ![VirtualBox Install](images/1.png){width="5.069444444444445in"
-> height="2.8472222222222223in"}
+> ![VirtualBox Install](images/1.png)
 >
 > ⸻
 >
@@ -48,8 +47,7 @@
 >
 > 3\. Select "**Run as administrator**"
 >
-> ![VirtualBox Install](images/2.png){width="5.201388888888889in"
-> height="2.923611111111111in"}
+> ![VirtualBox Install](images/2.png)
 >
 > ⸻
 >
