@@ -46,11 +46,11 @@ or installer problems quickly.
 
 3\. Right-click → New \> Folder
 
-![](../images/2Kali2-images/1.png) 
+![](../images/2kali2-images/1.png) 
 
 4\. Name it: **virtualbox-VMs**
 
-![](../images/2Kali2-images/2.png) 
+![](../images/2kali2-images/2.png) 
 
 ⸻
 
@@ -61,14 +61,14 @@ or installer problems quickly.
 
 2\. Click **Virtual Machines**.
 
-![](../images/2Kali2-images/3.png) 
+![](../images/2kali2-images/3.png) 
 
 3\. You'll be redirected to the **Pre-built Virtual Machines** page.
 
 4\. Click **VirtualBox** to download
 **kali-linux-2025.2-virtualbox-amd64.7z**.
 
-![](../images/2Kali2-images/4.png)
+![](../images/2kali2-images/4.png)
  
 5\. Go to your **Downloads** folder, right click on
 **kali-linux-2025.2-virtualbox-amd64.7z**,
@@ -77,12 +77,12 @@ then click **Cut** to move the file to **D:\\virtualbox-VMs\\.**
 
 **(Skip this and the next step if you don't have Drive D:)**
 
-![](../images/2Kali2-images/5.png) 
+![](../images/2kali2-images/5.png) 
 
 6\. Go to **This PC** \> **DATA (D:)** \> **virtualbox-VMs** then
 **Paste**.
 
-![](../images/2Kali2-images/6.png) 
+![](../images/2kali2-images/6.png) 
 
 ⸻
 
@@ -93,15 +93,13 @@ File)**
 
 2\. Download the **64-bit x64 installer**
 
-![](../images/2Kali2-images/7.png) 
+![](../images/2kali2-images/7.png) 
 
 3\. Run the installer and complete setup.
 
-.
+![](../images/2kali2-images/8.png) 
 
-![](../images/2Kali2-images/8.png) 
-
-![](../images/2Kali2-images/9.png)
+![](../images/2kali2-images/9.png)
  
 ⸻
 
@@ -119,11 +117,11 @@ Download folder**
 2\. Right click **kali-linux-2025.2-virtualbox-amd64.7z** then select
 **Extract All**.
 
-![](../images/2Kali2-images/10.png) 
+![](../images/2kali2-images/10.png) 
 
 3\. Click **Extract**
 
-![](../images/2Kali2-images/11.png)
+![](../images/2kali2-images/11.png)
  
 ⸻
 
@@ -139,7 +137,7 @@ Download folder**
 
 4\. Click **OK**
 
-![](../images/2Kali2-images/12.png) 
+![](../images/2kali2-images/12.png) 
 
 ⸻
 
@@ -147,19 +145,19 @@ Download folder**
 
 1.  In **VirtualBox**: Go to **Machine** \> **Add**
 
-![](../images/2Kali2-images/13.png) 
+![](../images/2kali2-images/13.png) 
 
 2\. Navigate to: **D:\\VirtualBox
 VMs\\kali-linux-2025.2-virtualbox-amd64**,
 
 > then **double click** or click **Open**.
 
-![](../images/2Kali2-images/14.png) 
+![](../images/2kali2-images/14.png) 
 
 3\. **Double click** or click **Open**
 **Kali-Linux-2025.2-virtualbox-amd64.vbox**.
 
-![](../images/2Kali2-images/15.png) 
+![](../images/2kali2-images/15.png) 
 
 ⸻
 
@@ -171,7 +169,7 @@ VMs\\kali-linux-2025.2-virtualbox-amd64**,
 
 3\. Wait for Kali-Linux to boot
 
-![](../images/2Kali2-images/16.png) 
+![](../images/2kali2-images/16.png) 
 
 ⸻
 
@@ -181,11 +179,11 @@ Username: **kali**
 
 Password: **kali**
 
-![](../images/2Kali2-images/17.png) 
+![](../images/2kali2-images/17.png) 
 
 After login, you're ready to explore the Kali Linux environment.
 
-![](../images/2Kali2-images/18.png) 
+![](../images/2kali2-images/18.png) 
 
 ⸻
 
