@@ -54,8 +54,7 @@
 
 2\. Under VirtualBox platform packages, click **Windows hosts**.
 
-![](images/1VBox2-images/1.png){width="5.489837051618547in"
-height="3.0833333333333335in"}
+![](images/1VBox2-images/1.png)
 
 ⸻
 
@@ -67,8 +66,7 @@ height="3.0833333333333335in"}
 
 3\. Select **Run as Administrator**
 
-![](images/1VBox2-images/2.png){width="5.201388888888889in"
-height="2.923611111111111in"}
+![](images/1VBox2-images/2.png) 
 
 ⸻
 
@@ -76,8 +74,7 @@ height="2.923611111111111in"}
 
 Click **Next** to start installation wizard.
 
-![](images/1VBox2-images/3.png){width="5.201388888888889in"
-height="2.923611111111111in"}
+![](images/1VBox2-images/3.png
 
 ⸻
 
@@ -87,7 +84,7 @@ height="2.923611111111111in"}
 
 2.  Click **Next**.
 
-> ![](images/1VBox2-images/4.png){width="5.201388888888889in" height="3.0in"}
+> ![](images/1VBox2-images/4.png) 
 
 ⸻
 
@@ -97,7 +94,7 @@ Leave default options selected unless you have specific needs.
 
 Click **Next**.
 
-![](images/1VBox2-images/5.png){width="5.201388888888889in" height="3.0in"}
+![](images/1VBox2-images/5.png) 
 
 ⸻
 
@@ -107,8 +104,7 @@ You will see **Warning: Network Interfaces**. Ignore this.
 
 Click **Yes**.
 
-![](images/1VBox2-images/6.png){width="5.333333333333333in" height="3.0in"}
-
+![](images/1VBox2-images/6.png) 
 ⸻
 
 **✅ Step 7: Missing Dependencies: Python Core / win32api**
@@ -124,8 +120,7 @@ Click **Yes** If you're not planning to automate VirtualBox with Python
 > If you intend to add the missing dependencies, quick research will
 > help.
 
-![](images/1VBox2-images/7.png){width="5.201388888888889in"
-height="2.923611111111111in"}
+![](images/1VBox2-images/7.png) 
 
 ⸻
 
@@ -133,8 +128,7 @@ height="2.923611111111111in"}
 
 > Click **Next** to continue.
 
-![]( images/1VBox2-images/8.png){width="5.201388888888889in"
-height="2.923611111111111in"}
+![]( images/1VBox2-images/8.png) 
 
 ⸻
 
@@ -144,16 +138,14 @@ When finished, leave **Start Oracle VM VirtualBox after installation**.
 
 Click **Finish**.
 
-![](images/1VBox2-images/9.png){width="5.201388888888889in"
-height="2.923611111111111in"}
+![](images/1VBox2-images/9.png) 
 
 > **VirtualBox Manager** should start automatically and the VirtualBox
 > shortcut should
 >
 > appear on your desktop.
 >
-> ![](images/1VBox2-images/10.png){width="5.201388888888889in"
-> height="2.923611111111111in"}
+> ![](images/1VBox2-images/10.png) 
 >
 > **!!! REBOOT** for good measures.
 
