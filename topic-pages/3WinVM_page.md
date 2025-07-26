@@ -10,8 +10,7 @@ you start with that first, then
 > by Kali-Linux installation.
 
 **🪟 How to Install a Windows Virtual Machine (VM) into VirtualBox**
-
-**on Windows 11 (Stored on Drive D:)**
+**   on Windows 11 (Stored on Drive D:)**
 
 This Windows VM will serve as the target machine.
 
@@ -23,21 +22,17 @@ This Windows VM will serve as the target machine.
 **💡 Tip: Keep an AI Assistant Handy During VM Setup!**
 
 Installing an OS in a VM can cause issues like boot failures or display
-bugs.
-
-Keep an AI assistant like **ChatGPT** open to help troubleshoot errors,
-BIOS settings,
-
-or installer problems quickly.
+bugs. Keep an AI assistant like **ChatGPT** open to help troubleshoot errors,
+BIOS settings, or installer problems quickly.
 
 **✅ Minimum System Requirements for Windows 10 ISO Installation**
 
-> **Processor:** 1 GHz or faster CPU or SoC (32-bit or 64-bit)\
-> **RAM:** 1 GB for 32-bit, or 2 GB for 64-bit\
-> **Storage:** 16 GB for 32-bit OS, or 20 GB for 64-bit OS\
-> **Graphics Card:** DirectX 9 or later with WDDM 1.0 driver\
-> **Display:** 800×600 resolution or higher\
-> **Firmware:** BIOS or UEFI
+> **Processor:** 		1 GHz or faster CPU or SoC (32-bit or 64-bit)\
+> **RAM:** 			1 GB for 32-bit, or 2 GB for 64-bit\
+> **Storage:** 		16 GB for 32-bit OS, or 20 GB for 64-bit OS\
+> **Graphics Card:**	DirectX 9 or later with WDDM 1.0 driver\
+> **Display:** 		800×600 resolution or higher\
+> **Firmware:** 		BIOS or UEFI
 
 ⸻
 
@@ -53,7 +48,6 @@ or installer problems quickly.
 2.  Click **Download Now**
 
 ![](../images/3winV2-images/1.png) 
-
 3.  Go to **Download folder**
 
 4.  Double click **MediaCreationTool_22H2.exe**
@@ -84,12 +78,9 @@ or installer problems quickly.
     was saved,
 
 11. Windows 10 ISO will be stored there as well.
+    If you don't have Drive D: --- I recommend that you store the ISO file
+    where Kali-Linux was saved on C: to organized the VMs.
 
-If you don't have Drive D: --- I recommend that you store the ISO file
-> where Kali-Linux
->
-> was saved on C: to organized the VMs.
->
 ![](../images/3winV2-images/8.png) 
 
 12. Click **Finish**
