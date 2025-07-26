@@ -84,7 +84,7 @@ Click **Next** to start installation wizard.
 
 2.  Click **Next**.
 
-![../](images/1VBox2-images/4.png) 
+![](../images/1VBox2-images/4.png) 
 
 ⸻
 
@@ -126,7 +126,7 @@ Click **Yes** If you're not planning to automate VirtualBox with Python
 
 **✅ Step 8: Ready to Install**
 
-> Click **Next** to continue.
+Click **Next** to continue.
 
 ![](../images/1VBox2-images/8.png) 
 
@@ -141,13 +141,11 @@ Click **Finish**.
 ![](../images/1VBox2-images/9.png) 
 
 > **VirtualBox Manager** should start automatically and the VirtualBox
-> shortcut should
->
-> appear on your desktop.
->
-> ![](../images/1VBox2-images/10.png) 
->
-> **!!! REBOOT** for good measures.
+> shortcut should appear on your desktop.
+
+![](../images/1VBox2-images/10.png) 
+
+> **!!! REBOOT** for good measure.
 
 ⸻
 
