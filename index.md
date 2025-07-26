@@ -19,7 +19,7 @@ You'll find beginner-friendly walkthroughs with step-by-step instructions, pract
 - 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](topic-pages/1VBox_page.md)
 - 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](topic-pages/2KaliVM_page.md)
 - 👉 [🖥️ **Step 3**: How to Install Windows 10 VM on Windows 11](topic-pages/3WinVM_page.md)
-- 👉 [🖥️ **Step 4**: How to Install Ubuntu Server VM on Windows 11](topic-pages/4UbuntuServer_page.md)
+- 👉 [🖥️ **Step 4**: How to Install Ubuntu Server VM on Windows 11](topic-pages/4UbuntuServerVM_page.md)
 - 👉 [🖥️ **Step 5**: How to Install Wazuh SIEM on Ubuntu Server VM](topic-pages/5Wazuh_page.md)
 - 👉 [🖥️ **Step 6**: How to Install Wazuh Agent on Kali-Linux VM](topic-pages/6KaliAgent_page.md)
 - 👉 [🖥️ **Step 7**: How to Install Wazuh Agent on Windows 10 VM](topic-pages/7WinAgent_page.md)
