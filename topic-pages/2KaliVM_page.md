@@ -47,6 +47,7 @@ or installer problems quickly.
 3\. Right-click → New \> Folder
 
 ![](../images/2Kali2-images/1.png) 
+
 4\. Name it: **virtualbox-VMs**
 
 ![](../images/2Kali2-images/2.png) 
