@@ -16,13 +16,13 @@ You'll find beginner-friendly walkthroughs with step-by-step instructions, pract
 ## 📘 Setting Up a Home Lab with Wazuh SIEM  
 *(VirtualBox Hypervisor, Kali-Linux VM, Windows 10 VM, Ubuntu Server VM, Wazuh SIEM, and Wazuh agents)*
 
-- 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](/topics-pages/11VBox_page.md)
-- 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](/topics-pages/12KaliVM_page.md)
-- 👉 [🖥️ **Step 3**: How to Install Windows 10 VM on Windows 11](/topics-pages/13WinVM_page.md)
-- 👉 [🖥️ **Step 4**: How to Install Ubuntu Server VM on Windows 11](/topics-pages/14UbuntuServer_page.md)
-- 👉 [🖥️ **Step 5**: How to Install Wazuh SIEM on Ubuntu Server VM](/topics-pages/15Wazuh_page.md)
-- 👉 [🖥️ **Step 6**: How to Install Wazuh Agent on Kali-Linux VM](/topics-pages/16KaliAgent_page.md)
-- 👉 [🖥️ **Step 7**: How to Install Wazuh Agent on Windows 10 VM](/topics-pages/17WinAgent_page.md)
+- 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](/topic-pages/11VBox_page.md)
+- 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](/topic-pages/12KaliVM_page.md)
+- 👉 [🖥️ **Step 3**: How to Install Windows 10 VM on Windows 11](/topic-pages/13WinVM_page.md)
+- 👉 [🖥️ **Step 4**: How to Install Ubuntu Server VM on Windows 11](/topic-pages/14UbuntuServer_page.md)
+- 👉 [🖥️ **Step 5**: How to Install Wazuh SIEM on Ubuntu Server VM](/topic-pages/15Wazuh_page.md)
+- 👉 [🖥️ **Step 6**: How to Install Wazuh Agent on Kali-Linux VM](/topic-pages/16KaliAgent_page.md)
+- 👉 [🖥️ **Step 7**: How to Install Wazuh Agent on Windows 10 VM](/topic-pages/17WinAgent_page.md)
 
 ---
 
