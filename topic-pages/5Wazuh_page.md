@@ -17,7 +17,7 @@
 >
 > professionals in SOC and blue team roles.
 >
-> 💡 **Tip:** Keep an **AI assistant** like ChatGPT handy while doing
+💡 **Tip:** Keep an **AI assistant** like ChatGPT handy while doing
 > this setup. It can help
 >
 > troubleshoot errors, explain configs, or even generate commands and
@@ -53,8 +53,7 @@
 
 web interface ()
 
-> ![](images/5wazuh2-images/1.png){width="5.476923665791776in"
-> height="2.8701235783027124in"}
+![](../images/5wazuh2-images/1.png) 
 
 3.  Verify if Services are active:
 
@@ -68,8 +67,7 @@ web interface ()
 
 - Output should look like the image below:
 
-![](images/5wazuh2-images/2.png){width="5.491228127734034in"
-height="2.8923075240594924in"}
+![](../images/5wazuh2-images/2.png) 
 
 ## 🌐 Step 4: Configure opensearch_dashboards.yml and opensearch.yml files 
 
@@ -101,15 +99,13 @@ height="2.8923075240594924in"}
 
 > **nano opensearch_dashboards.yml**
 >
-> ![]( images/5wazuh2-images/3.png){width="5.469231189851269in"
-> height="2.8847550306211724in"}
+![](../images/5wazuh2-images/3.png) 
 
 - Replace the opensearch.hosts IP address with your Server's IP address
 
 - Close the file: **ctrl + o**, then **enter**, then **control + x**
 
-> ![](images/5wazuh2-images/4.png){width="5.520844269466317in"
-> height="2.946153762029746in"}
+![](../images/5wazuh2-images/4.png) 
 
 3.  Navigate to the opensearch.yml file
 
@@ -133,8 +129,7 @@ height="2.8923075240594924in"}
 
 - Close the file: **ctrl + o**, then **enter**, then **control + x**
 
-> ![](images/5wazuh2-images/5.png){width="5.526264216972878in"
-> height="2.876923665791776in"}
+![](../images/5wazuh2-images/5.png) 
 
 ## 🔐 Step 6: Access the Wazuh Dashboard
 
@@ -144,11 +139,9 @@ height="2.8923075240594924in"}
 
 2.  Accept the security warning: click **Advanced...**
 
-![](images/5wazuh2-images/6.png){width="5.509370078740157in"
-height="3.0615387139107613in"}
+![](../images/5wazuh2-images/6.png) 
 
-> ![](images/5wazuh2-images/7.png){width="5.507692475940507in"
-> height="3.079830489938758in"}
+![](../images/5wazuh2-images/7.png) 
 
 3\. Log in with:
 
@@ -156,13 +149,11 @@ height="3.0615387139107613in"}
 • Password: \<**password was given after wazuh installation, hope you
 saved it**\>
 
-> ![](images/5wazuh2-images/8.png){width="5.497130358705162in"
-> height="3.0615376202974627in"}
+![](../images/5wazuh2-images/8.png) 
 
 - **The Wazuh Dashboard!**
 
-> ![](images/5wazuh2-images/9.png){width="5.4704265091863515in"
-> height="3.053845144356955in"}
+![](../images/5wazuh2-images/9.png) 
 
 ## 🎉 Done!
 

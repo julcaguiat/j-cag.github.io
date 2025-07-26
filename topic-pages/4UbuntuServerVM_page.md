@@ -34,40 +34,35 @@ quick help when you're stuck.
 
 > 1\. Visit: 👉 <https://ubuntu.com/download/server>\
 > 2. **Download** Ubuntu Server 22.04 LTS
->
-> ![](images/4ubuntu2-images/1.png){width="5.423076334208224in"
-> height="3.0511154855643046in"}
+
+![](../images/4ubuntu2-images/1.png) 
 >
 > 3\. Go to **Downloads**, then **Cut**
 > ubuntu-24.04.02-live-server-amd64-iso to be moved to
 > D:\\virtualbox-VMs
->
-> ![](images/4ubuntu2-images/2.png){width="5.41425634295713in"
-> height="3.0461537620297463in"}
+
+![](../images/4ubuntu2-images/2.png) 
 
 3\. **Paste** it to: D:\\VirtualBox VMs\\
 
-![](images/4ubuntu2-images/3.png){width="5.496290463692039in"
-height="3.0923075240594926in"}
+![](../images/4ubuntu2-images/3.png) 
 
 ## 🧰 Step 2: Create the Ubuntu Server VM in VirtualBox
 
 1.  Open VirtualBox → Click **New**
 
-![](images/4ubuntu2-images/4.png){width="5.4689457567804025in"
-height="3.0769236657917762in"}
+![](../images/4ubuntu2-images/4.png) 
 
 > 2\. Name: **Ubuntu-Wazuh-Server**\
 > 3. ISO Image: click the **drop-down arrow** at the far right \> click
 > **other**
 
-![](images/4ubuntu2-images/5.png){width="5.482617016622922in"
-height="3.084615048118985in"}
+![](../images/4ubuntu2-images/5.png) 
 
 4\. choose **Windows.iso**, click **Open**
 
-![](images/4ubuntu2-images/6.png){width="5.5in" height="3.0943941382327207in"}
-
+![](../images/4ubuntu2-images/6.png)
+ 
 5\. Confirm ISO Image: **ubuntu-24.04.2-live-server-amd64.iso**
 
 Type: **Linux**
@@ -78,29 +73,25 @@ Version: **Ubuntu (64-bit)**
 
 6\. Click **Unattended Install**
 
-![](images/4ubuntu2-images/7.png){width="5.537307524059493in"
-height="3.115384951881015in"}
+![](../images/4ubuntu2-images/7.png) 
 
 7\. Change Username: \<your_username\>
 
 Password: \<your_password\>
 
-> ![](images/4ubuntu2-images/8.png){width="5.495843175853018in"
-> height="3.153846237970254in"}
->
+![](../images/4ubuntu2-images/8.png) 
+
 > 8\. Ram: **6MB**\
 > 9. CPU: **2**\
 > 10. Click **Hard Disk**
->
-> ![](images/4ubuntu2-images/9.png){width="5.525438538932633in"
-> height="3.115384951881015in"}
->
+
+![](../images/4ubuntu2-images/9.png) 
+
 > 11\. Disk: **VDI, 40 GB**
 >
 > 12\. Click **Finish**
->
-> ![](images/4ubuntu2-images/10.png){width="5.512708880139982in"
-> height="3.1076924759405076in"}
+
+![](../images/4ubuntu2-images/10.png) 
 
 !!! IMPORTANT NOTE: After clicking **finish**, the VM installation will
 start automatically.
@@ -113,31 +104,26 @@ start automatically.
 13\. After installation, close VM, then power off (shutdown) to modify
 Settings.
 
-![](images/4ubuntu2-images/11.png){width="5.415016404199475in"
-height="2.815384951881015in"}
+![](../images/4ubuntu2-images/11.png) 
 
 14\. click **Settings**
 
-![](images/4ubuntu2-images/12.png){width="5.461538713910761in"
-height="2.8483016185476817in"}
+![](../images/4ubuntu2-images/12.png) 
 
 15\. Go to **Systems** **\> Motherboard** \> Uncheck **Floppy**
 
-![](images/4ubuntu2-images/13.png){width="5.498448162729659in"
-height="2.846153762029746in"}
+![](../images/4ubuntu2-images/13.png) 
 
 16\. Go to **Storage** \> click Controller IDE: **Empty** \> click
 Optical Drive **disk icon** \>
 
 Select **ubuntu-24.04.2-live-server-amd.iso** \> click **OK**
 
-![](images/4ubuntu2-images/14.png){width="5.5035804899387575in"
-height="3.0615376202974627in"}
+![](../images/4ubuntu2-images/14.png) 
 
 - Your Storage setup should look like the image below.
 
-![](images/4ubuntu2-images/15.png){width="5.530044838145232in"
-height="3.1461537620297464in"}
+![](../images/4ubuntu2-images/15.png) 
 
 - Click **OK**, then click **Start** on VirtualBox, then **log-in** to
   the Ubuntu Server VM.

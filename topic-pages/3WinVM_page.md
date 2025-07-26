@@ -52,58 +52,49 @@ or installer problems quickly.
 
 2.  Click **Download Now**
 
-> ![](images/3winV2-images/1.png){width="5.49382874015748in"
-> height="3.0902777777777777in"}
+![](../images/3winV2-images/1.png) 
 
 3.  Go to **Download folder**
 
 4.  Double click **MediaCreationTool_22H2.exe**
 
-> ![](images/3winV2-images/2.png){width="5.506172353455818in"
-> height="3.0972222222222223in"}
+![](../images/3winV2-images/2.png) 
 
 5.  Click **Yes** User Account Control
 
-> ![](images/3winV2-images/3.png){width="5.493826552930884in"
-> height="3.0902777777777777in"}
+![](../images/3winV2-images/3.png) 
 
 6.  Click **Accept** to continue
 
-> ![](images/3winV2-images/4.png){width="5.493826552930884in"
-> height="3.0902777777777777in"}
+![](../images/3winV2-images/4.png) 
 
 7.  Select **Create installation media**, then click **Next**.
 
-> ![](images/3winV2-images/5.png){width="5.493826552930884in"
-> height="3.0902777777777777in"}
+![](../images/3winV2-images/5.png) 
 
 8.  Click **Next**
 
-> ![](images/3winV2-images/6.png){width="5.493826552930884in"
-> height="3.0902777777777777in"}
+![](../images/3winV2-images/6.png) 
 
 9.  Choose **ISO file**, then click **Next**
 
-> ![]( images/3winV2-images/7.png){width="5.506172353455818in"
-> height="3.0972222222222223in"}
+![](../images/3winV2-images/7.png) 
 
 10. Choose the existing **D:\\virtualbox-VMs** folder where Kali-Linux
     was saved,
 
 11. Windows 10 ISO will be stored there as well.
 
-> If you don't have Drive D: --- I recommend that you store the ISO file
+If you don't have Drive D: --- I recommend that you store the ISO file
 > where Kali-Linux
 >
 > was saved on C: to organized the VMs.
 >
-> ![](images/3winV2-images/8.png){width="5.506173447069116in"
-> height="3.0972222222222223in"}
+![](../images/3winV2-images/8.png) 
 
 12. Click **Finish**
 
-> ![](images/3winV2-images/9.png){width="5.518518153980753in"
-> height="3.10416 images/3winV2-images/1.png 66666666665in"}
+![](../images/3winV2-images/9.png) 
 
 ⸻
 
@@ -111,21 +102,18 @@ or installer problems quickly.
 
 1.  In VirtualBox, click **New**
 
-> ![](images/3winV2-images/10.png){width="5.518518153980753in"
-> height="3.1041666666666665in"}
+![](../images/3winV2-images/10.png){ 
 
 2\. Name your VM: **Windows10VM**
 
 3\. ISO Image: click the **drop-down arrow** at the far right \> click
 **other**
 
-![](images/3winV2-images/11.png){width="5.479166666666667in"
-height="3.0820319335083113in"}
+![](../images/3winV2-images/11.png) 
 
 4\. choose **Windows.iso**, click **Open**
 
-![](images/3winV2-images/12.png){width="5.4814807524059495in"
-height="3.0833333333333335in"}
+![](../images/3winV2-images/12.png) 
 
 5\. Confirm ISO Image: **Windows.iso**
 
@@ -135,8 +123,7 @@ Version: **Windows 10 (64-bit)**
 
 6\. Click **Unattended Install**
 
-![](images/3winV2-images/13.png){width="5.506944444444445in"
-height="3.0976563867016624in"}
+![](../images/3winV2-images/13.png) 
 
 7\. Change Username: \<your_username\>
 
@@ -149,8 +136,7 @@ Password: \<your_password\>
 
 8\. Click **Finish**
 
-![](images/3winV2-images/14.png){width="5.518518153980753in"
-height="3.1041666666666665in"}
+![](../images/3winV2-images/14.png) 
 
 ⸻
 
@@ -166,8 +152,7 @@ the right solution.
 
 1.  Click **Settings**
 
-![](images/3winV2-images/15.png){width="5.555555555555555in" height="3.125in"}
-
+![](../images/3winV2-images/15.png) 
 2.  Navigate to **Storage**
 
 ! **Check the image below**. The Storage setup has to be reconfigured --
@@ -178,8 +163,7 @@ You have to
 >
 > the ISO image file.
 
-![](images/3winV2-images/16.png){width="5.506172353455818in"
-height="3.0972222222222223in"}
+![](../images/3winV2-images/16.png) 
 
 3.  Follow the instruction below.
 
@@ -189,13 +173,11 @@ height="3.0972222222222223in"}
 
 - Choose **PIIX4 (IDE)**, then remount the Windows.iso
 
-> ![](images/3winV2-images/17.png){width="5.506329833770779in"
-> height="3.096826334208224in"}
+> ![](../images/3winV2-images/17.png) 
 
 - The correct Storage setup should look like the image below.
 
-![]( images/3winV2-images/18.png){width="5.506172353455818in"
-height="3.0972222222222223in"}
+![](../images/3winV2-images/18.png) 
 
 ⸻
 
@@ -203,13 +185,11 @@ height="3.0972222222222223in"}
 
 1.  Select the **Windows10VM** → Click **Start**
 
-> ![](images/3winV2-images/19.png){width="5.492055993000875in"
-> height="3.0909087926509184in"}
+![](../images/3winV2-images/19.png) 
 
 - The VM will boot into the Windows setup ISO
 
-![](images/3winV2-images/20.png){width="5.494269466316711in"
-height="3.0909087926509184in"}
+![](../images/3winV2-images/20.png) 
 
 2.  **Follow the step-by-step Windows Setup instructions below:**
 
@@ -243,8 +223,7 @@ height="3.0909087926509184in"}
 
 **Done! Newly installed Windows 10 VM!**
 
-I![](images/3winV2-images/21.png){width="5.449198381452319in"
-height="2.8553346456692914in"}
+![](../images/3winV2-images/21.png) 
 
 ⸻
 

@@ -30,8 +30,7 @@
 >
 > **inet** (ex. xxx.xxx.x.xxx)
 >
-> ![](images/6kali-agent2-images/1.png){width="5.231832895888014in"
-> height="2.734176509186352in"}
+![](../images/6kali-agent2-images/1.png) 
 
 ⸻
 
@@ -41,30 +40,25 @@
 
 2.  Click **Active**
 
-> ![](images/6kali-agent2-images/2.png){width="5.258225065616798in"
-> height="2.924050743657043in"}
+![](../images/6kali-agent2-images/2.png) 
 
 3.  Click **Deploy new agent**
 
-> ![](images/6kali-agent2-images/3.png){width="5.22476924759405in"
-> height="2.943038057742782in"}
+![](../images/6kali-agent2-images/3.png) 
 
 4.  Click **DEBamd64**
 
 5.  Assign your **Wazuh-Server IP address**
 
-> ![](images/6kali-agent2-images/4.png){width="5.228907480314961in"
-> height="2.911392169728784in"}
+![](../images/6kali-agent2-images/4.png) 
 
 6.  Assign **Agent Name**
 
-> ![](images/6kali-agent2-images/5.png){width="5.243027121609798in"
-> height="2.943038057742782in"}
+![](../images/6kali-agent2-images/5.png) 
 
 7.  Copy **commands**
 
-> ![](images/6kali-agent2-images/6.png){width="5.372107392825897in"
-> height="2.0973359580052495in"}
+![](../images/6kali-agent2-images/6.png) 
 
 8.  Open **Kali-Linux-VM** -\> open **terminal**:
 
@@ -72,8 +66,7 @@
 
 9.  **Paste** the commands from Wazuh Dashboard and run it.
 
-> ![](images/6kali-agent2-images/7.png){width="5.242600612423447in"
-> height="2.74050634295713in"}
+![](../images/6kali-agent2-images/7.png) 
 
 10. Start the agent:
 
@@ -95,8 +88,7 @@
 
 - Kali-Linux-VM is now actively monitored by Wazuh as an agent.
 
-![](images/6kali-agent2-images/8.png){width="5.455696631671041in"
-height="3.0589643482064743in"}
+![](../images/6kali-agent2-images/8.png) 
 
 🛡️ **Step 4: Monitor Logs & Events**
 

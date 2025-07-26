@@ -36,8 +36,7 @@ guide
 >
 > **inet** (ex. xxx.xxx.x.xxx)
 
-![](images/7win-agent2-images/1.png){width="5.231832895888014in"
-height="2.734176509186352in"}
+![](../imagess/7win-agent2-images/1.png) 
 
 ⸻
 
@@ -49,34 +48,29 @@ height="2.734176509186352in"}
 
 3.  Click **Deploy new agent**
 
-> ![](images/7win-agent2-images/2.png){width="5.4994783464566925in"
-> height="3.0822779965004377in"}
+![](../imagess/7win-agent2-images/2.png) 
 
 4.  Click **MSI 32/64 bits**
 
 5.  Assign your **Wazuh-Server IP address**
 
-![](images/7win-agent2-images/3.png){width="5.4824726596675415in"
-height="3.0379746281714786in"}
+![](../imagess/7win-agent2-images/3.png) 
 
 6.  Assign **Agent Name**
 
 7.  Copy **commands**
 
-![](images/7win-agent2-images/4.png){width="5.476923665791776in"
-height="3.082055993000875in"}
+![](../imagess/7win-agent2-images/4.png) 
 
 8.  Open **Windows10-VM** -\> open **PowerShell as Administrator**:
 
-> ![](images/7win-agent2-images/5.png){width="5.561538713910761in"
-> height="2.9341360454943133in"}
+![](../imagess/7win-agent2-images/5.png) 
 
 9.  **Paste** the commands from Wazuh Dashboard and run it.
 
 10. Run: **NET START WazuhSvc**
 
-> ![](images/7win-agent2-images/6.png){width="5.570347769028872in"
-> height="2.8923075240594924in"}
+![](../imagess/7win-agent2-images/6.png) 
 
 ⸻
 
@@ -84,8 +78,7 @@ height="3.082055993000875in"}
 
 - Windows10-VM is now actively monitored by Wazuh as an agent.
 
-> ![](images/7win-agent2-images/7.png){width="5.512253937007874in"
-> height="3.06923009623797in"}
+![](../imagess/7win-agent2-images/7.png){ 
 
 **Step 4: Monitor Logs & Events**
 
