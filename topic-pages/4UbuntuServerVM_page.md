@@ -134,3 +134,5 @@ You've now installed Ubuntu Server VM on VirtualBox.
 
 The next tutorial will guide you on how to install the Wazuh SIEM on
 this Ubuntu Server.
+
+[🔙 Back to Home](../index.md)

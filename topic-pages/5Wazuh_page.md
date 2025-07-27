@@ -164,3 +164,5 @@ The next tutorial will guide you on how to install wazuh agents on the
 Kali-Linux VM
 
 and the Windows10 VM for a full Wazuh SIEM setup.
+
+[🔙 Back to Home](../index.md)

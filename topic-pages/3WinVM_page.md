@@ -223,4 +223,7 @@ You have to
 You now have a full Windows VM running in VirtualBox on your system,
 with files stored cleanly on:
 
-D:\\virtualox-VMs\\Windows10VM\\.
+D:\virtualox-VMs\Windows10VM.\
+
+[🔙 Back to Home](../index.md)
+

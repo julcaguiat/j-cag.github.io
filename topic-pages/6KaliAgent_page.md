@@ -119,3 +119,5 @@ The next tutorial will guide you to install Wazuh agent on the Windows
 > • Alert you if exploits succeed
 >
 > • Train you in attacker/defender visibility
+
+[🔙 Back to Home](../index.md)

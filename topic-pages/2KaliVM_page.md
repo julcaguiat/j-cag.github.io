@@ -33,12 +33,12 @@ or installer problems quickly.
 
 ⸻
 
-> **📁 Step 1: Create a Folder on Drive D for Your VMs**
->
-> **(skip this step if you don't have Drive D:)**
->
-> To keep your C: drive clean and avoid space issues, we'll store Kali
-> and future VMs in a custom folder on D:
+**📁 Step 1: Create a Folder on Drive D for Your VMs**
+
+**(skip this step if you don't have Drive D:)**
+
+To keep your C: drive clean and avoid space issues, we'll store Kali
+and future VMs in a custom folder on D:
 
 1\. Press **Win** + **E** to open **File Explorer**
 
@@ -72,8 +72,7 @@ or installer problems quickly.
  
 5\. Go to your **Downloads** folder, right click on
 **kali-linux-2025.2-virtualbox-amd64.7z**,
-
-then click **Cut** to move the file to **D:\\virtualbox-VMs\\.**
+    then click **Cut** to move the file to **D:\\virtualbox-VMs\\.**
 
 **(Skip this and the next step if you don't have Drive D:)**
 
@@ -149,8 +148,7 @@ Download folder**
 
 2\. Navigate to: **D:\\VirtualBox
 VMs\\kali-linux-2025.2-virtualbox-amd64**,
-
-> then **double click** or click **Open**.
+    then **double click** or click **Open**.
 
 ![](../images/2kali2-images/14.png) 
 
@@ -198,3 +196,5 @@ After login, you're ready to explore the Kali Linux environment.
 • Installed 7-Zip and extracted a .7z image file.
 
 • Stored everything in: D:\\virtualbox-VMs\\ (if you have Drive: D)
+
+[🔙 Back to Home](../index.md)

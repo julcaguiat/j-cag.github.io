@@ -168,3 +168,5 @@ The next steps are to setup the following on the VirtualBox:
 • 🛡️ Ubuntu VM as a server for Wazuh SIEM.
 
 • 🌐 pfSense firewall for virtual networking.
+
+[🔙 Back to Home](../index.md)

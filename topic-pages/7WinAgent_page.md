@@ -68,7 +68,7 @@ guide
 
 9.  **Paste** the commands from Wazuh Dashboard and run it.
 
-10. Run: **NET START WazuhSvc**
+10.  Run: **NET START WazuhSvc**
 
 ![](../images/7win-agent2-images/6.png) 
 
@@ -104,3 +104,5 @@ to your Wazuh Server.
 > • Registry changes
 >
 > • Installed apps and services
+
+[🔙 Back to Home](../index.md)
