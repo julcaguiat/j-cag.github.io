@@ -1,15 +1,15 @@
 ﻿**🛡️ Cybersecurity Home Lab Setup Guide, Projects, & Security+ Notes**
 
-Welcome to this blog dedicated to **cybersecurity tutorials, hands-on guides, and Security+ exam notes**.  
+Welcome to my site dedicated to **cybersecurity tutorials, hands-on 
+guides, and Security+ exam notes**.  
 This site serves as a resource for those looking to:
 
 - Build a **cybersecurity home lab**
 - Explore tools like **Kali Linux** and **Wazuh**
-- Strengthen foundational knowledge for certifications such as **CompTIA Security+**
+- Strengthen foundational knowledge on Cybersecurity.
 
-You'll find beginner-friendly walkthroughs with step-by-step instructions, practical tips, and annotated screenshots.
-
-> 💡 **Pro Tip:** Always keep an AI assistant like **ChatGPT** or **DeepSeek** handy — these tools are incredibly helpful throughout the learning journey.
+> 💡 **Tip:** Always keep an AI assistant like **ChatGPT** or **DeepSeek** handy — these tools are
+               incredibly helpful throughout the learning journey.
 
 ---
 
