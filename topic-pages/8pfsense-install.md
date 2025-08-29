@@ -1,6 +1,6 @@
-﻿**Install pfSense on Windows 11 and into VirtualBox**
+﻿**Install pfSense on VirtualBox (Windows 11 Host Machine)**
 
-**Summary:** This guide walks you through installing **pfSense®
+**Summary:**  This guide walks you through installing **pfSense®
 Community Edition (CE)** as
 
 a virtual firewall/router on **Oracle VM VirtualBox**. We'll start by
@@ -14,6 +14,7 @@ internal network and connect
 
 everything together to build a full functional practice environment.
 
+⸻
 **Terms & Acronyms (Plain‑English)**
 
 - **pfSense:** A FreeBSD‑based, open‑source firewall/router. *"pf"*
@@ -36,6 +37,7 @@ everything together to build a full functional practice environment.
 
 - **ISO:** A disk image file used to install an OS.
 
+⸻
 **Prerequisites**
 
 - **VirtualBox** installed.
@@ -44,13 +46,13 @@ everything together to build a full functional practice environment.
 
 - **Hardware virtualization** enabled in BIOS/UEFI.
 
-- **CPU:** 1 vCPU
+- **CPU:** 		1 vCPU
 
-- **RAM:** 2 GB
+- **RAM:** 		2 GB
 
-- **Disk:** 20 GB
+- **Disk:** 	20 GB
 
-**Pro Tip --- Use ChatGPT for Help**
+**Pro Tip --- Use ChatGPT for Assisttance**
 
 Keep **ChatGPT handy** for installation and configuration problems.
 Provide:
@@ -64,6 +66,9 @@ Provide:
 **Example prompt:**\
 *"Installing pfSense CE 2.x on VirtualBox (Windows 11 host). \<**state
 error here**\>. What should I check?"*
+
+⸻
+**Let’s begin pfSense download and installation:**
 
 **Step 1 --- Download pfSense ISO**
 
@@ -98,6 +103,7 @@ error here**\>. What should I check?"*
 
 ![](../images/8pf-images/7.png)
 
+⸻
 **Step 2 --- Install pfSense on VirtualBox**
 
 1.  Navigate to **Downloads** folder (or where your ISO file was
@@ -131,35 +137,35 @@ other VMs on C:/
 
 ![](../images/8pf-images/12.png)
 
-8.  Set Name: **pfSenseVM**
+8.  Set 
 
-         ISO Image: **locate netgate-installer-v10...iso**
-
-         Type: **BSD**
-
-         SubType: **FreeBSD**
-
-         Version: **FreeBSD (64 bit)**
+	Name: **pfSenseVM**
+	ISO Image: **locate netgate-installer-v10...iso**
+	Type: **BSD**
+       SubType: **FreeBSD**
+       Version: **FreeBSD (64 bit)**
 
 9.  Click **Hardware**
 
 ![](../images/8pf-images/13.png)
 
-10. Set Base Memory: **2048 MB RAM**
+10. Set 
 
- 	  Processor: **1 CPU**
+	Base Memory: **2048 MB RAM**
+	Processor: **1 CPU**
 
 ![](../images/8pf-images/14.png)
 
-11. Set Hard Disk: **20 GB**
+11. Set 
 
-  Hard Disk File Type: **VDI (Virtualbox Disk Image)**
+	Hard Disk: **20 GB*
+	Hard Disk File Type: **VDI (Virtualbox Disk Image)**
 
 12. Click **Finish**
 
 ![](../images/8pf-images/15.png)
 
-pfSense VM will boot automatically.
+	pfSense VM will boot automatically.
 
 ![](../images/8pf-images/16.png)
 
@@ -195,7 +201,7 @@ pfSense VM will boot automatically.
 
 ![](../images/8pf-images/24.png)
 
-21. Hit **Enter** (Note: confirm both WAN and LAN interfaces are active)
+21. Hit **Enter** (**Note**: confirm both WAN and LAN interfaces are active)
 
 ![](../images/8pf-images/25.png)
 
@@ -229,12 +235,13 @@ pfSense VM will boot automatically.
 
 ![](../images/8pf-images/32.png)
 
-The pfSense server console!
+	The pfSense server console!
 
 ![](../images/8pf-images/33.png)
 
+⸻
 **Done!** You now have pfSense running in VirtualBox. On the
 next tutorial, we will configure pfSense and the  network adapters of each VMs for the new complete functioning network setup with firewall.
 
-- 👉 [Back to **Home**](index.md)
+- 👉 [Back to **Home**](../index.md)
 
