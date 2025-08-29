@@ -235,13 +235,13 @@ error here**\>. What should I check?"*
 
 ![](../images/8pf-images/32.png)
 
-	The pfSense server console!
+	The pfSense VM console!
 
 ![](../images/8pf-images/33.png)
 
 ---
 # **Done!** You now have pfSense running on VirtualBox. 
-On the next tutorial, we will configure pfSense and the network adapters of each VMs to setup our new and complete functioning network with the additional pfSense firewall.
+In the next tutorial, we will configure pfSense and the network adapters of each VMs to setup our new and complete functioning network with the additional pfSense firewall.
 
 - 👉 [Back to **Home**](../index.md)
 
