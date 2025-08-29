@@ -1,0 +1,270 @@
+**Install pfSense on VirtualBox --- Step‑by‑Step**
+
+**Summary:** This guide walks you through installing **pfSense®
+Community Edition (CE)** as
+
+a virtual firewall/router on **Oracle VM VirtualBox**. We'll start by
+downloading the pfSense ISO,
+
+then install it in VirtualBox on Windows 11 host. This the first part of
+our new home lab setup series,
+
+in the next tutorial, we will configure all the VMs adapter in the
+internal network and connect
+
+everything together to build a full functional practice environment.
+
+**Terms & Acronyms (Plain‑English)**
+
+- **pfSense:** A FreeBSD‑based, open‑source firewall/router. *"pf"*
+  stands for *packet filter*.
+
+- **VM (Virtual Machine):** A software computer that emulates hardware.
+
+- **NIC (Network Interface Card):** A network adapter.
+
+- **WAN (Wide Area Network):** Upstream/Internet‑facing side of the
+  firewall.
+
+- **LAN (Local Area Network):** Internal/trusted side for your devices.
+
+- **NAT (Network Address Translation):** Lets multiple devices share one
+  public IP.
+
+- **Internal Network:** A VirtualBox network that connects VMs together
+  within a network.
+
+- **ISO:** A disk image file used to install an OS.
+
+**Prerequisites**
+
+- **VirtualBox** installed.
+
+- **pfSense CE ISO** downloaded from the official site.
+
+- **Hardware virtualization** enabled in BIOS/UEFI.
+
+- **CPU:** 1 vCPU
+
+- **RAM:** 2 GB
+
+- **Disk:** 20 GB
+
+**Pro Tip --- Use ChatGPT for Help**
+
+Keep **ChatGPT handy** for installation and configuration problems.
+Provide:
+
+- Host OS and VirtualBox version
+
+- pfSense version and settings
+
+- Exact error messages/screenshots
+
+**Example prompt:**\
+*"Installing pfSense CE 2.x on VirtualBox (Windows 11 host). \<**state
+error here**\>. What should I check?"*
+
+**Step 1 --- Download pfSense ISO**
+
+1.  Go to the
+    [[https://www.pfsense.org/download/]{.underline}](https://www.pfsense.org/download/).
+
+2.  Create an account.
+
+> ![](media/image1.png){width="4.491329833770779in"
+> height="2.329352580927384in"}
+
+3.  Click **Download**
+
+> ![](media/image2.png){width="4.473989501312336in"
+> height="2.4894378827646544in"}
+
+4.  Select **AMD64 ISO IPMI/Virtual Machines**
+
+> ![](media/image3.png){width="4.416185476815398in"
+> height="2.4619083552055994in"}
+
+5.  Click **ADD TO CART**, then Click **ENTER CART**
+
+> ![](media/image4.png){width="4.421966316710411in"
+> height="2.4660772090988625in"}
+
+6.  Click **CHECKOUT**
+
+> ![](media/image5.png){width="4.436528871391076in"
+> height="2.3005774278215223in"}
+
+7.  Click **Complete order**
+
+> ![](media/image6.png){width="4.497690288713911in"
+> height="2.352600612423447in"}
+
+8.  Click **Download Now**
+
+> ![](media/image7.png){width="4.521571522309712in"
+> height="2.4929363517060366in"}
+
+**Step 2 --- Install pfSense on VirtualBox**
+
+1.  Navigate to **Downloads** folder (or where your ISO file was
+    downloaded)
+
+2.  Open **7Zip File Manager**, then **Run as Administrator**
+
+![](media/image8.png){width="4.6936417322834645in"
+height="2.523020559930009in"}
+
+3.  Select **netgate-installer-amd64\...iso.gz,** Copy to **Downloads**,
+    then click **OK**
+
+**Note:** If you don't have drive D: save it to where you save your
+other VMs on C:/
+
+![](media/image9.png){width="4.758305993000875in"
+height="2.6647397200349956in"}
+
+4.  Copy **netgate-installer-v10...ISO** file to be moved to
+    D:/virtualbox-VMs/pfSense directory.
+
+> ![](media/image10.png){width="4.757225503062117in"
+> height="2.680472440944882in"}
+
+5.  Create **PfSense** folder in **D:/virtualbox-VMs**, then Paste
+    **netgate-installer-v10...ISO** file
+
+> ![](media/image11.png){width="4.698147419072616in"
+> height="2.612716535433071in"}
+
+6.  Open **VirtualBox**
+
+7.  Click **New**
+
+> ![](media/image12.png){width="4.742877296587927in"
+> height="2.701388888888889in"}
+
+8.  Set Name: **pfSenseVM**
+
+> ISO Image: **locate netgate-installer-v10...iso**
+>
+> Type: **BSD**
+>
+> SubType: **FreeBSD**
+>
+> Version: **FreeBSD (64 bit)**
+
+9.  Click **Hardware**
+
+![](media/image13.png){width="4.751445756780402in"
+height="2.650666010498688in"}
+
+10. Set Base Memory: **2048 MB RAM**
+
+> Processor: **1 CPU**
+>
+> ![](media/image14.png){width="4.771630577427821in"
+> height="2.6763003062117234in"}
+
+11. Set Hard Disk: **20 GB**
+
+> Hard Disk File Type: **VDI (Virtualbox Disk Image)**
+
+12. Click **Finish**
+
+![](media/image15.png){width="4.71676290463692in"
+height="2.642204724409449in"}
+
+pfSense VM will boot automatically.
+
+> ![](media/image16.png){width="4.750836614173228in"
+> height="2.6358377077865267in"}
+
+13. Hit **Enter**
+
+> ![](media/image17.png){width="4.75in" height="2.479340551181102in"}
+
+14. Hit **Enter**
+
+![](media/image18.png){width="4.729166666666667in"
+height="2.4838068678915137in"}
+
+15. Hit **Enter**
+
+![](media/image19.png){width="4.715277777777778in"
+height="2.4861482939632547in"}
+
+16. Hit **Enter**
+
+![](media/image20.png){width="4.701388888888889in"
+height="2.4616929133858267in"}
+
+17. Hit **Enter**
+
+![](media/image21.png){width="4.666666666666667in"
+height="2.418849518810149in"}
+
+18. Hit **Enter**
+
+![](media/image22.png){width="4.734761592300963in"
+height="2.4791666666666665in"}
+
+19. Hit **Enter**
+
+![](media/image23.png){width="4.722222222222222in"
+height="2.4779330708661416in"}
+
+20. Hit **Enter**
+
+![](media/image24.png){width="4.715277777777778in"
+height="2.455564304461942in"}
+
+21. Hit **Enter** (Note: confirm both WAN and LAN interfaces are active)
+
+![](media/image25.png){width="4.711568241469816in"
+height="2.4791666666666665in"}
+
+22. Hit **Enter**
+
+![](media/image26.png){width="4.73040135608049in"
+height="2.486111111111111in"}
+
+23. Hit **Enter**
+
+![](media/image27.png){width="4.753969816272966in"
+height="2.4791666666666665in"}
+
+24. Hit **Enter**
+
+![](media/image28.png){width="4.75in" height="2.480871609798775in"}
+
+25. Hit **Enter**
+
+![](media/image29.png){width="4.771444663167104in"
+height="2.5069444444444446in"}
+
+26. Hit **Enter**
+
+![](media/image30.png){width="4.75in" height="2.4785159667541556in"}
+
+27. Hit **Enter**
+
+![](media/image31.png){width="4.742425634295713in"
+height="2.4907403762029747in"}
+
+28. Hit **Enter**
+
+![](media/image32.png){width="4.7525568678915135in"
+height="2.4814818460192476in"}
+
+The pfSense server console!
+
+![](media/image33.png){width="4.7376235783027125in"
+height="2.4513899825021874in"}
+
+**Done!** You now have pfSense running in VirtualBox. On the next
+tutorial, we will configure
+
+pfSense and the network adapters of each VMs for the new complete
+functioning
+
+network setup with firewall.

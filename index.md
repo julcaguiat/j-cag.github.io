@@ -1,20 +1,21 @@
-﻿**🛡️ Cybersecurity Home Lab Setup Guide, Projects, & Security+ Notes**
+﻿**🛡️ Welcome to my Cybersecurity and Networking Lab Blog**
 
 Welcome to my site dedicated to **cybersecurity tutorials, hands-on 
 guides, and Security+ exam notes**.  
 This site serves as a resource for those looking to:
 
-- Build a **cybersecurity home lab**
-- Explore tools like **Kali Linux** and **Wazuh**
-- Strengthen foundational knowledge on Cybersecurity.
+- Build a home lab for **Cybersecurity and Networking configuration experiments**
+- Explore tools like **Kali Linux**, **Wazuh**, and **pfSense**
+- Strengthen foundational knowledge on Networking and Cybersecurity.
 
-> 💡 **Tip:** Always keep an AI assistant like **ChatGPT** or **DeepSeek** handy — these tools are
-               incredibly helpful throughout the learning journey.
+> 💡 **Tip:** Always keep an AI assistant like **ChatGPT** or **DeepSeek** handy — 
+          These tools are incredibly invaluable when trouble shooting, 
+          brainstorming or speeding up your learning process.
 
 ---
 
-## 📘 Setting Up a Home Lab with Wazuh SIEM  
-*(VirtualBox Hypervisor, Kali-Linux VM, Windows 10 VM, Ubuntu Server VM, Wazuh SIEM, and Wazuh agents)*
+## 📘 Setting Up a Home Lab with Wazuh SIEM for End Points Monitoring 
+*(VirtualBox Hypervisor, Kali-Linux VM, Windows 10 VM, Ubuntu Server VM, Wazuh SIEM, and Wazuh agents on Kali-Linux VM and Windows 10 VM)*
 
 - 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](topic-pages/1VBox_page.md)
 - 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](topic-pages/2KaliVM_page.md)
@@ -26,9 +27,11 @@ This site serves as a resource for those looking to:
 
 ---
 
-## 📘 Setting Up pfSense Firewall
+## 📘 Setting Up pfSense as a Firewall
 
-- 👉 [🖥️ **Step 1**: Coming Soon]()
+- 👉 [🖥️ **Step 1**: How to Install pfSense VM on Windows 11](topic-pages/8pfsense-install.md)
+
+- 👉 [🖥️ **Step 2**: Network Configurations for all VMs -- Coming Soon]()
 
 ---
 
