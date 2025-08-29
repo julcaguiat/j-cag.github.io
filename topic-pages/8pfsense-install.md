@@ -241,7 +241,7 @@ error here**\>. What should I check?"*
 
 ---
 # **Done!** You now have pfSense running on VirtualBox. 
-		On the next tutorial, we will configure pfSense and the 		network adapters of each VMs to setup our new and 			complete functioning network with the additional pfSense 		firewall.
+On the next tutorial, we will configure pfSense and the network adapters of each VMs to setup our new and complete functioning network with the additional pfSense firewall.
 
 - 👉 [Back to **Home**](../index.md)
 
