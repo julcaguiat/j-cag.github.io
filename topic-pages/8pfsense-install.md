@@ -15,7 +15,7 @@ internal network and connect
 everything together to build a full functional practice environment.
 
 ---
-# **Terms & Acronyms (Plain‑English)**
+ **Terms & Acronyms (Plain‑English)**
 
 - **pfSense:** A FreeBSD‑based, open‑source firewall/router. *"pf"*
   stands for *packet filter*.
@@ -38,7 +38,7 @@ everything together to build a full functional practice environment.
 - **ISO:** A disk image file used to install an OS.
 
 ---
-# **Prerequisites**
+ **Prerequisites**
 
 - **VirtualBox** installed.
 
@@ -53,7 +53,7 @@ everything together to build a full functional practice environment.
 - **Disk:** 	20 GB
 
 ---
-# **Pro Tip --- Use ChatGPT for Assistance**
+ **Pro Tip --- Use ChatGPT for Assistance**
 
 Keep **ChatGPT handy** for installation and configuration problems.
 Provide:
@@ -105,7 +105,7 @@ error here**\>. What should I check?"*
 ![](../images/8pf-images/7.png)
 
 ---
-# **Step 2 --- Install pfSense on VirtualBox**
+ **Step 2 --- Install pfSense on VirtualBox**
 
 1.  Navigate to **Downloads** folder (or where your ISO file was
     downloaded)
@@ -240,8 +240,8 @@ error here**\>. What should I check?"*
 ![](../images/8pf-images/33.png)
 
 ---
-# **Done!** You now have pfSense running in VirtualBox. On the
-next tutorial, we will configure pfSense and the  network adapters of each VMs for the new complete functioning network setup with firewall.
+# **Done!** You now have pfSense running on VirtualBox. 
+		On the next tutorial, we will configure pfSense and the 		network adapters of each VMs to setup our new and 			complete functioning network with the additional pfSense 		firewall.
 
 - 👉 [Back to **Home**](../index.md)
 
