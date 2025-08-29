@@ -15,6 +15,7 @@ internal network and connect
 everything together to build a full functional practice environment.
 
 ⸻
+
 **Terms & Acronyms (Plain‑English)**
 
 - **pfSense:** A FreeBSD‑based, open‑source firewall/router. *"pf"*
@@ -38,6 +39,7 @@ everything together to build a full functional practice environment.
 - **ISO:** A disk image file used to install an OS.
 
 ⸻
+
 **Prerequisites**
 
 - **VirtualBox** installed.
@@ -52,7 +54,7 @@ everything together to build a full functional practice environment.
 
 - **Disk:** 	20 GB
 
-**Pro Tip --- Use ChatGPT for Assisttance**
+**Pro Tip --- Use ChatGPT for Assistance**
 
 Keep **ChatGPT handy** for installation and configuration problems.
 Provide:
@@ -68,6 +70,7 @@ Provide:
 error here**\>. What should I check?"*
 
 ⸻
+
 **Let’s begin pfSense download and installation:**
 
 **Step 1 --- Download pfSense ISO**
@@ -104,6 +107,7 @@ error here**\>. What should I check?"*
 ![](../images/8pf-images/7.png)
 
 ⸻
+
 **Step 2 --- Install pfSense on VirtualBox**
 
 1.  Navigate to **Downloads** folder (or where your ISO file was
@@ -116,7 +120,7 @@ error here**\>. What should I check?"*
 3.  Select **netgate-installer-amd64\...iso.gz,** Copy to **Downloads**,
     then click **OK**
 
-**Note:** If you don't have drive D: save it to where you save your
+       **Note:** If you don't have drive D: save it to where you save your
 other VMs on C:/
 
 ![](../images/8pf-images/9.png)
@@ -231,7 +235,7 @@ other VMs on C:/
 
 ![](../images/8pf-images/31.png)
 
-28. Hit **Enter**
+29. Hit **Enter**
 
 ![](../images/8pf-images/32.png)
 
@@ -240,6 +244,7 @@ other VMs on C:/
 ![](../images/8pf-images/33.png)
 
 ⸻
+
 **Done!** You now have pfSense running in VirtualBox. On the
 next tutorial, we will configure pfSense and the  network adapters of each VMs for the new complete functioning network setup with firewall.
 
