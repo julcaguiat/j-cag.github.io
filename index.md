@@ -1,4 +1,4 @@
-﻿# **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
+﻿## **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
 **About This Blog**<br>
 <br>
 This blog documents my **learning journey in cybersecurity and networking**, combining study, hands-on projects, and practical exercises. I also use platforms like **TryHackMe** to supplement my learning and deepen my understanding of real-world scenarios.<br>
