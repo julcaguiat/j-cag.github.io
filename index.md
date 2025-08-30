@@ -1,21 +1,21 @@
-﻿**🛡️ Welcome to my Cybersecurity and Networking Lab Blog**
-
-Welcome to my site dedicated to **cybersecurity tutorials, hands-on 
-guides, and Security+ exam notes**.  
-This site serves as a resource for those looking to:
-
-- Build a home lab for **Cybersecurity and Networking configuration experiments**
-- Explore tools like **Kali Linux**, **Wazuh**, and **pfSense**
-- Strengthen foundational knowledge on Networking and Cybersecurity.
-
-> 💡 **Tip:** Always keep an AI assistant like **ChatGPT** or **DeepSeek** handy — 
-          These tools are incredibly invaluable when trouble shooting, 
-          brainstorming or speeding up your learning process.
+﻿##**🛡️ Welcome to my Cyber/Net Hands-On Projects Blog**
+🔹 About This Blog
+This blog documents my learning journey in cybersecurity and networking, combining study, hands-on projects, and practical exercises. I also use platforms like TryHackMe to supplement my learning and deepen my understanding of real-world scenarios.
+I’ve built a virtual lab that serves as my personal playground for testing, experimentation, and future pentesting practice. For now, my primary focus is developing strong networking skills through virtual implementations, but I will eventually build network projects implemented in the cloud environment and physical devices as I progress.
+I recently passed the CompTIA Security+ certification and am currently studying for my CCNA exam, sharing insights, lab setups, and step-by-step tutorials along the way. This blog is meant to be both a personal reference and a resource for others following a similar path in cybersecurity and networking.
+> 💡 **Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
 ---
+# 📘 Setting Up a Home Lab with Wazuh SIEM for End Points Monitoring on Windows 11 Host Machine
 
-## 📘 Setting Up a Home Lab with Wazuh SIEM for End Points Monitoring 
 *(VirtualBox Hypervisor, Kali-Linux VM, Windows 10 VM, Ubuntu Server VM, Wazuh SIEM, and Wazuh agents on Kali-Linux VM and Windows 10 VM)*
+
+>Windows 11 Laptop: 	>>Host Machine
+>VirtualBox:		>>Hypervisor on host machine where VMs will be installed.
+>Kali-Linux VM:		>>will serve as the attack machine
+>Windows 10 VM:		>>will serve as the target machine
+>Ubuntu VM:			>>will serve as the Wazuh server
+>Wazuh SIEM:		>>end-points (Kali and Windows10 VMs) security monitoring
 
 - 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](topic-pages/1VBox_page.md)
 - 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](topic-pages/2KaliVM_page.md)
@@ -26,8 +26,7 @@ This site serves as a resource for those looking to:
 - 👉 [🖥️ **Step 7**: How to Install Wazuh Agent on Windows 10 VM](topic-pages/7WinAgent_page.md)
 
 ---
-
-## 📘 Setting Up pfSense as a Firewall
+# 📘 Setting Up pfSense as a Firewall
 
 - 👉 [🖥️ **Step 1**: How to Install pfSense VM on Windows 11](topic-pages/8pfsense-install.md)
 
@@ -35,7 +34,7 @@ This site serves as a resource for those looking to:
 
 ---
 
-## 📚 Security+ Study Notes
+# 📚 Security+ Study Notes
 
 Review key concepts and domains while preparing for the CompTIA Security+ certification:
 
