@@ -5,7 +5,7 @@ This blog documents my **learning journey in cybersecurity and networking**, com
 I’ve built a **virtual lab** that serves as my personal playground for testing, experimentation, and future pentesting practice. For now, my primary focus is **developing strong networking skills** through virtual implementations, but I will eventually build network projects implemented in the **cloud environment and physical devices** as I progress.<br>
 <br>
 I recently passed the **CompTIA Security+** certification and am currently studying for my **CCNA** certification exam, sharing insights, lab setups, and step-by-step tutorials along the way. This blog is meant to be both a **personal reference** and a **resource for others** following a similar path in cybersecurity and networking.
-> 💡 **Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, >planning labs, and clarifying complex topics as you learn.
+> 💡 **Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
 ---
 ## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **
