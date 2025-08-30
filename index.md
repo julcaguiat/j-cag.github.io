@@ -1,6 +1,5 @@
 ﻿# **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
-#### **About This Blog**<br>
-<br>
+### **About This Blog**<br>
 This blog documents my **learning journey in cybersecurity and networking**, combining study, hands-on projects, and practical exercises. I also use platforms like **TryHackMe** to supplement my learning and deepen my understanding of real-world scenarios.<br>
 <br>
 I’ve built a **virtual lab** that serves as my personal playground for testing, experimentation, and future pentesting practice. For now, my primary focus is **developing strong networking skills** through virtual implementations, but I will eventually build network projects implemented in the **cloud environment and physical devices** as I progress.<br>
