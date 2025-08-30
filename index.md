@@ -1,4 +1,4 @@
-﻿## **🛡️ Welcome to my Cyber/Net Hands-On Projects Blog**<br>
+﻿### **🛡️ Welcome to my Cyber/Net Hands-On Projects Blog**<br>
 **🔹 About This Blog**<br>
 <br>
 This blog documents my **learning journey in cybersecurity and networking**, combining study, hands-on projects, and practical exercises. I also use platforms like **TryHackMe** to supplement my learning and deepen my understanding of real-world scenarios.<br>
@@ -10,7 +10,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 ---
 ## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **<br>
-
 >**Windows 11 Laptop:** 	> Host Machine<br>
 >**VirtualBox:**		> Hypervisor on host machine where VMs will be installed.<br>
 >**Kali-Linux VM:**		> will serve as the attack machine<br>
@@ -27,18 +26,19 @@ I recently passed the **CompTIA Security+** certification and am currently study
 - 👉 [🖥️ **Step 7**: How to Install Wazuh Agent on Windows 10 VM](topic-pages/7WinAgent_page.md)
 
 ---
-
-# 📘 Setting Up pfSense as a Firewall
-
+## ** 📘 Setting up a pfSense as Firewall  **<br>
 - 👉 [🖥️ **Step 1**: How to Install pfSense VM on Windows 11](topic-pages/8pfsense-install.md)
 
 - 👉 [🖥️ **Step 2**: Network Configurations for all VMs -- Coming Soon]()
 
 ---
-
-# 📚 Security+ Study Notes
-
+## ** 📚 Security+ and CCNA Study Notes  **<br>
 Review key concepts and domains while preparing for the CompTIA Security+ certification:
+
+- 📘 *(Coming soon)*
+- 📘 *(Coming soon)*
+
+Review key concepts and domains while preparing for the CCNA certification:
 
 - 📘 *(Coming soon)*
 - 📘 *(Coming soon)*
