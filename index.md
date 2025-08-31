@@ -9,14 +9,17 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 ---
 ## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **
->**Windows 11 Laptop:** 	> Host Machine<br>
+
+- 👉 [🌐 **Network Topology Image**](images/0toplogy-images/topology1.png)
+
+** What we need to install:**
+
 >**VirtualBox:**		> Hypervisor on host machine where VMs will be installed.<br>
 >**Kali-Linux VM:**		> will serve as the attack machine<br>
 >**Windows 10 VM:**		> will serve as the target machine<br>
 >**Ubuntu VM:**			> will serve as the Wazuh server<br>
->**Wazuh SIEM:**		> end-points activity/threats monitor & incidents response 
-
-- 👉 [🌐 **Network Topology Image**](topology1.png)
+>**Wazuh SIEM:**		> end-points activities/threats monitoring 
+>**Wazuh Agents** 	> to be installed to Kali-Linux and Windows 10 VM
 
 - 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](topic-pages/1VBox_page.md)
 - 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](topic-pages/2KaliVM_page.md)
