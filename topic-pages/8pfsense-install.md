@@ -1,4 +1,4 @@
-﻿##**Install pfSense on VirtualBox (Windows 11 Host Machine)**
+﻿## **Install pfSense on VirtualBox on Windows 11 Host Machine**
 
 **Summary:**  This guide walks you through installing **pfSense®
 Community Edition (CE)** as
@@ -12,7 +12,7 @@ our new home lab setup series,
 in the next tutorial, we will configure all the VMs adapter in the
 internal network and connect
 
-everything together to build a full functional practice environment.
+everything together to build a fully functional practice environment.
 
 ---
  **Terms & Acronyms (Plain‑English)**
@@ -53,7 +53,7 @@ everything together to build a full functional practice environment.
 - **Disk:** 	20 GB
 
 ---
- **Pro Tip --- Use ChatGPT for Assistance**
+ **Pro Tip --- Use ChatGPT for Assistance!**
 
 Keep **ChatGPT handy** for installation and configuration problems.
 Provide:
@@ -240,8 +240,13 @@ error here**\>. What should I check?"*
 ![](../images/8pf-images/33.png)
 
 ---
-# **Done!** You now have pfSense running on VirtualBox. 
-In the next tutorial, we will configure pfSense and the network adapters of each VMs to setup our new and complete functioning network with the additional pfSense firewall.
+### **Done!** 
+> You now have pfSense running on VirtualBox!
+> In the next tutorial, we will configure pfSense and the network adapters of 
+> each VMs to setup our new and complete functioning network with the additional 
+> pfSense firewall.
+
+[👉 New Network Configuration](/9network-config.md)
 
 - 👉 [Back to **Home**](../index.md)
 

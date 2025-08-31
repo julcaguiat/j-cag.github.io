@@ -1,14 +1,12 @@
 ﻿## **🛰️ How to Install the Wazuh Agent on Kali Linux VM**
 
-> This guide walks you through installing the Wazuh Agent on a Kali
-> Linux virtual machine and registering it with your Wazuh Server ---
-> allowing you to monitor security events, log activity,
->
-> and practice SIEM skills in your home lab.
+> This guide walks you through installing the Wazuh Agent on a Kali-Linux 
+> virtual machine and registering it with your Wazuh Server --- allowing you to 
+> monitor security events, log activity, and practice SIEM skills in your home lab.
 
 ---
 
-**✅ What You Need**
+**✅ What You Need:**
 
 - A Kali Linux VM running in VirtualBox on Windows 11
 
@@ -22,7 +20,7 @@
 
 ### **🧠 Step 1: Find Your Wazuh Server's IP:**
 
-- On the Ubuntu-Wazuh-Server, run commands:
+- On the Ubuntu-Wazuh-Server, run command:
 
 > **ip a**
 
@@ -34,7 +32,7 @@
 
 ### **🧰 Step 2: Deploy New Agent on Wazuh Dashboard to Kali-Linux**
 
-1\.  **Log-on** to Wazuh Dashboard
+1\.  **Log-on** to Wazuh Dashboard on Windows 11 host or in Kali-VM
 
 2\.  Click **Active**
 
@@ -89,6 +87,8 @@
 
 ![](../images/6kali-agent2-images/8.png) 
 
+⸻
+
 ### 🛡️ **Step 4: Monitor Logs & Events**
 
 - Click on your Kali-Linux-VM agent in the Dashboard to:
@@ -105,11 +105,8 @@
 
 ### **✅ Done!**
 
-You've now installed the Wazuh Agent on Kali Linux and connected it to
-Wazuh SIEM.
-
-The next tutorial will guide you to install Wazuh agent on the Windows
-10 VM.
+> You've now installed the Wazuh Agent on Kali Linux and connected it to Wazuh SIEM.
+> The next tutorial will guide you to install Wazuh agent on the Windows 10 VM.
 
 🧠 **Why Monitor Kali?**
 
@@ -121,6 +118,6 @@ The next tutorial will guide you to install Wazuh agent on the Windows
 >
 > • Attacker/Defender visibility
 
-[👉 Install Wazuh Agent on Kali-Linux VM](/7WinAgent_page.md)
+[👉 Install Wazuh Agent on Windows 10 VM](/7WinAgent_page.md)
 
 [🔙 Back to Home](../index.md)

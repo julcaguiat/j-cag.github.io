@@ -21,7 +21,9 @@
 
 💡 **Tip:** Keep an **AI assistant** like ChatGPT handy while doing this setup. It can help troubleshoot errors, explain configs, or even generate commands and regex patterns on the fly --- especially helpful when logs or certificates throw unexpected issues!
 
-### 📎 Step 1: Install Wazuh Components: Manager, Indexer, filebeat, and Dashboard
+---
+
+### 📎 **Step 1: Install Wazuh Components: Manager, Indexer, filebeat, and Dashboard**
 
 - **Start** Ubuntu-Wazuh-Server VM on VirtualBox
 
@@ -146,14 +148,15 @@
 ![](../images/5wazuh2-images/9.png) 
 
 ---
-## 🎉 Done!
+### 🎉 Done!
 
-You've now installed Wazuh SIEM on an Ubuntu VM.
-
-The next tutorial will guide you on how to install wazuh agents on the
-Kali-Linux VM and the Windows10 VM for a full Wazuh SIEM setup.
+> You've now installed Wazuh SIEM on an Ubuntu Server VM.
+> The next tutorial will guide you on how to install wazuh agents on
+> Kali-Linux VM and the Windows10 VM for a full Wazuh SIEM setup.
 
 [👉 Install Wazuh Agent on Kali-Linux VM](/6KaliAgent_page.md)
+
+[👉 Install Wazuh Agent on Windows 10 VM](/7WinAgent_page.md)
 
 [🔙 Back to Home](../index.md)
 

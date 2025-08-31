@@ -1,43 +1,34 @@
-﻿**💽 How to Install Kali Linux on VirtualBox**
+﻿## **💽 How to Install Kali Linux VM on Windows 11 -- Stored on Drive D)**
 
-**(on Windows 11 -- Stored on Drive D)**
+> This step-by-step guide shows you how to install Kali Linux VM on Windows 11 
+> using the .7z file prebuilt image from Kali.org and store the VM in Drive D:. 
+> 	**Note:** If you don't have Drive D: just use default C:
 
-> This Windows 11 step-by-step guide shows you how to install Kali Linux
-> VM in VirtualBox
->
-> using the .7z prebuilt image from Kali.org. You'll learn how to:
+---
 
-• Create and use a folder on Drive D: for a better organized VMs and to
+**On this tutorial you'll learn how to:**
 
-> save C: storage space. (**If you don't have Drive D: just use default
-> C:**)
+• Create and use a folder on Drive D: for a better organized VMs, therefore, saving C: storage space. 
 
 • Download and extract the .7z Kali Linux image and extract the file
 with 7-Zip utility.
 
 • Import the VM into VirtualBox
 
-• Set the default machine folder to D:\\virtualBox-VMs
+• Set the default machine folder to D:\\virtualbox-VMs
 
-⸻
+---
 
 **💡 Tip: Keep an AI Assistant Handy During VM Setup!**
 
-Installing an OS in a VM can cause issues like boot failures or display
-bugs.
+> Installing an OS in a VM can cause issues like boot failures to display bugs.
+> Keep an AI assistant like **ChatGPT** ready to help troubleshoot errors, BIOS > settings, or installer problems quickly.
 
-Keep an AI assistant like **ChatGPT** open to help troubleshoot errors,
-BIOS settings,
+---
 
-or installer problems quickly.
+### **📁 Step 1: Create a Folder in Drive D: for Your VMs(skip this step if you don't have Drive D:)
 
-⸻
-
-**📁 Step 1: Create a Folder on Drive D for Your VMs**
-
-**(skip this step if you don't have Drive D:)**
-
-To keep your C: drive clean and avoid space issues, we'll store Kali
+- To keep your C: drive clean and avoid space issues, we'll store Kali
 and future VMs in a custom folder on D:
 
 1\. Press **Win** + **E** to open **File Explorer**
@@ -54,7 +45,7 @@ and future VMs in a custom folder on D:
 
 ⸻
 
-**📥 Step 2: Download the Kali Linux VirtualBox Image**
+### **📥 Step 2: Download the Kali Linux VirtualBox Image**
 
 1\. Go to: 👉
 [https://www.kali.org/get-kali/#kali-platforms](https://www.kali.org/get-kali/%23kali-platforms)
@@ -70,11 +61,9 @@ and future VMs in a custom folder on D:
 
 ![](../images/2kali2-images/4.png)
  
-5\. Go to your **Downloads** folder, right click on
+5\. Navigate to **Downloads** folder, right click on
 **kali-linux-2025.2-virtualbox-amd64.7z**,
-    then click **Cut** to move the file to **D:\\virtualbox-VMs\\.**
-
-**(Skip this and the next step if you don't have Drive D:)**
+then click **Copy** to copy the file to **D:\\virtualbox-VMs\\. (Skip this and the next step if you don't have Drive D:)**
 
 ![](../images/2kali2-images/5.png) 
 
@@ -85,7 +74,7 @@ and future VMs in a custom folder on D:
 
 ⸻
 
-**🧰 Step 3: Download and Install 7-Zip Utility Tool (to Extract the .7z
+### **🧰 Step 3: Download and Install 7-Zip Utility Tool (to Extract the .7z
 File)**
 
 1\. Visit: 👉 <https://www.7-zip.org/>
@@ -102,14 +91,11 @@ File)**
  
 ⸻
 
-**🗂️ Step 4: Extract the Kali VM from
-kali-linux-2025.2-virtualbox-amd64.7z.**
+### **🗂️ Step 4: Extract the Kali VM from kali-linux-2025.2-virtualbox-amd64.7z.**
 
-**Note: If you don't have Drive D: you can extract Kali VM in your
-Download folder**
-
-> **or move the .7z file to a different folder where you can do the
-> extraction.**
+> **Note:** If you don't have Drive D:, you can extract Kali VM in your
+> Download folder or move the .7z file to a different folder where you want to 
+> save all your VMs and do your file extraction in that folder.
 
 1\. Go to: **D:\\virtualbox-VMs\\**
 
@@ -124,9 +110,7 @@ Download folder**
  
 ⸻
 
-**📂 Step 5: Set VirtualBox to Use D:\\VirtualBox VMs by Default**
-
-> **(skip this if you are don't have Drive D:)**
+### **📂 Step 5: Set VirtualBox to Use D:\\VirtualBox VMs by Default(skip this if you don't have Drive D:)**
 
 1\. Open **VirtualBox**
 
@@ -140,26 +124,24 @@ Download folder**
 
 ⸻
 
-**💻 Step 6: Import Kali-Linux into VirtualBox**
+### **💻 Step 6: Import Kali-Linux into VirtualBox**
 
-1.  In **VirtualBox**: Go to **Machine** \> **Add**
+1\.  On **VirtualBox**: Go to **Machine** \> **Add**
 
 ![](../images/2kali2-images/13.png) 
 
-2\. Navigate to: **D:\\VirtualBox
-VMs\\kali-linux-2025.2-virtualbox-amd64**,
-    then **double click** or click **Open**.
+2\. Navigate to: **D:\\VirtualBox VMs\\kali-linux-2025.2-virtualbox-amd64**,
+       then **double click** or click **Open**.
 
 ![](../images/2kali2-images/14.png) 
 
-3\. **Double click** or click **Open**
-**Kali-Linux-2025.2-virtualbox-amd64.vbox**.
+3\. Double click **Kali-Linux-2025.2-virtualbox-amd64.vbox**.
 
 ![](../images/2kali2-images/15.png) 
 
 ⸻
 
-**🚀 Step 7: Start the Kali-Linux VM**
+### **🚀 Step 7: Start the Kali-Linux VM**
 
 1\. Select the **Kali-Linux VM** in **VirtualBox**
 
@@ -171,11 +153,11 @@ VMs\\kali-linux-2025.2-virtualbox-amd64**,
 
 ⸻
 
-**🔐 Step 8: Login Credentials**
+### **🔐 Step 8: Login Credentials**
 
-Username: **kali**
-
-Password: **kali**
+> Username: **kali**
+>
+> Password: **kali**
 
 ![](../images/2kali2-images/17.png) 
 
@@ -183,18 +165,16 @@ After login, you're ready to explore the Kali Linux environment.
 
 ![](../images/2kali2-images/18.png) 
 
-⸻
+---
 
-**✅ You're Done!**
+### **✅ You're Done!**
 
 > This is just one way of installing a Virtual Machine, you can also
 > install a VM by mounting an .ISO image file. We will try to do that
 > with the Windows 10 VM in next tutorial. But for now, you've
 > successfully installed Kali Linux in VirtualBox on Windows 11 system,
-> and:
+> and you can start practicing some [Linux commands](/LinuxCom.png).
 
-• Installed 7-Zip and extracted a .7z image file.
-
-• Stored everything in: D:\\virtualbox-VMs\\ (if you have Drive: D)
+[👉 Install Windows 10 VM](/2WinVM_page.md)
 
 [🔙 Back to Home](../index.md)
