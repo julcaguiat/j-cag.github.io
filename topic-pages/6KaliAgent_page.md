@@ -1,4 +1,4 @@
-﻿## **🛰️ How to Install the Wazuh Agent on Kali Linux VM**
+﻿## **🛰️ How to Install Wazuh Agent on Kali Linux VM**
 
 > This guide walks you through installing the Wazuh Agent on a Kali-Linux 
 > virtual machine and registering it with your Wazuh Server --- allowing you to 
@@ -58,7 +58,7 @@
 
 8\.  Open **Kali-Linux-VM** -\> open **terminal**:
 
->  Run: **sudo su** (needed for administrator privileges)
+>  Run: **sudo su** (root privileges needed)
 
 9\.  **Paste** the commands from Wazuh Dashboard and run it.
 
