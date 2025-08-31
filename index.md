@@ -28,7 +28,11 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ## ** 📘 Setting up a pfSense as Firewall  **
 - 👉 [🖥️ **Step 1**: How to Install pfSense VM on Windows 11](topic-pages/8pfsense-install.md)
 
-- 👉 [🖥️ **Step 2**: Network Configurations for all VMs -- Coming Soon]()
+- 👉 [🖥️ **Step 2**: Network Configurations for all VMs -- Coming Soon!]()
+
+---
+## ** 📚 Essential Linux Commands for Beginners  **
+- 👉 [🖥️ **Downloadable Linux Commands Cheat Sheet -- Coming Soon!]()
 
 ---
 ## ** 📚 Security+ and CCNA Study Notes  **

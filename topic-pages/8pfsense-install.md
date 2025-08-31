@@ -1,4 +1,4 @@
-﻿**Install pfSense on VirtualBox (Windows 11 Host Machine)**
+﻿##**Install pfSense on VirtualBox (Windows 11 Host Machine)**
 
 **Summary:**  This guide walks you through installing **pfSense®
 Community Edition (CE)** as
@@ -69,75 +69,75 @@ Provide:
 error here**\>. What should I check?"*
 
 ---
-# **Let’s begin pfSense download and installation:**
+### **Let’s begin pfSense download and installation:**
 
 **Step 1 --- Download pfSense ISO**
 
-1.  Go to the
-    [[https://www.pfsense.org/download/]{.underline}](https://www.pfsense.org/download/).
+1\.  Go to the
+    [[https://www.pfsense.org/download/](https://www.pfsense.org/download/).
 
-2.  Create an account.
+2\.  Create an account.
 
 ![](../images/8pf-images/1.png)
 
-3.  Click **Download**
+3\.  Click **Download**
 
 ![](../images/8pf-images/2.png)
 
-4.  Select **AMD64 ISO IPMI/Virtual Machines**
+4\.  Select **AMD64 ISO IPMI/Virtual Machines**
 
 ![](../images/8pf-images/3.png)
 
-5.  Click **ADD TO CART**, then Click **ENTER CART**
+5\.  Click **ADD TO CART**, then Click **ENTER CART**
 
 ![](../images/8pf-images/4.png)
 
-6.  Click **CHECKOUT**
+6\.  Click **CHECKOUT**
 
 ![](../images/8pf-images/5.png)
 
-7.  Click **Complete order**
+7\.  Click **Complete order**
 
 ![](../images/8pf-images/6.png)
 
-8.  Click **Download Now**
+8\.  Click **Download Now**
 
 ![](../images/8pf-images/7.png)
 
 ---
  **Step 2 --- Install pfSense on VirtualBox**
 
-1.  Navigate to **Downloads** folder (or where your ISO file was
+1\.  Navigate to **Downloads** folder (or where your ISO file was
     downloaded)
 
-2.  Open **7Zip File Manager**, then **Run as Administrator**
+2\.  Open **7Zip File Manager**, then **Run as Administrator**
 
 ![](../images/8pf-images/8.png)
 
-3.  Select **netgate-installer-amd64\...iso.gz,** Copy to **Downloads**,
+3\.  Select **netgate-installer-amd64\...iso.gz,** Copy to **Downloads**,
     then click **OK**
 
->**Note:** If you don't have drive D: save it to where you save your other VMs on C:/
+       **Note:** If you don't have drive D: save it to where you save your other VMs on C:/
 
 ![](../images/8pf-images/9.png)
 
-4.  Copy **netgate-installer-v10...ISO** file to be moved to
+4\.  Copy **netgate-installer-v10...ISO** file to be moved to
     D:/virtualbox-VMs/pfSense directory.
 
 ![](../images/8pf-images/10.png)
 
-5.  Create **PfSense** folder in **D:/virtualbox-VMs**, then Paste
+5\.  Create **PfSense** folder in **D:/virtualbox-VMs**, then Paste
     **netgate-installer-v10...ISO** file
 
 ![](../images/8pf-images/11.png)
 
-6.  Open **VirtualBox**
+6\.  Open **VirtualBox**
 
-7.  Click **New**
+7\.  Click **New**
 
 ![](../images/8pf-images/12.png)
 
-8.  Set 
+8\.  Set 
 
 	>Name: **pfSenseVM**<br>
 	>ISO Image: **locate netgate-installer-v10...iso**<br>
@@ -145,93 +145,93 @@ error here**\>. What should I check?"*
        >SubType: **FreeBSD**<br>
        >Version: **FreeBSD (64 bit)**
 
-9.  Click **Hardware**
+9\.  Click **Hardware**
 
 ![](../images/8pf-images/13.png)
 
-10. Set 
+10\. Set 
 
 	>Base Memory: **2048 MB RAM**<br>
 	>Processor: **1 CPU**
 
 ![](../images/8pf-images/14.png)
 
-11. Set 
+11\. Set 
 
 	>Hard Disk: **20 GB*<br>
 	>Hard Disk File Type: **VDI (Virtualbox Disk Image)**
 
-12. Click **Finish**
+12\. Click **Finish**
 
 ![](../images/8pf-images/15.png)
 
-	>pfSense VM will boot automatically.
+- pfSense VM will boot automatically.
 
 ![](../images/8pf-images/16.png)
 
-13. Hit **Enter**
+13\. Hit **Enter**
 
 ![](../images/8pf-images/17.png)
 
-14. Hit **Enter**
+14\. Hit **Enter**
 
 ![](../images/8pf-images/18.png)
 
-15. Hit **Enter**
+15\. Hit **Enter**
 
 ![](../images/8pf-images/19.png)
 
-16. Hit **Enter**
+16\. Hit **Enter**
 
 ![](../images/8pf-images/20.png)
 
-17. Hit **Enter**
+17\. Hit **Enter**
 
 ![](../images/8pf-images/21.png)
 
-18. Hit **Enter**
+18\. Hit **Enter**
 
 ![](../images/8pf-images/22.png)
 
-19. Hit **Enter**
+19\. Hit **Enter**
 
 ![](../images/8pf-images/23.png)
 
-20. Hit **Enter**
+20\. Hit **Enter**
 
 ![](../images/8pf-images/24.png)
 
-21. Hit **Enter** (**Note**: confirm both WAN and LAN interfaces are active)
+21\. Hit **Enter** (**Note**: confirm both WAN and LAN interfaces are active)
 
 ![](../images/8pf-images/25.png)
 
-22. Hit **Enter**
+22\. Hit **Enter**
 
 ![](../images/8pf-images/26.png)
 
-23. Hit **Enter**
+23\. Hit **Enter**
 
 ![](../images/8pf-images/27.png)
 
 
-24. Hit **Enter**
+24\. Hit **Enter**
 
 ![](../images/8pf-images/28.png)
 
 
-25. Hit **Enter**
+25\. Hit **Enter**
 
 ![](../images/8pf-images/29.png)
 
-26. Hit **Enter**
+26\. Hit **Enter**
 
 ![](../images/8pf-images/30.png)
 
-27. Hit **Enter**
+27\. Hit **Enter**
 
 ![](../images/8pf-images/31.png)
 
-29. Hit **Enter**
+29\. Hit **Enter**
 
 ![](../images/8pf-images/32.png)
 

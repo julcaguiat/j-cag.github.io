@@ -1,4 +1,4 @@
-﻿**🛰️ How to Install the Wazuh Agent on Kali Linux VM**
+﻿## **🛰️ How to Install the Wazuh Agent on Kali Linux VM**
 
 > This guide walks you through installing the Wazuh Agent on a Kali
 > Linux virtual machine and registering it with your Wazuh Server ---
@@ -6,7 +6,7 @@
 >
 > and practice SIEM skills in your home lab.
 
-⸻
+---
 
 **✅ What You Need**
 
@@ -18,82 +18,81 @@
 
 - Internet connection on the Kali VM
 
-⸻
+---
 
-**🧠 Step 1: Find Your Wazuh Server's IP:**
+### **🧠 Step 1: Find Your Wazuh Server's IP:**
 
-> On the Ubuntu-Wazuh-Server, run:
->
+- On the Ubuntu-Wazuh-Server, run commands:
+
 > **ip a**
->
-> Look for IP address:
->
-> **inet** (ex. xxx.xxx.x.xxx)
->
+
+       Look for IP address: **inet** (ex. xxx.xxx.xxx.xx) Write it down!
+
 ![](../images/6kali-agent2-images/1.png) 
 
 ⸻
 
-**🧰 Step 2: Deploy New Agent on Wazuh Dashboard to Kali-Linux**
+### **🧰 Step 2: Deploy New Agent on Wazuh Dashboard to Kali-Linux**
 
-1.  **Log-on** to Wazuh Dashboard
+1\.  **Log-on** to Wazuh Dashboard
 
-2.  Click **Active**
+2\.  Click **Active**
 
 ![](../images/6kali-agent2-images/2.png) 
 
-3.  Click **Deploy new agent**
+3\.  Click **Deploy new agent**
 
 ![](../images/6kali-agent2-images/3.png) 
 
-4.  Click **DEBamd64**
+4\.  Click **DEBamd64**
 
-5.  Assign your **Wazuh-Server IP address**
+5\.  Assign your **Wazuh-Server IP address**
 
 ![](../images/6kali-agent2-images/4.png) 
 
-6.  Assign **Agent Name**
+6\.  Assign **Agent Name**
 
 ![](../images/6kali-agent2-images/5.png) 
 
-7.  Copy **commands**
+7\.  Copy **commands**
 
 ![](../images/6kali-agent2-images/6.png) 
 
-8.  Open **Kali-Linux-VM** -\> open **terminal**:
+8\.  Open **Kali-Linux-VM** -\> open **terminal**:
 
-> Run: **sudo su** (needed for administrator privileges)
+>  Run: **sudo su** (needed for administrator privileges)
 
-9.  **Paste** the commands from Wazuh Dashboard and run it.
+9\.  **Paste** the commands from Wazuh Dashboard and run it.
 
 ![](../images/6kali-agent2-images/7.png) 
 
-10. Start the agent:
+10\. Start the agent:
 
-> Run: **sudo systemctl daemon-reload**
+- Run commands: 
+>  **sudo systemctl daemon-reload**
 >
-> **sudo systemctl enable wazuh-agent**
+>  **sudo systemctl enable wazuh-agent**
 >
-> **sudo systemctl start wazuh-agent**
+>  **sudo systemctl start wazuh-agent**
 
-11. Check status:
+11\. Check status, run:
 
 > **sudo systemctl status wazuh-agent**
->
+
 > ✅ Should say: active (running)
 
 ⸻
 
-**🔄 Step 3: Confirm Agent Appears in Wazuh Dashboard**
+### **🔄 Step 3: Confirm Agent on Wazuh Dashboard**
 
-- Kali-Linux-VM is now actively monitored by Wazuh as an agent.
+- Kali-Linux-VM is now actively monitored by Wazuh SIEM!
 
 ![](../images/6kali-agent2-images/8.png) 
 
-🛡️ **Step 4: Monitor Logs & Events**
+### 🛡️ **Step 4: Monitor Logs & Events**
 
-> Click on your Kali-Linux-VM agent in the Dashboard to:
->
+- Click on your Kali-Linux-VM agent in the Dashboard to:
+
 > • View security alerts
 >
 > • Check running processes
@@ -102,22 +101,26 @@
 >
 > • Monitor file integrity and rootkit detections
 
-**✅ Done!**
+---
+
+### **✅ Done!**
 
 You've now installed the Wazuh Agent on Kali Linux and connected it to
-your Wazuh Server.
+Wazuh SIEM.
 
 The next tutorial will guide you to install Wazuh agent on the Windows
 10 VM.
 
-> 🧠 Why Monitor Kali?
->
-> Even though Kali is a penetration testing distro, monitoring it can:
->
+🧠 **Why Monitor Kali?**
+
+- Even though Kali is a penetration testing distro, monitoring it can:
+
 > • Detect reverse shells and lateral movement from labs
 >
 > • Alert you if exploits succeed
 >
-> • Train you in attacker/defender visibility
+> • Attacker/Defender visibility
+
+[👉 Install Wazuh Agent on Kali-Linux VM](/7WinAgent_page.md)
 
 [🔙 Back to Home](../index.md)

@@ -1,23 +1,17 @@
 ﻿**!!! NOTE:** If you haven't installed VirtualBox, I strongly suggest
 you start with that first, then
 
-> followed by installing Kali-Linux VM. VirtualBox is where the Home Lab
-> setup
->
-> will reside, therefore, it is necessary that it has to be installed
-> first, followed
->
-> by Kali-Linux installation.
+followed by installing Kali-Linux VM. VirtualBox is where the Home Lab setup will reside, therefore, it is necessary that it has to be installed first, followed by Kali-Linux installation.
 
 **🪟 How to Install a Windows Virtual Machine (VM) into VirtualBox**
 **   on Windows 11 (Stored on Drive D:)**
 
-This Windows VM will serve as the target machine.
+- This Windows VM will serve as the target machine.
 
 > This will also be stored on Drive D: for better organization of VMs
 > and keeping C: drive clean.
 
-⸻
+---
 
 **💡 Tip: Keep an AI Assistant Handy During VM Setup!**
 
@@ -34,7 +28,7 @@ BIOS settings, or installer problems quickly.
 > **Display:** 		800×600 resolution or higher\
 > **Firmware:** 		BIOS or UEFI
 
-⸻
+---
 
 **📥 Step 1: Download a Windows ISO File**
 
@@ -43,47 +37,47 @@ BIOS settings, or installer problems quickly.
 
 🔷 For **Windows 10**:
 
-1.  Go to: 👉 <https://www.microsoft.com/software-download/windows10>
+1\.  Navigate to: 👉 <https://www.microsoft.com/software-download/windows10>
 
-2.  Click **Download Now**
+2\.  Click **Download Now**
 
 ![](../images/3winV2-images/1.png) 
-3.  Go to **Download folder**
+3\.  Go to **Download folder**
 
-4.  Double click **MediaCreationTool_22H2.exe**
+4\.  Double click **MediaCreationTool_22H2.exe**
 
 ![](../images/3winV2-images/2.png) 
 
-5.  Click **Yes** User Account Control
+5\.  Click **Yes** User Account Control
 
 ![](../images/3winV2-images/3.png) 
 
-6.  Click **Accept** to continue
+6\.  Click **Accept** to continue
 
 ![](../images/3winV2-images/4.png) 
 
-7.  Select **Create installation media**, then click **Next**.
+7\.  Select **Create installation media**, then click **Next**.
 
 ![](../images/3winV2-images/5.png) 
 
-8.  Click **Next**
+8\.  Click **Next**
 
 ![](../images/3winV2-images/6.png) 
 
-9.  Choose **ISO file**, then click **Next**
+9\.  Choose **ISO file**, then click **Next**
 
 ![](../images/3winV2-images/7.png) 
 
-10. Choose the existing **D:\\virtualbox-VMs** folder where Kali-Linux
+10\. Choose the existing **D:\\virtualbox-VMs** folder where Kali-Linux
     was saved,
 
-11. Windows 10 ISO will be stored there as well.
+11\. Windows 10 ISO will be stored there as well.
     If you don't have Drive D: --- I recommend that you store the ISO file
     where Kali-Linux was saved on C: to organized the VMs.
 
 ![](../images/3winV2-images/8.png) 
 
-12. Click **Finish**
+12\. Click **Finish**
 
 ![](../images/3winV2-images/9.png) 
 
@@ -91,7 +85,7 @@ BIOS settings, or installer problems quickly.
 
 **💻 Step 2: Open VirtualBox and Create the Windows VM**
 
-1.  In VirtualBox, click **New**
+1\.  On VirtualBox, click **New**
 
 ![](../images/3winV2-images/10.png){ 
 
@@ -141,10 +135,10 @@ hopefully you'll get
 
 the right solution.
 
-1.  Click **Settings**
+1\.  Click **Settings**
 
 ![](../images/3winV2-images/15.png) 
-2.  Navigate to **Storage**
+2\.  Navigate to **Storage**
 
 ! **Check the image below**. The Storage setup has to be reconfigured --
 You have to
@@ -156,7 +150,7 @@ You have to
 
 ![](../images/3winV2-images/16.png) 
 
-3.  Follow the instruction below.
+3\.  Follow the instruction below.
 
 - First, **delete** the existing **Windows.iso**
 
@@ -174,7 +168,7 @@ You have to
 
 **🚀 Step 4: Start the VM and Install Windows**
 
-1.  Select the **Windows10VM** → Click **Start**
+1\.  Select the **Windows10VM** → Click **Start**
 
 ![](../images/3winV2-images/19.png) 
 
@@ -182,7 +176,7 @@ You have to
 
 ![](../images/3winV2-images/20.png) 
 
-2.  **Follow the step-by-step Windows Setup instructions below:**
+2\.  **Follow the step-by-step Windows Setup instructions below:**
 
 > (Since this VM will only be used for lab practice, unnecessary add-ons
 > are
@@ -212,7 +206,7 @@ You have to
 
 - Second layout: **Skip**
 
-**Done! Newly installed Windows 10 VM!**
+**Newly installed Windows 10 VM!**
 
 ![](../images/3winV2-images/21.png) 
 
