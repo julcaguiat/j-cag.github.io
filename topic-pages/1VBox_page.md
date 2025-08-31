@@ -1,56 +1,40 @@
-﻿**💽** **How to Install VirtualBox on Windows 11**
+﻿## **💽** **How to Install VirtualBox on Windows 11**
 
-**(This is the first step to setting up a home lab)**
+**This is the first step to setting up a home lab!**
 
-> VirtualBox is a powerful open-source virtualization platform that lets
-> you run multiple
->
-> operating systems (Virtual Machines like Kali Linux, Ubuntu, or
-> Windows) on a host system.
->
-> This is the first tool needed to set up a home lab. This guide shows
-> how to install VirtualBox
->
-> with its core files on Windows 11.
+> VirtualBox is a powerful open-source virtualization platform that lets you 
+> run multiple operating systems (Virtual Machines like Kali Linux, Ubuntu, or
+> Windows) on a host system. This is the first tool needed to set up a home lab. 
+> This guide shows how to install VirtualBox with its core files on Windows 11.
 
-⸻
+---
 
 **💡 Tip: Have an AI Assistant Ready!**
 
-> When installing VirtualBox, you may run into unexpected
-> errors---driver issues,
->
-> virtualization settings, or networking problems. To save time and
-> reduce frustration, keep an
->
-> AI assistant like **ChatGPT** or **DeepSeek** open in your browser.
-> These tools can help you
->
-> **quickly troubleshoot** errors, explain cryptic messages, and guide
-> you step-by-step through
->
-> solutions. The output might not be the right solution sometimes, but
-> by adjusting your prompt,
->
-> you might get the right fix.
+> When installing VirtualBox, you may run into unexpected errors – 
+> driver issues, virtualization settings, or networking problems. To save 
+> time and reduce frustration, keep an AI assistant like **ChatGPT** or 
+> **DeepSeek** ready. These tools can help you **quickly troubleshoot** errors, 
+> explain cryptic messages, and guide you step-by-step through solutions. 
+> The output might not be the right answers sometimes, but by adjusting your prompt,
+> hopefully you’ll get the solution that you’re looking for.
 
-⸻
+---
 
 **✅** **Requirements**
 
-• 🖥️ Windows 11 Home or Pro
+>• 🖥️ Windows 11 Home or Pro
+>
+>• 💾 At least 10 GB of free space on Drive D: or C: for VirtualBox alone, 
+>	 need more resources (Disk: 80 GB, RAM: 16 Mb, CPU: 6) for VMs to be installed.
+>
+>• 🌐 Internet connection
 
-• 💾 At least 10 GB of free space on Drive D
+---
 
-• 🌐 Internet connection
+### **🌐** **Step 1: Download VirtualBox Installer**
 
-⸻
-
-**🌐** **Step 1: Download VirtualBox Installer**
-
-1\. Go to the official VirtualBox page:
-
-> 👉 <https://www.virtualbox.org/wiki/Downloads>
+1\. Go to: 👉 <https://www.virtualbox.org/wiki/Downloads>
 
 2\. Under VirtualBox platform packages, click **Windows hosts**.
 
@@ -58,7 +42,7 @@
 
 ⸻
 
-**🛠️ Step 2: Run the Installer as Administrator**
+### **🛠️ Step 2: Run the Installer as Administrator**
 
 1\. Once downloaded, go to **Downloads** folder.
 
@@ -70,7 +54,7 @@
 
 ⸻
 
-**⚠️ Step 3: Begin Installation**
+### **⚠️ Step 3: Begin Installation**
 
 Click **Next** to start installation wizard.
 
@@ -78,17 +62,17 @@ Click **Next** to start installation wizard.
 
 ⸻
 
-**✅ Step 4: End User License Agreement**
+### **✅ Step 4: End User License Agreement**
 
-1.  Select **I accept the License Agreement**.
+1\.  Select **I accept the License Agreement**.
 
-2.  Click **Next**.
+2\.  Click **Next**.
 
 ![](../images/1VBox2-images/4.png) 
 
 ⸻
 
-**✅ Step 5: Custom Setup**
+### **✅ Step 5: Custom Setup**
 
 Leave default options selected unless you have specific needs.
 
@@ -98,7 +82,7 @@ Click **Next**.
 
 ⸻
 
-**✅ Step 6: Finish Installation**
+### **✅ Step 6: Finish Installation**
 
 You will see **Warning: Network Interfaces**. Ignore this.
 
@@ -107,10 +91,9 @@ Click **Yes**.
 ![](../images/1VBox2-images/6.png) 
 ⸻
 
-**✅ Step 7: Missing Dependencies: Python Core / win32api**
+### **✅ Step 7: Missing Dependencies: Python Core / win32api**
 
-This appears because VirtualBox optionally supports scripting via
-Python.
+This appears because VirtualBox optionally supports scripting via Python.
 
 Click **Yes** If you're not planning to automate VirtualBox with Python
 
@@ -124,7 +107,7 @@ Click **Yes** If you're not planning to automate VirtualBox with Python
 
 ⸻
 
-**✅ Step 8: Ready to Install**
+### **✅ Step 8: Ready to Install**
 
 Click **Next** to continue.
 
@@ -132,7 +115,7 @@ Click **Next** to continue.
 
 ⸻
 
-**✅ Step 9: Finish Setup**
+### **✅ Step 9: Finish Setup**
 
 When finished, leave **Start Oracle VM VirtualBox after installation**.
 
@@ -140,33 +123,30 @@ Click **Finish**.
 
 ![](../images/1VBox2-images/9.png) 
 
-> **VirtualBox Manager** should start automatically and the VirtualBox
-> shortcut should appear on your desktop.
+- The **VirtualBox Manager** should start automatically. 
+
+- The VirtualBox shortcut should appear on your desktop.
 
 ![](../images/1VBox2-images/10.png) 
 
-> **!!! REBOOT** for good measure.
+- **!!! REBOOT** for good measure.
 
-⸻
+---
 
-**✅ Done!**
+### **✅ Done!**
 
-**VirtualBox** is now successfully installed on your Windows 11, and all
-future
+> **VirtualBox** is now successfully installed on your Windows 11!
+> Future virtual machines (VMs) will be stored on: D:\\virtualbox-VMs\\ for
+> better VM organization and saving C: storage space.
 
-virtual machines (VMs) will be stored on: D:\\virtualbox-VMs\\ for
-better organization
+**The next steps are to setup the following on VirtualBox:**
 
-of VMs and for saving storage space of C:
+• 🧪 Kali Linux VM installation for penetration testing.
 
-The next steps are to setup the following on the VirtualBox:
+• 🪟 Windows 10 VM installation as target machine monitored by Wazuh SIEM.
 
-• 🧪 Kali Linux VM for penetration testing.
+• 🛡️ Ubuntu VM and Wazuh installation for end-point security monitoring.
 
-• 🪟 Windows VM as target machine monitored with Wazuh Agent.
-
-• 🛡️ Ubuntu VM as a server for Wazuh SIEM.
-
-• 🌐 pfSense firewall for virtual networking.
+• 🌐 pfSense firewall for the virtual network.
 
 [🔙 Back to Home](../index.md)
