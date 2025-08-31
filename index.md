@@ -16,7 +16,8 @@ I recently passed the **CompTIA Security+** certification and am currently study
 >**Ubuntu VM:**			> will serve as the Wazuh server<br>
 >**Wazuh SIEM:**		> end-points activity/threats monitor & incidents response 
 
-- 👉 [🌐 **Network Topology Image**](images/1topology.png)
+- 👉 [🌐 **Network Topology Image**](images/1topolgy.png)
+
 - 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](topic-pages/1VBox_page.md)
 - 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](topic-pages/2KaliVM_page.md)
 - 👉 [🖥️ **Step 3**: How to Install Windows 10 VM on Windows 11](topic-pages/3WinVM_page.md)
