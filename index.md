@@ -16,10 +16,10 @@ I recently passed the **CompTIA Security+** certification and am currently study
 >**Kali-Linux VM:**		> will serve as the attack machine<br>
 >**Windows 10 VM:**		> will serve as the target machine<br>
 >**Ubuntu VM:**			> will serve as the Wazuh server<br>
->**Wazuh SIEM:**		> end-points activities/threats monitoring 
->**Wazuh Agents** 	> to be installed to Kali-Linux and Windows 10 VM
+>**Wazuh SIEM:**		> end-points activities/threats monitoring<br> 
+>**Wazuh Agents** 	> to be installed on Kali-Linux and Windows 10 VM<br>
 
-🌐 [**Network Topology Image**](/images/0/1.png)
+> 🌐 [**Network Topology Image**](/images/0/1.png)
 
 - 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](topic-pages/1VBox_page.md)
 - 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](topic-pages/2KaliVM_page.md)
