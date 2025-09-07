@@ -175,6 +175,6 @@ After login, you're ready to explore the Kali Linux environment.
 > successfully installed Kali Linux in VirtualBox on Windows 11 system,
 > and you can start practicing some [Linux commands](/LinuxCom.png).
 
-[👉 Install Windows 10 VM](/2WinVM_page.md)
+[👉 Install Windows 10 VM](/3WinVM_page.md)
 
 [🔙 Back to Home](../index.md)
