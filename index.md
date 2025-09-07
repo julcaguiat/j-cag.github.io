@@ -5,7 +5,7 @@ This blog documents my **learning journey in cybersecurity and networking**, com
 I’ve built a **virtual lab** that serves as my personal playground for testing, experimentation, and future pentesting practice. For now, my primary focus is **developing strong networking skills** through virtual implementations, but I will eventually build network projects implemented in the **cloud environment and physical devices** as I progress.<br>
 <br>
 I recently passed the **CompTIA Security+** certification and am currently studying for my **CCNA** certification exam, sharing insights, lab setups, and step-by-step tutorials along the way. This blog is meant to be both a **personal reference** and a **resource for others** following a similar path in cybersecurity and networking.
-> 💡 **Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
+💡**Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
 ---
 ## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **
@@ -19,7 +19,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 > **Wazuh SIEM:**		| end-points activities/threats monitoring<br> 
 > **Wazuh Agents** 	| to be installed on Kali-Linux and Windows 10 VMs<br>
 
-**What You Will Learn: **
+**What You Will Learn:**
 • How to use VirtualBox as a hypervisor to run and manage multiple virtual machines.
 • How to set up Kali Linux as an attack machine to simulate offensive security scenarios.
 • How to configure Windows 10 as a target machine to practice detection and defense.
@@ -52,29 +52,32 @@ I recently passed the **CompTIA Security+** certification and am currently study
 reconfigure the network adapters of all existing VMs and set their IP addresses as Static IPs. 
 The lab will be built as an Internal Network with internet access capability, ensuring both 
 connectivity and isolation for safe experimentation.<br>
-To keep things organized, the guide is split into five parts:<br>
-• Part 1:		| pfSense VM Installation<br>
-• Part 2.a: 	| pfSense Network Configurations<br>
-• Part 2.b: 	| Kali Linux Network Configurations<br>
-• Part 2.c: 	| Ubuntu Wazuh Network Configurations<br>
-• Part 2.d:		| Windows 10 Network Configurations<br>
- **What We’ll Install**<br>
-> • pfSense → will serve as the network firewall/router
-**What You Will Learn: **
+
+To keep things organized, **the guide is split into five parts:**<br>
+> • Part 1:		| pfSense VM Installation<br>
+> • Part 2.a: 	| pfSense Adapters & IP Configurations<br>
+> • Part 2.b: 	| Kali Linux Adapter & IP Configurations<br>
+> • Part 2.c: 	| Ubuntu Wazuh Adapter & IP Configurations<br>
+> • Part 2.d:	| Windows 10 Adapter & IP Configurations<br>
+
+**What We’ll Install**<br>
+• **pfSense** → will serve as the network firewall/router<br>
+
+**What You Will Learn:**
 • How to set up pfSense as a firewall and configure network adapters and LAN settings.
 • How to configure Static IP addresses across different platforms.
 • The difference between isolated vs. bridged networks for safe experimentation.
 • How to configure and test connectivity between multiple VMs.
 • The foundation for scaling the lab into more advanced SOC environments.<br>
+
 |	 🌐 [**Updated Network Topology Image**](/images/0/1.png)
 
 - 👉 [🖥️ **Part 1**: How to Install pfSense VM on Windows 11](topic-pages/8pfsense-install.md)
 
-\---
-- 👉 [🖥️ **Part 2.a.**: pfSence Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
-- 👉 [🖥️ **Part 2.b.**: pfSence Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
-- 👉 [🖥️ **Part 2.c.**: pfSence Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
-- 👉 [🖥️ **Part 2.d.**: pfSence Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
+- 👉 [🖥️ **Part 2.a.**: pfSense VM Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
+- 👉 [🖥️ **Part 2.b.**: Kali Linux VM Network Adapter and Static IP Address Configuration ](topic-pages/9pf1.md)
+- 👉 [🖥️ **Part 2.c.**: Ubuntu Wazuh VM Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
+- 👉 [🖥️ **Part 2.d.**: Windows 10 VM Network Adapter and Static IP Address Configuration ](topic-pages/9pf1.md)
 
 
 ---
