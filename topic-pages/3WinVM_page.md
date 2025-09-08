@@ -129,9 +129,9 @@
 
 ### **⚙️ Step 3: Configure VM Storage Settings**
 
->\ **TIP**: If you run into any problems setting this up, you can turn to 
-> 		**ChatGPT** for solutions. If the output is not the right solution, 
->		keep refining your prompt and hopefully you'll get the right one.
+ **TIP**: If you run into any problems setting this up, you can turn to 
+ 		**ChatGPT** for solutions. If the output is not the right solution, 
+		keep refining your prompt and hopefully you'll get the right one.
 
 1\.  Click **Settings**
 
