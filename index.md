@@ -9,9 +9,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 ### Table of Contents
 
-- [🖥️ Setting up a Virtual Home Lab w/ Wazuh SIEM](#setting-up-a-virtual-home-lab-w-wazuh-siem)
-- [💻 Setting up a Virtual Home Lab w/ Wazuh SIEM 2](#setting-up-a-virtual-home-lab-w-wazuh-siem-2)
-- [🐧 Essential Linux Commands for Beginners](#essential-linux-commands-for-beginners)
+- [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#setting-up-a-virtual-home-lab-w-wazuh-siem)
+- [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab-integrating-pfsense-firewall--static-ip-setup)
+- [🐧 Essential Downloadable Linux Commands for Beginners](#essential-linux-commands-for-beginners)
 
 ---
 ## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **

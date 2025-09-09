@@ -100,6 +100,6 @@
 ![](../images/10k2-images/7.png)
 
 ---
-👉 [Part 2.c: Configure Network Settings for Ubuntu Wazuh VM](/11w3.md) 
+👉 [Part 2.c: Ubuntu Wazuh VM Network Configuration](/11w3.md) 
 
 🔙 [Back to Home](../index.md) 
