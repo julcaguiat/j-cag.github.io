@@ -9,11 +9,11 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 ### Table of Contents
 
-- [📘 Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#virtual-soc-home-lab)
+- [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#virtual-soc-home-lab)
 
-- [Setting up a Virtual SOC Home Lab](#🖥️-setting-up-a-virtual-soc-home-lab)
-- [Upgraded Home Lab: pfSense Firewall & Static IP](#🔥-upgraded-home-lab-pfsense-firewall-static-ip)
-- [Essential Linux Commands for Beginners](#🐧-essential-linux-commands-for-beginners)
+- [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab)
+
+- [🐧 Essential Linux Commands for Beginners](#linux-commands)
 
 <!--
 - [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#setting-up-a-virtual-soc-home-lab-kali-linux-windows10-vms-wwazuh-siem-on-virtualbox)
@@ -21,10 +21,11 @@ I recently passed the **CompTIA Security+** certification and am currently study
 - [🐧 Essential Downloadable Linux Commands for Beginners](#essential-downloadable-linux-commands-for-beginners)
 -->
 ---
-<h2 id="virtual-soc-home-lab">📘 Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h2>
+
+<h3 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h3>
 
 
-## 🖥️ Setting up a Virtual SOC Home Lab 
+<!--## 🖥️ Setting up a Virtual SOC Home Lab -->
 
 **What we’ll install:**
 
@@ -62,7 +63,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
        **Have fun and happy learning!**
 
 ---
-## 🔥 Upgraded Home Lab: pfSense Firewall & Static IP 
+<h3 id="upgraded-home-lab">🔥 Upgraded Home Lab: pfSense Firewall & Static IP</h3>
+
+<!-- ## 🔥 Upgraded Home Lab: pfSense Firewall & Static IP -->
 
 **In this section,** we’ll install pfSense and configure it as firewall/router. We will then 
 reconfigure the network adapters of all existing VMs and set their IP addresses as Static IPs. 
@@ -97,8 +100,9 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 
 ---
-## 🐧 Essential Linux Commands for Beginners
-- 👉 [🖥️ **Downloadable Linux Commands Cheat Sheet (useful for practicing on Kali-Linux VM)-- Coming Soon!]()
+<h3 id="linux-commands">🐧 Essential Downloadable Linux Commands Cheat Sheet for Beginners</h3>
+<!-- ## 🐧 Essential Linux Commands for Beginners -->
+- 👉 [🖥️ **Download Cheat Sheet Here (useful for practicing your Linux skills)-- Coming Soon!]()
 
 ---
 ## ** 📚 Security+ and CCNA Study Notes  **
