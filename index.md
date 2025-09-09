@@ -9,12 +9,12 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 ### Table of Contents
 
-- [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#setting-up-a-virtual-home-lab-w-wazuh-siem)
-- [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab-integrating-pfsense-firewall--static-ip-setup)
-- [🐧 Essential Downloadable Linux Commands for Beginners](#essential-linux-commands-for-beginners)
+- [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#setting-up-a-virtual-soc-home-lab-kali-linux-windows10-vms-wwazuh-siem-on-virtualbox)
+- [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab-integrating-pfsense-firewallrouter-static-ip-setup)
+- [🐧 Essential Downloadable Linux Commands for Beginners](#essential-downloadable-linux-commands-for-beginners)
 
 ---
-## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **
+## 🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox
 
 **What we’ll install:**
 
@@ -52,7 +52,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
        **Have fun and happy learning!**
 
 ---
-## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **
+## 🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup
 
 **In this section,** we’ll install pfSense and configure it as firewall/router. We will then 
 reconfigure the network adapters of all existing VMs and set their IP addresses as Static IPs. 
@@ -87,7 +87,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 
 ---
-## ** 📚 Essential Linux Commands for Beginners  **
+## 🐧 Essential Downloadable Linux Commands for Beginners
 - 👉 [🖥️ **Downloadable Linux Commands Cheat Sheet (useful for practicing on Kali-Linux VM)-- Coming Soon!]()
 
 ---
