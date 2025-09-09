@@ -100,9 +100,25 @@ To keep things organized, **the guide is split into five parts:**<br>
 ---
 <h3 id="linux-commands">🐧 Essential Downloadable Linux Commands Cheat Sheet for Beginners</h3>
 
-<!-- ## 🐧 Essential Linux Commands for Beginners -->
+<a href="../downloadables/linux-commands.pdf" 
+   download="linux-commands.pdf"
+   type="application/pdf"
+   style="display:inline-block;
+          padding:12px 24px;
+          font-size:16px;
+          font-weight:bold;
+          color:#fff;
+          background-color:#007BFF;
+          text-decoration:none;
+          border-radius:8px;
+          box-shadow:0 4px 6px rgba(0,0,0,0.1);
+          transition:background-color 0.3s ease;">
+   📥 Download PDF
+</a>
 
-- 👉 [🖥️ **Download Cheat Sheet Here (useful for practicing your Linux skills)-- Coming Soon!]()
+<!-- ## 🐧 Essential Linux Commands for Beginners 
+
+- 👉 [🖥️ **Download Cheat Sheet Here (useful for practicing your Linux skills)](/downloadables/) -->
 
 ---
 ## ** 📚 Security+ and CCNA Study Notes  **
