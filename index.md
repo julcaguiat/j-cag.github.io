@@ -7,6 +7,12 @@ I’ve built a **virtual lab** that serves as my personal playground for testing
 I recently passed the **CompTIA Security+** certification and am currently studying for my **CCNA** certification exam, sharing insights, lab setups, and step-by-step tutorials along the way. This blog is meant to be both a **personal reference** and a **resource for others** following a similar path in cybersecurity and networking.
 💡**Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
+### Table of Contents
+
+- [🖥️ Setting up a Virtual Home Lab w/ Wazuh SIEM](#setting-up-a-virtual-home-lab-w-wazuh-siem)
+- [💻 Setting up a Virtual Home Lab w/ Wazuh SIEM 2](#setting-up-a-virtual-home-lab-w-wazuh-siem-2)
+- [🐧 Essential Linux Commands for Beginners](#essential-linux-commands-for-beginners)
+
 ---
 ## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **
 
@@ -46,7 +52,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
        **Have fun and happy learning!**
 
 ---
-## ** 📘 Setting up a New Soc Lab Architecture w/ pfSense as Firewall/Router **
+## ** 📘 Setting up a Virtual Home Lab w/ Wazuh SIEM  **
 
 **In this section,** we’ll install pfSense and configure it as firewall/router. We will then 
 reconfigure the network adapters of all existing VMs and set their IP addresses as Static IPs. 
@@ -75,9 +81,9 @@ To keep things organized, **the guide is split into five parts:**<br>
 - 👉 [🖥️ **Part 1**: How to Install pfSense VM on Windows 11](topic-pages/8pfsense-install.md)
 
 - 👉 [🖥️ **Part 2.a.**: pfSense VM Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
-- 👉 [🖥️ **Part 2.b.**: Kali Linux VM Network Adapter and Static IP Address Configuration ](topic-pages/9pf1.md)
-- 👉 [🖥️ **Part 2.c.**: Ubuntu Wazuh VM Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
-- 👉 [🖥️ **Part 2.d.**: Windows 10 VM Network Adapter and Static IP Address Configuration ](topic-pages/9pf1.md)
+- 👉 [🖥️ **Part 2.b.**: Kali Linux VM Network Adapter and Static IP Address Configuration ](topic-pages/10kali2.md)
+- 👉 [🖥️ **Part 2.c.**: Ubuntu Wazuh VM Network Adapters and Static IP Address Configuration ](topic-pages/11w3.md)
+- 👉 [🖥️ **Part 2.d.**: Windows 10 VM Network Adapter and Static IP Address Configuration ](topic-pages/12win4.md)
 
 
 ---
