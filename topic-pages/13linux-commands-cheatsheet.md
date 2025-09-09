@@ -80,3 +80,13 @@ If you’re starting your journey in Linux—whether for **cybersecurity, networ
 ---
 
 💡 **Tip:** Practice these commands in a safe environment like a **Linux VM or cloud lab**. The more you use them, the more natural the terminal will feel.
+
+---
+<p>Download the Linux Commands Guide:</p>
+<a href="../downloadables/linux-commands.pdf" 
+   download="linux-commands-guide.pdf"
+   type="application/pdf">
+   📥 Download PDF
+</a>
+
+🔙 [Back to Home](../index.md) 
