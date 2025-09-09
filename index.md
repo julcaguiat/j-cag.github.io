@@ -9,9 +9,11 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 ### Table of Contents
 
-- [Setting up a Virtual SOC Home Lab](#setting-up-a-virtual-soc-home-lab)
-- [Upgraded Home Lab: pfSense Firewall & Static IP](#upgraded-home-lab-pfsense-firewall-static-ip)
-- [Essential Linux Commands for Beginners](#essential-linux-commands-for-beginners)
+- [📘 Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#virtual-soc-home-lab)
+
+- [Setting up a Virtual SOC Home Lab](#🖥️-setting-up-a-virtual-soc-home-lab)
+- [Upgraded Home Lab: pfSense Firewall & Static IP](#🔥-upgraded-home-lab-pfsense-firewall-static-ip)
+- [Essential Linux Commands for Beginners](#🐧-essential-linux-commands-for-beginners)
 
 <!--
 - [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#setting-up-a-virtual-soc-home-lab-kali-linux-windows10-vms-wwazuh-siem-on-virtualbox)
@@ -19,6 +21,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 - [🐧 Essential Downloadable Linux Commands for Beginners](#essential-downloadable-linux-commands-for-beginners)
 -->
 ---
+<h2 id="virtual-soc-home-lab">📘 Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h2>
+
+
 ## 🖥️ Setting up a Virtual SOC Home Lab 
 
 **What we’ll install:**
