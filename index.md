@@ -16,7 +16,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🐧 Essential Linux Commands for Beginners](#linux-commands)
 
-- ☁️🌐 Cloud Network Setup with SOAR and Automation (In progress)
+- [☁️🌐 Cloud Network Setup with SOAR and Automation (In progress)]()
+
+---
 ---
 
 <h3 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h3>
