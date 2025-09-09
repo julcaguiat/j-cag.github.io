@@ -6,7 +6,7 @@
 
 ### 💡 Tip: Keep ChatGPT Handy
 
-    If Kali ignores your changes, it might be NetworkManager interfering. Here a sample promt for ChatGPT  
+    If Kali ignores your changes, it might be NetworkManager interfering. Here's a sample promt for ChatGPT  
       
     “Kali keeps overwriting my /etc/network interfaces config. How do I disable NetworkManager and make static IP 192.168.10.2 persistent?”
 
@@ -17,12 +17,12 @@
 
 1. **Power off** the Kali-Linux VM.
 
-2. Navigate **Settings** → **Network**.
+2. Navigate to **Settings** → **Network**
 
 - **Adapter 1 (LAN):**
 
   - Check **Enable Network Adapter** [✓]
-  - Name: LabNet (or any name you want just make sure that all VMs have the same network name)
+  - Name: **LabNet** (or any name you want just make sure that all VMs have the same network name)
   - Attached to: **Internal Network**
   - Promiscuous Mode: **Allow All**
   - Click **OK**
@@ -60,7 +60,7 @@
 ```
 
 
-4. To save configuration and close editor: `ctrl + x`, then hit `Enter`, then hit `y`
+4. To save configuration and close editor: `ctrl + x`, then press `Enter`, then press `y`
 
 ![](../images/10k2-images/3.png)
 
@@ -100,6 +100,6 @@
 ![](../images/10k2-images/7.png)
 
 ---
-👉 [Part 2.c: Configure Network Settings for Ubuntu-Wazuh VM](/11waz3.md) 
+👉 [Part 2.b: Configure Network Settings for Ubuntu Wazuh VM](/11w3.md) 
 
 🔙 [Back to Home](../index.md) 
