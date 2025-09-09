@@ -3,27 +3,22 @@
 This blog documents my **learning journey in cybersecurity and networking**, combining study, hands-on projects, and practical exercises. I also use platforms like **TryHackMe** to supplement my learning and deepen my understanding of real-world scenarios.<br>
 <br>
 I’ve built a **virtual lab** that serves as my personal playground for testing, experimentation, and future pentesting practice. For now, my primary focus is **developing strong networking skills** through virtual implementations, but I will eventually build network projects implemented in the **cloud environment and physical devices** as I progress.<br>
-<br>
-I recently passed the **CompTIA Security+** certification and am currently studying for my **CCNA** certification exam, sharing insights, lab setups, and step-by-step tutorials along the way. This blog is meant to be both a **personal reference** and a **resource for others** following a similar path in cybersecurity and networking.
+
+I recently passed the **CompTIA Security+** certification and am currently studying for my **CCNA** certification exam, sharing insights, lab setups, and step-by-step tutorials along the way. This blog is meant to be both a **personal reference** and a **resource for others** following a similar path in cybersecurity and networking.<br>
+
 💡**Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
 ### Table of Contents
 
-- [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#virtual-soc-home-lab)
+- [🖥️ Setting up a Virtual SOC Home Lab - (Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11)](#virtual-soc-home-lab)
 
 - [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab)
 
 - [🐧 Essential Linux Commands for Beginners](#linux-commands)
 
-<!--
-- [🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox](#setting-up-a-virtual-soc-home-lab-kali-linux-windows10-vms-wwazuh-siem-on-virtualbox)
-- [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab-integrating-pfsense-firewallrouter-static-ip-setup)
-- [🐧 Essential Downloadable Linux Commands for Beginners](#essential-downloadable-linux-commands-for-beginners)
--->
 ---
 
 <h3 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h3>
-
 
 <!--## 🖥️ Setting up a Virtual SOC Home Lab -->
 
@@ -101,7 +96,9 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 ---
 <h3 id="linux-commands">🐧 Essential Downloadable Linux Commands Cheat Sheet for Beginners</h3>
+
 <!-- ## 🐧 Essential Linux Commands for Beginners -->
+
 - 👉 [🖥️ **Download Cheat Sheet Here (useful for practicing your Linux skills)-- Coming Soon!]()
 
 ---
