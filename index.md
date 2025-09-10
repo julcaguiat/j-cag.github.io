@@ -16,12 +16,12 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🐧 Essential Linux Commands for Beginners](#linux-commands)
 
-- [☁️🌐 Cloud Network Setup with SOAR and Automation (In progress)]()
+- [☁️🌐 Cloud Network Setup with SOAR and IR Automation (In progress)]()
 
 ---
 ---
 
-<h3 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h3>
+<h2 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h2>
 
 <!--## 🖥️ Setting up a Virtual SOC Home Lab -->
 
@@ -61,7 +61,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
        **Have fun and happy learning!**
 
 ---
-<h3 id="upgraded-home-lab">🔥 Upgraded Home Lab: pfSense Firewall & Static IP</h3>
+<h2 id="upgraded-home-lab">🔥 Upgraded Home Lab: pfSense Firewall & Static IP</h2>
 
 <!-- ## 🔥 Upgraded Home Lab: pfSense Firewall & Static IP -->
 
@@ -98,7 +98,9 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 
 ---
-<h3 id="linux-commands">🐧 Essential Downloadable Linux Commands Cheat Sheet for Beginners</h3>
+<h2 id="linux-commands">🐧 Essential Downloadable Linux Commands Cheat Sheet for Beginners</h2>
+
+👉 [🖥️ ** 📖 View Linux Commands Guide (useful for practicing your Linux skills)](topic-pages/linux-commands-cheatsheet.md) 
 
 <a href="../downloadables/linux-commands.pdf" 
    download="linux-commands.pdf"
@@ -115,10 +117,6 @@ To keep things organized, **the guide is split into five parts:**<br>
           transition:background-color 0.3s ease;">
    📥 Download PDF
 </a>
-
-<!-- ## 🐧 Essential Linux Commands for Beginners 
-
-- 👉 [🖥️ **Download Cheat Sheet Here (useful for practicing your Linux skills)](/downloadables/) -->
 
 ---
 ## ** 📚 Security+ and CCNA Study Notes  **
