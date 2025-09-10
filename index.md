@@ -29,9 +29,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 > **VirtualBox:**		| Hypervisor on host machine where VMs will be installed.<br>
 > **Kali-Linux VM:**	| will serve as the attack machine<br>
-> **Windows 10 VM:**	| will serve as the target machine<br>
-> **Ubuntu VM:**		| will serve as the Wazuh server<br>
-> **Wazuh SIEM:**		| end-points activities/threats monitoring<br> 
+> **Windows 10 VM:**	| will serve as end-point<br>
+> **Ubuntu VM:**		| will be the Headless Server for wazuh<br>
+> **Wazuh SIEM:**		| end-point activities/threats monitor & IR<br> 
 > **Wazuh Agents** 	| to be installed on Kali-Linux and Windows 10 VMs<br>
 
 **What You Will Learn:**
