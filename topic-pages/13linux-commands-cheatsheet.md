@@ -83,7 +83,7 @@ If you’re starting your journey in Linux—whether for **cybersecurity, networ
 
 ---
 <p>Download the Linux Commands Guide:</p>
-<a href="../downloadables/linux-commands.pdf" 
+<a href="downloadables/linux-commands.pdf" 
    download="linux-commands.pdf"
    type="application/pdf"
    style="display:inline-block;
