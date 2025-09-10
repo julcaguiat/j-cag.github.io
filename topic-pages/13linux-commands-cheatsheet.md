@@ -84,8 +84,18 @@ If you’re starting your journey in Linux—whether for **cybersecurity, networ
 ---
 <p>Download the Linux Commands Guide:</p>
 <a href="../downloadables/linux-commands.pdf" 
-   download="linux-commands-guide.pdf"
-   type="application/pdf">
+   download="linux-commands.pdf"
+   type="application/pdf"
+   style="display:inline-block;
+          padding:12px 24px;
+          font-size:16px;
+          font-weight:bold;
+          color:#fff;
+          background-color:#007BFF;
+          text-decoration:none;
+          border-radius:8px;
+          box-shadow:0 4px 6px rgba(0,0,0,0.1);
+          transition:background-color 0.3s ease;">
    📥 Download PDF
 </a>
 
