@@ -16,7 +16,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🐧 Essential Linux Commands for Beginners](#linux-commands)
 
-- [☁️🌐 Cloud Network Setup with SOAR and IR Automation (work-in-progress)]()
+- [☁️ Cloud Network Setup with SOAR and IR Automation integrated with the Virtual Home Lab (work-in-progress)]()
+
+- [🛠️ Physical Network Setup with Cisco 2950 Series Switch integrated with the Existing Network Architecture (planning stage)]()
 
 ---
 ---
@@ -30,7 +32,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 > **VirtualBox:**		| Hypervisor on host machine where VMs will be installed.<br>
 > **Kali-Linux VM:**	| will serve as the attack machine<br>
 > **Windows 10 VM:**	| will serve as end-point<br>
-> **Ubuntu VM:**		| will be the Headless Server for wazuh<br>
+> **Ubuntu VM:**		| will be the Headless Server for Wazuha<br>
 > **Wazuh SIEM:**		| end-point activities/threats monitor & IR<br> 
 > **Wazuh Agents** 	| to be installed on Kali-Linux and Windows 10 VMs<br>
 
@@ -63,7 +65,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 <h2 id="upgraded-home-lab">🔥 Upgraded Home Lab: pfSense Firewall & Static IP</h2>
 
-<!-- ## 🔥 Upgraded Home Lab: pfSense Firewall & Static IP -->
+<!-- ## 🔥 Upgraded Home Lab: pfSense Virtual Firewall/Router & Static IP Setup-->
 
 **In this section,** we’ll install pfSense and configure it as firewall/router. We will then 
 reconfigure the network adapters of all existing VMs and set their IP addresses as Static IPs. 
@@ -78,7 +80,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 > • Part 2.d:	| Windows 10 Adapter & IP Configurations<br>
 
 **What We’ll Install**<br>
-• **pfSense** → will serve as the network firewall/router<br>
+• **pfSense** → will serve as the network virtual firewall/router<br>
 
 **What You Will Learn:**
 • How to set up pfSense as a firewall and configure network adapters and LAN settings.
