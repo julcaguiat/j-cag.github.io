@@ -104,7 +104,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 - 👉 [📖 View Linux Commands Guide (useful for practicing your Linux skills)](topic-pages/13linux-commands-cheatsheet.md) 
 
-<a href="../downloadables/linux-commands.pdf" 
+<a href="downloadables/linux-commands.pdf" 
    download="linux-commands.pdf"
    type="application/pdf"
    style="display:inline-block;
