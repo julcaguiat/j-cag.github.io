@@ -16,7 +16,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🐧 Essential Linux Commands for Beginners](#linux-commands)
 
-- [☁️🌐 Cloud Network Setup with SOAR and IR Automation (In progress)]()
+- [☁️🌐 Cloud Network Setup with SOAR and IR Automation (work-in-progress)]()
 
 ---
 ---
@@ -100,7 +100,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 ---
 <h2 id="linux-commands">🐧 Essential Downloadable Linux Commands Cheat Sheet for Beginners</h2>
 
-👉 [🖥️ ** 📖 View Linux Commands Guide (useful for practicing your Linux skills)](topic-pages/linux-commands-cheatsheet.md) 
+👉 [📖 View Linux Commands Guide (useful for practicing your Linux skills)](topic-pages/13linux-commands-cheatsheet.md) 
 
 <a href="../downloadables/linux-commands.pdf" 
    download="linux-commands.pdf"
