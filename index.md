@@ -1,4 +1,7 @@
-﻿# **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
+﻿
+Updated: 09:23:2025
+
+# **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
 ### **About This Blog**
 This blog documents my **learning journey in cybersecurity and networking**, combining study, hands-on projects, and practical exercises. I also use platforms like **TryHackMe** to supplement my learning and deepen my understanding of real-world scenarios.<br>
 <br>
@@ -16,9 +19,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🐧 Essential Linux Commands for Beginners](#linux-commands)
 
-- [☁️ Cloud Network Setup with SOAR and IR Automation integrated with the Virtual Home Lab (work-in-progress)]()
+- [☁️ Cloud Network Setup with SOAR and IR Automation integrated with the Virtual Home Lab (work-in-progress)]
 
-- [🛠️ Physical Network Setup with Cisco 2950 Series Switch integrated with the Existing Network Architecture (planning stage)]()
+- [🛠️ Physical Network Setup with Cisco 2960 Series Switch integrated with the Existing Network Architecture (planning stage)]
 
 ---
 ---
