@@ -13,24 +13,27 @@ I recently passed the **CompTIA Security+** certification and am currently study
 💡**Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
 ---
+### Table of Contents
 ---
 
-### Table of Contents
+**Hands-on Lab Projects**
 
-- [🖥️ Setting up a Virtual SOC (Security Operation Center) Home Lab - (Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11)](#virtual-soc-home-lab)
+- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab - (Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11)](#virtual-soc-home-lab)
 
-- [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab)
+- [🔥 Upgraded Home Lab: Integrating pfSense Virtual Firewall/Router & Static IP Setup](#upgraded-home-lab)
+
+- [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
+
+---
+**Notes**
 
 - [🐧 Essential Linux Commands for Beginners (Downloadable PDF)](#linux-commands)
 
 - [🔑 SSH (Secure Shell) for Secure Remote Login and Command Execution (Downloadable PDF)](#SSH)
 
-- [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
-
 <!--
 - [🛠️ Physical Network Setup with Cisco 2960 Series Switch integrated with the Existing Network Architecture (planning stage)]
 -->
----
 ---
 
 <h2 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h2>
@@ -107,13 +110,14 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 
 ---
-<h2 id="Personal-Home-Lab">🔥 Personal Home Lab Project: ----- </h2>
+<h2 id="Personal-Home-Lab">🛠️ Personal Cybersecurity Home Lab Project: WORK-IN-PROGRESS </h2>
 
 |	 🌐 [**Updated Network Topology Image**]
 
 - 👉 [🖥️ **Phase 1 (Asset Inventory):**: Record of all devices, IPs, VLANs, and services](topic-pages/15phase-1.md)
 
 **COMMING SOON!**
+
 - 👉 [🖥️ **Phase 2 (Risk Assessment):**: Design decisions, security rules, and priorities documentation]
 - 👉 [🖥️ **Phase 3 (Logical Design)**: Network diagram and notes ]
 - 👉 [🖥️ **Phase 4 (Physical/Virtual Design)**: Connected VMs, virtual firewall/router, switch, and other physical devices ]
