@@ -149,15 +149,15 @@ To keep things organized, **the guide is split into five parts:**<br>
    download="SSH Cheat Sheet.pdf"
    type="application/pdf"
    style="display:inline-block;
-          padding:12px 24px;
-          font-size:16px;
-          font-weight:bold;
-          color:#fff;
-          background-color:#007BFF;
-          text-decoration:none;
-          border-radius:8px;
-          box-shadow:0 4px 6px rgba(0,0,0,0.1);
-          transition:background-color 0.3s ease;">
+       padding:6px 12px;       /* smaller padding */
+       font-size:14px;         /* smaller font */
+       font-weight:bold;
+       color:#fff;
+       background-color:#007BFF;
+       text-decoration:none;
+       border-radius:6px;      /* slightly smaller corners */
+       box-shadow:0 3px 4px rgba(0,0,0,0.1);
+       transition:background-color 0.3s ease;">
    📥 Download PDF
 </a>
 
