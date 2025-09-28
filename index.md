@@ -25,16 +25,16 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🔑 SSH (Secure Shell) for Secure Remote Login and Command Execution](#SSH)
 
-- [☁️ Cloud Network Setup with SOAR and IR Automation integrated with the Virtual Home Lab (work-in-progress)]
+- [☁️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk, Snort, Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
 
+<!--
 - [🛠️ Physical Network Setup with Cisco 2960 Series Switch integrated with the Existing Network Architecture (planning stage)]
-
+-->
 ---
 ---
 
 <h2 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h2>
 
-<!--## 🖥️ Setting up a Virtual SOC Home Lab -->
 
 **What we’ll install:**
 
@@ -74,8 +74,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 <h2 id="upgraded-home-lab">🔥 Upgraded Home Lab: pfSense Firewall & Static IP</h2>
 
-<!-- ## 🔥 Upgraded Home Lab: pfSense Virtual Firewall/Router & Static IP Setup-->
-
 **In this section,** we’ll install pfSense and configure it as firewall/router. We will then 
 reconfigure the network adapters of all existing VMs and set their IP addresses as Static IPs. 
 The lab will be built as an Internal Network with internet access capability, ensuring both 
@@ -109,6 +107,19 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 
 ---
+<h2 id="Personal-Home-Lab">🔥 Personal Home Lab Project: ----- </h2>
+
+|	 🌐 [**Updated Network Topology Image**]()
+
+- 👉 [🖥️ **Phase 1 (Asset Inventory):**: Record of all devices, IPs, VLANs, and services](topic-pages/15phase-1.md)
+- 👉 [🖥️ **Phase 2 (Risk Assessment):**: Design decisions, security rules, and priorities documentation]
+- 👉 [🖥️ **Phase 3 (Logical Design)**: Network diagram and notes ]
+- 👉 [🖥️ **Phase 4 (Physical/Virtual Design)**: Connected VMs, virtual firewall/router, switch, and other physical devices ]
+- 👉 [🖥️ **Phase 5 (Implementation & Hardening)**: Record of configurations, firewall rules, and applied hardening measures ]
+- 👉 [🖥️ **Phase 6 (Monitoring & Improvement)**: Reference for logs, alerts, and changes over time ](topic-pages/.md)
+
+---
+
 <h2 id="linux-commands">🐧 Essential Downloadable Linux Commands Cheat Sheet for Beginners</h2>
 
 - 👉 [📖 View Linux Commands Guide (useful for practicing your Linux skills)](topic-pages/13linux-commands-cheatsheet.md) 
@@ -163,10 +174,11 @@ Review key concepts and domains while preparing for the CCNA certification:
 - 📘 *(Coming soon)*
 
 ---
-
 **🛠️ What’s Coming Next?**
 
 - More **Security+ domains**
 - Advanced **SIEM use cases**
 - TryHackMe walkthroughs
 - Bash and PowerShell scripting tutorials
+
+---
