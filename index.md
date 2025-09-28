@@ -112,6 +112,8 @@ To keep things organized, **the guide is split into five parts:**<br>
 |	 🌐 [**Updated Network Topology Image**]
 
 - 👉 [🖥️ **Phase 1 (Asset Inventory):**: Record of all devices, IPs, VLANs, and services](topic-pages/15phase-1.md)
+
+**COMMING SOON!**
 - 👉 [🖥️ **Phase 2 (Risk Assessment):**: Design decisions, security rules, and priorities documentation]
 - 👉 [🖥️ **Phase 3 (Logical Design)**: Network diagram and notes ]
 - 👉 [🖥️ **Phase 4 (Physical/Virtual Design)**: Connected VMs, virtual firewall/router, switch, and other physical devices ]
