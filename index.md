@@ -21,11 +21,11 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab)
 
-- [🐧 Essential Linux Commands for Beginners](#linux-commands)
+- [🐧 Essential Linux Commands for Beginners (Downloadable PDF)](#linux-commands)
 
-- [🔑 SSH (Secure Shell) for Secure Remote Login and Command Execution](#SSH)
+- [🔑 SSH (Secure Shell) for Secure Remote Login and Command Execution (Downloadable PDF)](#SSH)
 
-- [☁️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk, Snort, Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
+- [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
 
 <!--
 - [🛠️ Physical Network Setup with Cisco 2960 Series Switch integrated with the Existing Network Architecture (planning stage)]
@@ -109,14 +109,14 @@ To keep things organized, **the guide is split into five parts:**<br>
 ---
 <h2 id="Personal-Home-Lab">🔥 Personal Home Lab Project: ----- </h2>
 
-|	 🌐 [**Updated Network Topology Image**]()
+|	 🌐 [**Updated Network Topology Image**]
 
 - 👉 [🖥️ **Phase 1 (Asset Inventory):**: Record of all devices, IPs, VLANs, and services](topic-pages/15phase-1.md)
 - 👉 [🖥️ **Phase 2 (Risk Assessment):**: Design decisions, security rules, and priorities documentation]
 - 👉 [🖥️ **Phase 3 (Logical Design)**: Network diagram and notes ]
 - 👉 [🖥️ **Phase 4 (Physical/Virtual Design)**: Connected VMs, virtual firewall/router, switch, and other physical devices ]
 - 👉 [🖥️ **Phase 5 (Implementation & Hardening)**: Record of configurations, firewall rules, and applied hardening measures ]
-- 👉 [🖥️ **Phase 6 (Monitoring & Improvement)**: Reference for logs, alerts, and changes over time ](topic-pages/.md)
+- 👉 [🖥️ **Phase 6 (Monitoring & Improvement)**: Reference for logs, alerts, and changes over time ]
 
 ---
 
@@ -128,15 +128,15 @@ To keep things organized, **the guide is split into five parts:**<br>
    download="linux-commands.pdf"
    type="application/pdf"
    style="display:inline-block;
-          padding:12px 24px;
-          font-size:16px;
-          font-weight:bold;
-          color:#fff;
-          background-color:#007BFF;
-          text-decoration:none;
-          border-radius:8px;
-          box-shadow:0 4px 6px rgba(0,0,0,0.1);
-          transition:background-color 0.3s ease;">
+       padding:6px 12px;       /* smaller padding */
+       font-size:14px;         /* smaller font */
+       font-weight:bold;
+       color:#fff;
+       background-color:#007BFF;
+       text-decoration:none;
+       border-radius:6px;      /* slightly smaller corners */
+       box-shadow:0 3px 4px rgba(0,0,0,0.1);
+       transition:background-color 0.3s ease;"
    📥 Download PDF
 </a>
 
