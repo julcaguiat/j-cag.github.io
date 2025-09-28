@@ -11,6 +11,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 💡**Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
+---
+---
+
 ### Table of Contents
 
 - [🖥️ Setting up a Virtual SOC (Security Operation Center) Home Lab - (Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11)](#virtual-soc-home-lab)
@@ -18,6 +21,8 @@ I recently passed the **CompTIA Security+** certification and am currently study
 - [🔥 Upgraded Home Lab: Integrating pfSense Firewall/Router & Static IP Setup](#upgraded-home-lab)
 
 - [🐧 Essential Linux Commands for Beginners](#linux-commands)
+
+- [🔑 SSH (Secure Shell) for Secure Remote Login and Command Execution](#SSH)
 
 - [☁️ Cloud Network Setup with SOAR and IR Automation integrated with the Virtual Home Lab (work-in-progress)]
 
@@ -109,6 +114,27 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 <a href="downloadables/linux-commands.pdf" 
    download="linux-commands.pdf"
+   type="application/pdf"
+   style="display:inline-block;
+          padding:12px 24px;
+          font-size:16px;
+          font-weight:bold;
+          color:#fff;
+          background-color:#007BFF;
+          text-decoration:none;
+          border-radius:8px;
+          box-shadow:0 4px 6px rgba(0,0,0,0.1);
+          transition:background-color 0.3s ease;">
+   📥 Download PDF
+</a>
+
+---
+<h2 id="SSH">🐧 SSH (Secure Shell) Cheat Sheet for Beginners</h2>
+
+- 👉 [📖 View How to Implement SSH Guide (useful for Secure Remote Login )](topic-pages/14SSH.md) 
+
+<a href="downloadables/SSH.pdf" 
+   download="SSH Cheat Sheet.pdf"
    type="application/pdf"
    style="display:inline-block;
           padding:12px 24px;
