@@ -65,7 +65,7 @@ From any client machine, the syntax is always:
 
 * **From Mac/Linux → Windows or Mac/Linux:**
 
-  	*ssh alice@192.168.1.50*
+  *ssh alice@192.168.1.50*
 
   * First time: may ask to confirm host key → type **yes**  
     * Then enter **alice’s password** (on the target machine).
