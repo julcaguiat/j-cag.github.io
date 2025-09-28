@@ -27,9 +27,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 **Notes**
 
-- [🐧 Essential Linux Commands for Beginners (Downloadable PDF)](#linux-commands)
+- [🐧 View Essential Linux Commands for Beginners (Download Available)](#linux-commands)
 
-- [🔑 SSH (Secure Shell) for Secure Remote Login and Command Execution (Downloadable PDF)](#SSH)
+- [🔑 View SSH (Secure Shell) for Secure Remote Login and Command Execution (Download Available)](#SSH)
 
 <!--
 - [🛠️ Physical Network Setup with Cisco 2960 Series Switch integrated with the Existing Network Architecture (planning stage)]
@@ -103,10 +103,10 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 - 👉 [🖥️ **Part 1**: How to Install pfSense VM on Windows 11](topic-pages/8pfsense-install.md)
 
-- 👉 [🖥️ **Part 2.a.**: pfSense VM Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
-- 👉 [🖥️ **Part 2.b.**: Kali Linux VM Network Adapter and Static IP Address Configuration ](topic-pages/10kali2.md)
-- 👉 [🖥️ **Part 2.c.**: Ubuntu Wazuh VM Network Adapters and Static IP Address Configuration ](topic-pages/11w3.md)
-- 👉 [🖥️ **Part 2.d.**: Windows 10 VM Network Adapter and Static IP Address Configuration ](topic-pages/12win4.md)
+- 👉 [🖥️ **Part 2.a**: pfSense VM Network Adapters and Static IP Address Configuration ](topic-pages/9pf1.md)
+- 👉 [🖥️ **Part 2.b**: Kali Linux VM Network Adapter and Static IP Address Configuration ](topic-pages/10kali2.md)
+- 👉 [🖥️ **Part 2.c**: Ubuntu Wazuh VM Network Adapters and Static IP Address Configuration ](topic-pages/11w3.md)
+- 👉 [🖥️ **Part 2.d**: Windows 10 VM Network Adapter and Static IP Address Configuration ](topic-pages/12win4.md)
 
 
 ---
@@ -114,11 +114,11 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 |	 🌐 [**Updated Network Topology Image**]
 
-- 👉 [🖥️ **Phase 1 (Asset Inventory):**: Record of all devices, IPs, VLANs, and services](topic-pages/15phase-1.md)
+- 👉 [🖥️ **Phase 1 (Asset Inventory)**: Record of all devices, IPs, VLANs, and services](topic-pages/15phase-1.md)
 
 **COMMING SOON!**
 
-- 👉 [🖥️ **Phase 2 (Risk Assessment):**: Design decisions, security rules, and priorities documentation]
+- 👉 [🖥️ **Phase 2 (Risk Assessment)**: Design decisions, security rules, and priorities documentation]
 - 👉 [🖥️ **Phase 3 (Logical Design)**: Network diagram and notes ]
 - 👉 [🖥️ **Phase 4 (Physical/Virtual Design)**: Connected VMs, virtual firewall/router, switch, and other physical devices ]
 - 👉 [🖥️ **Phase 5 (Implementation & Hardening)**: Record of configurations, firewall rules, and applied hardening measures ]
@@ -147,7 +147,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 </a>
 
 ---
-<h2 id="SSH">🐧 SSH (Secure Shell) Cheat Sheet for Beginners</h2>
+<h2 id="SSH">🔑 SSH (Secure Shell) Cheat Sheet for Beginners</h2>
 
 - 👉 [📖 View How to Implement SSH Guide (useful for Secure Remote Login )](topic-pages/14SSH.md) 
 
