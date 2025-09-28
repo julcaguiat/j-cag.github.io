@@ -136,7 +136,7 @@ To keep things organized, **the guide is split into five parts:**<br>
        text-decoration:none;
        border-radius:6px;      /* slightly smaller corners */
        box-shadow:0 3px 4px rgba(0,0,0,0.1);
-       transition:background-color 0.3s ease;"
+       transition:background-color 0.3s ease;">
    📥 Download PDF
 </a>
 
