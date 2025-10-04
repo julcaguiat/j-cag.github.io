@@ -27,9 +27,11 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 **Notes**
 
-- [🐧 View Essential Linux Commands for Beginners (Download Available)](#linux-commands)
+- [🐧 View Essential Linux Commands Cheat Sheet for Beginners [Download Available)]](#linux-commands)
 
-- [🔑 View SSH (Secure Shell) for Secure Remote Login and Command Execution (Download Available)](#SSH)
+- [🔑 View SSH (Secure Shell) Cheat Sheet for Secure Remote Login and Command Execution (Download Available)](#SSH)
+
+- [⬆️⬇️ View SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer [Download Available]](#SCP)
 
 <!--
 - [🛠️ Physical Network Setup with Cisco 2960 Series Switch integrated with the Existing Network Architecture (planning stage)]
@@ -114,7 +116,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 |	 🌐 [**Updated Network Topology Image**]
 
-- 👉 [🖥️ **Phase 1 (Asset Inventory)**: Record of all devices, IPs, VLANs, and services](topic-pages/15phase-1.md)
+- 👉 [🖥️ **Phase 1 (Asset Inventory)**: Record of all devices, IPs, VLANs, and services](topic-pages/30phase-1.md)
 
 **COMMING SOON!**
 
@@ -147,12 +149,33 @@ To keep things organized, **the guide is split into five parts:**<br>
 </a>
 
 ---
-<h2 id="SSH">🔑 SSH (Secure Shell) Cheat Sheet for Beginners</h2>
+<h2 id="SSH">🔑 SSH (Secure Shell) Cheat Sheet for Secure Remote Login and Command Execution</h2>
 
-- 👉 [📖 View How to Implement SSH Guide (useful for Secure Remote Login )](topic-pages/14SSH.md) 
+- 👉 [📖 View How to Implement SSH Guide (useful for remote login into a different machine)](topic-pages/14SSH.md) 
 
 <a href="downloadables/SSH.pdf" 
    download="SSH Cheat Sheet.pdf"
+   type="application/pdf"
+   style="display:inline-block;
+       padding:6px 12px;       /* smaller padding */
+       font-size:14px;         /* smaller font */
+       font-weight:bold;
+       color:#fff;
+       background-color:#007BFF;
+       text-decoration:none;
+       border-radius:6px;      /* slightly smaller corners */
+       box-shadow:0 3px 4px rgba(0,0,0,0.1);
+       transition:background-color 0.3s ease;">
+   📥 Download PDF
+</a>
+
+---
+
+<h2 id="SCP">🔑 SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer Between Machines</h2>
+
+- 👉 [📖 View How to Use SCP Guide (useful for secure file transfers between different machines)]<!--(topic-pages/15SCP.md) -->
+<a href="downloadables/SCP.pdf" 
+   download="SCP Cheat Sheet.pdf"
    type="application/pdf"
    style="display:inline-block;
        padding:6px 12px;       /* smaller padding */
