@@ -31,7 +31,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🔑 View SSH (Secure Shell) Cheat Sheet for Secure Remote Login and Command Execution (Download Available)](#SSH)
 
-- [⬆️⬇️ View SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer [Download Available]](#SCP)
+- [⬇️ View SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer [Download Available]](#SCP)
 
 ---
 **My Favorite TryHackMe Rooms [Walk Throughs]**
@@ -180,6 +180,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 <h2 id="SCP">🔑 SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer Between Machines</h2>
 
 - 👉 [📖 View How to Use SCP Guide (useful for secure file transfers between different machines)]<!--(topic-pages/15SCP.md) -->
+
 <a href="downloadables/SCP.pdf" 
    download="SCP Cheat Sheet.pdf"
    type="application/pdf"
