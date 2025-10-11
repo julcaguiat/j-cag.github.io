@@ -1,5 +1,5 @@
 ﻿
-Updated: 09:28:2025<br>
+Updated: 10:10:2025<br>
 Started: 08:15:2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
@@ -119,6 +119,9 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 ---
 <h2 id="Personal-Home-Lab">🛠️ Personal Cybersecurity Home Lab Project: WORK-IN-PROGRESS </h2>
+
+**Preparation**
+- 👉 [🖥️ **Inspiron 3650 Desktop (for Splunk and File Server)**: Bypass Windows 10 Login using Rufus and chntpw utilities ]
 
 |	 🌐 [**Updated Network Topology Image**]
 
