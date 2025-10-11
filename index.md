@@ -37,7 +37,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
 **My Favorite TryHackMe Rooms [Walk Throughs]**
 > Pentesting
 - [⚔️ Nmap Part 1: Live Host Discovery](/images/100thm-pdfs/Nmap-Live-Host-Discovery.pdf)
-
 > SOC 1
 ---
 
