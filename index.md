@@ -25,7 +25,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 - [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
 
 ---
-**Notes**
+**Downloadable Notes**
 
 - [🐧 View Essential Linux Commands Cheat Sheet for Beginners [Download Available)]](#linux-commands)
 
@@ -33,9 +33,12 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [⬆️⬇️ View SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer [Download Available]](#SCP)
 
-<!--
-- [🛠️ Physical Network Setup with Cisco 2960 Series Switch integrated with the Existing Network Architecture (planning stage)]
--->
+---
+**My Favorite TryHackMe Rooms [Walk Throughs]**
+> Pentesting
+- [⚔️ Nmap Part 1: Live Host Discovery](/images/100thm-pdfs/Nmap-Live-Host-Discovery.pdf)
+
+> SOC 1
 ---
 
 <h2 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h2>
