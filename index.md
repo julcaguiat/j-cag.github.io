@@ -18,7 +18,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 **Hands-on Lab Projects**
 
-- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab - (Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11)](#virtual-soc-home-lab)
+- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab:[Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
 
 - [🔥 Upgraded Home Lab: Integrating pfSense Virtual Firewall/Router & Static IP Setup](#upgraded-home-lab)
 
