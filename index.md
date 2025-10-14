@@ -76,11 +76,11 @@ SOC 1
 • How to deploy Ubuntu as a server for running the Wazuh SIEM.
 • How to install and configure Wazuh SIEM to monitor endpoint activities and detect threats.
 • How to set up and manage Wazuh Agents on Kali Linux and Windows 10 to forward logs and events.
-• The fundamentals of building and managing a Security Operations Center (SOC) on a home lab scale.
+• The fundamentals of building and managing a Security Operations Center (SOC) on a home lab scale.<br>
 <!--
 |	 🌐 [**Network Topology Image**](/images/0/lab-image1.png)
 -->
-🌐 <a href="/j-cag.github.io/images/0/lab-image1.png" target="_blank" rel="noopener noreferrer">
+|  🌐 <a href="/j-cag.github.io/images/0/lab-image1.png" target="_blank" rel="noopener noreferrer">
 <strong>Network Topology Image</strong>
 </a>
 
