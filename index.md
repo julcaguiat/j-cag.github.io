@@ -38,18 +38,18 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 Pentesting<br>
 
-<a href="/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
+•<a href="/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 1: Live Host Discovery (PDF)">
-  • ⚔️ Nmap Part 1: Live Host Discovery
+    ⚔️ Nmap Part 1: Live Host Discovery
 </a>
 
-<a href="/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
+•<a href="/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
-  • ⚔️ Nmap Part 2: Basic Port Scan
+    ⚔️ Nmap Part 2: Basic Port Scan
 </a>
 
 SOC 1
