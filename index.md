@@ -42,14 +42,14 @@ Pentesting<br>
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 1: Live Host Discovery (PDF)">
-  \u2027 ⚔️ Nmap Part 1: Live Host Discovery
+  • ⚔️ Nmap Part 1: Live Host Discovery
 </a>
 
 <a href="/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
-  \u2027 ⚔️ Nmap Part 2: Basic Port Scan
+  • ⚔️ Nmap Part 2: Basic Port Scan
 </a>
 
 SOC 1
