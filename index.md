@@ -36,21 +36,19 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 **My Favorite TryHackMe Rooms [Walk Throughs]**
 
-Pentesting
+Pentesting<br>
 <a href="/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 1: Live Host Discovery (PDF)">
-  ⚔️ Nmap Part 1: Live Host Discovery
+  \u2027 ⚔️ Nmap Part 1: Live Host Discovery
 </a>
-<!--
-- [⚔️ Nmap Part 1: Live Host Discovery](/images/100thm-pdfs/Nmap-Live-Host-Discovery.pdf)
--->
+
 <a href="/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
-  ⚔️ Nmap Part 2: Basic Port Scan
+  \u2027 ⚔️ Nmap Part 2: Basic Port Scan
 </a>
 
 SOC 1
