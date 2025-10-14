@@ -37,6 +37,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 **My Favorite TryHackMe Rooms [Walk Throughs]**
 
 Pentesting<br>
+
 <a href="/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
    target="_blank"
    rel="noopener noreferrer"
