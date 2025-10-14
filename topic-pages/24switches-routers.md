@@ -1,10 +1,10 @@
-# 🧩 Switches vs Routers — Study Priority & Functionality Guide
+## 🧩 Switches vs Routers — Study Priority & Functionality Guide
 
 This guide categorizes core, intermediate, and advanced functionalities of **Switches** and **Routers**, prioritized for CCNA study and hands-on practice.
 
 ---
 
-## 🧱 1. Core Layer (Foundation — Study These First)
+### 🧱 1. Core Layer (Foundation — Study These First)
 
 | **Functionality** | **Used By** | **Purpose** | **CLI Example (Cisco IOS)** |
 |--------------------|-------------|--------------|-----------------------------|
@@ -16,7 +16,7 @@ This guide categorizes core, intermediate, and advanced functionalities of **Swi
 
 ---
 
-## 🔐 2. Intermediate Layer (Network Design & Control)
+### 🔐 2. Intermediate Layer (Network Design & Control)
 
 | **Functionality** | **Used By** | **Purpose** | **CLI Example (Cisco IOS)** |
 |--------------------|-------------|--------------|-----------------------------|
@@ -28,7 +28,7 @@ This guide categorizes core, intermediate, and advanced functionalities of **Swi
 
 ---
 
-## 🛡️ 3. Advanced Layer (Security & Optimization)
+### 🛡️ 3. Advanced Layer (Security & Optimization)
 
 | **Functionality** | **Used By** | **Purpose** | **CLI Example (Cisco IOS)** |
 |--------------------|-------------|--------------|-----------------------------|
@@ -41,7 +41,7 @@ This guide categorizes core, intermediate, and advanced functionalities of **Swi
 
 ---
 
-## 📚 Study Order Summary
+### 📚 Study Order Summary
 
 | **Priority** | **Focus Area** | **Key Topics** |
 |---------------|----------------|----------------|

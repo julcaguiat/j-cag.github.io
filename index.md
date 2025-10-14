@@ -25,7 +25,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 - [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
 
 ---
-**Downloadable Notes**
+**Downloadable Command Cheat Sheets**
 
 - [🐧 View Essential Linux Commands Cheat Sheet for Beginners [Download Available)]](#linux-commands)
 
@@ -37,11 +37,25 @@ I recently passed the **CompTIA Security+** certification and am currently study
 **My Favorite TryHackMe Rooms [Walk Throughs]**
 
 Pentesting
+<a href="/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Open Nmap Part 1: Live Host Discovery (PDF)">
+  ⚔️ Nmap Part 1: Live Host Discovery
+</a>
+<!--
 - [⚔️ Nmap Part 1: Live Host Discovery](/images/100thm-pdfs/Nmap-Live-Host-Discovery.pdf)
-
+-->
+<a href="/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Open Nmap Part 2: Basic Port Scan (PDF)">
+  ⚔️ Nmap Part 2: Basic Port Scan
+</a>
 
 SOC 1
 
+---
 ---
 
 <h2 id="virtual-soc-home-lab">🖥️ Setting up a Virtual SOC Home Lab - Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox</h2>
