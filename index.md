@@ -77,8 +77,12 @@ SOC 1
 • How to install and configure Wazuh SIEM to monitor endpoint activities and detect threats.
 • How to set up and manage Wazuh Agents on Kali Linux and Windows 10 to forward logs and events.
 • The fundamentals of building and managing a Security Operations Center (SOC) on a home lab scale.
-
+<!--
 |	 🌐 [**Network Topology Image**](/images/0/lab-image1.png)
+-->
+🌐 <a href="/images/0/lab-image1.png" target="_blank" rel="noopener noreferrer">
+<strong>Network Topology Image</strong>
+</a>
 
 - 👉 [🖥️ **Step 1**: How to Install VirtualBox on Windows 11](topic-pages/1VBox_page.md)
 - 👉 [🖥️ **Step 2**: How to Install Kali-Linux VM on Windows 11](topic-pages/2KaliVM_page.md)
