@@ -80,7 +80,7 @@ SOC 1
 <!--
 |	 🌐 [**Network Topology Image**](/images/0/lab-image1.png)
 -->
-🌐 <a href="/images/0/lab-image1.png" target="_blank" rel="noopener noreferrer">
+🌐 <a href="/j-cag.github.io/images/0/lab-image1.png" target="_blank" rel="noopener noreferrer">
 <strong>Network Topology Image</strong>
 </a>
 
