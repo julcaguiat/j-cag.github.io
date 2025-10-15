@@ -1,5 +1,5 @@
 ﻿
-Updated: 10:10:2025<br>
+Updated: 10:15:2025<br>
 Started: 08:15:2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
@@ -18,7 +18,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 **Hands-on Lab Projects**
 
-- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab:  /n[Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
+- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab: [Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
 
 - [🔥 Upgraded Home Lab: Integrating pfSense Virtual Firewall/Router & Static IP Setup](#upgraded-home-lab)
 
@@ -27,11 +27,11 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 **Downloadable Command Cheat Sheets**
 
-- [🐧 View Essential Linux Commands Cheat Sheet for Beginners [Download Available)]](#linux-commands)
+- [🐧 Essential Linux Commands Cheat Sheet for Beginners [Download Available)]](#linux-commands)
 
-- [🔑 View SSH (Secure Shell) Cheat Sheet for Secure Remote Login and Command Execution (Download Available)](#SSH)
+- [🔑 SSH (Secure Shell) Cheat Sheet for Secure Remote Login and Command Execution (Download Available)](#SSH)
 
-- [⬇️ View SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer [Download Available]](#SCP)
+- [⬇️ SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer [Download Available]](#SCP)
 
 ---
 **My Favorite TryHackMe Rooms [Walk Throughs]**
@@ -44,12 +44,18 @@ Pentesting<br>
    title="Open Nmap Part 1: Live Host Discovery (PDF)">
     ⚔️ Nmap Part 1: Live Host Discovery
 </a>
-
   •<a href="/j-cag.github.io/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
     ⚔️ Nmap Part 2: Basic Port Scan
+</a>
+<br>
+ •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-The-Basics.pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Open Nmap Part 2: Basic Port Scan (PDF)">
+    ⚔️ BurpSuite Part 1: The Basics
 </a>
 
 SOC 1
