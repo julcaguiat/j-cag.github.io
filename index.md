@@ -57,6 +57,12 @@ Pentesting<br>
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
     ⚔️ BurpSuite Part 1: The Basics
 </a>
+ •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Repeater.pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Open Nmap Part 2: BurpSuite Repeater (PDF)">
+    ⚔️ BurpSuite Part 2: Repeater
+</a>
 
 SOC 1
 
