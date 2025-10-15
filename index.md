@@ -49,7 +49,7 @@ Pentesting<br>
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
-   <p> ⚔️ Nmap Part 2:</p> Basic Port Scan
+   ⚔️ Nmap Part 2: Basic Port Scan
 </a>
 
 
