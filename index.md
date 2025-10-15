@@ -52,27 +52,34 @@ Pentesting<br>
     ⚔️ Nmap Part 2: Basic Port Scan
 </a>
 
-<br>
- 
+
+
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-The-Basics.pdf"
    target="_blank"
    rel="noopener noreferrer"
-   title="Open Nmap Part 2: Burp Suite: The Basics (PDF)">
+   title="Open Burp Suite Part 1: The Basics (PDF)">
     ⚔️ Burp Suite Part 1: The Basics
 </a>
  
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Repeater.pdf"
    target="_blank"
    rel="noopener noreferrer"
-   title="Open Nmap Part 2: Burp Suite Repeater (PDF)">
+   title="Open  Burp Suite Part 2: Repeater (PDF)">
     ⚔️ Burp Suite Part 2: Repeater
 </a>
  
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Intruder.pdf"
    target="_blank"
    rel="noopener noreferrer"
-   title="Open Nmap Part 2: Burp Suite Intruder (PDF)">
+   title="Open Burp Suite Part 3: Intruder (PDF)">
     ⚔️ Burp Suite Part 3: Intruder
+</a>
+
+•<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Other-Modules.pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Open Burp Suite Part 4: Other Modules (PDF)">
+    ⚔️ Burp Suite Part 4: Other Modules
 </a>
 
 SOC 1
