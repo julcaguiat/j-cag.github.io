@@ -44,25 +44,30 @@ Pentesting<br>
    title="Open Nmap Part 1: Live Host Discovery (PDF)">
     ⚔️ Nmap Part 1: Live Host Discovery
 </a>
+ 
   •<a href="/j-cag.github.io/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
     ⚔️ Nmap Part 2: Basic Port Scan
 </a>
+
 <br>
+ 
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-The-Basics.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Burp Suite: The Basics (PDF)">
     ⚔️ Burp Suite Part 1: The Basics
 </a>
+ 
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Repeater.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Burp Suite Repeater (PDF)">
     ⚔️ Burp Suite Part 2: Repeater
 </a>
+ 
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Intruder.pdf"
    target="_blank"
    rel="noopener noreferrer"
