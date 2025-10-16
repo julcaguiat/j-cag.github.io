@@ -91,6 +91,56 @@ I recently passed the **CompTIA Security+** certification and am currently study
   </li>
 </ul>
 
+<ul class="tool-list">
+  <li>
+    • Burp Suite
+    <ul class="tool-sublist">
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Burp Suite Part 1: The Basics (PDF)">
+          Part 1: The Basics
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite2-Repeater.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Burp Suite Part 2: Repeater (PDF)">
+          Part 2: Repeater
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite3-Intruder.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Burp Suite Part 3: Intruder (PDF)">
+          Part 3: Intruder
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite4-Other-Modules.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Burp Suite Part 4: Other Modules (PDF)">
+          Part 4: Other Modules
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite5-Extensions.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Burp Suite Part 5: Extensions (PDF)">
+          Part 5: Extensions
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+
 <!-- Burp Suite 
 <p>&bull; Burp Suite</p>
  <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
@@ -129,54 +179,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 </a>
 -->
 
-<ul class="burp-list">
-  <li>
-    Burp Suite
-    <ul class="burp-sublist">
-      <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite2-Repeater.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Open Burp Suite Part 2: Repeater (PDF)">
-          Part 2: Repeater
-        </a>
-      </li>
-      <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite3-Intruder.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Open Burp Suite Part 3: Intruder (PDF)">
-          Part 3: Intruder
-        </a>
-      </li>
-      <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite4-Other-Modules.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Open Burp Suite Part 4: Other Modules (PDF)">
-          Part 4: Other Modules
-        </a>
-      </li>
-      <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite5-Extensions.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Open Burp Suite Part 5: Extensions (PDF)">
-          Part 5: Extensions
-        </a>
-      </li>
-    </ul>
-  </li>
-</ul>
 
-<style>
-  .burp-list { margin: 0; padding-left: 0; list-style: none; }
-  .burp-list > li { font-weight: bold; margin-bottom: 0.5em; }
-  .burp-sublist { margin: 0.25em 0 1em 1.25em; padding-left: 0; list-style: disc; }
-  .burp-sublist li { margin: 0.25em 0; }
-  .burp-sublist a { text-decoration: none; color: inherit; }
-  .burp-sublist a:hover { text-decoration: underline; }
-</style>
 
 **🛡️ SOC 1**
 
