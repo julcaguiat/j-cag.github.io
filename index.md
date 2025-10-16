@@ -38,7 +38,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 **⚔️ Jr. Pentester**<br>
 
-<!-- Nmap -->
+<!-- Nmap 
 <p>&nbsp;&nbsp;&nbsp;&bull; Nmap</p>
 <a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
    target="_blank"
@@ -58,7 +58,38 @@ I recently passed the **CompTIA Security+** certification and am currently study
    title="Open Nmap Part 3: Advance Port Scan (PDF)">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Part 3: Advance Port Scan
 </a>
-
+-->
+<ul class="tool-list">
+  <li>
+    Nmap
+    <ul class="tool-sublist">
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Nmap Part 1: Live Host Discovery (PDF)">
+          Part 1: Live Host Discovery
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Nmap Part 2: Basic Port Scan (PDF)">
+          Part 2: Basic Port Scan
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Nmap3-Advance-Port-Scan.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Nmap Part 3: Advance Port Scan (PDF)">
+          Part 3: Advance Port Scan
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <!-- Burp Suite --> 
 <p>&bull; Burp Suite</p>
