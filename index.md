@@ -63,7 +63,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 
 <!-- Burp Suite --> 
-<p>.  ⚔️ Burp Suite</p>
+<p>&nbsp;&nbsp;&nbsp;⚔️ Burp Suite</p>
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
    target="_blank"
    rel="noopener noreferrer"
