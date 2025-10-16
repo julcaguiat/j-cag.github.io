@@ -82,6 +82,13 @@ Pentesting<br>
     ⚔️ Burp Suite Part 4: Other Modules
 </a>
 
+•<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Extensions.pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Open Burp Suite Part 5: Other Modules (PDF)">
+    ⚔️ Burp Suite Part 5: Extensions
+</a>
+
 SOC 1
 
 ---
