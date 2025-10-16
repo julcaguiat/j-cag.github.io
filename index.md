@@ -38,54 +38,62 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 Pentesting<br>
 
-  •<a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
+<!-- Nmap -->
+•<a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 1: Live Host Discovery (PDF)">
     ⚔️ Nmap Part 1: Live Host Discovery
 </a>
  
-  •<a href="/j-cag.github.io/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
+•<a href="/j-cag.github.io/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
    ⚔️ Nmap Part 2: Basic Port Scan
 </a>
 
+•<a href="/j-cag.github.io/images/100thm-pdfs/Nmap3-Advance-Port-Scan.pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Open Nmap Part 3: Advance Port Scan (PDF)">
+   ⚔️ Nmap Part 3: Advance Port Scan
+</a>
 
 
- •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-The-Basics.pdf"
+<!-- Burp Suite --> 
+ •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Burp Suite Part 1: The Basics (PDF)">
     ⚔️ Burp Suite Part 1: The Basics
 </a>
- 
- •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Repeater.pdf"
+
+ •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite2-Repeater.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open  Burp Suite Part 2: Repeater (PDF)">
     ⚔️ Burp Suite Part 2: Repeater
 </a>
  
- •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Intruder.pdf"
+ •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite3-Intruder.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Burp Suite Part 3: Intruder (PDF)">
     ⚔️ Burp Suite Part 3: Intruder
 </a>
 
-•<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Other-Modules.pdf"
+•<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite4-Other-Modules.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Burp Suite Part 4: Other Modules (PDF)">
     ⚔️ Burp Suite Part 4: Other Modules
 </a>
 
-•<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite-Extensions.pdf"
+•<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite5-Extensions.pdf"
    target="_blank"
    rel="noopener noreferrer"
-   title="Open Burp Suite Part 5: Other Modules (PDF)">
+   title="Open Burp Suite Part 5: Extensions (PDF)">
     ⚔️ Burp Suite Part 5: Extensions
 </a>
 
