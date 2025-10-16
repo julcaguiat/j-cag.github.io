@@ -54,7 +54,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
     &nbsp;&nbsp;&nbsp;• Part 2: Basic Port Scan
 </a>
 
-•<a href="/j-cag.github.io/images/100thm-pdfs/Nmap3-Advance-Port-Scan.pdf"
+<a href="/j-cag.github.io/images/100thm-pdfs/Nmap3-Advance-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 3: Advance Port Scan (PDF)">
