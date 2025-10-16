@@ -34,7 +34,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 - [⬇️ SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer [Download Available]](#SCP)
 
 ---
-**My Favorite TryHackMe Rooms [Walk Throughs]**
+**My Favorite TryHackMe Rooms [Walkthroughs]**
 
 **Pentesting**<br>
 
@@ -44,21 +44,21 @@ I recently passed the **CompTIA Security+** certification and am currently study
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 1: Live Host Discovery (PDF)">
-    Nmap Part 1: Live Host Discovery
+    &nbsp;&nbsp;&nbsp;• Part 1: Live Host Discovery
 </a>
  
 <a href="/j-cag.github.io/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 2: Basic Port Scan (PDF)">
-    Nmap Part 2: Basic Port Scan
+    &nbsp;&nbsp;&nbsp;• Part 2: Basic Port Scan
 </a>
 
 •<a href="/j-cag.github.io/images/100thm-pdfs/Nmap3-Advance-Port-Scan.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Nmap Part 3: Advance Port Scan (PDF)">
-    Nmap Part 3: Advance Port Scan
+    &nbsp;&nbsp;&nbsp;• Part 3: Advance Port Scan
 </a>
 
 
@@ -68,35 +68,35 @@ I recently passed the **CompTIA Security+** certification and am currently study
    target="_blank"
    rel="noopener noreferrer"
    title="Open Burp Suite Part 1: The Basics (PDF)">
-   &nbsp;&nbsp;•Burp Suite Part 1: The Basics
+   &nbsp;&nbsp;&nbsp;• Part 1: The Basics
 </a>
 
  <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite2-Repeater.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open  Burp Suite Part 2: Repeater (PDF)">
-   • Burp Suite Part 2: Repeater
+   &nbsp;&nbsp;&nbsp;• Part 2: Repeater
 </a>
  
  <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite3-Intruder.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Burp Suite Part 3: Intruder (PDF)">
-    Burp Suite Part 3: Intruder
+    &nbsp;&nbsp;&nbsp;• Part 3: Intruder
 </a>
 
 <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite4-Other-Modules.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Burp Suite Part 4: Other Modules (PDF)">
-    Burp Suite Part 4: Other Modules
+    &nbsp;&nbsp;&nbsp;• Part 4: Other Modules
 </a>
 
 <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite5-Extensions.pdf"
    target="_blank"
    rel="noopener noreferrer"
    title="Open Burp Suite Part 5: Extensions (PDF)">
-    Burp Suite Part 5: Extensions
+   &nbsp;&nbsp;&nbsp;• Part 5: Extensions
 </a>
 
 **SOC 1**
