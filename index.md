@@ -93,7 +93,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
-    • Burp Suite
+    Burp Suite
     <ul class="tool-sublist">
       <li>
         <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
