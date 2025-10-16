@@ -39,6 +39,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 Pentesting<br>
 
 <!-- Nmap -->
+<p>⚔️ Nmap </p>
 •<a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
    target="_blank"
    rel="noopener noreferrer"
