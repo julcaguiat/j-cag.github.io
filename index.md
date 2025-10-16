@@ -39,7 +39,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 **Pentesting**<br>
 
 <!-- Nmap -->
-<p>⚔️ Nmap </p>
+<p>     ⚔️ Nmap</p>
 •<a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
    target="_blank"
    rel="noopener noreferrer"
@@ -63,7 +63,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 
 <!-- Burp Suite --> 
-<p>⚔️ Burp Suite </p>
+<p>     ⚔️Burp Suite</p>
  •<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
    target="_blank"
    rel="noopener noreferrer"
