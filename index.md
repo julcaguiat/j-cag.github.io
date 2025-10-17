@@ -1,6 +1,6 @@
 ﻿
-Updated: 10:15:2025<br>
-Started: 08:15:2025
+**Updated:** 10:16:2025<br>
+**Started:** 08:15:2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
 ### **About This Blog**
@@ -38,27 +38,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 **⚔️ Jr. Pentester**<br>
 
-<!-- Nmap 
-<p>&nbsp;&nbsp;&nbsp;&bull; Nmap</p>
-<a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open Nmap Part 1: Live Host Discovery (PDF)">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Part 1: Live Host Discovery</a>
- 
-<a href="/j-cag.github.io/images/100thm-pdfs/Nmap2-Basic-Port-Scan.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open Nmap Part 2: Basic Port Scan (PDF)">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Part 2: Basic Port Scan</a>
 
-<a href="/j-cag.github.io/images/100thm-pdfs/Nmap3-Advance-Port-Scan.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open Nmap Part 3: Advance Port Scan (PDF)">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Part 3: Advance Port Scan
-</a>
--->
 <ul class="tool-list">
   <li>
     Nmap
@@ -85,6 +65,14 @@ I recently passed the **CompTIA Security+** certification and am currently study
            rel="noopener noreferrer"
            title="Open Nmap Part 3: Advance Port Scan (PDF)">
           Part 3: Advance Port Scan
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Nmap3-Post-Port-Scan.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Nmap Part 4: Post Port Scan (PDF)">
+          Part 4: Post Port Scan
         </a>
       </li>
     </ul>
@@ -141,43 +129,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 
 
-<!-- Burp Suite 
-<p>&bull; Burp Suite</p>
- <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open Burp Suite Part 1: The Basics (PDF)">
-   &nbsp;&nbsp;&nbsp;• Part 1: The Basics
-</a>
 
- <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite2-Repeater.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open  Burp Suite Part 2: Repeater (PDF)">
-   &nbsp;&nbsp;&nbsp;• Part 2: Repeater
-</a>
- 
- <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite3-Intruder.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open Burp Suite Part 3: Intruder (PDF)">
-    &nbsp;&nbsp;&nbsp;• Part 3: Intruder
-</a>
-
-<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite4-Other-Modules.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open Burp Suite Part 4: Other Modules (PDF)">
-    &nbsp;&nbsp;&nbsp;• Part 4: Other Modules
-</a>
-
-<a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite5-Extensions.pdf"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Open Burp Suite Part 5: Extensions (PDF)">
-   &nbsp;&nbsp;&nbsp;• Part 5: Extensions
-</a>
--->
 
 
 
