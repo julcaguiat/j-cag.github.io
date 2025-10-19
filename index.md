@@ -129,7 +129,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
-    Vulnerability Research [Exploit-db (for exploit research & scripts), c0nfigured vetted exploit scripts]
+    Vulnerability Research 
     <ul class="tool-sublist">
       <li>
         <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
