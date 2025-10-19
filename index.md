@@ -127,6 +127,30 @@ I recently passed the **CompTIA Security+** certification and am currently study
   </li>
 </ul>
 
+<ul class="tool-list">
+  <li>
+    Vulnerability Research [Exploit-db (for exploit research & scripts), c0nfigured vetted exploit scripts]
+    <ul class="tool-sublist">
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Vulnerability Part 1: Vulnerability Exploit  (PDF)">
+          Part 1: Vulnerability Exploit [Exploit-db (for exploit research & scripts), configured vetted exploit scripts to launch RCE on target]
+        </a>
+      </li>
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
+          Part 2: Vulnerability Capstone [Exploit-db (for exploit research & scripts), configured vetted exploit scripts & NetCat (to deploy a payload and achieve RCE on target)]
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
 
 
 
