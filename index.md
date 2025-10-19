@@ -144,8 +144,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
            target="_blank"
            rel="noopener noreferrer"
            title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
-          Part 2: Vulnerability Capstone [Exploit-db (for exploit research & scripts), configured vetted exploit scripts & NetCat (to deploy a payload and achieve RCE on target)]
+          Part 2: Vulnerability Capstone 
         </a>
+        <p>[Exploit-db (for exploit research & scripts), configured vetted exploit scripts & NetCat (to deploy a payload and achieve RCE on target)]
       </li>
     </ul>
   </li>
