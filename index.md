@@ -18,44 +18,41 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 **Hands-on Lab Projects**
 
-- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab: [Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
-
 <ul class="tool-list">
- 
-   <ul class="tool-sublist">
-     <li>
-       <a href="#virtual-soc-home-lab"
-          title="Jump to Virtual SOC Setup">
-         🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab:
-       </a>
-       <br>
-       <span class="note">[Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]</span>
-     </li>
-     <li>
-       <a href="#upgraded-home-lab"
-         title="Jump to Upgraded Home Lab">
-        🔥 Upgraded Home Lab:
-       </a>
-       <br>
-       <span class="note">[Integrating pfSense Virtual Firewall/Router & Static IP Setup]</span>
-     </li>
-     <li>
-       <a href="#Personal-Home-Lab"
-         title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
-        🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab:
-       </a>
-       <br>
-       <span class="note">[Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
-     </li>
-   </ul>
- 
-</ul>
+  <li>
+    <a href="#virtual-soc-home-lab" title="Jump to Virtual SOC Setup">
+      🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab
+    </a>
+    <br>
+    <span class="note">[Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]</span>
+  </li>
 
+  <li>
+    <a href="#upgraded-home-lab" title="Jump to Upgraded Home Lab">
+      🔥 Upgraded Home Lab
+    </a>
+    <br>
+    <span class="note">[Integrating pfSense Virtual Firewall/Router & Static IP Setup]</span>
+  </li>
+
+  <li>
+    <a href="#personal-home-lab" title="Jump to Personal Cybersecurity Home Lab">
+      🛠️ [WORK IN PROGRESS] Personal Cybersecurity Home Lab
+    </a>
+    <br>
+    <span class="note">[Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
+  </li>
+</ul>
+ 
+
+
+<!--
+- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab: [Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
 
 - [🔥 Upgraded Home Lab: Integrating pfSense Virtual Firewall/Router & Static IP Setup](#upgraded-home-lab)
 
 - [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
-
+-->
 ---
 **Downloadable Command Cheat Sheets**
 
