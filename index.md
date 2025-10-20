@@ -271,7 +271,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 
 ---
-<h2 id="Personal-Home-Lab">🛠️ Personal Cybersecurity Home Lab Project: WORK-IN-PROGRESS </h2>
+<h2 id="personal-home-lab">🛠️ Personal Cybersecurity Home Lab Project: WORK-IN-PROGRESS </h2>
 
 **Preparation**
 - 👉 [🖥️ **Inspiron 3650 Desktop (for Splunk, Snort, and File Server)**: Bypass Windows 10 Login using Rufus and chntpw utilities ]
