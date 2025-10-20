@@ -20,6 +20,38 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 - [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab: [Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
 
+<ul class="tool-list">
+ 
+   <ul class="tool-sublist">
+     <li>
+       <a href="#virtual-soc-home-lab"
+          title="Jump to Virtual SOC Setup">
+         🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab:
+       </a>
+       <br>
+       <span class="note">[Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]</span>
+     </li>
+     <li>
+       <a href="#upgraded-home-lab"
+         title="Jump to Upgraded Home Lab">
+        🔥 Upgraded Home Lab:
+       </a>
+       <br>
+       <span class="note">[Integrating pfSense Virtual Firewall/Router & Static IP Setup]</span>
+     </li>
+     <li>
+       <a href="#Personal-Home-Lab"
+         title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
+        🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab:
+       </a>
+       <br>
+       <span class="note">[Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
+     </li>
+   </ul>
+ 
+</ul>
+
+
 - [🔥 Upgraded Home Lab: Integrating pfSense Virtual Firewall/Router & Static IP Setup](#upgraded-home-lab)
 
 - [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
@@ -128,55 +160,29 @@ I recently passed the **CompTIA Security+** certification and am currently study
 </ul>
 
 <ul class="tool-list">
-<li>
-  Vulnerability Research
-  <ul class="tool-sublist">
-    <li>
-      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
-         target="_blank" rel="noopener noreferrer"
-         title="Vulnerability Part 1: Vulnerability Exploit (PDF)">
-        Part 1: Vulnerability Exploit
-      </a>
-      <br>
-      <span class="note">[Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
-    </li>
-    <li>
-      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
+ <li>
+   Vulnerability Research
+   <ul class="tool-sublist">
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
+          target="_blank" rel="noopener noreferrer"
+          title="Vulnerability Part 1: Vulnerability Exploit (PDF)">
+         Part 1: Vulnerability Exploit
+       </a>
+       <br>
+       <span class="note">[Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
+     </li>
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
          target="_blank" rel="noopener noreferrer"
          title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
         Part 2: Vulnerability Capstone
-      </a>
-      <br>
-      <span class="note">[Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
-    </li>
-  </ul>
-</li>
-<!--
-  <li>
-    Vulnerability Research 
-    <ul class="tool-sublist">
-      <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Vulnerability Part 1: Vulnerability Exploit  (PDF)">
-          Part 1: Vulnerability Exploit 
-        </a>
-        <p>[Exploit-db (for exploit research & scripts), configured vetted exploit scripts to launch RCE on target]</p>
-      </li>
-      <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
-          Part 2: Vulnerability Capstone 
-        </a>
-        <p>[Exploit-db (for exploit research & scripts), configured vetted exploit scripts & NetCat (to deploy a payload and achieve RCE on target)]
-        </p>
-      </li>
-    </ul>
-  </li>
-  -->
+       </a>
+       <br>
+       <span class="note">[Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
+     </li>
+   </ul>
+ </li>
 </ul>
 
 
