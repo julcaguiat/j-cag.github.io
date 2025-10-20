@@ -36,8 +36,14 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 **My Favorite TryHackMe Rooms [Walkthroughs]**
 
-**⚔️ Jr. Pentester**<br>
+<style>
+  /* remove default paragraph spacing inside your sublists */
+  .tool-sublist p { margin: 0; padding: 0; font-size: 0.95rem; color:#555; }
+  /* optional: slightly tighten li spacing */
+  .tool-sublist li { margin: 0.15rem 0; }
+</style>
 
+**⚔️ Jr. Pentester**<br>
 
 <ul class="tool-list">
   <li>
