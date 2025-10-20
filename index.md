@@ -128,6 +128,28 @@ I recently passed the **CompTIA Security+** certification and am currently study
 </ul>
 
 <ul class="tool-list">
+<li>
+  Vulnerability Research
+  <ul class="tool-sublist">
+    <li>
+      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Vulnerability Part 1: Vulnerability Exploit (PDF)">
+        Part 1: Vulnerability Exploit
+      </a>
+      <span class="note">[Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
+    </li>
+    <li>
+      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
+        Part 2: Vulnerability Capstone
+      </a>
+      <span class="note">[Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
+    </li>
+  </ul>
+</li>
+<!--
   <li>
     Vulnerability Research 
     <ul class="tool-sublist">
@@ -152,31 +174,12 @@ I recently passed the **CompTIA Security+** certification and am currently study
       </li>
     </ul>
   </li>
+  -->
 </ul>
 
 
 
-<li>
-  Vulnerability Research
-  <ul class="tool-sublist">
-    <li>
-      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
-         target="_blank" rel="noopener noreferrer"
-         title="Vulnerability Part 1: Vulnerability Exploit (PDF)">
-        Part 1: Vulnerability Exploit
-      </a>
-      <span class="note">[Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
-    </li>
-    <li>
-      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
-         target="_blank" rel="noopener noreferrer"
-         title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
-        Part 2: Vulnerability Capstone
-      </a>
-      <span class="note">[Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
-    </li>
-  </ul>
-</li>
+
 
 
 
