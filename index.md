@@ -36,12 +36,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
 ---
 **My Favorite TryHackMe Rooms [Walkthroughs]**
 
-<style>
-  /* remove default paragraph spacing inside your sublists */
-  .tool-sublist p { margin: 0; padding: 0; font-size: 0.95rem; color:#555; }
-  /* optional: slightly tighten li spacing */
-  .tool-sublist li { margin: 0.15rem 0; }
-</style>
 
 **⚔️ Jr. Pentester**<br>
 
@@ -161,7 +155,31 @@ I recently passed the **CompTIA Security+** certification and am currently study
 </ul>
 
 
+<style>
+  .tool-sublist li .note { display: block; margin: 0.15rem 0 0 0; font-size: 0.95rem; color:#555; }
+</style>
 
+<li>
+  Vulnerability Research
+  <ul class="tool-sublist">
+    <li>
+      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Vulnerability Part 1: Vulnerability Exploit (PDF)">
+        Part 1: Vulnerability Exploit
+      </a>
+      <span class="note">[Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
+    </li>
+    <li>
+      <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
+        Part 2: Vulnerability Capstone
+      </a>
+      <span class="note">[Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
+    </li>
+  </ul>
+</li>
 
 
 
