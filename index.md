@@ -26,7 +26,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
     <br>
     <span class="note">[Kali Linux & Windows10 VMs w/ Wazuh SIEM (HIDS) on VirtualBox running on Windows 11]</span>
   </li>
-
+  <br>
   <li>
     <a href="#upgraded-home-lab" title="Jump to Upgraded Home Lab">
       🔥 Upgraded Home Lab
@@ -34,13 +34,13 @@ I recently passed the **CompTIA Security+** certification and am currently study
     <br>
     <span class="note">[Integrating pfSense Virtual Firewall/Router & Static IP Setup]</span>
   </li>
-
+ <br>
   <li>
     <a href="#personal-home-lab" title="Jump to Personal Cybersecurity Home Lab">
       🛠️ [WORK IN PROGRESS] Personal Cybersecurity Home Lab
     </a>
     <br>
-    <span class="note">[Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
+    <span class="note">[Integrating Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
   </li>
 </ol>
 
