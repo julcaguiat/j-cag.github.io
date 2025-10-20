@@ -137,6 +137,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
          title="Vulnerability Part 1: Vulnerability Exploit (PDF)">
         Part 1: Vulnerability Exploit
       </a>
+      <br>
       <span class="note">[Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
     </li>
     <li>
@@ -145,6 +146,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
          title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
         Part 2: Vulnerability Capstone
       </a>
+      <br>
       <span class="note">[Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
     </li>
   </ul>
