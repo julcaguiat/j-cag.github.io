@@ -24,7 +24,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
       🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab
     </a>
     <br>
-    <span class="note">[Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]</span>
+    <span class="note">[Kali Linux & Windows10 VMs w/ Wazuh SIEM (HIDS) on VirtualBox running on Windows 11]</span>
   </li>
 
   <li>
