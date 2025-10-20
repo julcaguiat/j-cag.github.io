@@ -18,7 +18,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 **Hands-on Lab Projects**
 
-<ul class="tool-list">
+<ol class="tool-list">
   <li>
     <a href="#virtual-soc-home-lab" title="Jump to Virtual SOC Setup">
       🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab
@@ -42,9 +42,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
     <br>
     <span class="note">[Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
   </li>
-</ul>
- 
-
+</ol>
 
 <!--
 - [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab: [Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
