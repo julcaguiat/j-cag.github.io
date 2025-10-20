@@ -155,9 +155,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
 </ul>
 
 
-<style>
-  .tool-sublist li .note { display: block; margin: 0.15rem 0 0 0; font-size: 0.95rem; color:#555; }
-</style>
 
 <li>
   Vulnerability Research
