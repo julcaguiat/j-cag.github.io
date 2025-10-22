@@ -68,6 +68,23 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
+    Intro to Web Hacking
+    <ul class="tool-sublist">
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Authenticatiion-Bypass.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Nmap Part 1: Live Host Discovery (PDF)">
+          Part 1: Live Host Discovery
+        </a>
+        <span class="note">[Used fluff utility with wordlist for user enumeration  | crackstation.net for decoding | base64encoding.org for encoding]</span>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<ul class="tool-list">
+  <li>
     Nmap
     <ul class="tool-sublist">
       <li>
@@ -165,7 +182,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
          Part 1: Vulnerability Exploit
        </a>
        <br>
-       <span class="note">[Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
+       <span class="note">[Used Exploit-DB (research & scripts). Configured vetted exploit scripts to launch RCE on an authorized test target]</span>
      </li>
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
@@ -174,7 +191,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
         Part 2: Vulnerability Capstone
        </a>
        <br>
-       <span class="note">[Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
+       <span class="note">[Used Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
      </li>
    </ul>
  </li>
