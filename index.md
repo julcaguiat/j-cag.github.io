@@ -78,7 +78,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
           Authentication Bypass
         </a>
         <br>
-        <span class="note">[Used fluff utility with wordlist for user enumeration  | crackstation.net for decoding | base64encoding.org for encoding]</span>
+        <span class="note">[Used fluff utility with wordlist (user enumeration)  | crackstation.net (decoding) | base64encoding.org (encoding)]</span>
       </li>
     </ul>
   </li>
