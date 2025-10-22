@@ -68,20 +68,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
-    Intro to Web Hacking
-    <ul class="tool-sublist">
-      <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/Authentication-Bypass.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Open Authentication Bypass (PDF)">
-          Authentication Bypass
-        </a>
-         <br>
-       <span class="note">[Used fluff utility with wordlist for user enumeration  | crackstation.net for decoding | base64encoding.org for encoding]</span>
-      </li>
-  </li>
-  <li>
     Nmap
     <ul class="tool-sublist">
       <li>
