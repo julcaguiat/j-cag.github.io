@@ -86,9 +86,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
-    Nmap
+    Nmap [Tool for network scanning] 
      <br>
-       <span class="note">[Used for network scanning (hosts and services discovery | port, service/version, and OS detection)]</span>
+       <span class="note">(hosts and services discovery | port, service/version, and OS detection)</span>
     <ul class="tool-sublist">
       <li>
         <a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
@@ -128,9 +128,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
-    Burp Suite
+    Burp Suite [Tool for web application security testing]
      <br>
-       <span class="note">[Used for web application security testing (intercept, modify, and analyze HTTP(S) traffic, scan for vulnerabilities, and automate web security assessments)]</span>
+       <span class="note">(intercept, modify, and analyze HTTP(S) traffic, scan for vulnerabilities, and automate web security assessments)</span>
     <ul class="tool-sublist">
       <li>
         <a href="/j-cag.github.io/images/100thm-pdfs/BurpSuite1-The-Basics.pdf"
