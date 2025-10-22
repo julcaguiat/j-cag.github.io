@@ -77,6 +77,8 @@ I recently passed the **CompTIA Security+** certification and am currently study
            title="Open Authentication Bypass (PDF)">
           Authentication Bypass
         </a>
+         <br>
+       <span class="note">[Used fluff utility with wordlist for user enumeration  | crackstation.net for decoding | base64encoding.org for encoding]</span>
       </li>
   </li>
   <li>
