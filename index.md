@@ -71,12 +71,13 @@ I recently passed the **CompTIA Security+** certification and am currently study
     Intro to Web Hacking
     <ul class="tool-sublist">
       <li>
-        <a href="/j-cag.github.io/images/100thm-pdfs/Authenticatiion-Bypass.pdf"
+        <a href="/j-cag.github.io/images/100thm-pdfs/Authentication-Bypass.pdf"
            target="_blank"
            rel="noopener noreferrer"
-           title="Open Nmap Part 1: Live Host Discovery (PDF)">
-          Part 1: Live Host Discovery
+           title="Open Authentication Bypass (PDF)">
+          Authentication Bypass
         </a>
+        <br>
         <span class="note">[Used fluff utility with wordlist for user enumeration  | crackstation.net for decoding | base64encoding.org for encoding]</span>
       </li>
     </ul>
