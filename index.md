@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 10:19:2025<br>
+**Updated:** 10:22:2025<br>
 **Started:** 08:15:2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
@@ -67,6 +67,18 @@ I recently passed the **CompTIA Security+** certification and am currently study
 **⚔️ Jr. Pentester**<br>
 
 <ul class="tool-list">
+  <li>
+    Intro to Web Hacking
+    <ul class="tool-sublist">
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Authentication-Bypass.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Open Authentication Bypass (PDF)">
+          Authentication Bypass
+        </a>
+      </li>
+  </li>
   <li>
     Nmap
     <ul class="tool-sublist">
