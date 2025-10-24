@@ -244,6 +244,7 @@ rsync -avz -e ssh /Users/<mac_user>/Desktop/Folder/ <windows_user>@<windows_mach
 ✅ **Tip:** You can also create a **short printable cheat sheet (PDF/DOCX)** of these steps for quick reference.
 
 ---
+[🔙 Back to Home](../index.md)
 
 📘 *Author:* [j-cag@github.io](https://j-cag.github.io)  
 💡 *Category:* Home Lab & Networking Tutorials
