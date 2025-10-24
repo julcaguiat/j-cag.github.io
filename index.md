@@ -205,10 +205,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 
 
-
-
-
-
 **🛡️ SOC 1**
 
 ---
@@ -357,7 +353,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 <h2 id="SCP">🔑 SCP (Secure Copy Protocol) Cheat Sheet for Secure File Transfer Between Machines</h2>
 
-- 👉 [📖 View How to Use SCP Guide (useful for secure file transfers between different machines)]<!--(topic-pages/15SCP.md) -->
+- 👉 [📖 View How to Use SCP Guide (useful for secure file transfers between different machines)](topic-pages/16SSH_SCP_guide.md) 
 
 <a href="downloadables/SCP.pdf" 
    download="SCP Cheat Sheet.pdf"
