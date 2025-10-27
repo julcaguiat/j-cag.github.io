@@ -230,6 +230,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
      -->
    </ul>
  </li>
+</ul>
 <ul class="tool-list">
  <li>
    Privilege Escalation
