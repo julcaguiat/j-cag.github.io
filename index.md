@@ -183,7 +183,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability1-Exploit.pdf"
           target="_blank" rel="noopener noreferrer"
-          title="Vulnerability Part 1: Vulnerability Exploit (PDF)">
+          title="Open Vulnerability Part 1: Vulnerability Exploit (PDF)">
          Part 1: Vulnerability Exploit
        </a>
        <br>
@@ -192,12 +192,41 @@ I recently passed the **CompTIA Security+** certification and am currently study
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
          target="_blank" rel="noopener noreferrer"
-         title="Vulnerability Part 2: Vulnerability Capstone (PDF)">
+         title="Open Vulnerability Part 2: Vulnerability Capstone (PDF)">
         Part 2: Vulnerability Capstone
        </a>
        <br>
        <span class="note">[Used Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
      </li>
+   </ul>
+ </li>
+</ul>
+
+<ul class="tool-list">
+ <li>
+   Privilege Escalation
+   <ul class="tool-sublist">
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/PrivilegeEscalation1-Shell.pdf"
+          target="_blank" rel="noopener noreferrer"
+          title="Open Privilege Escalation Part 1: What the Shell? (PDF)">
+         Part 1: What the Shell?
+       </a>
+       <br>
+       <span class="note">[Used netcat & socat (bind and reverse shells), metasploit – msfvenom & multihandler (for payload generation/handling), RDP/SSH & SCP (for RCE & file transfer)]
+       </span>
+     </li>
+     <!--
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/PrivilegeEscalation2-Linux.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Open Privilege Escalation Part 2: Linux (PDF)">
+        Part 2: Linux Privilege Escalation
+       </a>
+       <br>
+       <span class="note">[Used ]</span>
+     </li>
+     -->
    </ul>
  </li>
 </ul>
