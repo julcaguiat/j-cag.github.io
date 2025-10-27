@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 10:26:2025<br>
+**Updated:** 10:27:2025<br>
 **Started:** 08:15:2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
@@ -201,7 +201,35 @@ I recently passed the **CompTIA Security+** certification and am currently study
    </ul>
  </li>
 </ul>
-
+<ul class="tool-list">
+ <li>
+   Metasploit 
+   <ul class="tool-sublist">
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Metasploit1-Introduction.pdf"
+          target="_blank" rel="noopener noreferrer"
+          title="Open Metasploit Part 1: Introduction (PDF)">
+         Part 1: Introduction
+       </a>
+       <br>
+       <!--
+       <span class="note">[Used netcat & socat (bind and reverse shells), metasploit – msfvenom & multihandler (for payload generation/handling), RDP/SSH & SCP (for RCE & file transfer)]
+       </span>
+       -->
+     </li>
+     <!--
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Metasploit2-Exploitation.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Open Metasploit Part 2: Exploitation (PDF)">
+        Part 2: Exploitation
+       </a>
+       <br>
+       <span class="note">[Used Nmap, ]</span>
+     </li>
+     -->
+   </ul>
+ </li>
 <ul class="tool-list">
  <li>
    Privilege Escalation
@@ -212,7 +240,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
           title="Open Privilege Escalation Part 1: What the Shell? (PDF)">
          Part 1: What the Shell?
        </a>
-       <br>
+       <br> 
        <span class="note">[Used netcat & socat (bind and reverse shells), metasploit – msfvenom & multihandler (for payload generation/handling), RDP/SSH & SCP (for RCE & file transfer)]
        </span>
      </li>
