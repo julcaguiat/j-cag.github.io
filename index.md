@@ -88,7 +88,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
   <li>
     Nmap [Tool for network scanning] 
      <br>
-       <span class="note">(hosts and services discovery | port, service/version, and OS detection)</span>
+       <span class="note">(hosts | port status | service/version dicovery, and OS detection)</span>
     <ul class="tool-sublist">
       <li>
         <a href="/j-cag.github.io/images/100thm-pdfs/Nmap1-Live-Host-Discovery.pdf"
