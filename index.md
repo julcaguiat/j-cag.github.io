@@ -224,7 +224,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
         Part 2: Exploitation
        </a>
        <br>
-       <span class="note">[used ssh (initial access), msfvenom (payload generation), exploit/multi/handler (reverse shell catching), python3 -m http.server &lt;LOCAL_HOST&gt;&lt;PORT&gt; (web server), wget [uri]:[port]/[file] (file download)]
+       <span class="note">[used ssh (initial access), msfvenom (payload generation), exploit/multi/handler (reverse shell catching), python3 -m http.server &lt;LOCAL_HOST&gt;&lt;PORT&gt; (web server), wget &lt;uri&gt;:&lt;port&gt;/&lt;file&gt; (file download)]
        </span>
      </li>
    </ul>
