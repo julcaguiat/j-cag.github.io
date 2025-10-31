@@ -238,11 +238,9 @@ ssh <windows_user>@<windows_machine_IP>
 ```bash
 rsync -avz -e ssh /Users/<mac_user>/Desktop/Folder/ <windows_user>@<windows_machine_IP>:"C:/Users/<windows_user>/Downloads/Folder/"
 ```
+---
+[🔙 Back to Home](../index.md)<br>
 
 ---
 📘 *Author:* [j-cag@github.io](https://j-cag.github.io)  
 💡 *Category:* Home Lab & Networking Tutorials
----
-[🔙 Back to Home](../index.md)
-
-
