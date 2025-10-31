@@ -212,12 +212,9 @@ I recently passed the **CompTIA Security+** certification and am currently study
          Part 1: Introduction
        </a>
        <br>
-       <!--
        <span class="note">[Used netcat & socat (bind and reverse shells), metasploit – msfvenom & multihandler (for payload generation/handling), RDP/SSH & SCP (for RCE & file transfer)]
        </span>
-       -->
      </li>
-     <!--
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/Metasploit2-Exploitation.pdf"
          target="_blank" rel="noopener noreferrer"
@@ -225,9 +222,8 @@ I recently passed the **CompTIA Security+** certification and am currently study
         Part 2: Exploitation
        </a>
        <br>
-       <span class="note">[Used Nmap, ]</span>
+       <span class="note">[used ssh (initial access), msfvenom (payload generation), exploit/multi/handler (reverse shell catching), python3 -m http.server <LOCAL_HOST> <PORT> (web server), wget <uri>:<port>/<file> (file download)]</span>
      </li>
-     -->
    </ul>
  </li>
 </ul>
