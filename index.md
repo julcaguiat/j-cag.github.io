@@ -244,7 +244,6 @@ I recently passed the **CompTIA Security+** certification and am currently study
        <span class="note">[Used netcat & socat (bind and reverse shells), metasploit – msfvenom & multihandler (for payload generation/handling), RDP/SSH & SCP (for RCE & file transfer)]
        </span>
      </li>
-     <!--
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/PrivilegeEscalation2-Linux.pdf"
          target="_blank" rel="noopener noreferrer"
@@ -252,9 +251,8 @@ I recently passed the **CompTIA Security+** certification and am currently study
         Part 2: Linux Privilege Escalation
        </a>
        <br>
-       <span class="note">[Used ]</span>
+       <span class="note">[Used: Linux commands (for enumeration/searches), www.cvedetails.com/ (for vulnerability research), exploit-db.com (for  available payloads) Metasploit – msfvenom & multihandler (for payload generation/handling), gtfobin.githug.io (for sudo/suid executables), SSH & SCP [for initial access | RCE & file transfers (uploads)], Python3 -m http.sever [port] & wget [uri]:[port]/file_path/file [for file service & transfers (downloads)], John the Ripper (for password hash crack)]</span>
      </li>
-     -->
    </ul>
  </li>
 </ul>
