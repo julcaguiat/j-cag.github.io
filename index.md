@@ -251,7 +251,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
         Part 2: Linux Privilege Escalation
        </a>
        <br>
-       <span class="note">[Used: Linux commands (for enumeration/searches), www.cvedetails.com/ (for vulnerability research), exploit-db.com (for  available payloads) Metasploit – msfvenom & multihandler (for payload generation/handling), gtfobin.githug.io (for sudo/suid executables), SSH & SCP [for initial access | RCE & file transfers (uploads)], Python3 -m http.sever [port] & wget [uri]:[port]/file_path/file [for file service & transfers (downloads)], John the Ripper (for password hash crack)]</span>
+       <span class="note">[Used: Linux commands (for enumeration/searches), cvedetails.com (for vulnerability research), exploit-db.com (for available payloads), Metasploit – MSFvenom & multihandler (for payload generation/handling), gtfobin.githug.io (for sudo/suid executables), SSH & SCP [for initial access/RCE & file transfers (uploads)], Python3 -m http.sever [port] & wget [uri]:[port]/file_path/file [for http file server & transfers (downloads)], John the Ripper (for cracking password hashes)]</span>
      </li>
    </ul>
  </li>
