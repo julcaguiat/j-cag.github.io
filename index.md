@@ -227,6 +227,16 @@ I recently passed the **CompTIA Security+** certification and am currently study
        <span class="note">[used ssh (initial access), msfvenom (payload generation), exploit/multi/handler (reverse shell catching), python3 -m http.server &lt;LOCAL_HOST&gt;&lt;PORT&gt; (web server), wget &lt;uri&gt;:&lt;port&gt;/&lt;file&gt; (file download)]
        </span>
      </li>
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Metasploit3-Meterpreter.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Open Metasploit Part 3: Meterpreter (PDF)">
+        Part 3: Meterpreter
+       </a>
+       <br>
+       <span class="note">[used Metasploit ‘exploit/windows/smb/psexec’ module to gain initial access (session creation) and other enumeration modules to gather information; Meterpreter commands (for discovery/enumeration, file searches, etc); ps, migrate &lt;PID&gt; commands (for password hashes extraction); crackstation.net (for cracking password hashes)]
+       </span>
+     </li>
    </ul>
  </li>
 </ul>
