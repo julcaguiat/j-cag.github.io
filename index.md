@@ -234,7 +234,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
         Part 3: Meterpreter
        </a>
        <br>
-       <span class="note">[used Metasploit ‘exploit/windows/smb/psexec’ module to gain initial access (session creation) and other enumeration modules to gather information; Meterpreter commands (for discovery/enumeration, file searches, etc); ps, migrate &lt;PID&gt; commands (for password hashes extraction); crackstation.net (for cracking password hashes)]
+       <span class="note">[used ‘exploit/windows/smb/psexec’ module to gain initial access (session creation); other enumeration modules to gather information; Meterpreter commands (for discovery/enumeration, file searches, etc); ps, migrate &lt;PID&gt;, & hashdump commands (for password hashes extraction); crackstation.net (for cracking password hashes)]
        </span>
      </li>
    </ul>
