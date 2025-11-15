@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 11:06:2025<br>
+**Updated:** 11:15:2025<br>
 **Started:** 08:15:2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
@@ -263,11 +263,18 @@ I recently passed the **CompTIA Security+** certification and am currently study
        <br>
        <span class="note">[Used: Linux commands (for enumeration/searches), cvedetails.com (for vulnerability research), exploit-db.com (for available payloads), Metasploit – MSFvenom & multihandler (for payload generation/handling), gtfobin.githug.io (for sudo/suid executables), SSH & SCP [for initial access/RCE & file transfers (uploads)], Python3 -m http.sever [port] & wget [uri]:[port]/file_path/file [for http file server & transfers (downloads)], John the Ripper (for cracking password hashes)]</span>
      </li>
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/PrivilegeEscalation3-Windows.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Open Privilege Escalation Part 3: Windows (PDF)">
+        Part 3: Windows Privilege Escalation
+       </a>
+       <br>
+       <span class="note">[Used: MSFvenom (for payload generation), xfreerdp utitily (for remote connection from linux to windows), Python3 -m http.sever [port] & wget [uri]:[port]/file_path/file [for http file server & transfers (downloads)], smbserver.py (to start a simple SMB server), secretsdump.py (to retrieve the users' password hashes), psexec.py (to perform a Pass-the-Hash attack), RogueWinRM exploit (for impersonation method privilege escalation)]</span>
+     </li>
    </ul>
  </li>
 </ul>
-
-
 
 
 **🛡️ SOC 1**
