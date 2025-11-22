@@ -85,7 +85,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 </ul>
 <ul class="tool-list">
   <li>
-    Hydra [Tool for Network Password Cracking]
+    Hydra [tool for network password cracking]
     <ul class="tool-sublist">
       <li>
         <a href="/j-cag.github.io/images/100thm-pdfs/Hydra.pdf"
@@ -104,7 +104,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
-    Nmap [Tool for network scanning] 
+    Nmap [tool for network scanning] 
      <br>
        <span class="note">(hosts | port status | service/version dicovery, and OS detection)</span>
     <ul class="tool-sublist">
@@ -146,7 +146,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 
 <ul class="tool-list">
   <li>
-    Burp Suite [Tool for web application security testing]
+    Burp Suite [tool for web application security testing]
      <br>
        <span class="note">(intercept, modify, and analyze HTTP(S) traffic, scan for vulnerabilities, and automate web security assessments)</span>
     <ul class="tool-sublist">
@@ -221,7 +221,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
 </ul>
 <ul class="tool-list">
  <li>
-   Metasploit 
+   Metasploit [tool for payload generation and systems exploitation]
    <ul class="tool-sublist">
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/Metasploit1-Introduction.pdf"
