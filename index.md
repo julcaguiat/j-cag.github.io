@@ -83,6 +83,24 @@ I recently passed the **CompTIA Security+** certification and am currently study
     </ul>
   </li>
 </ul>
+<ul class="tool-list">
+  <li>
+    Hydra [Tool for Network Password Cracking]
+    <ul class="tool-sublist">
+      <li>
+        <a href="/j-cag.github.io/images/100thm-pdfs/Hydra.pdf"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Hydra (PDF)">
+           Hydra
+        </a>
+        <br>
+        <span class="note">[SSH Password Cracking Command: (hydra -l &lt;username&gt; -P &lt;full path to pass&gt; MACHINE_IP -t 4 ssh)  | Post Web Form Login Password Cracking Command: (hydra -l &lt;username&gt; -P &lt;wordlist&gt; MACHINE_IP http-post-form "/login:username=^USER^&password=^PASS^:F=&lt;incorrect&gt;" -V)]
+        </span>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <ul class="tool-list">
   <li>
