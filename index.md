@@ -85,7 +85,7 @@ Having recently earned the **CompTIA Security+** certification and have successf
 </ul>
 <ul class="tool-list">
   <li>
-    Hydra [tool for network password cracking]
+    Hydra [password cracking tool]
     <ul class="tool-sublist">
       <li>
         <a href="/j-cag.github.io/images/100thm-pdfs/Hydra.pdf"
@@ -104,7 +104,7 @@ Having recently earned the **CompTIA Security+** certification and have successf
 
 <ul class="tool-list">
   <li>
-    Nmap [tool for network scanning] 
+    Nmap [scanning tool] 
      <br>
        <span class="note">(hosts | port status | service/version dicovery, and OS detection)</span>
     <ul class="tool-sublist">
