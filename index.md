@@ -299,7 +299,7 @@ Having recently earned the **CompTIA Security+** certification and have successf
 
 <ul class="tool-list">
  <li>
-   Splunk
+   Threat Detection Tools
    <ul class="tool-sublist">
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/Splunk_TheBasic.pdf"
@@ -308,19 +308,17 @@ Having recently earned the **CompTIA Security+** certification and have successf
          Spunk: The Basic
        </a>
        <br>
-       <span class="note">[Learn Splunk components, Navigating Splunk Interface, Uploading data (adding data) to Splunk (ex. VPN logs), and Basic search commands]</span>
+       <span class="note">[Learn Splunk components | Navigate Splunk Interface | Upload data (adding data) to Splunk (ex. VPN logs) | Basic search commands]</span>
      </li>
-<!-- 
      <li>
-       <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
+       <a href="/j-cag.github.io/images/100thm-pdfs/ElasticStack_TheBasic.pdf"
          target="_blank" rel="noopener noreferrer"
-         title="Open Vulnerability Part 2: Vulnerability Capstone (PDF)">
-        Part 2: Vulnerability Capstone
+         title="ELK Stack: The Basic (PDF)">
+        ELK Stack: The Basic
        </a>
        <br>
-       <span class="note">[Used Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
+       <span class="note">[Learn ELK components | Explore different features of ELK | Search and filter data | Investigate VPN logs | Create visualizations and dashboards]</span>
      </li>
--->     
    </ul>
  </li>
 </ul>
