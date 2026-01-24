@@ -1,14 +1,14 @@
 ﻿
-**Updated:** 11:22:2025 [added: hydra]<br> 
+**Updated:** 1:24:2025 [added: Splunk: The Basic]<br> 
 **Started:** 08:15:2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
 ### **About This Blog**
 This blog documents my **learning journey in cybersecurity and networking**, combining study, hands-on projects, and practical exercises. I also use platforms like **TryHackMe** to supplement my learning and deepen my understanding of real-world scenarios.<br>
 <br>
-I’ve built a **virtual lab** that serves as my personal playground for testing, experimentation, and future pentesting practice. For now, my primary focus is **developing strong networking skills** through virtual implementations, but I will eventually build network projects implemented in the **cloud environment and physical devices** as I progress.<br>
+I’ve built a **virtual and physical lab** which serves as my personal playground for testing, experimentating with network implementations and pentesting testing. 
 
-I recently passed the **CompTIA Security+** certification and am currently studying for my **CCNA** certification exam, sharing insights, lab setups, and step-by-step tutorials along the way. This blog is meant to be both a **personal reference** and a **resource for others** following a similar path in cybersecurity and networking.<br>
+Having recently earned the **CompTIA Security+** certification and have successfully passed the **CCNA** certification exam, I use this blog as both a **personal reference** and a **resource for others** looking to build their own labs. I hope this blog can be a helpful guide, even in the smallest way.<br>
 
 💡**Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
