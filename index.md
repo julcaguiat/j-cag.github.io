@@ -219,6 +219,7 @@ I recently passed the **CompTIA Security+** certification and am currently study
    </ul>
  </li>
 </ul>
+
 <ul class="tool-list">
  <li>
    Metasploit [tool for payload generation and systems exploitation]
@@ -294,8 +295,36 @@ I recently passed the **CompTIA Security+** certification and am currently study
  </li>
 </ul>
 
-
 **🛡️ SOC 1**
+
+<ul class="tool-list">
+ <li>
+   Splunk
+   <ul class="tool-sublist">
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Splunk_TheBasic.pdf"
+          target="_blank" rel="noopener noreferrer"
+          title="Splunk: The Basic (PDF)">
+         Spunk: The Basic
+       </a>
+       <br>
+       <span class="note">[Learn Splunk components, Navigating Splunk Interface, Uploading data (adding data) to Splunk (ex. VPN logs), and Basic search commands]</span>
+     </li>
+<!-- 
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Vulnerability2-Capstone.pdf"
+         target="_blank" rel="noopener noreferrer"
+         title="Open Vulnerability Part 2: Vulnerability Capstone (PDF)">
+        Part 2: Vulnerability Capstone
+       </a>
+       <br>
+       <span class="note">[Used Exploit-DB, configured vetted exploit scripts & Netcat to deploy payloads and achieve RCE on authorized test systems]</span>
+     </li>
+-->     
+   </ul>
+ </li>
+</ul>
+
 
 ---
 ---
