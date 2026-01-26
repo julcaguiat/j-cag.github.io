@@ -1,14 +1,12 @@
 ﻿
-**Updated:** 1:24:2026 [added: Splunk: The Basic]<br> 
-**Started:** 08:15:2025
+**Updated:** 01-24-2026 [added: Splunk: The Basic (TryHackMe walkthroug)]<br> 
+**Started:** 08-15-2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
 ### **About This Blog**
-This blog documents my **learning journey in cybersecurity and networking**, combining study, hands-on projects, and practical exercises. I also use platforms like **TryHackMe** to supplement my learning and deepen my understanding of real-world scenarios.<br>
-<br>
-I’ve built a **virtual and physical lab** which serves as my personal playground for testing, experimentating with network implementations and pentesting testing. 
 
-Having recently earned the **CompTIA Security+** certification and have successfully passed the **CCNA** certification exam, I use this blog as both a **personal reference** and a **resource for others** looking to build their own labs. I hope this blog can be a helpful guide, even in the smallest way.<br>
+This blog documents my learning journey in **cybersecurity** and **networking**, combining study, hands-on projects, and practical exercises. I use platforms such as **PacketTracer** for network simulations and  **TryHackMe** for cybesecurity hands-on lab to deepen my understanding of real-world scenarios. I have also implemented **virtual** and **physical** labs as a personal playground for practicing **network implementations** and **penetration testing**. Having recently earned the **CompTIA Security+** and **CCNA** certifications and currently studying **Server+**. I maintain this blog to document my projects, serve as a personal reference, and provide a resource for others. I hope it can be helpful, even in the smallest way.
+
 
 💡**Tip:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
 
@@ -61,8 +59,36 @@ Having recently earned the **CompTIA Security+** certification and have successf
 - [⬇️ SCP (Secure Copy Protocol): Guide for Secure File Transfer Between Machines [Download Available]](#SCP)
 
 ---
-**My Favorite TryHackMe Rooms [Walkthroughs]**
 
+**🛡️ TryHackMe SOC Simulations [Walkthroughs]** 
+
+<ul class="tool-list">
+ <li>
+   Phishing Scenario SOC Sim
+   <ul class="tool-sublist">
+     <li>
+       <a href="/j-cag.github.io/images/101thm_SOC_SIM/SOCSim_Phishing1.pdfs"
+          target="_blank" rel="noopener noreferrer"
+          title="Phishing 1 SOC Sim (PDF)">
+         SOC Sim 1: Introduction to Phishing
+       </a>
+       <br>
+       <span class="note">[Learn to monitor and analyse real-time alerts | Identify and document critical events | Create detailed case reports based on your observations]</span>
+     </li>
+     <li>
+       <a href="/j-cag.github.io/images/101thm_SOC_SIM/SOCSim_Phishing2.pdfs"
+         target="_blank" rel="noopener noreferrer"
+         title="Phishing 2 SOC Sim (PDF)">
+        SOC Sim 2: Phishing Unfolding
+       </a>
+       <br>
+       <span class="note">[Learn to monitor and analyse real-time alerts | Identify and document critical events | Create detailed case reports based on your observations]</span>
+     </li>
+   </ul>
+ </li>
+</ul>
+
+**My Favorite TryHackMe Rooms [Walkthroughs]**
 
 **⚔️ Jr. Pentester**<br>
 
