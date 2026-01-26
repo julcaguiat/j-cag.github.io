@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 01-24-2026 [added: Splunk: The Basic (TryHackMe walkthroug)]<br> 
+**Updated:** 01-25-2026 [added: TryHackMe SOC Sim]<br> 
 **Started:** 08-15-2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
