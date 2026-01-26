@@ -67,7 +67,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
    Phishing Scenario SOC Sim
    <ul class="tool-sublist">
      <li>
-       <a href="/j-cag.github.io/images/101thm_SOC_SIM/SOCSim_Phishing1.pdfs"
+       <a href="/j-cag.github.io/images/101thm_SOC_SIM/SOCSim_Phishing1.pdf"
           target="_blank" rel="noopener noreferrer"
           title="Phishing 1 SOC Sim (PDF)">
          SOC Sim 1: Introduction to Phishing
@@ -76,7 +76,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
        <span class="note">[Learn to monitor and analyse real-time alerts | Identify and document critical events | Create detailed case reports based on your observations]</span>
      </li>
      <li>
-       <a href="/j-cag.github.io/images/101thm_SOC_SIM/SOCSim_Phishing2.pdfs"
+       <a href="/j-cag.github.io/images/101thm_SOC_SIM/SOCSim_Phishing2.pdf"
          target="_blank" rel="noopener noreferrer"
          title="Phishing 2 SOC Sim (PDF)">
         SOC Sim 2: Phishing Unfolding
