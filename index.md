@@ -88,6 +88,8 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
  </li>
 </ul>
 
+---
+
 **My Favorite TryHackMe Rooms [Walkthroughs]**
 
 **⚔️ Jr. Pentester**<br>
@@ -494,7 +496,7 @@ To keep things organized, **the guide is split into five parts:**<br>
 
 ---
 
-<h2 id="SCP">🔑 SCP (Secure Copy Protocol): Guide for Secure File Transfer Between Machines</h2>
+<h2 id="SCP">🔑 SCP (Secure Copy Protocol): Guide for Secure File/Directory Transfer</h2>
 
 - 👉 [📖 View How to Use SCP Guide (useful for secure file transfers between different machines)](topic-pages/16SSH_SCP_guide.md) 
  
