@@ -330,13 +330,22 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
    Threat Detection Tools
    <ul class="tool-sublist">
      <li>
-       <a href="/j-cag.github.io/images/100thm-pdfs/Splunk_TheBasic.pdf"
+       <a href="/j-cag.github.io/images/100thm-pdfs/Splunk1_TheBasic.pdf"
           target="_blank" rel="noopener noreferrer"
           title="Splunk: The Basic (PDF)">
          Spunk: The Basic
        </a>
        <br>
-       <span class="note">[Learn Splunk components | Navigate Splunk Interface | Upload data (adding data) to Splunk (ex. VPN logs) | Basic search commands]</span>
+       <span class="note">[Splunk components | Navigate Splunk Interface | Upload data (adding data) to Splunk (ex. VPN logs) | Basic search commands]</span>
+     </li>
+     <li>
+       <a href="/j-cag.github.io/images/100thm-pdfs/Splunk2_Exploring_SPL.pdf"
+          target="_blank" rel="noopener noreferrer"
+          title="Splunk: Exploring SPL (Splunk Processing Language) (PDF)">
+         Spunk: Exploring SPL (Splunk Processing Language)
+       </a>
+       <br>
+       <span class="note">[Search & Reporting app interface (Splunk home page) overview | SPL commands | Filter, structure, & transform SPL results]</span>
      </li>
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/ElasticStack_TheBasic.pdf"
@@ -345,7 +354,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
         ELK Stack: The Basic
        </a>
        <br>
-       <span class="note">[Learn ELK components | Explore different features of ELK | Search and filter data | Investigate VPN logs | Create visualizations and dashboards]</span>
+       <span class="note">[ELK components | Features of ELK | Search and filter data | Investigate VPN logs | Create visualizations and dashboards]</span>
      </li>
    </ul>
  </li>
