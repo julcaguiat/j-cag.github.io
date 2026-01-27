@@ -90,7 +90,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 
 ---
 
-**My Favorite TryHackMe Rooms [Walkthroughs]**
+**Hand-picked TryHackMe Rooms [Walkthroughs]**
 
 **⚔️ Jr. Pentester**<br>
 
