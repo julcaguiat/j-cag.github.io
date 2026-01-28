@@ -1,4 +1,14 @@
-##
+## 🌐 Networking Projects / Labs
+
+- **Packet Tracer Networking Labs**
+  - [Lab 1: Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick](./images/102_PacketTracer_PDFs/Lab1.pdf)
+    <br>
+    <span style="font-size:0.9em; color:gray;">
+    Learn how to design and implement a segmented network using proper subnetting, VLANs, trunking, and Router-on-a-Stick for inter-VLAN routing. This lab also introduces core management and security practices such as configuring a management VLAN, enabling NTP, and securing device access with local authentication and SSH. Finally, you verify connectivity, routing, and secure remote access using essential show commands.
+    </span>
+
+
+<!--
 **🌐 Networking Projects / Labs**
 
 <ul class="tool-list">
@@ -14,7 +24,7 @@
        <br>
        <span class="note">Learn how to design and implement a segmented network using proper subnetting, VLANs, trunking, and Router-on-a-Stick for inter-VLAN routing. This lab also introduces core management and security practices such as configuring a management VLAN, enabling NTP, and securing device access with local authentication and SSH. Finally, you verify connectivity, routing, and secure remote access using essential show commands.</span>
      </li>
-     <!-- 
+     
      <li>
        <a href="/j-cag.github.io/images/100thm-pdfs/Splunk2_Exploring_SPL.pdf"
           target="_blank" rel="noopener noreferrer"
@@ -33,7 +43,8 @@
        <br>
        <span class="note">[ELK components | Features of ELK | Search and filter data | Investigate VPN logs | Create visualizations and dashboards]</span>
      </li>
-     -->
+     
    </ul>
  </li>
 </ul>
+-->
