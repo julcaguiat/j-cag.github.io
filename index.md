@@ -59,11 +59,11 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
    <br>
   <li>
-    <a href="topic-pages/22packettracer.html" target="_blank" rel="noopener noreferrer">
-     🌐 [CCNA Packet Tracer Networking Labs]
+    <a href="topic-pages/22packettracer.html">
+     🌐 CCNA Packet Tracer Networking Labs
     </a>
-    🌐 [CCNA Packet Tracer Networking Labs] (topic-pages/22packettracer.md)
-    *[Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick, ...]*
+    <br>
+    [Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick, ...]
   </li>
  <br>
 </ol>
