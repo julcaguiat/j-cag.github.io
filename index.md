@@ -28,7 +28,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   *[Integrating Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]*
 
 ## 🌐 CCNA Packet Tracer Networking Labs
-- [Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick](topic-pages/22packettracer.md)  
+- [Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick](topic-pages/22packettracer.html)  
   *[Learn subnetting, VLANs, trunking, and Router-on-a-Stick concepts]*
 <!--
 <ol class="tool-list">
