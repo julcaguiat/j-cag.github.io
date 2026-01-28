@@ -65,7 +65,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
      🌐 CCNA Packet Tracer Networking Labs
     </a>
     <br>
-    [Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick, ...]
+    [Core Network Foundations — Subnetting, VLANs, Inter-VLAN Routing (RoaS), STP, ...]
   </li>
  <br>
 </ol>
