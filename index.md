@@ -42,15 +42,10 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
    <br>
   <li>
-    <a href="topic-pages/22packettracer.md" title="Jump to Upgraded Home Lab">
-      🌐 CCNA Packet Tracer Networking Labs
-    </a>
-    <br>
-    <span class="note">[Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick,... ]</span>
+    🌐 [CCNA Packet Tracer Networking Labs] (topic-pages/22packettracer.md)
+    *[Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick, ...]*
   </li>
  <br>
-
-
 </ol>
 
 <!--
