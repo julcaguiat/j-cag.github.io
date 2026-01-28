@@ -15,22 +15,24 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 ---
 
 **Hands-on Lab Projects**
-#### 🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab
+1. ##### 🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab
 - [Jump to Virtual SOC Setup](#virtual-soc-home-lab)  
   *[Kali Linux & Windows10 VMs w/ Wazuh SIEM (HIDS) on VirtualBox running on Windows 11]*
 
-#### 🔥 Upgraded Home Lab
+2. ##### 🔥 Upgraded Home Lab
 - [Jump to Upgraded Home Lab](#upgraded-home-lab)  
   *[Integrating pfSense Virtual Firewall/Router & Static IP Setup]*
 
-#### 🛠️ [WORK IN PROGRESS] Personal Cybersecurity Home Lab
+3. ##### 🛠️ [WORK IN PROGRESS] Personal Cybersecurity Home Lab
 - [Jump to Personal Cybersecurity Home Lab](#personal-home-lab)  
   *[Integrating Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]*
 
-#### 🌐 CCNA Packet Tracer Networking Labs
+4. ##### 🌐 CCNA Packet Tracer Networking Labs
 - [Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick](topic-pages/22packettracer.html)  
   *[Learn subnetting, VLANs, trunking, and Router-on-a-Stick concepts]*
 
+---
+---
 <ol class="tool-list">
   <li>
     <a href="#virtual-soc-home-lab" title="Jump to Virtual SOC Setup">
@@ -57,7 +59,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
    <br>
   <li>
-    <a href="topic-pages/22packettracer.md" target="_blank" rel="noopener noreferrer">
+    <a href="topic-pages/22packettracer.html" target="_blank" rel="noopener noreferrer">
      🌐 [CCNA Packet Tracer Networking Labs]
     </a>
     🌐 [CCNA Packet Tracer Networking Labs] (topic-pages/22packettracer.md)
@@ -66,13 +68,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
  <br>
 </ol>
 
-
-- [🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab: [Kali Linux & Windows10 VMs w/ Wazuh SIEM on VirtualBox running on Windows 11]](#virtual-soc-home-lab)
-
-- [🔥 Upgraded Home Lab: Integrating pfSense Virtual Firewall/Router & Static IP Setup](#upgraded-home-lab)
-
-- [🛠️ [!WORK-IN-PROGRESS!] Personal Cybersecurity Home Lab: Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)](#Personal-Home-Lab)
--->
+---
 ---
 **Downloadable Command Cheat Sheets**
 
