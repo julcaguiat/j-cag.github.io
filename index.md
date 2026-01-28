@@ -15,6 +15,8 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 ---
 
 **Hands-on Lab Projects**
+
+<!--
 1. ##### 🖥️ Setting up a Basic Virtual SOC (Security Operation Center) Home Lab
 - [Jump to Virtual SOC Setup](#virtual-soc-home-lab)  
   *[Kali Linux & Windows10 VMs w/ Wazuh SIEM (HIDS) on VirtualBox running on Windows 11]*
@@ -30,7 +32,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 4. ##### 🌐 CCNA Packet Tracer Networking Labs
 - [Core Network Foundations — Subnetting, VLANs, and Router-on-a-Stick](topic-pages/22packettracer.html)  
   *[Learn subnetting, VLANs, trunking, and Router-on-a-Stick concepts]*
-
+-->
 ---
 ---
 <ol class="tool-list">
