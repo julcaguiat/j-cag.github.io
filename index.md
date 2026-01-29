@@ -2,7 +2,7 @@
 **Updated:** 01-29-2026 [added: PacketTracer Lab2]<br> 
 **Started:** 08-15-2025
 
-# **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
+# **Welcome to my Cyber/Network Projects Blog!**<br>
 ### **About This Blog**
 
 This blog documents my learning journey in **cybersecurity** and **networking**, combining study, hands-on projects, and practical exercises. I use platforms such as **PacketTracer** for network simulations and  **TryHackMe** for cybesecurity hands-on lab to deepen my understanding of real-world scenarios. I have also implemented **virtual** and **physical** labs as a personal playground for practicing **network implementations** and **penetration testing**. Having recently earned the **CompTIA Security+** and **CCNA** certifications and currently studying **Server+**. I maintain this blog to document my projects, serve as a personal reference, and provide a resource for others. I hope it can be helpful, even in the smallest way.
@@ -35,10 +35,12 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
  <br>
   <li>
     <a href="#personal-home-lab" title="Jump to Personal Cybersecurity Home Lab">
-      🛠️ [WORK IN PROGRESS] Personal Cybersecurity Home Lab
+      🛠️ [WORK IN PROGRESS] Hybrid (Physical & Virtual) Cybersecurity Home Lab
     </a>
     <br>
+    <!--
     <span class="note">[Integrating Cisco 1841 Router & 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
+    -->
   </li>
    <br>
   <li>
