@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 01-28-2026 [added: PacketTracer Lab1]<br> 
+**Updated:** 01-29-2026 [added: PacketTracer Lab2]<br> 
 **Started:** 08-15-2025
 
 # **Welcome to my Cyber/Net Hands-On Projects Blog!**<br>
@@ -38,7 +38,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
       🛠️ [WORK IN PROGRESS] Personal Cybersecurity Home Lab
     </a>
     <br>
-    <span class="note">[Integrating Cisco 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
+    <span class="note">[Integrating Cisco 1841 Router & 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
   </li>
    <br>
   <li>
