@@ -74,6 +74,8 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 
 ---
 
+<h2 id="tryhackme">🖥️</h2>
+
 **🛡️ TryHackMe SOC Simulations [Walkthroughs]** 
 
 <ul class="tool-list">
