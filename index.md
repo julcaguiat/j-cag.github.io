@@ -27,7 +27,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   <br>
   <li>
     <a href="#upgraded-home-lab" title="Jump to Upgraded Home Lab">
-      🔥 Upgraded Home Lab
+      🔥 Upgraded Home Virtual Lab
     </a>
     <br>
     <span class="note">[Integrating pfSense Virtual Firewall/Router & Static IP Setup]</span>
@@ -45,8 +45,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
    <br>
   <li>
     <a href="topic-pages/22packettracer.html">
-     🌐 CCNA Packet Tracer Networking Labs
-    </a>
+     🌐 Enterprise Network Architecture Project (Cisco Packet Tracer)</a>
     <br>
     [Core Network Foundations — Subnetting, VLANs, Inter-VLAN Routing (RoaS), STP, ...]
   </li>
