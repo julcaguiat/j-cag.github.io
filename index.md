@@ -47,7 +47,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
     <a href="topic-pages/22packettracer.html">
      🌐 Enterprise Network Architecture Project (Cisco Packet Tracer)</a>
     <br>
-    [Core Network Foundations — Subnetting, VLANs, Inter-VLAN Routing (RoaS), STP, ...]
+    [Designing, implementing, and documenting a multi-tier enterprise campus network with VLAN segmentation, inter-VLAN routing, Layer 2/3 redundancy, WAN connectivity, and enterprise services]
   </li>
  <br>
  <li>

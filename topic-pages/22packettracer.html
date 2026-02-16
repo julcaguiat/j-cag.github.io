@@ -23,27 +23,24 @@
   </style>
 </head>
 <body>
-
 <h2>🌐 Enterprise Network Architecture Project (Cisco Packet Tracer)</h2>
-
 <ul class="tool-list">
   <li>
-<!--    <b>&nbsp;&nbsp;&nbsp;&nbsp;Core Network Foundation</b>  -->
     <br><br>
     <ul class="tool-sublist">
       <b>Phase 1 — Core Network Foundation</b>
-      <br><br>
+      <br>
       <li>
         <a href="/j-cag.github.io/images/102_PacketTracer_PDFs/Lab1.pdf"
            target="_blank" rel="noopener noreferrer"
            title="Packet Tracer Lab 1 (PDF)">
-          Lab 1: Subnetting, VLAN & Trunk Configuration, Router-on-a-Stick Inter-VLAN Routing, NTP, and Secure Device Access
+          Lab 1: Subnetting (VLSM), VLAN & Trunk Configuration, Router-on-a-Stick Inter-VLAN Routing, NTP, and Secure Device Access
         </a>
         <span class="note">
-           This lab focuses on <b>designing and implementing a segmented network</b> using proper <b>subnetting</b>, <b>VLANs</b>, <b>trunking</b>, and <b>Router-on-a-Stick</b> for <b>inter-VLAN routing</b>. This lab also introduces <b>core management and security practices</b> such as configuring a <b>management VLAN</b>, enabling <b>NTP</b>, and securing device access with <b>local authentication</b> and <b>SSH</b>. 
+          Status: Completed<br>
+           Design and implement a segmented network using proper <b>subnetting (VLSM)</b>, <b>VLANs</b>, and  <b>trunking</b>. Configure <b>Router-on-a-Stick</b> for <b>inter-VLAN routing</b>, establish a  <b>management VLAN</b>, enable <b>NTP</b> for time sycnhronization, and secure device access using <b>local authentication</b> and <b>SSH</b>. 
         </span>
       </li>
-      <br>
       <li>
         <a href="/j-cag.github.io/images/102_PacketTracer_PDFs/Lab2.pdf"
            target="_blank" rel="noopener noreferrer"
@@ -51,27 +48,25 @@
           Lab 2: Building Redundant Layer 2 Networks with STP, EtherChannel, and VTP
         </a>
         <span class="note">
-          This lab focuses on designing a <b>redundant Layer 2 switching topology</b> using <b>VLANs</b>, <b>trunking</b>, <b>EtherChannel</b>, and <b>Rapid PVST+</b>. It demonstrates how Spanning Tree Protocol (STP) prevents switching loops while EtherChannel provides increased bandwidth and link redundancy between switches. The lab also implements VTP for centralized VLAN management and applies best practices such as <b>native VLAN reassignment</b>, <b>PortFast</b>, and <b>BPDU Guard</b> to improve network stability and security.
+          Status: Completed<br>
+          implement a <b>redundant Layer 2 switching topology</b> using <b>VLANs</b>, <b>trunking</b>,  <b>Rapid PVST+</b>, and <b>EtherChannel</b>. Configure <b>VTP</b> for centralized VLAN management and apply best practices including <b>native VLAN reassignment</b>, <b>PortFast</b>, and <b>BPDU Guard</b> to improve network stability and prevent loops.
         </span>
       </li>
-
-      <br><br>
+      <br>
       <b>Phase 2 — Enterprise Routing & WAN Connectivity</b>
-      <br><br>
+      <br>
       <li>
         <a href="/j-cag.github.io/images/102_PacketTracer_PDFs/Lab3.pdf"
            target="_blank" rel="noopener noreferrer"
            title="Packet Tracer Lab 3">
           Lab 3: Implementing Enterprise VLANs: VLSM, VTP, Voice VLANs, EtherChannel, and 
           Static IP Routing
-
         </a>
         <span class="note">
-          This lab implements an enterprise-style campus network using best practices, including <b>VLSM IP addressing</b>, <b>VTP-managed VLANs<</b>, <b>Layer 2 and Layer 3 static EtherChannel</b> for redundancy, <b>voice VLANs for IP phones</b>, a <b>dedicated management VLAN, and native VLAN reassignment</b>. A <b>multi-tier core, distribution, and access topology</b> reinforces Layer 2 design, VLAN segmentation, trunking, VoIP integration, and static routing for reliable inter-VLAN and inter-office connectivity.
+          Status: Completed<br>
+          Build an enterprise-style campus network with <b>VLSM IP addressing</b>, <b>VTP-managed VLANs<</b>, <b>Layer 2 and Layer 3 static EtherChannel</b> for redundancy, <b>voice VLANs for IP phones</b>, a <b>dedicated management VLAN, and native VLAN reassignment</b>. Configure <b> </b>static routing</b> for inter-VLAN and inter-office connectivity.
         </span>
       </li>
-      
-      <br><br>
       <li>
         <a href="/j-cag.github.io/images/102_PacketTracer_PDFs/Lab4.pdf"
            target="_blank" rel="noopener noreferrer"
@@ -79,53 +74,45 @@
           Lab 4: Enterprise Campus Network with Redundancy, Dynamic Routing, WAN Connectivity, ACLs, and NAT/PAT
         </a>
         <span class="note">
-          This lab builds on Lab 3 by extending the enterprise campus network to include high availability, <b>inter-VLAN security</b>, and <b> Serial PPP for WAN</b> connectivity. Key additions include <b>ACLs</b> to enforce access policies, <b>NAT with PAT</b> for controlled internet access, link aggregation via <b>LACP</b>, <b>PAgP</b>, and <b>static EtherChannels</b>, <b>HSRP</b> for first-hop redundancy, <b>PPP with CHAP</b> on WAN links, and <b>OSPF</b> on LAN for dynamic routing. 
+          Status: Completed<br>
+          Extends the enterprise campus network to include high availability and <b>inter-VLAN security</b>. <b>HSRP</b> for first-hop redundancy, <b>ACLs</b> for traffic control, <b>NAT with PAT</b> internet access, <b>PPP with CHAP on WAN</b> links, <b>PPP with CHAP</b> on WAN links, <b>OSPF</b> on LAN for dynamic routing, and link aggregation via <b>LACP</b>, <b>PAgP</b>.
         </span>
       </li>
-<!--
       <br><br>
-      <b>Phase 3 — Network Services & Wireless Architecture</b>
-      <br><br>
+      <b>Phase 3 — Enterprise Network Services, DNS/DHCP, Syslog/SNMP, Security, Hardnening, Wireless, IPv6, and Server Segmentation</b>
+      <br>
       <li>
         <a href="/j-cag.github.io/images/102_PacketTracer_PDFs/Lab5.pdf"
            target="_blank" rel="noopener noreferrer"
            title="Packet Tracer Lab 5">
-          Lab 4: Enterprise Campus Network with Redundancy, Dynamic Routing, WAN Connectivity, ACLs, and NAT/PAT
+          Lab 5: Enterprise Network Services Implementation
         </a>
         <span class="note">
-          This lab builds on Lab 3 by extending the enterprise campus network to include high availability, <b>inter-VLAN security</b>, and <b> Serial PPP for WAN connectivity</b>. Key additions include <b>ACLs to enforce access policies</b>, <b>NAT with PAT<b> for controlled internet access, link aggregation via <b>LACP</b>, <b>PAgP</b>, and <b>static EtherChannels</b>, <b>HSRP</b> for first-hop redundancy, <b>PPP with CHAP</b> on WAN links, and <b>OSPF</b> on LAN for dynamic routing. 
+          Status: Completed | Fully Documented<br>
+          Deploy critical enterprise network services and foundational security controls. Configure NAT/PAT on EDGE routers, NTP for time synchronization, centralized <b>Syslog</b> and <b>SNMP</b> monitoring, <b>AAA</b> and <b>SSH</b> for secure device access, <b>DNS</b> for name resolution and <b>DHCP</b> for end-device addressing, and <b>ACLs</b> for inter-VLAN traffic enforcement. Integrate end devices, wireless controllers, and lightweight access points while verifying service functionality and troubleshooting network behavior.
         </span>
       </li>
-
       <br><br>
-      <b>Phase 4 — Infrastructure Security & IPv6 Deployment</b>
+      <b>Phase 6 — Infrastructure Security, IPv6 Deployment,  (WORK-IN-PROGRESS!)</b>
       <br><br>
       <li>
         <a href="/j-cag.github.io/images/102_PacketTracer_PDFs/Lab6.pdf"
            target="_blank" rel="noopener noreferrer"
            title="Packet Tracer Lab 6">
-          Lab 4: Enterprise Campus Network with Redundancy, Dynamic Routing, WAN Connectivity, ACLs, and NAT/PAT
+          Lab 6: Enterprise Security, Wireless, IPv6, Server Segmentation, and Redundancy
         </a>
         <span class="note">
-          This lab builds on Lab 3 by extending the enterprise campus network to include high availability, <b>inter-VLAN security</b>, and <b> Serial PPP for WAN connectivity</b>. Key additions include <b>ACLs to enforce access policies</b>, <b>NAT with PAT<b> for controlled internet access, link aggregation via <b>LACP</b>, <b>PAgP</b>, and <b>static EtherChannels</b>, <b>HSRP</b> for first-hop redundancy, <b>PPP with CHAP</b> on WAN links, and <b>OSPF</b> on LAN for dynamic routing. 
+          Status: Work-in-Progress<br>
+          Enhance and expand the enterprise network with advanced services, security, and redundancy. Servers will be moved to a dedicated services VLAN or Layer 3 area for improved segmentation and management. A second EDGE router will be deployed to provide redundancy for WAN and internet connectivity. Enterprise Wi-Fi will be fully implemented using wireless LAN controllers (WLCs) and lightweight access points (LWAPs) for secure and centralized wireless access. IPv6 addressing will be introduced alongside existing IPv4 infrastructure for dual-stack support. Additional security measures and device hardening will be applied, including expanded ACLs, AAA/SSH enforcement, and the disabling of unnecessary services. All configurations, testing results, and operational observations will be documented for future reference.
         </span>
       </li>
-
-
-
--->
-
-
     </ul>
   </li>
 </ul>
-
-
 <hr class="divider">
 <a href="../index.html" class="back-link">
   &nbsp;&nbsp;&nbsp;&nbsp;🔙 Back to Home
 </a>
-
 </body>
 </html>
 
