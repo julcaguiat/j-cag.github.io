@@ -1,11 +1,11 @@
 ﻿
-**Updated:** 02-16-2026 [added: PacketTracer Lab4]<br> 
+**Updated:** 02-16-2026 [added: PacketTracer Lab5]<br> 
 **Started:** 08-15-2025
 
-# **Welcome to my Cybersecurity/Networking Projects Blog!**<br>
+# **Welcome to my Cybersecurity/Networking Projects Page!**<br>
 ### **About This Blog**
 
-This blog documents my learning journey in **cybersecurity** and **networking**, combining study, hands-on projects, and practical exercises. I use platforms such as **PacketTracer** for network simulations and  **TryHackMe** for cybesecurity hands-on lab to deepen my understanding of real-world scenarios. I have also implemented **virtual** and **physical** labs as a personal playground for practicing **network implementations** and **penetration testing**. Having recently earned the **CompTIA Security+** and **CCNA** certifications and currently studying **Server+**. I maintain this blog to document my projects, serve as a personal reference, and provide a resource for others. I hope it can be helpful, even in the smallest way.
+This blog documents my learning journey in **cybersecurity** and **networking**, combining study, hands-on projects, and practical exercises. I use platforms such as **PacketTracer** for network simulations and  **TryHackMe** for cybesecurity hands-on lab to deepen my understanding of real-world scenarios. I have also implemented **virtual** and **physical** labs as a personal playground for practicing **network implementations** and **penetration testing**. Having recently earned the **CompTIA Security+** and **CCNA** certifications and currently studying **CCNP Security**. I maintain this blog to document my projects, serve as a personal reference, and provide a resource for others. I hope it can be helpful, even in the smallest way.
 
 
 💡**Strong recommendation:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
