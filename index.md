@@ -34,7 +34,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
  <br>
   <li>
-  <a href="https://drive.google.com/file/d/1UlbArdV4uw5puM_rSjRaPGjSXBKN6ts6/view?usp=sharing"
+  <a href="https://drive.google.com/file/d/17gjp63zm10nOX4Kqp2BmGmUvHMKdEEZo/view?usp=sharing"
      title="Enterprise Hybrid Network Lab Documentation"
      target="_blank"
      rel="noopener noreferrer">
