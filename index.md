@@ -34,12 +34,17 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
  <br>
   <li>
-    <a href="https://drive.google.com/file/d/1UlbArdV4uw5puM_rSjRaPGjSXBKN6ts6/view?usp=sharing" title="Hybrid SOC Lab">
-      🛠️ [WORKING DOCUMENTATION] Enterprise Hybrid Network Lab – Physical & Virtual Infrastructure Deployment
-    </a>
-    <br>
-    <span class="note">[Integrating Cisco 1841 ISR and Catalyst 2960G (VLANs, 802.1Q trunking, inter-VLAN routing) with a bare-metal pfSense firewall/router, Proxmox virtualization, Windows Server AD Domain Controller (AD DS, DNS, DHCP), and Windows & macOS clients to simulate a real-world hybrid enterprise network environment]</span>
-  </li>
+  <a href="https://drive.google.com/file/d/1UlbArdV4uw5puM_rSjRaPGjSXBKN6ts6/view?usp=sharing"
+     title="Enterprise Hybrid Network Lab Documentation"
+     target="_blank"
+     rel="noopener noreferrer">
+    🔧 Working Documentation – Enterprise Hybrid Network Lab (Physical & Virtual Infrastructure)
+  </a>
+  <br>
+  <span class="note">
+    Integrating Cisco 1841 ISR and Catalyst 2960G (VLANs, 802.1Q trunking, inter-VLAN routing) with a bare-metal pfSense firewall/router, Proxmox virtualization, Windows Server AD Domain Controller (AD DS, DNS, DHCP), and Windows & macOS clients to simulate a real-world hybrid enterprise network environment.
+  </span>
+</li>
    <br>
   <li>
     <a href="topic-pages/22packettracer.html">
