@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 02-16-2026 [added: PacketTracer Lab5]<br> 
+**Updated:** 02-24-2026 [added: Hybrid Enterprise Lab - working documentation]<br> 
 **Started:** 08-15-2025
 
 # **Welcome to my Cybersecurity/Networking Projects Page!**<br>
@@ -34,18 +34,16 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
  <br>
   <li>
-    <a href="#personal-home-lab" title="Jump to Personal Cybersecurity Home Lab">
-      🛠️ [WORK IN PROGRESS] Hybrid (Physical & Virtual) Cybersecurity Home Lab
+    <a href="https://drive.google.com/file/d/1UlbArdV4uw5puM_rSjRaPGjSXBKN6ts6/view?usp=sharing" title="Hybrid SOC Lab">
+      🛠️ [WORKING DOCUMENTATION] Enterprise Hybrid Network Lab – Physical & Virtual Infrastructure Deployment
     </a>
     <br>
-    <!--
-    <span class="note">[Integrating Cisco 1841 Router & 2960G Switch (VLAN / Trunking), Multi-Host Virtual Machines with Splunk (Log Management), Snort (NIDS/NIPS), Nextcloud (Self-Hosted File Server)]</span>
-    -->
+    <span class="note">[Integrating Cisco 1841 ISR and Catalyst 2960G (VLANs, 802.1Q trunking, inter-VLAN routing) with a bare-metal pfSense firewall/router, Proxmox virtualization, Windows Server AD Domain Controller (AD DS, DNS, DHCP), and Windows & macOS clients to simulate a real-world hybrid enterprise network environment]</span>
   </li>
    <br>
   <li>
     <a href="topic-pages/22packettracer.html">
-     🌐 Enterprise Network Architecture Project (Cisco Packet Tracer)</a>
+     🌐 Enterprise Network Architecture Simulation Project (Cisco Packet Tracer)</a>
     <br>
     [Designing, implementing, and documenting a multi-tier enterprise campus network with VLAN segmentation, inter-VLAN routing, Layer 2/3 redundancy, WAN connectivity, and enterprise services]
   </li>
