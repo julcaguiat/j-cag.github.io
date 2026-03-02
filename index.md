@@ -38,7 +38,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
      title="Enterprise Hybrid Network Lab Documentation"
      target="_blank"
      rel="noopener noreferrer">
-    🔧 Working Documentation – Enterprise Hybrid Network Lab (Physical & Virtual Infrastructure)
+    🌐 Enterprise Hybrid Network Lab (Physical & Virtual Infrastructure)
   </a>
   <br>
   <span class="note">
