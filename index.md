@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 02-24-2026 [added: Hybrid Enterprise Lab - working documentation]<br> 
+**Updated:** 03-01-2026 [added: Hybrid Enterprise Lab - complete documentation]<br> 
 **Started:** 08-15-2025
 
 # **Welcome to my Cybersecurity/Networking Projects Page!**<br>
@@ -34,7 +34,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
  <br>
   <li>
-  <a href="https://drive.google.com/file/d/17gjp63zm10nOX4Kqp2BmGmUvHMKdEEZo/view?usp=sharing"
+  <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing"
      title="Enterprise Hybrid Network Lab Documentation"
      target="_blank"
      rel="noopener noreferrer">
