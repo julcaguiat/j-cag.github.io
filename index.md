@@ -3,7 +3,7 @@
 **Started:** 08-15-2025
 
 # **Welcome to my Networking & Cybersecurity Projects/Resource Page!**<br>
-### **About This Blog**
+### **About This Site**
 
 This blog documents my learning journey in **networking** and **cybersecurity**, combining study, hands-on projects, and practical exercises. I use platforms such as **Cisco PacketTracer & CML** for network simulations and  **TryHackMe** for cybesecurity hands-on lab to deepen my understanding of real-world scenarios. I have also implemented **virtual** and **physical** labs as a personal playground for practicing **network implementations** and **penetration testing**. Having recently earned the **CompTIA Security+** and **CCNA** certifications, I am now currently studying for **CCNP ENCOR 350-401** to enhance my networking knowledge. I maintain this blog to document my projects, serve as a personal reference, and resource for others as well. I hope it can be helpful, even in the smallest way.
 
