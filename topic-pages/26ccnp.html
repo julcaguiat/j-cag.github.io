@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Networking Projects / Labs</title>
+  <style>
+    /* Optional basic styling */
+    body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+    h1 { margin-bottom: 1em; }
+    ul.tool-list { list-style-type: none; margin-left: 0; padding-left: 0; }
+    ul.tool-list li { margin-bottom: 1.2em; }
+    ul.tool-sublist { list-style-type: decimal; margin-left: 2em; }
+    span.note { display: block; font-size: 0.9em; color: #555; margin-top: 0.2em; }
+    a { text-decoration: none; color: #1a0dab; }
+    a:hover { text-decoration: underline; }
+    .back-link { margin-top: 2em; display: inline-block; }
+    hr.divider {
+      border: none;
+      border-top: 1px solid #ccc; /* thin gray line */
+      margin: 2em 0 1em 0;        /* spacing above and below */
+    }
+  </style>
+</head>
+<body>
+<h2>🌐 CCNP Lecture Slides (by Kevin Wallace) / CML Labs Reference Images</h2>
+<br>
+<ul class="tool-list">
+  <li> 
+    <ul class="tool-sublist">
+      <hr class="divider">
+      <li>
+        <a href=""
+           target="_blank" rel="noopener noreferrer"
+           title="1_Architecture">
+          1.0 Architecture 15%
+        </a>
+        <span class="note">
+          1.1 Explain the different design principles used in an enterprise network<br>
+          1.1.a High-level enterprise network design such as 2-tier, 3-tier, fabric, and cloud<br>
+          1.1.b High availability techniques such as redundancy, FHRP, and SSO<br>
+          <br>
+          1.2 Explain the working principles of the Cisco Catalyst SD-WAN solution<br>
+          1.2.a SD-WAN control and data planes elements<br>
+          1.2.b Benefits and limitations of Catalyst SD-WAN solution<br>
+          <br>
+          1.3 Explain the working principles of the Cisco SD-Access solution<br>
+          1.3.a SD-Access control and data planes elements<br>
+          1.3.b Traditional campus interoperating with SD-Access<br>
+          <br>
+          1.4 Interpret QoS configurations<br>
+        </span>
+      </li>
+      <hr class="divider">
+      <li>
+        <a href=""
+           target="_blank" rel="noopener noreferrer"
+           title="2_Virtualization">
+          2.0 Virtualization 10% 
+        </a>
+        <span class="note">
+          2.1 Describe device virtualization technologies<br>
+          2.1.a Hypervisor type 1 and 2<br>
+          2.1.b Virtual machine<br>
+          2.1.c Virtual switching<br>
+          <br>
+          2.2 Configure and verify data path virtualization technologies<br>
+          2.2.a VRF<br>
+          2.2.b GRE and IPsec tunneling<br>
+          <br>
+          2.3 Describe network virtualization concepts<br>
+          2.3.a LISP (Locator ID / Separation Protocol)<br>
+          2.3.b VXLAN (Virtual Extensible LAN)<br>
+        </span>
+      </li>
+  
+      <hr class="divider">
+      <li>
+        <a href=""
+           target="_blank" rel="noopener noreferrer"
+           title="3_Infrastructure">
+          3.0 Infrastructure 30%
+        </a>
+        <span class="note">
+          3.1 Layer 2<br>
+          3.1.a Troubleshoot static and dynamic 802.1q trunking protocols<br>
+          3.1.b Troubleshoot static and dynamic EtherChannels<br>
+          <br>
+          3.2 Layer 3<br>
+          3.2.a Compare routing concepts of EIGRP and OSPF (advanced distance vector vs. link state, load balancing, path selection, path operations, metrics, and area types)<br>
+          3.2.b Configure simple OSPFv2/v3 environments, including multiple normal areas, summarization, and filtering (neighbor adjacency, point-to-point, and broadcast network types, and passive-interface)<br>
+          3.2.c Configure and verify eBGP between directly connected neighbors (best path selection algorithm and neighbor relationships)<br>
+          3.2.d Describe policy-based routing<br>
+          <br>
+          3.3 IP Services<br>
+          3.3.a Interpret network time protocol configurations such as NTP and PTP<br>
+          3.3.b Configure NAT/PAT<br>
+          3.3.c Configure first hop redundancy protocols, such as HSRP, VRRP<br>
+          3.3.d Describe multicast protocols, such as RPF check, PIM SM, IGMP v2/v3, SSM, bidir, and MSDP<br>
+        </span>
+      </li>
+      <hr class="divider">
+      <li>
+        <a href=""
+           target="_blank" rel="noopener noreferrer"
+           title="4_Network_Assurance">
+          4.0 Network Assurance 10%
+        </a>
+        <span class="note">
+          4.1 Diagnose network problems using such as debugs, conditional debugs, traceroute, ping, SNMP, and syslog<br>
+          4.2 Configure and verify Flexible NetFlow<br>
+          4.3 Configure SPAN/RSPAN/ERSPAN<br>
+          4.4 Configure and verify IPSLA<br>
+          4.5 Describe how Cisco Catalyst Center (formerly Cisco DNA Center) is used to apply network configuration, monitoring, and management using traditional and AI-powered	workflows<br>
+          4.6 Configure and verify NETCONF and RESTCONF<br>
+        </span>
+      </li>
+      <hr class="divider">
+      <li>
+        <a href=""
+           target="_blank" rel="noopener noreferrer"
+           title="5_Security">
+          5.0 Security 20%
+        </a>
+        <span class="note">
+          5.1 Configure and verify device access control<br>
+          5.1.a Lines and local user authentication<br>
+          5.1.b Authentication and authorization using AAA<br>
+          <br>
+          5.2 Configure and verify infrastructure security features<br>
+          5.2.a ACLs<br>
+          5.2.b CoPP<br>
+          <br>
+          5.3 Describe REST API security<br>
+          <br>
+          5.4 Describe the components of network security design
+          5.4.a Threat defense<br>
+          5.4.b Endpoint security<br>
+          5.4.c Next-generation firewall<br>
+          5.4.d TrustSec and MACsec<br>
+        </span>
+      </li>
+       <hr class="divider">
+      <li>
+        <a href=""
+           target="_blank" rel="noopener noreferrer"
+           title="6_Automation&AI">
+          6.0 Automation & AI 20%
+        </a>
+        <span class="note">
+          6.1 Interpret basic Python components and scripts<br>
+          6.2 Construct valid JSON-encoded files<br>
+          6.3 Describe the high-level principles and benefits of a data modeling language, such as YANG<br>
+          6.4 Describe APIs for Cisco Catalyst Center and SD-WAN Manager<br>
+          6.5 Interpret REST API response codes and results in payload using Cisco Catalyst Center and RESTCONF<br>
+          6.6 Construct an EEM applet to automate configuration, troubleshooting, or data collection<br>
+          6.7 Compare agent vs. agentless orchestration tools<br>
+        </span>
+      </li>
+<!--
+      <hr class="divider">
+      <li>
+        <a href=""
+           target="_blank" rel="noopener noreferrer"
+           title="5_Security">
+          5.0 Security 20%
+        </a>
+        <span class="note">
+          Status: Completed | Fully Documented 
+          <a href="https://drive.google.com/uc?export=download&id=1nsEqOuFEJtb7gsOubp2JbPd8TIoyggJc" target="_blank">(Download Lab 5 PDF)</a><br>
+          Deploy critical enterprise network services and foundational security controls. Configure NAT/PAT on EDGE routers, NTP for time synchronization, centralized <b>Syslog</b> and <b>SNMP</b> monitoring, <b>AAA</b> and <b>SSH</b> for secure device access, <b>DNS</b> for name resolution and <b>DHCP</b> for end-device addressing, and <b>ACLs</b> for inter-VLAN traffic enforcement. Integrate end devices, wireless controllers, and lightweight access points while verifying service functionality and troubleshooting network behavior.
+        </span>
+      </li>      
+-->
+    </ul>
+  </li>
+</ul>
+<hr class="divider">
+<a href="../index.html" class="back-link">
+  &nbsp;&nbsp;&nbsp;&nbsp;🔙 Back to Home
+</a>
+<hr class="divider">
+<br>
+</body>
+</html>
+
+

@@ -1,5 +1,5 @@
 ﻿
-**Updated:** 03-29-2026 [added: CCNP ENCOR 1.0 Architecture Notes<br> 
+**Updated:** 03-29-2026 [added: CCNP ENCOR 1.0 Architecture Notes]<br> 
 **Started:** 08-15-2025
 
 # **Welcome to my Network/Cybersecurity Projects/Resource Page!**<br>
@@ -54,15 +54,15 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 </li>
 <br>
  <li>
-  <a href=""
-     title="CML"
+  <a href="topic-pages/26ccnp.html"
+     title="CCNP"
      target="_blank"
      rel="noopener noreferrer">
-    🌐 CML Labs for CCNP ENCOR/ENARSI Certification Preparation
+    📚 CCNP Lecture Slides (from Kevin Wallace ENCOR Cert Prep) & CML Lab References for ENCOR/ENARSI 
   </a>
   <br>
   <span class="note">
-    Integrating Cisco 1841 ISR and Catalyst 2960G (VLANs, 802.1Q trunking, inter-VLAN routing) with a bare-metal pfSense firewall/router, Proxmox virtualization, Windows Server AD Domain Controller (AD DS, DNS, DHCP), and Windows & macOS clients to simulate a real-world hybrid enterprise network environment.
+    1.0 Architecture, 2.0 Virtualization, 3.0 Infrastructure, 4.0 Network Assurance, 5.0 Security, 6.0 Automoation & AI
   </span>
 </li>
    <br>
@@ -88,10 +88,9 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 - [⬇️ SCP (Secure Copy Protocol): Guide for Secure File Transfer Between Machines [Download Available]](#SCP)
 
 ---
+<h2 id="tryhackme"></h2>
 
-<h2 id="tryhackme">🖥️</h2>
-
-**🛡️ TryHackMe SOC Simulations [Walkthroughs]** 
+**🖥️ TryHackMe SOC Simulations [Walkthroughs]** 
 
 <ul class="tool-list">
  <li>
@@ -120,7 +119,6 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
 </ul>
 
 ---
-
 **Hand-picked TryHackMe Rooms [Walkthroughs]**
 
 **⚔️ Jr. Pentester**<br>
