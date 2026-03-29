@@ -1,11 +1,11 @@
 ﻿
-**Updated:** 03-01-2026 [added: Hybrid Enterprise Lab - complete documentation]<br> 
+**Updated:** 03-29-2026 [added: CCNP ENCOR 1.0 Architecture Notes<br> 
 **Started:** 08-15-2025
 
-# **Welcome to my Cybersecurity/Networking Projects Page!**<br>
+# **Welcome to my Network/Cybersecurity Projects/Resource Page!**<br>
 ### **About This Blog**
 
-This blog documents my learning journey in **cybersecurity** and **networking**, combining study, hands-on projects, and practical exercises. I use platforms such as **PacketTracer** for network simulations and  **TryHackMe** for cybesecurity hands-on lab to deepen my understanding of real-world scenarios. I have also implemented **virtual** and **physical** labs as a personal playground for practicing **network implementations** and **penetration testing**. Having recently earned the **CompTIA Security+** and **CCNA** certifications and currently studying **CCNP Security**. I maintain this blog to document my projects, serve as a personal reference, and provide a resource for others. I hope it can be helpful, even in the smallest way.
+This blog documents my learning journey in **cybersecurity** and **networking**, combining study, hands-on projects, and practical exercises. I use platforms such as **Cisco PacketTracer & CML** for network simulations and  **TryHackMe** for cybesecurity hands-on lab to deepen my understanding of real-world scenarios. I have also implemented **virtual** and **physical** labs as a personal playground for practicing **network implementations** and **penetration testing**. Having recently earned the **CompTIA Security+** and **CCNA** certifications, I am now currently studying for **CCNP ENCOR 350-401**. I maintain this blog to document my projects, serve as a personal reference, and provide a resource for others. I hope it can be helpful, even in the smallest way.
 
 
 💡**Strong recommendation:** Keep AI assistants like ChatGPT handy — they’re invaluable for troubleshooting, planning labs, and clarifying complex topics as you learn.
@@ -34,11 +34,31 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </li>
  <br>
   <li>
+    <a href="topic-pages/22packettracer.html">
+     🌐 Three-Tier Enterprise Network Architecture Simulation Project (Cisco Packet Tracer) - Complete PDF Documentation</a>
+    <br>
+    [Designing, implementing, and documenting a multi-tier enterprise campus network with VLAN segmentation, inter-VLAN routing, Layer 2/3 redundancy, WAN connectivity, and enterprise services]
+  </li>
+ <br>
+  <li>
   <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing"
      title="Enterprise Hybrid Network Lab Documentation"
      target="_blank"
      rel="noopener noreferrer">
-    🌐 Enterprise Hybrid Network Lab (Physical & Virtual Infrastructure)
+    🌐 Two-Tier Enterprise Hybrid Network Lab (Physical & Virtual Infrastructure)
+  </a>
+  <br>
+  <span class="note">
+    Integrating Cisco 1841 ISR and Catalyst 2960G (VLANs, 802.1Q trunking, inter-VLAN routing) with a bare-metal pfSense firewall/router, Proxmox virtualization, Windows Server AD Domain Controller (AD DS, DNS, DHCP), and Windows & macOS clients to simulate a real-world hybrid enterprise network environment.
+  </span>
+</li>
+<br>
+ <li>
+  <a href=""
+     title="CML"
+     target="_blank"
+     rel="noopener noreferrer">
+    🌐 CML Labs for CCNP ENCOR/ENARSI Certification Preparation
   </a>
   <br>
   <span class="note">
@@ -46,13 +66,6 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
   </span>
 </li>
    <br>
-  <li>
-    <a href="topic-pages/22packettracer.html">
-     🌐 Enterprise Network Architecture Simulation Project (Cisco Packet Tracer)</a>
-    <br>
-    [Designing, implementing, and documenting a multi-tier enterprise campus network with VLAN segmentation, inter-VLAN routing, Layer 2/3 redundancy, WAN connectivity, and enterprise services]
-  </li>
- <br>
  <li>
     <a href="#tryhackme" title="Jump to TryHackMe">
      🛡️ TryHackMe Practical Labs [walkthroughs with images]
