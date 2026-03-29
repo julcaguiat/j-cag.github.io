@@ -35,7 +35,7 @@ This blog documents my learning journey in **cybersecurity** and **networking**,
  <br>
   <li>
     <a href="topic-pages/22packettracer.html">
-     🌐 Three-Tier Enterprise Network Architecture Simulation Project (Cisco Packet Tracer) - Complete PDF Documentation</a>
+     🌐 Three-Tier Enterprise Network Architecture Simulation Project (Cisco Packet Tracer) - PDF Documentation</a>
     <br>
     [Designing, implementing, and documenting a multi-tier enterprise campus network with VLAN segmentation, inter-VLAN routing, Layer 2/3 redundancy, WAN connectivity, and enterprise services]
   </li>
