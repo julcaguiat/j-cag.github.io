@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Kali Linux VM Installation | Home Lab Setup</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        How to Install Kali Linux VM on Windows 11
+      </h1>
+
+      <p class="section-subtitle">
+        Step-by-step guide to installing Kali Linux as a VirtualBox VM using a prebuilt image and storing it in Drive D.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        This guide explains how to install a prebuilt Kali Linux VirtualBox image
+        on Windows 11 and organize virtual machines on Drive D for better storage management.
+        If Drive D is unavailable, use the default C drive.
+      </p>
+
+    </section>
+
+    <!-- OBJECTIVES -->
+    <section class="blog-section">
+
+      <h2>What You Will Learn</h2>
+
+      <ul>
+        <li>Create and organize a dedicated VM folder on Drive D</li>
+        <li>Download and extract Kali Linux .7z VirtualBox image</li>
+        <li>Import Kali Linux into VirtualBox</li>
+        <li>Configure default VM storage location</li>
+      </ul>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Tip: Use an AI Assistant During Setup</h2>
+
+      <p>
+        VM installations may fail due to extraction errors, boot issues, or misconfiguration.
+        Using an AI assistant can help troubleshoot setup issues quickly.
+      </p>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Create VM Folder on Drive D</h2>
+
+      <ol>
+        <li>Open File Explorer (Win + E)</li>
+        <li>Go to This PC → Drive D</li>
+        <li>Create folder: <strong>virtualbox-VMs</strong></li>
+      </ol>
+
+      <figure>
+        <img src="../images/2kali2-images/1.png" alt="Create VM folder" />
+      </figure>
+
+      <figure>
+        <img src="../images/2kali2-images/2.png" alt="VM folder created" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Download Kali Linux VM</h2>
+
+      <ol>
+        <li>
+          Go to:
+          <a href="https://www.kali.org/get-kali/#kali-platforms" target="_blank">
+            Kali Linux Official Download Page
+          </a>
+        </li>
+
+        <li>Select Virtual Machines → VirtualBox image</li>
+
+        <li>Download: <strong>kali-linux-2025.2-virtualbox-amd64.7z</strong></li>
+      </ol>
+
+      <figure>
+        <img src="../images/2kali2-images/3.png" alt="Kali download page" />
+      </figure>
+
+      <figure>
+        <img src="../images/2kali2-images/4.png" alt="Kali VM download" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="blog-section">
+
+      <h2>Step 3 — Install 7-Zip</h2>
+
+      <ol>
+        <li>
+          Download from:
+          <a href="https://www.7-zip.org/" target="_blank">7-Zip Official Website</a>
+        </li>
+
+        <li>Install the 64-bit version</li>
+      </ol>
+
+      <figure>
+        <img src="../images/2kali2-images/7.png" alt="7-Zip download" />
+      </figure>
+
+      <figure>
+        <img src="../images/2kali2-images/8.png" alt="7-Zip installation" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="blog-section">
+
+      <h2>Step 4 — Extract Kali VM</h2>
+
+      <ol>
+        <li>Go to D:\virtualbox-VMs</li>
+        <li>Right-click .7z file → Extract Here</li>
+        <li>Wait for extraction to complete</li>
+      </ol>
+
+      <figure>
+        <img src="../images/2kali2-images/10.png" alt="Extract Kali VM" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="blog-section">
+
+      <h2>Step 5 — Set Default VM Folder</h2>
+
+      <ol>
+        <li>Open VirtualBox</li>
+        <li>Go to File → Preferences</li>
+        <li>Set Default Machine Folder to D:\virtualbox-VMs</li>
+      </ol>
+
+      <figure>
+        <img src="../images/2kali2-images/12.png" alt="VirtualBox settings" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="blog-section">
+
+      <h2>Step 6 — Import Kali Linux VM</h2>
+
+      <ol>
+        <li>Open VirtualBox → Machine → Add</li>
+        <li>Navigate to extracted Kali folder</li>
+        <li>Select .vbox file</li>
+      </ol>
+
+      <figure>
+        <img src="../images/2kali2-images/13.png" alt="Import VM" />
+      </figure>
+
+      <figure>
+        <img src="../images/2kali2-images/15.png" alt="VM selected" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 7 -->
+    <section class="blog-section">
+
+      <h2>Step 7 — Start Kali Linux VM</h2>
+
+      <ol>
+        <li>Select VM in VirtualBox</li>
+        <li>Click Start</li>
+        <li>Wait for boot process</li>
+      </ol>
+
+      <figure>
+        <img src="../images/2kali2-images/16.png" alt="Kali boot" />
+      </figure>
+
+    </section>
+
+    <!-- LOGIN -->
+    <section class="blog-section">
+
+      <h2>Login Credentials</h2>
+
+      <ul>
+        <li><strong>Username:</strong> kali</li>
+        <li><strong>Password:</strong> kali</li>
+      </ul>
+
+      <figure>
+        <img src="../images/2kali2-images/17.png" alt="Kali login screen" />
+      </figure>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        Kali Linux is now successfully installed as a VirtualBox VM.
+        You can now proceed with Windows 10 VM and Wazuh SIEM integration.
+      </p>
+
+    </section>
+
+    <!-- NAV -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="landing-page.html">Back to Deployment</a>
+      <a class="btn btn-secondary" href="../../../index.html">Back to Home</a>
+      <a class="btn btn-primary" href="win10-vm-deploy.html">Next: Kali Linux VM</a>
+
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

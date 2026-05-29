@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Wazuh SIEM Installation | Home Lab Setup</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        How to Install Wazuh SIEM on Ubuntu Server
+      </h1>
+
+      <p class="section-subtitle">
+        Step-by-step guide to installing Wazuh SIEM (Manager, Indexer, Dashboard, and Filebeat) on an Ubuntu Server VM for SOC home lab monitoring.
+      </p>
+
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        Wazuh is a Security Information and Event Management (SIEM) platform used for log analysis,
+        threat detection, and endpoint monitoring. In this lab, Wazuh will be deployed on Ubuntu Server
+        to centralize security telemetry from Windows and Linux endpoints.
+      </p>
+
+      <p>
+        This setup simulates a real SOC environment where security analysts monitor events, alerts,
+        and system activity from a centralized dashboard.
+      </p>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Tip: Use an AI Assistant During Setup</h2>
+
+      <p>
+        Wazuh installation involves multiple services and configuration files. Using an AI assistant
+        helps troubleshoot installation errors, service failures, and configuration issues quickly.
+      </p>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Install Wazuh Components</h2>
+
+      <ol>
+        <li>Start Ubuntu-Wazuh-Server VM</li>
+        <li>Log in to the system</li>
+        <li>Run the following commands:</li>
+      </ol>
+
+      <pre>
+sudo apt update && sudo apt upgrade -y
+sudo apt install curl apt-transport-https lsb-release gnupg -y
+curl -sO https://packages.wazuh.com/4.8/wazuh-install.sh
+chmod +x wazuh-install.sh
+sudo ./wazuh-install.sh -a
+      </pre>
+
+      <p>
+        Installation may take 10–15 minutes. After completion, save the generated admin credentials
+        (username and password) for dashboard access.
+      </p>
+
+      <figure>
+        <img src="../images/5wazuh2-images/1.png" alt="Wazuh installation output" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Verify Wazuh Services</h2>
+
+      <p>Check that all services are running correctly:</p>
+
+      <pre>
+sudo systemctl status wazuh-manager
+sudo systemctl status wazuh-indexer
+sudo systemctl status filebeat
+sudo systemctl status wazuh-dashboard
+      </pre>
+
+      <p>
+        All services should show an active (running) state.
+      </p>
+
+      <figure>
+        <img src="../images/5wazuh2-images/2.png" alt="Wazuh services status" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="blog-section">
+
+      <h2>Step 3 — Configure Wazuh Dashboard Access</h2>
+
+      <ol>
+        <li>Get Ubuntu server IP address using <code>ip a</code></li>
+        <li>Navigate to configuration directory:</li>
+      </ol>
+
+      <pre>
+sudo su
+cd /
+cd /etc/wazuh-dashboard
+ls
+nano opensearch_dashboards.yml
+      </pre>
+
+      <p>
+        Update <code>opensearch.hosts</code> with your Ubuntu server IP address.
+      </p>
+
+      <figure>
+        <img src="../images/5wazuh2-images/3.png" alt="Dashboard configuration" />
+      </figure>
+
+      <ol>
+        <li>Navigate to indexer configuration:</li>
+      </ol>
+
+      <pre>
+cd /
+cd /etc/wazuh-indexer
+ls
+nano opensearch.yml
+      </pre>
+
+      <p>
+        Set <code>network.host</code> to <code>0.0.0.0</code> if required.
+      </p>
+
+      <figure>
+        <img src="../images/5wazuh2-images/5.png" alt="Indexer configuration" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="blog-section">
+
+      <h2>Step 4 — Access Wazuh Dashboard</h2>
+
+      <ol>
+        <li>Open browser on Kali Linux or Windows host</li>
+        <li>Navigate to: https://&lt;Wazuh-Server-IP&gt;:443</li>
+        <li>Accept browser security warning</li>
+        <li>Log in using admin credentials</li>
+      </ol>
+
+      <figure>
+        <img src="../images/5wazuh2-images/6.png" alt="Browser security warning" />
+      </figure>
+
+      <figure>
+        <img src="../images/5wazuh2-images/9.png" alt="Wazuh dashboard" />
+      </figure>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        Wazuh SIEM is now fully deployed on Ubuntu Server and accessible via web dashboard.
+        The next step is deploying Wazuh agents on Windows 10 and Kali Linux endpoints for full telemetry coverage.
+      </p>
+
+    </section>
+
+    <!-- NAVIGATION -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="ubuntu-install.html">
+        ← Previous: Ubuntu Server VM
+      </a>
+
+      <a class="btn btn-secondary" href="../../../index.html">
+        Home
+      </a>
+
+      <a class="btn btn-primary" href="kali-agent-install.html">
+        Next: Kali Wazuh Agent →
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

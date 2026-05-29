@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    Julfri Caguiat | Enterprise Infrastructure & Security Operations
+  </title>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:#0d1117;
+      color:#e6edf3;
+    }
+
+    /* =========================
+       LAYOUT
+    ========================= */
+
+    .kb-layout{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:40px;
+      max-width:1600px;
+      margin:auto;
+      padding:0 24px;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .kb-sidebar{
+      position:sticky;
+      top:90px;
+      height:fit-content;
+      padding-right:20px;
+      border-right:1px solid #30363d;
+    }
+
+    .kb-title{
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:#7cc7ff;
+      margin-bottom:14px;
+      margin-top:30px;
+    }
+
+    .kb-title:first-child{
+      margin-top:0;
+    }
+
+    .kb-nav{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .kb-nav a{
+      color:#c9d1d9;
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:8px;
+      transition:0.2s ease;
+      font-size:0.92rem;
+    }
+
+    .kb-nav a:hover{
+      background:#161b22;
+      color:#58a6ff;
+      padding-left:16px;
+    }
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .kb-content{
+      min-width:0;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero{
+      min-height:60vh;
+      display:flex;
+      align-items:center;
+      padding:100px 20px 80px;
+      border-bottom:1px solid #30363d;
+    }
+
+    .hero-content{
+      max-width:950px;
+    }
+
+    .hero-subtitle{
+      color:#7cc7ff;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:0.85rem;
+      margin-bottom:20px;
+    }
+
+    .hero-title{
+      font-size:3.4rem;
+      line-height:1.1;
+      margin-bottom:24px;
+      max-width:900px;
+    }
+
+    .hero p{
+      max-width:760px;
+      color:#c9d1d9;
+      line-height:1.8;
+      font-size:1.05rem;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:34px;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:10px;
+      text-decoration:none;
+      transition:0.2s ease;
+      border:1px solid #30363d;
+      color:#c9d1d9;
+    }
+
+    .btn:hover{
+      background:#161b22;
+      color:#58a6ff;
+    }
+
+    .btn-primary{
+      background:#1f6feb;
+      border-color:#1f6feb;
+      color:white;
+    }
+
+    .btn-primary:hover{
+      background:#388bfd;
+      color:white;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    .section{
+      padding:70px 20px;
+      border-bottom:1px solid #21262d;
+    }
+
+    .section-title{
+      font-size:2rem;
+      margin-bottom:18px;
+    }
+
+    .section-subtitle{
+      color:#8b949e;
+      max-width:850px;
+      line-height:1.7;
+      margin-bottom:40px;
+    }
+
+    /* =========================
+       TIMELINE
+    ========================= */
+
+    .program-timeline{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+      margin-top:40px;
+    }
+
+    .timeline-step{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:24px;
+    }
+
+    .timeline-phase{
+      display:inline-block;
+      margin-bottom:14px;
+      color:#7cc7ff;
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .timeline-step h3{
+      margin-top:0;
+      margin-bottom:14px;
+    }
+
+    .timeline-step p{
+      color:#c9d1d9;
+      line-height:1.7;
+      margin-bottom:24px;
+    }
+
+    /* =========================
+       TABLE
+    ========================= */
+
+    .featured-project{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:30px;
+    }
+
+    .tech-stack-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:24px;
+    }
+
+    .tech-stack-table th,
+    .tech-stack-table td{
+      padding:16px;
+      border-bottom:1px solid #30363d;
+      text-align:left;
+    }
+
+    .tech-stack-table th{
+      color:#7cc7ff;
+      font-weight:600;
+    }
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:20px;
+    }
+
+    .card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:26px;
+    }
+
+    .card h3{
+      margin-top:0;
+      margin-bottom:18px;
+    }
+
+    .card p{
+      color:#c9d1d9;
+      line-height:1.7;
+    }
+
+    .content-link{
+      display:block;
+      color:#58a6ff;
+      text-decoration:none;
+      margin-top:14px;
+      line-height:1.6;
+    }
+
+    .content-link:hover{
+      text-decoration:underline;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer{
+      padding:40px 20px;
+      text-align:center;
+      color:#8b949e;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:1100px){
+
+      .kb-layout{
+        grid-template-columns:1fr;
+      }
+
+      .kb-sidebar{
+        display:none;
+      }
+
+      .program-timeline{
+        grid-template-columns:1fr;
+      }
+
+      .cards{
+        grid-template-columns:1fr;
+      }
+
+      .hero-title{
+        font-size:2.5rem;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body id="top">
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="logo">
+        JULFRI CAGUIAT
+      </div>
+
+      <div class="nav-links">
+        <a href="#featured">Environment</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#documentation">Documentation</a>
+        <a href="#operations">Operations</a>
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- MAIN KB LAYOUT -->
+
+  <div class="kb-layout">
+
+    <!-- SIDEBAR -->
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+
+<aside class="kb-sidebar">
+
+  <!-- INFRASTRUCTURE -->
+  <details class="kb-group" open>
+    <summary class="kb-title">Infrastructure</summary>
+
+    <nav class="kb-nav">
+
+      <a href="#featured">Environment Overview</a>
+      <a href="#tech-stack">Technology Stack</a>
+      <a href="#labs">Core Documentation</a>
+
+      <!-- PHASE DEPLOYMENTS -->
+      <details class="kb-subgroup">
+        <summary class="kb-subtitle">Phase Deployments</summary>
+
+        <div class="kb-subnav">
+          <a href="#phase1">Phase 1 — Core Infrastructure</a>
+          <a href="#phase2">Phase 2 — Virtualization Layer</a>
+          <a href="#phase3">Phase 3 — Security Operations</a>
+        </div>
+      </details>
+
+    </nav>
+  </details>
+
+
+  <!-- NETWORKING -->
+  <details class="kb-group">
+    <summary class="kb-title">Networking</summary>
+
+    <nav class="kb-nav">
+
+      <a href="projects/networking/packettracer-project.html">
+        Packet Tracer: 3-Tier Architecture Sim
+      </a>
+
+      <a href="#">
+        CML: CCNP ENCOR Labs
+      </a>
+
+      <a href="#">
+        CCNP ENCOR Notes
+      </a>
+
+    </nav>
+  </details>
+
+
+  <!-- SECURITY OPERATIONS -->
+  <details class="kb-group">
+    <summary class="kb-title">Security Operations</summary>
+
+    <nav class="kb-nav">
+
+      <a href="projects/security/virtual-soc-homelab/landing-page.html">
+        VirtualBox: SOC Lab Deployment
+      </a>
+
+      <a href="projects/security/windows10-login-bypass/windows-login-bypass.html">
+        Windows Login Recovery
+      </a>
+
+      <a href="#">
+        TryHackMe Walkthroughs
+      </a>
+
+      <a href="#">
+        Pentest Notes
+      </a>
+
+    </nav>
+  </details>
+
+
+  <!-- SYSTEM ADMIN -->
+  <details class="kb-group">
+    <summary class="kb-title">System Administration</summary>
+
+    <nav class="kb-nav">
+
+      <a href="#">
+        Active Directory
+      </a>
+
+      <a href="#">
+        DNS / DHCP / SMB
+      </a>
+
+      <a href="#">
+        SSH / SCP / RDP Guides
+      </a>
+
+    </nav>
+  </details>
+
+
+  <!-- AUTOMATION -->
+  <details class="kb-group">
+    <summary class="kb-title">Automation & AI</summary>
+
+    <nav class="kb-nav">
+
+      <a href="#">
+        n8n Installation
+      </a>
+
+      <a href="#">
+        Local LLM Setup
+      </a>
+
+      <a href="#">
+        AI Workflow Automation
+      </a>
+
+      <a href="#">
+        SIEM → Ticket Automation
+      </a>
+
+    </nav>
+  </details>
+
+</aside>
+  
+    <!-- CONTENT -->
+
+    <main class="kb-content">
+
+      <!-- HERO -->
+
+      <section class="hero">
+
+        <div class="hero-content">
+
+          <div class="hero-subtitle">
+            ENTERPRISE NETWORKING • INFRASTRUCTURE • SECURITY OPERATIONS • AUTOMATION
+          </div>
+
+          <h1 class="hero-title">
+            Enterprise Infrastructure, Security Operations & Automation Environment
+          </h1>
+
+          <p>
+            Structured enterprise lab environment spanning Cisco networking, virtualization, 
+            Windows infrastructure, SIEM engineering, automation workflows, and system administration.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#documentation" class="btn btn-primary">
+              Core Enterprise Documentation
+            </a>
+
+            <a href="#architecture" class="btn btn-secondary">
+              View Logical & Physical Deployment Overview
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ENVIRONMENT -->
+
+      <section id="featured" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Environment
+          </div>
+
+          <h2 class="portal-title">
+            Enterprise Infrastructure Overview
+          </h2>
+
+          <p class="portal-description">
+            Production-style enterprise environment simulating networking,
+            virtualization, monitoring, identity management,
+            security operations, and automation workflows.
+          </p>
+
+        </div>
+
+        <div class="program-timeline">
+
+          <!-- existing phase cards -->
+
+        </div>
+
+      </section>
+
+      <!-- ARCHITECTURE -->
+
+      <section id="architecture" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Architecture
+          </div>
+
+          <h2 class="portal-title">
+            Logical & Physical Infrastructure Design
+          </h2>
+
+        </div>
+
+        <div class="architecture-grid">
+
+          <div class="arch-card">
+
+            <img src="assets/images/diagrams/logical-topology.png">
+
+            <div class="arch-body">
+
+              <h3>Logical Architecture</h3>
+
+              <p>
+                VLAN segmentation, routing boundaries,
+                virtualization layers, and enterprise service relationships.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="arch-card">
+
+            <img src="assets/images/diagrams/physical-topology.png">
+
+            <div class="arch-body">
+
+              <h3>Physical Architecture</h3>
+
+              <p>
+                Physical device placement, switching infrastructure,
+                firewall integration, and virtualization hosts.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- TECH STACK -->
+
+      <section id="tech-stack" class="section">
+
+        <!-- keep your table -->
+
+      </section>
+
+      <!-- DOCUMENTATION -->
+
+      <section id="documentation" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Documentation
+          </div>
+
+          <h2 class="portal-title">
+            Core Infrastructure Documentation
+          </h2>
+
+        </div>
+
+        <div class="doc-list">
+
+          <div class="doc-item">
+
+            <div class="doc-meta">
+
+              <span class="doc-badge">
+                Networking
+              </span>
+
+              <span class="doc-badge">
+                Cisco
+              </span>
+
+            </div>
+
+            <h3>
+              Three-Tier Enterprise Architecture Simulation
+            </h3>
+
+            <p>
+              Enterprise Packet Tracer simulation implementing
+              VLAN segmentation, routing, redundancy,
+              switching, and enterprise topology design.
+            </p>
+
+            <div class="doc-actions">
+
+              <a href="#" class="btn btn-primary">
+                Open Documentation
+              </a>
+
+            </div>
+
+          </div>
+
+          <div class="doc-item">
+
+            <div class="doc-meta">
+
+              <span class="doc-badge">
+                Security
+              </span>
+
+              <span class="doc-badge">
+                SIEM
+              </span>
+
+            </div>
+
+            <h3>
+              Virtual SOC Infrastructure Lab
+            </h3>
+
+            <p>
+              Wazuh SIEM deployment with pfSense segmentation,
+              Kali Linux, Sysmon telemetry,
+              and centralized monitoring workflows.
+            </p>
+
+            <div class="doc-actions">
+
+              <a href="#" class="btn btn-primary">
+                Open Documentation
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- OPERATIONS -->
+
+      <section id="operations" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Operations
+          </div>
+
+          <h2 class="portal-title">
+            Automation & Ticketing Operations
+          </h2>
+
+        </div>
+
+        <div class="ops-grid">
+
+          <div class="ops-card">
+
+            <h3>
+              n8n Workflow Automation
+            </h3>
+
+            <p>
+              Workflow orchestration platform used for automation,
+              integrations, notifications,
+              and operational task execution.
+            </p>
+
+            <ul class="ops-list">
+
+              <li>Alert automation</li>
+              <li>Webhook integrations</li>
+              <li>Notification pipelines</li>
+              <li>Infrastructure workflows</li>
+
+            </ul>
+
+          </div>
+
+          <div class="ops-card">
+
+            <h3>
+              Peppermint Ticketing Environment
+            </h3>
+
+            <p>
+              Self-hosted ticketing and operational workflow platform
+              integrated into the enterprise support environment.
+            </p>
+
+            <ul class="ops-list">
+
+              <li>Incident tracking</li>
+              <li>Service workflows</li>
+              <li>Operational requests</li>
+              <li>Support queue simulation</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- FOOTER -->
+
+      <footer>
+        © 2026 Julfri Caguiat — Enterprise Infrastructure & Security Operations
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+
+
+
+
+</html>

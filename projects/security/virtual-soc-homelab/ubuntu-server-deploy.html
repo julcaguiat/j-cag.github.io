@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Ubuntu Server VM Installation | Home Lab Setup</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        How to Install Ubuntu Server VM (Wazuh SIEM)
+      </h1>
+
+      <p class="section-subtitle">
+        Step-by-step guide to installing Ubuntu Server as a VirtualBox VM for Wazuh SIEM deployment in a SOC home lab environment.
+      </p>
+
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        This guide covers installing Ubuntu Server 22.04/24.04 as a virtual machine
+        on VirtualBox. This VM will host the Wazuh SIEM platform in later stages of the SOC lab.
+        Store all VM files in D:\virtualbox-VMs for proper organization.
+      </p>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Tip: Keep an AI Assistant Handy</h2>
+
+      <p>
+        Ubuntu Server installation involves command-line configuration and network setup.
+        Having an AI assistant available helps resolve installation and configuration issues faster.
+      </p>
+
+    </section>
+
+    <!-- REQUIREMENTS -->
+    <section class="blog-section">
+
+      <h2>Requirements</h2>
+
+      <ul>
+        <li>VirtualBox installed</li>
+        <li>Ubuntu Server ISO downloaded</li>
+        <li>Internet connection</li>
+      </ul>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Download Ubuntu Server ISO</h2>
+
+      <ol>
+        <li>
+          Visit:
+          <a href="https://ubuntu.com/download/server" target="_blank">
+            Ubuntu Server Download Page
+          </a>
+        </li>
+
+        <li>Download Ubuntu Server 22.04 LTS or 24.04 LTS</li>
+
+        <li>Move ISO file to: D:\virtualbox-VMs</li>
+      </ol>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/1.png" alt="Ubuntu download page" />
+      </figure>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/2.png" alt="ISO file download" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Create Ubuntu VM in VirtualBox</h2>
+
+      <ol>
+        <li>Open VirtualBox</li>
+        <li>Click New</li>
+        <li>Name VM: Ubuntu-Wazuh-Server</li>
+        <li>Select Linux → Ubuntu (64-bit)</li>
+        <li>Attach Ubuntu ISO file</li>
+      </ol>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/4.png" alt="Create VM" />
+      </figure>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/5.png" alt="ISO selection" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="blog-section">
+
+      <h2>Step 3 — VM Configuration</h2>
+
+      <ol>
+        <li>Enable Unattended Install</li>
+        <li>Set Username and Password</li>
+        <li>Assign Resources:</li>
+        <ul>
+          <li>RAM: 2048–4096 MB (recommended 4096 MB)</li>
+          <li>CPU: 2 cores</li>
+          <li>Disk: 40 GB</li>
+        </ul>
+        <li>Click Finish</li>
+      </ol>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/7.png" alt="VM configuration" />
+      </figure>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/10.png" alt="Final VM setup" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="blog-section">
+
+      <h2>Step 4 — Post Installation Configuration</h2>
+
+      <ol>
+        <li>Wait for installation to complete (10–15 minutes)</li>
+        <li>Shut down VM after first boot</li>
+        <li>Open Settings in VirtualBox</li>
+        <li>Disable Floppy Drive under System → Motherboard</li>
+        <li>Verify ISO is correctly mounted in Storage (IDE Controller)</li>
+      </ol>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/12.png" alt="VM settings" />
+      </figure>
+
+      <figure>
+        <img src="../images/4ubuntu2-images/15.png" alt="Storage configuration" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="blog-section">
+
+      <h2>Step 5 — Start Ubuntu Server VM</h2>
+
+      <ol>
+        <li>Start the VM</li>
+        <li>Login using configured credentials</li>
+        <li>Verify network connectivity</li>
+      </ol>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        Ubuntu Server is now successfully installed and ready for Wazuh SIEM deployment.
+        The next step is installing and configuring the Wazuh security monitoring platform.
+      </p>
+
+    </section>
+
+    <!-- NAVIGATION -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="windows10-vm-install.html">
+        ← Previous: Windows 10 VM
+      </a>
+
+      <a class="btn btn-secondary" href="../../../index.html">
+        Home
+      </a>
+
+      <a class="btn btn-primary" href="wazuh-install.html">
+        Next: Wazuh SIEM →
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

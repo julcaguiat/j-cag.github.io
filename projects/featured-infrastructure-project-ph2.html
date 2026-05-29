@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>
+    Phase 2 — Enterprise Services, Virtualization & Systems Integration
+  </title>
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#0d1117;
+      color:#e6edf3;
+    }
+
+ .documentation-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 22px;
+      margin-top: 50px;
+    }
+
+.doc-link-card {
+      
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 28px; 
+      transition:0.3s;
+    }
+
+    .doc-link-card h4 {
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-size: 1.1rem;
+    }
+
+    .doc-link-card p {
+      color: #c9d1d9;
+      line-height: 1.7;
+      margin-bottom: 26px;
+    }
+
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .phase-hero{
+      min-height:70vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+      padding:120px 20px 80px;
+    }
+
+    .phase-hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+
+      background:
+      linear-gradient(
+        rgba(13,17,23,0.88),
+        rgba(13,17,23,0.92)
+      ),
+      url('../assets/images/backgrounds/featured-project-bg.png');
+
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+
+    .phase-hero-content{
+      position:relative;
+      z-index:2;
+      max-width:1000px;
+      margin:auto;
+    }
+
+    .phase-label{
+      color:#7cc7ff;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:0.9rem;
+      margin-bottom:20px;
+      font-weight:bold;
+    }
+
+    .phase-hero h1{
+      font-size:3.5rem;
+      line-height:1.1;
+      margin-bottom:25px;
+      color:#ffffff;
+    }
+
+    .phase-hero p{
+      max-width:850px;
+      color:#c9d1d9;
+      font-size:1.08rem;
+    }
+
+    /* =========================
+       OVERVIEW GRID
+    ========================= */
+
+    .overview-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:24px;
+      margin-top:50px;
+    }
+
+    .overview-card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:28px;
+    }
+
+    .overview-card h3{
+      margin-bottom:18px;
+      color:#7cc7ff;
+      font-size:1.15rem;
+    }
+
+    .overview-card ul{
+      list-style:none;
+    }
+
+    .overview-card li{
+      margin-bottom:10px;
+      color:#d0d7de;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       DEPLOYMENT FLOW
+    ========================= */
+
+    .deployment-flow{
+      margin-top:40px;
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:18px;
+      padding:40px;
+    }
+
+    .deployment-flow h3{
+      margin-bottom:25px;
+      color:#ffffff;
+      font-size:1.6rem;
+    }
+
+    .flow-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+    }
+
+    .flow-step{
+      background:#0d1117;
+      border:1px solid #30363d;
+      border-radius:12px;
+      padding:20px;
+    }
+
+    .flow-step span{
+      display:block;
+      color:#58a6ff;
+      font-size:0.82rem;
+      margin-bottom:10px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .flow-step h4{
+      color:#ffffff;
+      margin-bottom:10px;
+      font-size:1rem;
+    }
+
+    .flow-step p{
+      color:#c9d1d9;
+      font-size:0.92rem;
+    }
+
+    /* =========================
+       DOCUMENTATION SECTION
+    ========================= */
+
+    .docs-section{
+      margin-top:60px;
+    }
+
+    .docs-category{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:18px;
+      padding:32px;
+      margin-bottom:28px;
+    }
+
+    .docs-category h3{
+      color:#ffffff;
+      margin-bottom:25px;
+      font-size:1.5rem;
+    }
+
+    .docs-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:20px;
+    }
+
+    .doc-card{
+      background:#0d1117;
+      border:1px solid #30363d;
+      border-radius:14px;
+      padding:22px;
+      transition:0.3s;
+    }
+
+    .doc-card:hover{
+      transform:translateY(-4px);
+      border-color:#58a6ff;
+    }
+
+    .doc-card h4{
+      color:#ffffff;
+      margin-bottom:12px;
+      font-size:1.05rem;
+    }
+
+    .doc-card p{
+      color:#c9d1d9;
+      font-size:0.92rem;
+      margin-bottom:18px;
+    }
+
+    .doc-status{
+      color:#7cc7ff;
+      font-size:0.82rem;
+      margin-bottom:18px;
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-weight:bold;
+    }
+
+    /* =========================
+       NAV BUTTONS
+    ========================= */
+
+    .page-nav{
+      margin-top:60px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .page-nav .btn{
+      width:220px;
+      text-align:center;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:768px){
+
+      .phase-hero h1{
+        font-size:2.5rem;
+      }
+
+      .phase-hero{
+        text-align:center;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body id="top">
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="logo">
+        JULFRI CAGUIAT
+      </div>
+
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="#overview">Expansion Overview</a>
+        <a href="#deployment">Expansion Workflow</a>
+        <a href="#repository">Documentations</a>
+      
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="phase-hero">
+
+    <div class="phase-hero-content">
+
+      <div class="phase-label">
+        Featured Infrastructure Project — Phase 2
+      </div>
+
+      <h1>
+        Enterprise Services, Virtualization & Systems Integration
+      </h1>
+
+      <p>
+        Expansion of the hybrid infrastructure environment through virtualization,
+        centralized enterprise services, security monitoring platforms, operational
+        tooling, and enterprise systems integration across physical and virtualized
+        infrastructure layers.
+      </p>
+      
+      <br>
+      <br>
+      <div class="hero-buttons">
+
+         <a href="#repository" class="btn btn-primary">
+          Documentation Respository
+        </a>
+        <a href="#overview" class="btn btn-secondary">
+           Expansion Overview  
+        </a>
+        <a href="#deployment" class="btn btn-secondary">
+           Workflow
+        </a>
+        <a href="#project-phases" class="btn btn-secondary">
+           Deployment Phases  
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Deployment Phases -->
+
+  <section id="project-phases" class="section">
+
+    <h2 class="section-title bright-title">
+      Enterprise Infrastructure Deployment Phases
+    </h2>
+
+    <p class="section-subtitle">
+      Multi-phase enterprise infrastructure expansion documenting
+      networking,
+      virtualization,
+      enterprise services,
+      monitoring,
+      and security operations workflows.
+    </p>
+
+    <div class="documentation-links">
+
+
+      <div class="doc-link-card">
+      
+        <h4>Phase 1: Core Infra Foundation</h4>
+
+        <p>
+          Initial deployment of enterprise networking,
+          segmentation,
+          firewall integration,
+          Active Directory services,
+          and virtualization infrastructure.
+        </p>
+
+        <a href="featured-infrastructure-project.html"
+           class="btn btn-secondary">
+           Phase 1
+        </a>
+
+      </div>
+
+      <div class="doc-link-card">
+        <p class="phase-status current">You are here!</p>
+        <h4>Phase 2 — Infrastructure Expansion</h4>
+
+        <p>
+          Expansion of virtualized enterprise services,
+          multi-server deployment,
+          endpoint integration,
+          CML simulation,
+          and enterprise virtualization operations.
+        </p>
+
+        <a href="featured-infrastructure-project-ph2.html"
+           class="btn btn-primary">
+           Phase 2
+        </a>
+
+      </div>
+
+      <div class="doc-link-card">
+
+        <h4>Phase 3 — Security Operations & Automation</h4>
+
+        <p>
+          SIEM deployment,
+          detection engineering,
+          alert correlation,
+          incident automation,
+          and SOC operational workflows.
+        </p>
+
+        <a href="featured-infrastructure-project-ph3.html"
+           class="btn btn-secondary">
+           Open Phase 3
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- OVERVIEW -->
+
+  <section id="overview" class="section">
+
+    <h2 class="section-title bright-title">
+      Infrastructure Expansion Overview
+    </h2>
+
+    <p class="section-subtitle">
+      Phase 2 introduced virtualization infrastructure, centralized enterprise
+      services, monitoring platforms, operational automation, and dedicated
+      offensive security environments to expand the original hybrid network foundation.
+    </p>
+
+    <div class="overview-grid">
+
+      <div class="overview-card">
+
+        <h3>
+          Virtualization Infrastructure
+        </h3>
+
+        <ul>
+          <li>Proxmox VE Type 1 Hypervisor</li>
+          <li>Inspiron 3650 Hardware Upgrade</li>
+          <li>Virtual Machine Hosting</li>
+          <li>Containerized Services</li>
+        </ul>
+
+      </div>
+
+      <div class="overview-card">
+
+        <h3>
+          Enterprise Services
+        </h3>
+
+        <ul>
+          <li>Windows Server 2019</li>
+          <li>Active Directory Domain Services</li>
+          <li>DNS / DHCP Services</li>
+          <li>File Sharing Services</li>
+        </ul>
+
+      </div>
+
+      <div class="overview-card">
+
+        <h3>
+          Security Operations
+        </h3>
+
+        <ul>
+          <li>Wazuh SIEM</li>
+          <li>n8n Automation</li>
+          <li>Peppermint Ticketing</li>
+          <li>Wazuh Endpoint Agents</li>
+        </ul>
+
+      </div>
+
+      <div class="overview-card">
+
+        <h3>
+          Offensive Security Lab
+        </h3>
+
+        <ul>
+          <li>OWASP Juice Shop</li>
+          <li>DVWA</li>
+          <li>Custom Java Web App</li>
+          <li>Kali Linux Attack VM</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- DEPLOYMENT FLOW -->
+
+    <div id="deployment"></div>
+    <br>
+
+    <div class="deployment-flow">
+
+      <h3>
+        Deployment & Integration Flow
+      </h3>
+
+      <div class="flow-list">
+
+        <div class="flow-step">
+          <span>Stage 1</span>
+          <h4>Infrastructure Upgrade</h4>
+          <p>
+            Inspiron 3650 upgraded and prepared for virtualization workloads.
+          </p>
+        </div>
+
+        <div class="flow-step">
+          <span>Stage 2</span>
+          <h4>Proxmox VE Deployment</h4>
+          <p>
+            Type 1 hypervisor installed for centralized VM and container hosting.
+          </p>
+        </div>
+
+        <div class="flow-step">
+          <span>Stage 3</span>
+          <h4>Enterprise Services Integration</h4>
+          <p>
+            Windows Server 2019 deployed for AD DS, DNS, DHCP, and file services.
+          </p>
+        </div>
+
+        <div class="flow-step">
+          <span>Stage 4</span>
+          <h4>Monitoring & Operations</h4>
+          <p>
+            Wazuh SIEM, Peppermint ticketing, and n8n automation integrated.
+          </p>
+        </div>
+
+        <div class="flow-step">
+          <span>Stage 5</span>
+          <h4>Security Testing Environment</h4>
+          <p>
+            Vulnerable applications and Kali Linux attack environment deployed.
+          </p>
+        </div>
+
+        <div class="flow-step">
+          <span>Stage 6</span>
+          <h4>Endpoint Integration</h4>
+          <p>
+            Domain-joined systems and endpoint monitoring agents integrated.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    
+
+    <!-- DOCUMENTATION -->
+    <div id="repository"></div>
+    <br>
+
+    <div class="docs-section">
+
+      <h2 class="section-title bright-title">
+        Documentation Repository
+      </h2>
+
+      <p class="section-subtitle">
+        Organized deployment documentation, implementation procedures,
+        architecture references, and operational validation records for
+        Phase 2 infrastructure components.
+      </p>
+
+      <!-- CATEGORY -->
+
+      <div class="docs-category">
+
+        <h3>
+          Virtualization Infrastructure
+        </h3>
+
+        <div class="docs-grid">
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              Inspiron 3650 Hardware Upgrade
+            </h4>
+
+            <p>
+              Hardware preparation and resource planning for virtualization workloads.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              Proxmox VE Deployment
+            </h4>
+
+            <p>
+              Installation and configuration of Proxmox VE Type 1 hypervisor.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CATEGORY -->
+
+      <div class="docs-category">
+
+        <h3>
+          Enterprise Services
+        </h3>
+
+        <div class="docs-grid">
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              Windows Server 2019 Deployment
+            </h4>
+
+            <p>
+              Deployment of centralized enterprise directory and infrastructure services.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              Active Directory, DNS & DHCP
+            </h4>
+
+            <p>
+              Centralized authentication, name resolution, and address assignment services.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CATEGORY -->
+
+      <div class="docs-category">
+
+        <h3>
+          Security Operations & Monitoring
+        </h3>
+
+        <div class="docs-grid">
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              Wazuh SIEM Deployment
+            </h4>
+
+            <p>
+              SIEM deployment, monitoring workflows, and endpoint integration.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              n8n & Peppermint Automation Workflow
+            </h4>
+
+            <p>
+              Automated alert processing, ticket creation, and email notification workflows.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CATEGORY -->
+
+      <div class="docs-category">
+
+        <h3>
+          Offensive Security Environment
+        </h3>
+
+        <div class="docs-grid">
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              Vulnerable Web Applications Deployment
+            </h4>
+
+            <p>
+              Deployment of OWASP Juice Shop, DVWA, and custom Java web applications.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+          <div class="doc-card">
+
+            <span class="doc-status">
+              Planned Documentation
+            </span>
+
+            <h4>
+              Kali Linux Attack Platform
+            </h4>
+
+            <p>
+              Attack workstation preparation, Samba integration, and testing workflows.
+            </p>
+
+            <a href="#" class="btn btn-secondary">
+              View Documentation
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="page-nav">
+
+      <a href="featured-infrastructure-project.html" class="btn btn-secondary">
+        ← Back to Phase 1
+      </a>
+
+      <a href="#top" class="btn btn-secondary">
+        ↑ Back to Top
+      </a>
+
+       <a href="featured-infrastructure-project-ph3.html" class="btn btn-primary">
+        → Proceed to Phase 3
+      </a>
+
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 Julfri Caguiat — Enterprise Infrastructure & Security Operations Environment
+  </footer>
+
+</body>
+</html>

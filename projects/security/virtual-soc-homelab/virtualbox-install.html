@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install VirtualBox on Windows 11 | Home Lab Setup</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        How to Install VirtualBox on Windows 11
+      </h1>
+
+      <p class="section-subtitle">
+        Step-by-step guide to setting up VirtualBox as the foundation for a home lab environment.
+      </p>
+
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        VirtualBox is an open-source virtualization platform that allows you to run multiple operating systems
+        (Kali Linux, Ubuntu, Windows, etc.) as virtual machines on a single host system.
+        This guide covers installation on Windows 11 and prepares the foundation for a SOC home lab.
+      </p>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Tip: Use an AI Assistant During Setup</h2>
+
+      <p>
+        Installation issues such as virtualization errors, driver conflicts, or networking misconfiguration are common.
+        Using an AI assistant can help troubleshoot errors and interpret system messages during setup.
+      </p>
+
+    </section>
+
+    <!-- REQUIREMENTS -->
+    <section class="blog-section">
+
+      <h2>Requirements</h2>
+
+      <ul>
+        <li>Windows 11 Home or Pro</li>
+        <li>10–20 GB free disk space (recommended 80 GB for lab expansion)</li>
+        <li>16 GB RAM recommended for multiple VMs</li>
+        <li>Stable internet connection</li>
+      </ul>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Download VirtualBox</h2>
+
+      <ol>
+        <li>
+          Navigate to:
+          <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">
+            https://www.virtualbox.org/wiki/Downloads
+          </a>
+        </li>
+
+        <li>
+          Select <strong>Windows Hosts</strong> under platform packages.
+        </li>
+      </ol>
+
+      <br>
+      <figure class="image-figure">
+        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/1.png" alt="VirtualBox download page" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Run Installer</h2>
+
+      <ol>
+        <li>Open Downloads folder.</li>
+        <li>Right-click installer → Run as Administrator.</li>
+      </ol>
+
+      <br>
+      <figure class="image-figure">
+        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/2.png" alt="VirtualBox installer" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="blog-section">
+
+      <h2>Step 3 — Installation Wizard</h2>
+
+      <ol>
+        <li>Click Next to begin setup.</li>
+        <li>Accept license agreement.</li>
+        <li>Keep default installation settings.</li>
+      </ol>
+
+      <br>
+      <figure class="image-figure">
+        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/3.png" alt="Installation wizard" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="blog-section">
+
+      <h2>Step 4 — Finish Installation</h2>
+
+      <ol>
+        <li>Click Install.</li>
+        <li>Accept network interface warning.</li>
+        <li>Complete setup and reboot system.</li>
+      </ol>
+
+      <br>
+      <figure class="image-figure">
+        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/9.png" alt="Installation complete screen" />
+      </figure>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        VirtualBox is now installed. You are ready to proceed with:
+      </p>
+
+      <ul>
+        <li>Kali Linux VM (attack simulation)</li>
+        <li>Windows 10 VM (endpoint monitoring)</li>
+        <li>Ubuntu Server VM (Wazuh SIEM)</li>
+        <li>pfSense firewall (network segmentation)</li>
+      </ul>
+
+    </section>
+
+    <!-- NAV -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="landing-page.html">Back to Deployment</a>
+      <a class="btn btn-secondary" href="../../../index.html">Back to Home</a>
+      <a class="btn btn-primary" href="kali-linux-vm-deploy.html">Next: Kali Linux VM</a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

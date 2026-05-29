@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>VirtualBox Network Modes | pfSense Lab Design</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        🖧 Why I Use NAT + Internal Network (and Not Bridged or NAT Network) in My pfSense Home Lab
+      </h1>
+
+      <p class="section-subtitle">
+        Understanding VirtualBox networking modes and why pfSense must sit in the middle of all traffic in a SOC lab.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        VirtualBox provides multiple networking modes such as NAT, NAT Network, and Bridged Adapter.
+        While all provide internet access, they behave very differently in a security lab environment.
+      </p>
+
+      <p>
+        If your goal is to practice firewalling, routing, and traffic inspection using pfSense,
+        network design becomes critical.
+      </p>
+
+    </section>
+
+    <!-- NAT NETWORK -->
+    <section class="blog-section">
+
+      <h2>⚡ NAT Network</h2>
+
+      <p>
+        NAT Network creates a private subnet managed by VirtualBox where VMs can communicate and access the internet.
+      </p>
+
+      <pre><code>[ Kali ] ─┐
+          │
+[ Win10 ] ─┘──> VirtualBox NAT Network ──> Host ──> Internet</code></pre>
+
+      <ul>
+        <li>✔ VMs can communicate with each other</li>
+        <li>✔ Internet access available</li>
+        <li>❌ pfSense is bypassed if not explicitly in path</li>
+      </ul>
+
+      <p>
+        This is useful for quick testing but not suitable for firewall simulation.
+      </p>
+
+    </section>
+
+    <!-- BRIDGED -->
+    <section class="blog-section">
+
+      <h2>🌍 Bridged Adapter</h2>
+
+      <p>
+        Bridged mode connects VMs directly to your physical network, making them appear as real devices on your LAN.
+      </p>
+
+      <pre><code>[ Kali ] ──> Home Router ──> Internet
+[ Win10 ] ──> Home Router ──> Internet</code></pre>
+
+      <ul>
+        <li>✔ VM behaves like a physical machine</li>
+        <li>✔ Can access LAN devices directly</li>
+        <li>❌ Bypasses pfSense unless carefully integrated</li>
+        <li>❌ Reduces isolation for security testing</li>
+      </ul>
+
+    </section>
+
+    <!-- WHY NOT -->
+    <section class="blog-section">
+
+      <h2>🔒 Why I Avoid NAT Network and Bridged in My Lab</h2>
+
+      <p>
+        Both NAT Network and Bridged modes allow VMs to reach the internet without passing through pfSense.
+        This breaks the purpose of building a firewall-based SOC lab.
+      </p>
+
+      <p><strong>Preferred lab architecture:</strong></p>
+
+      <pre><code>[ Kali ] ─┐
+[ Win10 ] ─┘──> pfSense LAN (Internal Network)
+                     │
+                     ▼
+              pfSense WAN (NAT)
+                     │
+                     ▼
+                  Internet</code></pre>
+
+      <ul>
+        <li>✔ pfSense becomes the central gateway</li>
+        <li>✔ All traffic is inspectable and controllable</li>
+        <li>✔ Enables firewall rule testing</li>
+        <li>✔ Supports realistic SOC simulation</li>
+      </ul>
+
+    </section>
+
+    <!-- KEY TAKEAWAY -->
+    <section class="blog-section">
+
+      <h2>✅ Key Takeaway</h2>
+
+      <ul>
+        <li><strong>NAT Network:</strong> Easy internet + VM communication, but bypasses pfSense</li>
+        <li><strong>Bridged:</strong> Joins real network, but removes isolation and control</li>
+        <li><strong>NAT + Internal Network:</strong> Proper SOC design with pfSense as firewall gateway</li>
+      </ul>
+
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="blog-section">
+
+      <h2>Summary</h2>
+
+      <p>
+        A proper SOC home lab depends on traffic flow control.
+        By forcing all VM traffic through pfSense, you gain visibility, control, and realistic security simulation capability.
+      </p>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="../index.html">
+        🔙 Back to Home
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

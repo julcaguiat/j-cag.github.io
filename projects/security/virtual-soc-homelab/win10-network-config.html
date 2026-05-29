@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Windows 10 VM Network Configuration | Home SOC Lab</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        Windows 10 VM — Adapter Settings & LAN IP Configuration
+      </h1>
+
+      <p class="section-subtitle">
+        Configure Windows 10 as an internal SOC endpoint with static IP addressing for reliable communication inside LabNet.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Introduction</h2>
+
+      <p>
+        In this part of the lab, the Windows 10 VM is configured with a static IP address on the Internal Network (LabNet).
+        This ensures stable communication with pfSense, Kali Linux, and the Wazuh SIEM server.
+      </p>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Tip: Keep ChatGPT Handy</h2>
+
+      <p>
+        If Windows shows “Unidentified Network” or loses connectivity:
+      </p>
+
+      <p>
+        <em>
+          “Windows 10 VM on VirtualBox Internal Network (LabNet) cannot reach gateway 192.168.10.1.
+          Here are my IPv4 settings: &lt;details&gt;. What should I fix?”
+        </em>
+      </p>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Windows 10 VM Adapter Configuration</h2>
+
+      <ol>
+        <li>Power off Windows 10 VM</li>
+        <li>Go to VirtualBox → Settings → Network</li>
+      </ol>
+
+      <h3>Adapter 1 (LAN - Internal Network)</h3>
+
+      <ul>
+        <li>Enable Network Adapter</li>
+        <li>Attached to: Internal Network</li>
+        <li>Name: LabNet</li>
+        <li>Promiscuous Mode: Allow All</li>
+      </ul>
+
+      <figure>
+        <img src="../images/12w4-images/1.png" alt="Windows VM adapter settings" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Configure Static IP Address (GUI Method)</h2>
+
+      <ol>
+        <li>Boot Windows 10 VM</li>
+        <li>Open Settings → Network</li>
+        <li>Click Change adapter options</li>
+      </ol>
+
+      <figure>
+        <img src="../images/12w4-images/2.png" alt="Change adapter options" />
+      </figure>
+
+      <ol start="4">
+        <li>Right-click Ethernet → Properties</li>
+        <li>Select Internet Protocol Version 4 (TCP/IPv4)</li>
+        <li>Click Properties</li>
+      </ol>
+
+      <figure>
+        <img src="../images/12w4-images/3.png" alt="IPv4 settings" />
+      </figure>
+
+      <h3>Static IP Configuration</h3>
+
+      <ul>
+        <li>IP Address: 192.168.10.3</li>
+        <li>Subnet Mask: 255.255.255.0</li>
+        <li>Default Gateway: 192.168.10.1</li>
+      </ul>
+
+      <h3>DNS Configuration</h3>
+
+      <ul>
+        <li>Preferred DNS: 192.168.10.1</li>
+        <li>Alternate DNS: 1.1.1.1</li>
+      </ul>
+
+      <figure>
+        <img src="../images/12w4-images/4.png" alt="Static IP configuration" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="blog-section">
+
+      <h2>Step 3 — Verify Configuration</h2>
+
+      <p>Run the following command in Command Prompt:</p>
+
+      <pre><code>ipconfig</code></pre>
+
+      <p>
+        Windows 10 VM is now assigned: <strong>192.168.10.3</strong>
+      </p>
+
+      <figure>
+        <img src="../images/12w4-images/5.png" alt="ipconfig output" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="blog-section">
+
+      <h2>Step 4 — Connectivity Tests</h2>
+
+      <p>Test internal and external connectivity:</p>
+
+      <pre><code>ping 192.168.10.1
+ping google.com</code></pre>
+
+      <figure>
+        <img src="../images/12w4-images/6.png" alt="ping test results" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="blog-section">
+
+      <h2>Step 5 — Access Services</h2>
+
+      <ul>
+        <li>pfSense GUI: https://192.168.10.1:8443</li>
+        <li>Wazuh Dashboard: https://192.168.10.4:443</li>
+      </ul>
+
+      <figure>
+        <img src="../images/12w4-images/7.png" alt="pfSense access" />
+      </figure>
+
+      <figure>
+        <img src="../images/12w4-images/8.png" alt="Wazuh access" />
+      </figure>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        The Windows 10 VM is now fully integrated into the SOC lab as an endpoint.
+        It can communicate with pfSense, Kali Linux, and Wazuh SIEM for monitoring and testing.
+      </p>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="blog-section">
+
+      <p>
+        You now have a fully functional SOC home lab with:
+      </p>
+
+      <ul>
+        <li>pfSense firewall (traffic control)</li>
+        <li>Wazuh SIEM (log analysis)</li>
+        <li>Kali Linux (attack simulation)</li>
+        <li>Windows 10 endpoint (target system)</li>
+      </ul>
+
+      <p>
+        Next step: expanding into hybrid enterprise network infrastructure and automation workflows.
+      </p>
+
+      <a class="btn btn-primary" href="../index.html">
+        Back to Home
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

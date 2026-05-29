@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>pfSense VM Configuration | Home Lab Setup</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        pfSense VM — Adapter Settings & LAN IP Configuration
+      </h1>
+
+      <p class="section-subtitle">
+        Configure NAT and Internal Network adapters for pfSense and set a static LAN IP for lab segmentation.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Introduction</h2>
+
+      <p>
+        In this part of the lab, we configure pfSense with two network adapters:
+        NAT for external connectivity and Internal Network for LAN communication.
+        pfSense will act as the central firewall and gateway between Internet and internal systems.
+        DHCP is disabled to maintain static IP consistency across the lab.
+      </p>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Tip: Keep ChatGPT Handy</h2>
+
+      <p>
+        If pfSense fails to boot or LAN is unreachable, you can troubleshoot using prompts like:
+      </p>
+
+      <p>
+        <em>
+          "pfSense VirtualBox NAT + Internal Network not reachable at 192.168.10.1.
+          Console output: ... What should I check?"
+        </em>
+      </p>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Configure pfSense Network Adapters</h2>
+
+      <ol>
+        <li>Power off pfSense VM</li>
+        <li>Go to VirtualBox → Settings → Network</li>
+      </ol>
+
+      <h3>Adapter 1 (WAN - NAT)</h3>
+
+      <ul>
+        <li>Enable Network Adapter</li>
+        <li>Attached to: NAT</li>
+        <li>Promiscuous Mode: Allow All</li>
+        <li>Open Port Forwarding</li>
+      </ul>
+
+      <figure>
+        <img src="../images/9p1-images/Pf1.png" alt="WAN NAT configuration" />
+      </figure>
+
+      <p>Add Port Forwarding Rule:</p>
+
+      <ul>
+        <li>Name: pfSense</li>
+        <li>Protocol: TCP</li>
+        <li>Host Port: 8443</li>
+        <li>Guest IP: 10.0.2.15</li>
+        <li>Guest Port: 8443</li>
+      </ul>
+
+      <figure>
+        <img src="../images/9p1-images/Pf2.png" alt="Port forwarding setup" />
+      </figure>
+
+      <h3>Adapter 2 (LAN - Internal Network)</h3>
+
+      <ul>
+        <li>Enable Network Adapter</li>
+        <li>Attached to: Internal Network</li>
+        <li>Name: LabNet</li>
+        <li>Promiscuous Mode: Allow All</li>
+      </ul>
+
+      <figure>
+        <img src="../images/9p1-images/Pf3.png" alt="LAN internal network setup" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Configure LAN Static IP</h2>
+
+      <ol>
+        <li>Boot pfSense VM</li>
+        <li>Select Option 2: Set interface IP</li>
+      </ol>
+
+      <p><strong>Configuration Inputs:</strong></p>
+
+      <ul>
+        <li>Interface: LAN (em1)</li>
+        <li>IPv4: Static</li>
+        <li>IP Address: 192.168.10.1</li>
+        <li>Subnet: /24</li>
+        <li>DHCP: Disabled</li>
+        <li>IPv6: Disabled</li>
+      </ul>
+
+      <figure>
+        <img src="../images/9p1-images/Pf44.png" alt="LAN IP configuration step 1" />
+      </figure>
+
+      <figure>
+        <img src="../images/9p1-images/Pf55.png" alt="LAN IP configuration step 2" />
+      </figure>
+
+      <figure>
+        <img src="../images/9p1-images/Pf66.png" alt="pfSense configuration complete" />
+      </figure>
+
+    </section>
+
+    <!-- ACCESS -->
+    <section class="blog-section">
+
+      <h2>Access pfSense Web UI</h2>
+
+      <p>
+        Once configured, access the firewall using:
+      </p>
+
+      <p>
+        <strong>https://192.168.10.1:8443</strong>
+      </p>
+
+      <ul>
+        <li>Username: admin</li>
+        <li>Password: admin</li>
+      </ul>
+
+      <p>
+        If access fails, disable packet filtering via shell:
+        <code>pfctl -d</code>
+      </p>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        pfSense is now configured with WAN and LAN interfaces.
+        The LAN subnet 192.168.10.0/24 will serve as the core internal lab network.
+      </p>
+
+    </section>
+
+    <!-- FOOTER NAV -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="pfsense-install.html">
+        Back: pfSense Installation
+      </a>
+
+      <a class="btn btn-primary" href="../index.html">
+        Back to Home
+      </a>
+
+      <a class="btn btn-secondary" href="kali-network-config.html">
+        Next: Kali Network Config
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

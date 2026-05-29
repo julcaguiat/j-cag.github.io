@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Switches vs Routers | CCNA Study Guide</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        Switches vs Routers — Study Priority & Functionality Guide
+      </h1>
+
+      <p class="section-subtitle">
+        Structured CCNA-focused breakdown of switching and routing functions, organized by difficulty level with lab-ready CLI examples.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        This guide categorizes core, intermediate, and advanced functionalities of switches and routers,
+        prioritized for CCNA study and hands-on practice in lab environments such as Packet Tracer or GNS3.
+      </p>
+
+    </section>
+
+    <!-- CORE LAYER -->
+    <section class="blog-section">
+
+      <h2>1. Core Layer (Foundation — Study These First)</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Functionality</th>
+            <th>Used By</th>
+            <th>Purpose</th>
+            <th>CLI Example (Cisco IOS)</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>Static IP Addressing (Management IP)</td>
+            <td>Switches</td>
+            <td>Assigns an IP to a VLAN interface for remote access (SSH/Telnet).</td>
+            <td>
+              <pre><code>Switch(config)# interface vlan 1
+Switch(config-if)# ip address 192.168.1.2 255.255.255.0
+Switch(config-if)# no shutdown
+Switch(config)# ip default-gateway 192.168.1.1</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Static Routing</td>
+            <td>Routers</td>
+            <td>Defines manual routes to specific networks.</td>
+            <td>
+              <pre><code>Router(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Dynamic Routing (RIP / OSPF)</td>
+            <td>Routers</td>
+            <td>Learns and updates routes automatically.</td>
+            <td>
+              <pre><code>Router(config)# router ospf 1
+Router(config-router)# network 10.0.0.0 0.0.0.255 area 0</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>VLAN (Virtual LAN)</td>
+            <td>Switches</td>
+            <td>Segments a LAN into smaller broadcast domains.</td>
+            <td>
+              <pre><code>Switch(config)# vlan 10
+Switch(config-vlan)# name HR
+Switch(config)# interface fa0/1
+Switch(config-if)# switchport access vlan 10</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Trunking (802.1Q)</td>
+            <td>Switches</td>
+            <td>Carries multiple VLANs over a single link.</td>
+            <td>
+              <pre><code>Switch(config)# interface fa0/24
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport trunk allowed vlan 10,20</code></pre>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </section>
+
+    <!-- INTERMEDIATE -->
+    <section class="blog-section">
+
+      <h2>2. Intermediate Layer (Network Design & Control)</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Functionality</th>
+            <th>Used By</th>
+            <th>Purpose</th>
+            <th>CLI Example (Cisco IOS)</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>Inter-VLAN Routing (SVI)</td>
+            <td>Multilayer Switches</td>
+            <td>Enables communication between VLANs without a router.</td>
+            <td>
+              <pre><code>Switch(config)# interface vlan 10
+Switch(config-if)# ip address 192.168.10.1 255.255.255.0
+Switch(config-if)# no shutdown</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Subinterfaces</td>
+            <td>Routers</td>
+            <td>Allows routing multiple VLANs via one physical interface.</td>
+            <td>
+              <pre><code>Router(config)# interface g0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# ip address 192.168.10.1 255.255.255.0</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>EtherChannel (Port-channel)</td>
+            <td>Switches</td>
+            <td>Bundles multiple physical links into one logical link.</td>
+            <td>
+              <pre><code>Switch(config)# interface range fa0/1 - 2
+Switch(config-if-range)# channel-group 1 mode active
+Switch(config)# interface port-channel 1</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Spanning Tree Protocol (STP)</td>
+            <td>Switches</td>
+            <td>Prevents Layer 2 loops in redundant topologies.</td>
+            <td>
+              <pre><code>Switch(config)# spanning-tree mode rapid-pvst</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Default Route / Gateway</td>
+            <td>Routers & Switches</td>
+            <td>Defines fallback path for unknown destinations.</td>
+            <td>
+              <pre><code>Router(config)# ip route 0.0.0.0 0.0.0.0 192.168.1.1</code></pre>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </section>
+
+    <!-- ADVANCED -->
+    <section class="blog-section">
+
+      <h2>3. Advanced Layer (Security & Optimization)</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Functionality</th>
+            <th>Used By</th>
+            <th>Purpose</th>
+            <th>CLI Example (Cisco IOS)</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>Port Security</td>
+            <td>Switches</td>
+            <td>Limits allowed MAC addresses per port.</td>
+            <td>
+              <pre><code>Switch(config)# interface fa0/2
+Switch(config-if)# switchport port-security
+Switch(config-if)# switchport port-security maximum 2
+Switch(config-if)# switchport port-security violation shutdown</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Access Control List (ACL)</td>
+            <td>Routers</td>
+            <td>Filters traffic by IP/port.</td>
+            <td>
+              <pre><code>Router(config)# access-list 10 permit 192.168.1.0 0.0.0.255
+Router(config)# interface g0/0
+Router(config-if)# ip access-group 10 in</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>NAT (Network Address Translation)</td>
+            <td>Routers</td>
+            <td>Translates private IPs to public IPs for internet access.</td>
+            <td>
+              <pre><code>Router(config)# interface g0/0
+Router(config-if)# ip nat inside
+Router(config)# interface g0/1
+Router(config-if)# ip nat outside
+Router(config)# ip nat inside source list 1 interface g0/1 overload</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>DHCP Snooping / ARP Inspection</td>
+            <td>Switches</td>
+            <td>Prevents rogue DHCP and spoofing attacks.</td>
+            <td>
+              <pre><code>Switch(config)# ip dhcp snooping
+Switch(config)# ip arp inspection vlan 10</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>QoS (Quality of Service)</td>
+            <td>Routers</td>
+            <td>Prioritizes traffic such as voice.</td>
+            <td>
+              <pre><code>Router(config)# class-map VOICE
+Router(config-cmap)# match protocol rtp
+Router(config)# policy-map PRIORITY
+Router(config-pmap)# class VOICE
+Router(config-pmap-c)# priority 1000</code></pre>
+            </td>
+          </tr>
+
+          <tr>
+            <td>VPN / IPsec Tunnel</td>
+            <td>Routers</td>
+            <td>Creates secure site-to-site connections.</td>
+            <td>
+              <pre><code>(Advanced configuration omitted for brevity)</code></pre>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </section>
+
+    <!-- STUDY ORDER -->
+    <section class="blog-section">
+
+      <h2>Study Order Summary</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Focus Area</th>
+            <th>Key Topics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Foundation</td>
+            <td>VLANs, Trunking, Static IPs, Static Routing</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Intermediate</td>
+            <td>Inter-VLAN Routing, Subinterfaces, EtherChannel, STP</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Advanced</td>
+            <td>ACLs, NAT, Port Security, DHCP Snooping, QoS, VPNs</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </section>
+
+    <!-- LAB BLUEPRINT -->
+    <section class="blog-section">
+
+      <h2>CCNA Lab Practice Blueprint</h2>
+
+      <h3>Devices Used</h3>
+      <ul>
+        <li>Cisco 2960G Switch</li>
+        <li>Router (GNS3 or Packet Tracer)</li>
+        <li>End Hosts (Windows / Linux VMs)</li>
+        <li>Optional: pfSense, Wazuh, Snort</li>
+      </ul>
+
+      <h3>Foundation Lab</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Goal</th>
+            <th>Configuration</th>
+            <th>Device</th>
+            <th>Test</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Management IP</td>
+            <td>VLAN 1 static IP</td>
+            <td>Switch</td>
+            <td>show ip interface brief</td>
+          </tr>
+          <tr>
+            <td>VLAN Creation</td>
+            <td>VLAN 10 / 20</td>
+            <td>Switch</td>
+            <td>show vlan brief</td>
+          </tr>
+          <tr>
+            <td>Access Ports</td>
+            <td>Assign VLANs</td>
+            <td>Switch</td>
+            <td>show interfaces switchport</td>
+          </tr>
+          <tr>
+            <td>Trunk Link</td>
+            <td>802.1Q trunk</td>
+            <td>Switch</td>
+            <td>show interfaces trunk</td>
+          </tr>
+          <tr>
+            <td>Connectivity Test</td>
+            <td>Ping same VLAN</td>
+            <td>PCs</td>
+            <td>ping</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pre><code>vlan 10
+ name HR
+vlan 20
+ name IT
+
+interface range fa0/1-2
+ switchport mode access
+ switchport access vlan 10
+
+interface fa0/24
+ switchport mode trunk</code></pre>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="../index.html">
+        Back to Home
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SSH & SCP Guide | SOC Lab</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        SSH and SCP Guide: Windows ↔ macOS/Linux
+      </h1>
+
+      <p class="section-subtitle">
+        Secure remote access and file transfer using SSH and SCP across Windows, macOS, and Linux systems.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        SCP (Secure Copy Protocol) uses SSH to securely transfer files between systems.
+        This guide assumes both machines are on the same local network.
+      </p>
+
+      <p>
+        <strong>Note:</strong> If SSH is already enabled from the previous guide, skip the setup section.
+      </p>
+
+    </section>
+
+    <!-- ENABLE SSH -->
+    <section class="blog-section">
+
+      <h2>1. Enable and Verify SSH</h2>
+
+      <h3>macOS / Linux</h3>
+
+      <pre><code>sudo systemsetup -setremotelogin on
+systemsetup -getremotelogin</code></pre>
+
+      <p><strong>Check SSH listening ports:</strong></p>
+
+      <pre><code>sudo lsof -iTCP -sTCP:LISTEN -n -P | grep ssh
+netstat -an | grep ".22"</code></pre>
+
+      <h3>Windows (PowerShell as Admin)</h3>
+
+      <pre><code>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Start-Service sshd
+Set-Service -Name sshd -StartupType Automatic
+Get-Service sshd</code></pre>
+
+      <p><strong>Firewall rule:</strong></p>
+
+      <pre><code>New-NetFirewallRule -Name sshd -DisplayName "OpenSSH Server (sshd)" `
+-Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22</code></pre>
+
+    </section>
+
+    <!-- SCP FILE TRANSFERS -->
+    <section class="blog-section">
+
+      <h2>2. SCP File Transfers</h2>
+
+      <h3>Mac/Linux → Windows</h3>
+
+      <pre><code>scp user@192.168.1.10:/Users/user/Desktop/file.txt /Users/macuser/Downloads/</code></pre>
+
+      <h3>Windows → Mac/Linux</h3>
+
+      <pre><code>scp C:\Users\user\Desktop\file.txt user@192.168.1.10:/Users/macuser/Downloads/</code></pre>
+
+      <h3>Windows Pull Example</h3>
+
+      <pre><code>scp macuser@192.168.1.10:/Users/macuser/Desktop/file.txt C:\Users\windowsuser\Downloads\</code></pre>
+
+    </section>
+
+    <!-- DIRECTORY TRANSFERS -->
+    <section class="blog-section">
+
+      <h2>3. Recursive Folder Transfers</h2>
+
+      <pre><code>scp -r user@192.168.1.10:/Users/user/Desktop/Folder /Users/macuser/Downloads/
+
+scp -r C:\Users\user\Desktop\Folder user@192.168.1.10:/Users/macuser/Downloads/Folder</code></pre>
+
+    </section>
+
+    <!-- TROUBLESHOOTING -->
+    <section class="blog-section">
+
+      <h2>4. Quick Troubleshooting</h2>
+
+      <h3>macOS / Linux</h3>
+
+      <pre><code>systemsetup -getremotelogin
+sudo launchctl kickstart -k system/com.openssh.sshd
+nc -vz 192.168.1.10 22</code></pre>
+
+      <h3>Windows</h3>
+
+      <pre><code>Get-Service sshd
+Restart-Service sshd
+netstat -ano | findstr ":22"
+Test-NetConnection -ComputerName 192.168.1.10 -Port 22</code></pre>
+
+    </section>
+
+    <!-- KEY AUTH -->
+    <section class="blog-section">
+
+      <h2>5. Key-Based Authentication</h2>
+
+      <h3>Generate Key (Mac/Linux)</h3>
+
+      <pre><code>ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C "mac-to-win-key"</code></pre>
+
+      <h3>Copy Key to Windows</h3>
+
+      <pre><code>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.1.10</code></pre>
+
+      <h3>Manual Method</h3>
+
+      <pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+
+      <p>Paste into:</p>
+
+      <pre><code>C:\Users\user\.ssh\authorized_keys</code></pre>
+
+      <p>Restart SSH service:</p>
+
+      <pre><code>Restart-Service sshd</code></pre>
+
+    </section>
+
+    <!-- COMMON ISSUES -->
+    <section class="blog-section">
+
+      <h2>6. Common Issues</h2>
+
+      <ul>
+        <li><strong>Permission denied:</strong> verify username and password</li>
+        <li><strong>Connection refused:</strong> SSH service or firewall issue</li>
+        <li><strong>No route to host:</strong> network mismatch</li>
+        <li><strong>scp path errors:</strong> use correct Windows path format</li>
+        <li><strong>Key issues:</strong> verify authorized_keys permissions</li>
+        <li><strong>Interrupted transfers:</strong> use rsync for resume support</li>
+      </ul>
+
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="blog-section">
+
+      <h2>Summary</h2>
+
+      <p>
+        SSH and SCP form the foundation of secure remote administration and file transfer.
+        These tools are essential in networking, DevOps, and cybersecurity workflows.
+      </p>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="../index.html">
+        🔙 Back to Home
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

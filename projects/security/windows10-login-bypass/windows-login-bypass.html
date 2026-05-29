@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Windows Password Reset (Ubuntu Live USB) | SOC Lab</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        Resetting Windows Password & Disabling PIN Login (Windows 10)
+      </h1>
+
+      <p class="section-subtitle">
+        Offline password reset using Ubuntu Live USB and chntpw for local Windows accounts (lab-only procedure).
+      </p>
+
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        This guide demonstrates how to reset a Windows local account password and disable Windows Hello PIN authentication
+        using an Ubuntu Live USB environment and the chntpw utility.
+      </p>
+
+      <p>
+        This technique works by modifying the Windows SAM (Security Account Manager) database offline.
+      </p>
+
+    </section>
+
+    <!-- REQUIREMENTS -->
+    <section class="blog-section">
+
+      <h2>Requirements</h2>
+
+      <ul>
+        <li>Second working computer</li>
+        <li>USB drive (8GB or larger)</li>
+        <li>Ubuntu Desktop ISO</li>
+        <li>Rufus (USB creation tool)</li>
+        <li>Internet access (for chntpw installation)</li>
+      </ul>
+
+    </section>
+
+    <!-- PART 1 -->
+    <section class="blog-section">
+
+      <h2>1. Create Ubuntu Live USB</h2>
+
+      <h3>Download Ubuntu</h3>
+
+      <p>
+        Download Ubuntu Desktop ISO from:
+        <a href="https://ubuntu.com/download/desktop" target="_blank">Ubuntu Official Website</a>
+      </p>
+
+      <h3>Create Bootable USB (Rufus)</h3>
+
+      <ul>
+        <li>Insert USB drive</li>
+        <li>Open Rufus</li>
+        <li>Select Ubuntu ISO</li>
+        <li>Partition scheme: MBR</li>
+        <li>File system: FAT32</li>
+        <li>Click Start</li>
+      </ul>
+
+    </section>
+
+    <!-- PART 2 -->
+    <section class="blog-section">
+
+      <h2>2. Boot Locked System from USB</h2>
+
+      <ul>
+        <li>Insert USB into target system</li>
+        <li>Power on and press ESC repeatedly</li>
+        <li>Press F12 for boot menu</li>
+        <li>Select USB (UEFI preferred)</li>
+        <li>Choose “Try Ubuntu” (do not install)</li>
+      </ul>
+
+    </section>
+
+    <!-- PART 3 -->
+    <section class="blog-section">
+
+      <h2>3. Connect to Internet</h2>
+
+      <ul>
+        <li>Connect to Wi-Fi from top-right icon</li>
+        <li>Verify connectivity</li>
+      </ul>
+
+      <pre><code>ping -c 2 google.com</code></pre>
+
+    </section>
+
+    <!-- PART 4 -->
+    <section class="blog-section">
+
+      <h2>4. Install chntpw Tool</h2>
+
+      <pre><code>sudo apt update
+sudo apt install chntpw</code></pre>
+
+    </section>
+
+    <!-- PART 5 -->
+    <section class="blog-section">
+
+      <h2>5. Locate Windows Partition</h2>
+
+      <pre><code>lsblk -f
+sudo lsblk -o NAME,FSTYPE,SIZE,LABEL,MOUNTPOINT</code></pre>
+
+      <p>Example output indicates NTFS partition (Windows system drive).</p>
+
+      <h3>Mount Windows Partition</h3>
+
+      <pre><code>sudo mkdir /mnt/win
+sudo mount -t ntfs-3g /dev/nvme0n1p3 /mnt/win</code></pre>
+
+      <h3>Verify SAM File</h3>
+
+      <pre><code>ls /mnt/win/Windows/System32/config/</code></pre>
+
+    </section>
+
+    <!-- PART 6 -->
+    <section class="blog-section">
+
+      <h2>6. Reset Password with chntpw</h2>
+
+      <pre><code>sudo chntpw -i /mnt/win/Windows/System32/config/SAM</code></pre>
+
+      <p>Inside menu:</p>
+
+      <ul>
+        <li>Option 1: Edit user data</li>
+        <li>Select username or RID</li>
+        <li>Option 1: Clear password</li>
+        <li>Option 4: Unlock user (if needed)</li>
+        <li>Option !: Exit editor</li>
+        <li>Option q: Quit</li>
+        <li>Confirm with y</li>
+      </ul>
+
+    </section>
+
+    <!-- PART 7 -->
+    <section class="blog-section">
+
+      <h2>7. Disable Windows Hello (PIN Login)</h2>
+
+      <p>Remove Windows Hello credential store:</p>
+
+      <pre><code>sudo rm -rf /mnt/win/Windows/ServiceProfiles/LocalService/AppData/Local/Microsoft/Ngc</code></pre>
+
+      <p>This removes PIN, fingerprint, and facial authentication data.</p>
+
+    </section>
+
+    <!-- PART 8 -->
+    <section class="blog-section">
+
+      <h2>8. Reboot and Login</h2>
+
+      <pre><code>sudo reboot</code></pre>
+
+      <ul>
+        <li>Remove USB when prompted</li>
+        <li>Select “Sign-in options”</li>
+        <li>Choose password login</li>
+        <li>Press Enter (blank password if cleared)</li>
+      </ul>
+
+    </section>
+
+    <!-- NOTES -->
+    <section class="blog-section">
+
+      <h2>chntpw Overview</h2>
+
+      <p>
+        chntpw stands for “Change NT Password” and is a Linux utility used to modify Windows local account data
+        by editing the SAM registry hive offline.
+      </p>
+
+      <h3>Key Functions</h3>
+
+      <ul>
+        <li>Reset or clear local Windows passwords</li>
+        <li>Unlock user accounts</li>
+        <li>Promote users to administrator</li>
+        <li>Edit SAM registry entries offline</li>
+      </ul>
+
+      <h3>Important Notes</h3>
+
+      <ul>
+        <li>Does not decrypt passwords (it clears them)</li>
+        <li>Does not work on Microsoft cloud accounts</li>
+        <li>Requires offline access to Windows disk</li>
+      </ul>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="../../../index.html">
+        Back to Home
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

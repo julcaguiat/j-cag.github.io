@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    Julfri Caguiat | Enterprise Infrastructure & Security Operations
+  </title>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:#0d1117;
+      color:#e6edf3;
+    }
+
+    /* =========================
+       LAYOUT
+    ========================= */
+
+    .kb-layout{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:40px;
+      max-width:1600px;
+      margin:auto;
+      padding:0 24px;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .kb-sidebar{
+      position:sticky;
+      top:90px;
+      height:fit-content;
+      padding-right:20px;
+      border-right:1px solid #30363d;
+    }
+
+    .kb-title{
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:#7cc7ff;
+      margin-bottom:14px;
+      margin-top:30px;
+    }
+
+    .kb-title:first-child{
+      margin-top:0;
+    }
+
+    .kb-nav{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .kb-nav a{
+      color:#c9d1d9;
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:8px;
+      transition:0.2s ease;
+      font-size:0.92rem;
+    }
+
+    .kb-nav a:hover{
+      background:#161b22;
+      color:#58a6ff;
+      padding-left:16px;
+    }
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .kb-content{
+      min-width:0;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero{
+      min-height:60vh;
+      display:flex;
+      align-items:center;
+      padding:100px 20px 80px;
+      border-bottom:1px solid #30363d;
+    }
+
+    .hero-content{
+      max-width:950px;
+    }
+
+    .hero-subtitle{
+      color:#7cc7ff;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:0.85rem;
+      margin-bottom:20px;
+    }
+
+    .hero-title{
+      font-size:3.4rem;
+      line-height:1.1;
+      margin-bottom:24px;
+      max-width:900px;
+    }
+
+    .hero p{
+      max-width:760px;
+      color:#c9d1d9;
+      line-height:1.8;
+      font-size:1.05rem;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:34px;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:10px;
+      text-decoration:none;
+      transition:0.2s ease;
+      border:1px solid #30363d;
+      color:#c9d1d9;
+    }
+
+    .btn:hover{
+      background:#161b22;
+      color:#58a6ff;
+    }
+
+    .btn-primary{
+      background:#1f6feb;
+      border-color:#1f6feb;
+      color:white;
+    }
+
+    .btn-primary:hover{
+      background:#388bfd;
+      color:white;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    .section{
+      padding:70px 20px;
+      border-bottom:1px solid #21262d;
+    }
+
+    .section-title{
+      font-size:2rem;
+      margin-bottom:18px;
+    }
+
+    .section-subtitle{
+      color:#8b949e;
+      max-width:850px;
+      line-height:1.7;
+      margin-bottom:40px;
+    }
+
+    /* =========================
+       TIMELINE
+    ========================= */
+
+    .program-timeline{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+      margin-top:40px;
+    }
+
+    .timeline-step{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:24px;
+    }
+
+    .timeline-phase{
+      display:inline-block;
+      margin-bottom:14px;
+      color:#7cc7ff;
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .timeline-step h3{
+      margin-top:0;
+      margin-bottom:14px;
+    }
+
+    .timeline-step p{
+      color:#c9d1d9;
+      line-height:1.7;
+      margin-bottom:24px;
+    }
+
+    /* =========================
+       TABLE
+    ========================= */
+
+    .featured-project{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:30px;
+    }
+
+    .tech-stack-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:24px;
+    }
+
+    .tech-stack-table th,
+    .tech-stack-table td{
+      padding:16px;
+      border-bottom:1px solid #30363d;
+      text-align:left;
+    }
+
+    .tech-stack-table th{
+      color:#7cc7ff;
+      font-weight:600;
+    }
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:20px;
+    }
+
+    .card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:26px;
+    }
+
+    .card h3{
+      margin-top:0;
+      margin-bottom:18px;
+    }
+
+    .card p{
+      color:#c9d1d9;
+      line-height:1.7;
+    }
+
+    .content-link{
+      display:block;
+      color:#58a6ff;
+      text-decoration:none;
+      margin-top:14px;
+      line-height:1.6;
+    }
+
+    .content-link:hover{
+      text-decoration:underline;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer{
+      padding:40px 20px;
+      text-align:center;
+      color:#8b949e;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:1100px){
+
+      .kb-layout{
+        grid-template-columns:1fr;
+      }
+
+      .kb-sidebar{
+        display:none;
+      }
+
+      .program-timeline{
+        grid-template-columns:1fr;
+      }
+
+      .cards{
+        grid-template-columns:1fr;
+      }
+
+      .hero-title{
+        font-size:2.5rem;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body id="top">
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="logo">
+        JULFRI CAGUIAT
+      </div>
+
+      <div class="nav-links">
+        <a href="#featured">Environment</a>
+        <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing"
+           target="_blank">
+           Core Infra Documentation
+       </a>
+        <a href="#labs">Labs</a>
+        <a href="#resources">Resources</a>
+        <a href="#">About</a>
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- =========================
+       MAIN LAYOUT
+  ========================== -->
+
+  <div class="kb-layout">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+<!--
+    <aside class="kb-sidebar">
+
+      <div class="kb-title">
+        Infrastructure
+      </div>
+
+      <nav class="kb-nav">
+        <a href="#featured">Environment Overview</a>
+        <a href="#tech-stack">Technology Stack</a>
+        <a href="#labs">Documentation</a>
+        <a href="#resources">Resources</a>
+      </nav>
+
+      <div class="kb-title">
+        Networking
+      </div>
+
+      <nav class="kb-nav">
+
+        <a href="projects/networking/packettracer-project.html">
+          Enterprise Packet Tracer
+        </a>
+
+        <a href="#">
+          VLANs & Inter-VLAN Routing
+        </a>
+
+        <a href="#">
+          Switches vs Routers
+        </a>
+
+      </nav>
+
+      <div class="kb-title">
+        Security
+      </div>
+
+      <nav class="kb-nav">
+
+        <a href="projects/security/virtual-soc-homelab/landing-page.html">
+          Virtual SOC Lab
+        </a>
+
+        <a href="projects/security/windows10-login-bypass/windows-login-bypass.html">
+          Windows Login Recovery
+        </a>
+
+      </nav>
+
+      <div class="kb-title">
+        System Administration
+      </div>
+
+      <nav class="kb-nav">
+
+        <a href="#">
+          Active Directory
+        </a>
+
+        <a href="#">
+          DNS / DHCP
+        </a>
+
+        <a href="#">
+          SSH / SCP Guides
+        </a>
+
+      </nav>
+
+    </aside>
+-->
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="kb-sidebar">
+
+  <!-- INFRASTRUCTURE -->
+  <details class="kb-group" open>
+    <summary class="kb-title">Infrastructure</summary>
+
+    <nav class="kb-nav">
+
+      <a href="#featured">Environment Overview</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#tech-stack">Technology Stack</a>
+      <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing"
+           target="_blank">
+           Core Infra Documentation
+      </a>
+
+      <!-- PHASE DEPLOYMENTS -->
+      <details class="kb-subgroup">
+        <summary class="kb-subtitle">Phase Deployments</summary>
+
+        <div class="kb-subnav">
+          <a href="#phase1">Phase 1 — Core Infrastructure</a>
+          <a href="#phase2">Phase 2 — Virtualization Layer</a>
+          <a href="#phase3">Phase 3 — Security Operations</a>
+        </div>
+      </details>
+
+    </nav>
+  </details>
+
+
+  <!-- NETWORKING -->
+  <details class="kb-group">
+    <summary class="kb-title">Networking</summary>
+
+    <nav class="kb-nav">
+
+      <a href="projects/networking/packettracer-project.html">
+        Packet Tracer: 3-Tier Architecture Sim
+      </a>
+
+      <a href="#">
+        CML: CCNP ENCOR Labs
+      </a>
+
+      <a href="#">
+        CCNP ENCOR Notes
+      </a>
+
+    </nav>
+  </details>
+
+
+  <!-- SECURITY OPERATIONS -->
+  <details class="kb-group">
+    <summary class="kb-title">Security Operations</summary>
+
+    <nav class="kb-nav">
+
+      <a href="projects/security/virtual-soc-homelab/landing-page.html">
+        VirtualBox: SOC Lab Deployment
+      </a>
+
+      <a href="projects/security/windows10-login-bypass/windows-login-bypass.html">
+        Windows Login Recovery
+      </a>
+
+      <a href="#">
+        TryHackMe Walkthroughs
+      </a>
+
+      <a href="#">
+        Pentest Notes
+      </a>
+
+    </nav>
+  </details>
+
+
+  <!-- SYSTEM ADMIN -->
+  <details class="kb-group">
+    <summary class="kb-title">System Administration</summary>
+
+    <nav class="kb-nav">
+
+      <a href="#">
+        Active Directory
+      </a>
+
+      <a href="#">
+        DNS / DHCP / SMB
+      </a>
+
+      <a href="#">
+        SSH / SCP / RDP Guides
+      </a>
+
+    </nav>
+  </details>
+
+
+  <!-- AUTOMATION -->
+  <details class="kb-group">
+    <summary class="kb-title">Automation & AI</summary>
+
+    <nav class="kb-nav">
+
+      <a href="#">
+        n8n Installation
+      </a>
+
+      <a href="#">
+        Local LLM Setup
+      </a>
+
+      <a href="#">
+        AI Workflow Automation
+      </a>
+
+      <a href="#">
+        SIEM → Ticket Automation
+      </a>
+
+    </nav>
+  </details>
+
+</aside>
+
+
+
+
+
+
+    <!-- =========================
+         CONTENT
+    ========================== -->
+
+    <main class="kb-content">
+
+      <!-- HERO -->
+
+      <section class="hero">
+
+        <div class="hero-content">
+
+          <div class="hero-subtitle">
+            ENTERPRISE NETWORKING • INFRASTRUCTURE • SECURITY OPERATIONS • AUTOMATION
+          </div>
+
+          <h1 class="hero-title">
+            Enterprise Infrastructure, Security Operations & Automation Environment
+          </h1>
+
+          <p>
+            Structured enterprise lab environment spanning Cisco networking, virtualization, 
+            Windows infrastructure, SIEM engineering, automation workflows, and system administration.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#featured" class="btn btn-primary">
+              Overview
+            </a>
+
+            <a href="#architecture" class="btn">
+              Architecuture 
+            </a>
+
+            <a href="#tech-stack" class="btn">
+              Tech Stack
+            </a>
+
+            <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing"
+              target="_blank" class="btn">
+              Documentation
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ENVIRONMENT -->
+
+      <section id="featured" class="section">
+
+        <h2 class="section-title">
+          Environment Overview
+        </h2>
+
+        <p class="section-subtitle">
+          Multi-phase enterprise environment simulating production-style
+          infrastructure, virtualization, monitoring, endpoint management,
+          and security operations workflows.
+        </p>
+
+        <div class="program-timeline">
+
+          <div class="timeline-step">
+
+            <span class="timeline-phase">
+              Phase 1
+            </span>
+
+            <h3>Core Infrastructure</h3>
+
+            <p>
+              Cisco routing, VLAN segmentation,
+              Active Directory, DNS, DHCP,
+              switching, and firewall integration.
+            </p>
+
+            <a href="projects/featured-infrastructure-project.html" class="btn btn-primary">
+              Open
+            </a>
+
+          </div>
+
+          <div class="timeline-step">
+
+            <span class="timeline-phase">
+              Phase 2
+            </span>
+
+            <h3>Virtualization Layer</h3>
+
+            <p>
+              Proxmox VE, VirtualBox,
+              Cisco CML, Windows/Linux virtual machines,
+              and server infrastructure.
+            </p>
+
+            <a href="projects/featured-infrastructure-project-ph2.html" class="btn btn-primary">
+              Open
+            </a>
+
+          </div>
+
+          <div class="timeline-step">
+
+            <span class="timeline-phase">
+              Phase 3
+            </span>
+
+            <h3>Security Operations</h3>
+
+            <p>
+              Wazuh SIEM, endpoint monitoring,
+              automation workflows,
+              detection engineering, and SOC analysis.
+            </p>
+
+            <a href="projects/featured-infrastructure-project-ph3.html" class="btn btn-primary">
+              Open
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+  <!-- ARCHITECTURE -->
+
+      <section id="architecture" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Architecture
+          </div>
+
+          <h2 class="portal-title">
+            Logical & Physical Infrastructure Design
+          </h2>
+
+        </div>
+
+        <div class="architecture-grid">
+
+          <div class="arch-card">
+
+            <img src="assets/images/topology/logical-image.png">
+
+            <div class="arch-body">
+
+              <h3>Logical Architecture</h3>
+
+              <p>
+                IP addressing scheme, VLAN segmentation, routing boundaries,
+                virtualization layers, and network traffic flow.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="arch-card">
+
+            <img src="assets/images/topology/physical-image.png">
+
+            <div class="arch-body">
+
+              <h3>Physical Architecture</h3>
+
+              <p>
+                Physical device placement, switching & routing infrastructure,
+                firewall integration, endpoints/virtualization hosts, and proper port/cable labeling.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+
+
+      <!-- TECH STACK -->
+
+      <section id="tech-stack" class="section">
+
+        <h2 class="section-title">
+          Technology Stack
+        </h2>
+
+        <p class="section-subtitle">
+          Enterprise technologies currently integrated into the environment.
+        </p>
+
+        <div class="featured-project">
+
+          <table class="tech-stack-table">
+
+            <thead>
+
+              <tr>
+                <th>Domain</th>
+                <th>Technologies</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>Networking</td>
+                <td>Cisco ISR 1941, Catalyst 2960G, pfSense</td>
+              </tr>
+
+              <tr>
+                <td>Virtualization</td>
+                <td>Proxmox VE, VirtualBox, Cisco CML</td>
+              </tr>
+
+              <tr>
+                <td>Enterprise Services</td>
+                <td>Active Directory, DNS, DHCP, SMB</td>
+              </tr>
+
+              <tr>
+                <td>Security</td>
+                <td>Wazuh SIEM, Sysmon, ACLs, Port Security</td>
+              </tr>
+
+              <tr>
+                <td>Automation</td>
+                <td>n8n Workflows, Peppermint Ticketing</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+      <!-- DOCUMENTATION -->
+
+      <section id="labs" class="section">
+
+        <h2 class="section-title">
+          Misc Labs / Projects - Technical Documentation
+        </h2>
+
+        <p class="section-subtitle">
+          Structured enterprise infrastructure, networking,
+          security, and system administration documentation.
+        </p>
+
+        <div class="cards">
+
+          <div class="card">
+
+            <h3>Networking</h3>
+
+            <p>
+              Cisco switching, routing,
+              VLANs, inter-VLAN routing,
+              Packet Tracer simulations,
+              and CCNA/CCNP labs.
+            </p>
+
+            <a href="projects/networking/packettracer-project.html" class="content-link">
+              Three-Tier Enterprise Packet Tracer Project
+            </a>
+
+          </div>
+
+          <div class="card">
+
+            <h3>Security Operations</h3>
+
+            <p>
+              Wazuh SIEM deployment,
+              Kali Linux labs,
+              pfSense segmentation,
+              and SOC workflows.
+            </p>
+
+            <a href="projects/security/virtual-soc-homelab/landing-page.html" class="content-link">
+              Virtual SOC Lab Deployment on VirtualBox
+            </a>
+            <a href="projects/security/windows10-login-bypass/windows-login-bypass.html" class="content-link">
+              Bypassing Windows 10 login
+            </a>
+
+          </div>
+
+          <div class="card">
+
+            <h3>System Administration</h3>
+
+            <p>
+              Active Directory,
+              Windows administration,
+              Linux tooling,
+              SSH/SCP workflows,
+              and identity services.
+            </p>
+
+            <a href="#" class="content-link">
+              Open Documentation
+            </a>
+
+          </div>
+
+          <div class="card">
+
+            <h3>Automation & Scripting</h3>
+
+            <p>
+              Python automation,
+              Bash scripting,
+              PowerShell,
+              and infrastructure workflow automation.
+            </p>
+
+            <a href="#" class="content-link">
+              Open Documentation
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- RESOURCES -->
+
+      <section id="resources" class="section">
+
+        <h2 class="section-title">
+          Resources & References
+        </h2>
+
+        <div class="cards">
+
+          <div class="card">
+
+            <h3>Networking References</h3>
+
+            <p>
+              VLANs, routing,
+              NAT, ACLs,
+              troubleshooting workflows,
+              and CCNP ENCOR notes.
+            </p>
+
+          </div>
+
+          <div class="card">
+
+            <h3>System Utilities</h3>
+
+            <p>
+              PuTTY installation,
+              SSH tooling,
+              Windows recovery procedures,
+              and Linux utilities.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- FOOTER -->
+
+      <footer>
+        © 2026 Julfri Caguiat — Enterprise Infrastructure & Security Operations
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+
+</html>

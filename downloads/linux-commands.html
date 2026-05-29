@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Essential Linux Commands for Beginners | SOC Lab</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        Essential Linux Commands for Beginners
+      </h1>
+
+      <p class="section-subtitle">
+        A practical command-line reference for cybersecurity, networking, and Linux system administration fundamentals.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Introduction</h2>
+
+      <p>
+        If you're starting your journey in Linux for cybersecurity, networking, or IT,
+        mastering terminal commands is essential. This guide summarizes the most commonly used
+        Linux commands in a structured and easy-to-reference format.
+      </p>
+
+    </section>
+
+    <!-- NAVIGATION -->
+    <section class="blog-section">
+
+      <h2>Navigation Commands</h2>
+
+      <ul>
+        <li><code>pwd</code> → Show current directory</li>
+        <li><code>ls</code> → List files</li>
+        <li><code>ls -l</code> → Detailed listing</li>
+        <li><code>ls -a</code> → Show hidden files</li>
+        <li><code>cd &lt;directory&gt;</code> → Change directory</li>
+        <li><code>cd ..</code> → Move up one level</li>
+        <li><code>cd ~</code> → Home directory</li>
+      </ul>
+
+    </section>
+
+    <!-- FILE MGMT -->
+    <section class="blog-section">
+
+      <h2>File & Directory Management</h2>
+
+      <ul>
+        <li><code>mkdir &lt;folder&gt;</code> → Create folder</li>
+        <li><code>touch &lt;file&gt;</code> → Create file</li>
+        <li><code>cp &lt;src&gt; &lt;dest&gt;</code> → Copy files</li>
+        <li><code>mv &lt;src&gt; &lt;dest&gt;</code> → Move or rename</li>
+        <li><code>rm &lt;file&gt;</code> → Delete file</li>
+        <li><code>rm -r &lt;folder&gt;</code> → Delete folder</li>
+      </ul>
+
+    </section>
+
+    <!-- FILE VIEW -->
+    <section class="blog-section">
+
+      <h2>Viewing & Editing Files</h2>
+
+      <ul>
+        <li><code>cat &lt;file&gt;</code> → View content</li>
+        <li><code>less</code> / <code>more</code> → Scroll file output</li>
+        <li><code>nano &lt;file&gt;</code> → Simple editor</li>
+        <li><code>vim &lt;file&gt;</code> → Advanced editor</li>
+      </ul>
+
+    </section>
+
+    <!-- SEARCH -->
+    <section class="blog-section">
+
+      <h2>Searching</h2>
+
+      <ul>
+        <li><code>find &lt;path&gt; -name "pattern"</code> → Find files</li>
+        <li><code>grep "text" &lt;file&gt;</code> → Search inside file</li>
+        <li><code>grep -r "text" &lt;folder&gt;</code> → Recursive search</li>
+      </ul>
+
+    </section>
+
+    <!-- SYSTEM -->
+    <section class="blog-section">
+
+      <h2>System Information</h2>
+
+      <ul>
+        <li><code>whoami</code> → Current user</li>
+        <li><code>uname -a</code> → System info</li>
+        <li><code>top</code> / <code>htop</code> → Process monitoring</li>
+        <li><code>df -h</code> → Disk usage</li>
+        <li><code>free -h</code> → Memory usage</li>
+      </ul>
+
+    </section>
+
+    <!-- NETWORK -->
+    <section class="blog-section">
+
+      <h2>Networking</h2>
+
+      <ul>
+        <li><code>ping &lt;host&gt;</code> → Connectivity test</li>
+        <li><code>ip a</code> → Show interfaces</li>
+        <li><code>ss -tuln</code> → Active connections</li>
+        <li><code>curl &lt;url&gt;</code> → Fetch web data</li>
+        <li><code>wget &lt;url&gt;</code> → Download files</li>
+      </ul>
+
+    </section>
+
+    <!-- PACKAGES -->
+    <section class="blog-section">
+
+      <h2>Package Management (Ubuntu/Debian)</h2>
+
+      <ul>
+        <li><code>sudo apt update</code> → Update repositories</li>
+        <li><code>sudo apt upgrade</code> → Upgrade system</li>
+        <li><code>sudo apt install &lt;package&gt;</code> → Install software</li>
+        <li><code>sudo apt remove &lt;package&gt;</code> → Remove software</li>
+      </ul>
+
+    </section>
+
+    <!-- PERMISSIONS -->
+    <section class="blog-section">
+
+      <h2>Permissions & Ownership</h2>
+
+      <ul>
+        <li><code>chmod</code> → Change permissions</li>
+        <li><code>chown</code> → Change ownership</li>
+        <li><code>sudo</code> → Run as administrator</li>
+      </ul>
+
+    </section>
+
+    <!-- MISC -->
+    <section class="blog-section">
+
+      <h2>Miscellaneous</h2>
+
+      <ul>
+        <li><code>history</code> → Command history</li>
+        <li><code>clear</code> → Clear terminal</li>
+        <li><code>exit</code> → Exit session</li>
+      </ul>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Practice Tip</h2>
+
+      <p>
+        Use a Linux VM or cloud lab environment to practice these commands safely.
+        Repetition is key to building terminal fluency.
+      </p>
+
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section class="blog-section">
+
+      <h2>Download Resource</h2>
+
+      <p>
+        Download the Linux Commands reference sheet:
+      </p>
+
+      <a href="../downloadables/linux-commands.pdf"
+         download="linux-commands.pdf"
+         class="btn btn-primary">
+        Download PDF
+      </a>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="../index.html">
+        Back to Home
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

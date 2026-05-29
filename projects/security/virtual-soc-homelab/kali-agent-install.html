@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Wazuh Agent Installation (Kali Linux) | Home Lab Setup</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        How to Install Wazuh Agent on Kali Linux VM
+      </h1>
+
+      <p class="section-subtitle">
+        Step-by-step guide to installing and registering the Wazuh Agent on a Kali Linux VM for SIEM monitoring and endpoint visibility in a SOC home lab.
+      </p>
+
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        The Wazuh Agent is responsible for collecting logs, monitoring system activity, and sending telemetry
+        data back to the Wazuh SIEM server. In this setup, Kali Linux is configured as a monitored endpoint
+        to simulate attacker activity visibility in a SOC environment.
+      </p>
+
+    </section>
+
+    <!-- REQUIREMENTS -->
+    <section class="blog-section">
+
+      <h2>Requirements</h2>
+
+      <ul>
+        <li>Kali Linux VM running on VirtualBox</li>
+        <li>Wazuh Server (Ubuntu) already installed</li>
+        <li>Wazuh Dashboard access</li>
+        <li>Network connectivity between VM and server</li>
+      </ul>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Identify Wazuh Server IP Address</h2>
+
+      <p>
+        On the Ubuntu Wazuh Server, run the following command:
+      </p>
+
+      <pre>
+ip a
+      </pre>
+
+      <p>
+        Locate the <code>inet</code> value (example: 10.10.100.15). This is required for agent registration.
+      </p>
+
+      <figure>
+        <img src="../images/6kali-agent2-images/1.png" alt="Wazuh server IP address" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Deploy Wazuh Agent from Dashboard</h2>
+
+      <ol>
+        <li>Log in to Wazuh Dashboard</li>
+        <li>Navigate to Active Agents</li>
+        <li>Click Deploy New Agent</li>
+        <li>Select DEB amd64 package</li>
+        <li>Enter Wazuh Server IP address</li>
+        <li>Set Agent Name (Kali-Linux-VM)</li>
+        <li>Copy installation commands</li>
+      </ol>
+
+      <figure>
+        <img src="../images/6kali-agent2-images/2.png" alt="Wazuh dashboard active agents" />
+      </figure>
+
+      <figure>
+        <img src="../images/6kali-agent2-images/5.png" alt="Agent configuration" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="blog-section">
+
+      <h2>Step 3 — Install Agent on Kali Linux</h2>
+
+      <ol>
+        <li>Open Kali Linux terminal</li>
+        <li>Switch to root user</li>
+      </ol>
+
+      <pre>
+sudo su
+      </pre>
+
+      <ol start="3">
+        <li>Paste and execute installation commands from dashboard</li>
+      </ol>
+
+      <p>
+        After installation, enable and start the Wazuh agent:
+      </p>
+
+      <pre>
+sudo systemctl daemon-reload
+sudo systemctl enable wazuh-agent
+sudo systemctl start wazuh-agent
+      </pre>
+
+      <p>
+        Verify service status:
+      </p>
+
+      <pre>
+sudo systemctl status wazuh-agent
+      </pre>
+
+      <p>
+        Status should show: <strong>active (running)</strong>
+      </p>
+
+      <figure>
+        <img src="../images/6kali-agent2-images/7.png" alt="Wazuh agent installation" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="blog-section">
+
+      <h2>Step 4 — Verify Agent in Wazuh Dashboard</h2>
+
+      <p>
+        Once connected, the Kali Linux VM will appear as an active agent in the Wazuh dashboard.
+      </p>
+
+      <figure>
+        <img src="../images/6kali-agent2-images/8.png" alt="Wazuh agent active" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="blog-section">
+
+      <h2>Step 5 — Monitor Events and Logs</h2>
+
+      <ul>
+        <li>Security alerts</li>
+        <li>Process monitoring</li>
+        <li>/var/log system logs</li>
+        <li>File integrity monitoring</li>
+        <li>Rootkit detection events</li>
+      </ul>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        The Kali Linux VM is now successfully enrolled as a Wazuh agent.
+        This enables real-time monitoring of attacker simulation activity inside the SOC lab.
+      </p>
+
+    </section>
+
+    <!-- NAVIGATION -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="wazuh-install.html">
+        ← Previous: Wazuh SIEM
+      </a>
+
+      <a class="btn btn-secondary" href="../../../index.html">
+        Home
+      </a>
+
+      <a class="btn btn-primary" href="win10-agent-install.html">
+        Next: Windows 10 Agent →
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

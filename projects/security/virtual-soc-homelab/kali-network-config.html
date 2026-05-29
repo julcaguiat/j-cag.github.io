@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Kali Linux Network Configuration | Home Lab Setup</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        Kali Linux VM — Adapter Settings & LAN IP Configuration
+      </h1>
+
+      <p class="section-subtitle">
+        Configure Kali Linux with a static IP on the internal LabNet network for stable communication with pfSense and other lab VMs.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Introduction</h2>
+
+      <p>
+        In this part of the lab, Kali Linux is configured with a static IP address on the Internal Network (LabNet).
+        This ensures stable communication with pfSense and other virtual machines.
+        A fixed IP is required for reliable scanning, attack simulation, and SOC monitoring workflows.
+      </p>
+
+    </section>
+
+    <!-- TIP -->
+    <section class="blog-section">
+
+      <h2>Tip: Keep ChatGPT Handy</h2>
+
+      <p>
+        If NetworkManager overwrites your configuration, you can troubleshoot with:
+      </p>
+
+      <p>
+        <em>
+          “Kali keeps overwriting /etc/network/interfaces. How do I disable NetworkManager and make 192.168.10.2 static?”
+        </em>
+      </p>
+
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="blog-section">
+
+      <h2>Step 1 — Kali VM Network Adapter Configuration</h2>
+
+      <ol>
+        <li>Power off Kali Linux VM</li>
+        <li>Go to VirtualBox → Settings → Network</li>
+      </ol>
+
+      <h3>Adapter 1 (LAN - Internal Network)</h3>
+
+      <ul>
+        <li>Enable Network Adapter</li>
+        <li>Attached to: Internal Network</li>
+        <li>Name: LabNet</li>
+        <li>Promiscuous Mode: Allow All</li>
+      </ul>
+
+      <figure>
+        <img src="../images/10k2-images/1.png" alt="Kali network adapter configuration" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="blog-section">
+
+      <h2>Step 2 — Configure Static IP Address</h2>
+
+      <ol>
+        <li>Boot Kali Linux VM</li>
+        <li>Open terminal</li>
+        <li>Edit network interfaces file</li>
+      </ol>
+
+      <p><strong>Run command:</strong></p>
+
+      <pre><code>sudo nano /etc/network/interfaces</code></pre>
+
+      <p>Enter password: <strong>kali</strong> (or your updated password)</p>
+
+      <figure>
+        <img src="../images/10k2-images/2.png" alt="Editing network interfaces file" />
+      </figure>
+
+      <h3>Static IP Configuration</h3>
+
+      <pre><code>auto eth0
+iface eth0 inet static
+    address 192.168.10.2
+    netmask 255.255.255.0
+    gateway 192.168.10.1
+    dns-nameservers 192.168.10.1 1.1.1.1</code></pre>
+
+      <p>
+        Save file: <strong>CTRL + X</strong> → <strong>Y</strong> → <strong>Enter</strong>
+      </p>
+
+      <figure>
+        <img src="../images/10k2-images/3.png" alt="Saving network configuration" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="blog-section">
+
+      <h2>Step 3 — Restart Networking</h2>
+
+      <pre><code>sudo systemctl restart networking
+ip a</code></pre>
+
+      <p>
+        Kali Linux is now assigned static IP: <strong>192.168.10.2</strong>
+      </p>
+
+      <figure>
+        <img src="../images/10k2-images/4.png" alt="IP configuration verification" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="blog-section">
+
+      <h2>Step 4 — Connectivity Test</h2>
+
+      <p>Run the following commands:</p>
+
+      <pre><code>ping -c 4 192.168.10.1
+ping -c 4 google.com</code></pre>
+
+      <p>
+        First verifies pfSense connectivity. Second verifies internet access.
+      </p>
+
+      <figure>
+        <img src="../images/10k2-images/5.png" alt="Ping test results" />
+      </figure>
+
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="blog-section">
+
+      <h2>Step 5 — Access pfSense GUI</h2>
+
+      <ul>
+        <li>Open browser in Kali</li>
+        <li>Navigate to: https://192.168.10.1:8443</li>
+      </ul>
+
+      <figure>
+        <img src="../images/10k2-images/6.png" alt="pfSense login page" />
+      </figure>
+
+      <figure>
+        <img src="../images/10k2-images/7.png" alt="pfSense dashboard access" />
+      </figure>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Completion</h2>
+
+      <p>
+        Kali Linux is now configured with a static IP (192.168.10.2) and integrated into the LabNet internal network.
+        It is fully reachable by pfSense and ready for security testing workflows.
+      </p>
+
+    </section>
+
+    <!-- FOOTER NAV -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="pfsense-config.html">
+        Back: pfSense Configuration
+      </a>
+
+      <a class="btn btn-primary" href="../index.html">
+        Back to Home
+      </a>
+
+      <a class="btn btn-secondary" href="wazuh-network-config.html">
+        Next: Ubuntu Wazuh Config
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

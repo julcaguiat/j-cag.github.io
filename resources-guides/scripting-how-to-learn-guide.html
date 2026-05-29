@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Scripting for Pentesting | SOC Lab</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+
+<main class="blog-post">
+
+  <!-- HEADER -->
+  <header class="blog-section">
+
+    <h1 class="section-title bright-title">
+      Learn Scripting for Pentesting — Setup + 8-Week Study Plan
+    </h1>
+
+    <p class="section-subtitle">
+      A practical structured roadmap for learning scripting for cybersecurity and penetration testing using Python, Linux, Windows, and real lab environments.
+    </p>
+
+  </header>
+
+  <!-- INTRO -->
+  <section class="blog-section">
+
+    <h2>Overview</h2>
+
+    <p>
+      This guide provides a structured 8-week learning path focused on scripting for pentesting.
+      It assumes a lab-based workflow using VirtualBox, Linux VMs, Windows VMs, and TryHackMe.
+    </p>
+
+    <p>
+      The goal is to develop automation skills for cybersecurity tasks such as scanning, parsing logs, SSH automation, and basic exploit scripting.
+    </p>
+
+  </section>
+
+  <!-- QUICK SETUP -->
+  <section class="blog-section">
+
+    <h2>Quick Setup: Python Virtual Environment + TryHackMe</h2>
+
+    <p>
+      A Python virtual environment isolates dependencies so pentesting tools do not interfere with system packages.
+    </p>
+
+    <h3>Install Python 3</h3>
+
+    <h4>Linux / macOS</h4>
+    <pre><code>sudo apt update
+sudo apt install -y python3 python3-venv python3-pip</code></pre>
+
+    <h4>macOS (Homebrew)</h4>
+    <pre><code>brew install python</code></pre>
+
+    <h4>Windows</h4>
+    <pre><code>Download Python from https://www.python.org/downloads/
+Enable "Add Python to PATH"</code></pre>
+
+    <p><strong>Verify installation:</strong></p>
+
+    <pre><code>python3 --version
+pip3 --version</code></pre>
+
+  </section>
+
+  <!-- VIRTUAL ENV -->
+  <section class="blog-section">
+
+    <h2>2. Create Project Folder and Virtual Environment</h2>
+
+    <h4>Linux / macOS</h4>
+    <pre><code>mkdir -p ~/pentest-scripts
+cd ~/pentest-scripts
+python3 -m venv .venv
+source .venv/bin/activate</code></pre>
+
+    <h4>Windows (PowerShell)</h4>
+    <pre><code>mkdir C:\Users\you\pentest-scripts
+cd C:\Users\you\pentest-scripts
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1</code></pre>
+
+    <p>
+      After activation, the environment will show <code>(.venv)</code> in the terminal prompt.
+    </p>
+
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="blog-section">
+
+    <h2>3. Install Python Packages</h2>
+
+    <pre><code>pip install --upgrade pip
+pip install requests paramiko scapy python-nmap tqdm</code></pre>
+
+  </section>
+
+  <!-- GIT -->
+  <section class="blog-section">
+
+    <h2>4. Git and Editor Setup</h2>
+
+    <pre><code>git init
+git add .
+git commit -m "initial environment"</code></pre>
+
+    <p>
+      Use VS Code with Python extension and select the virtual environment interpreter.
+    </p>
+
+  </section>
+
+  <!-- TRYHACKME -->
+  <section class="blog-section">
+
+    <h2>5. TryHackMe Setup</h2>
+
+    <ul>
+      <li>Create account at https://tryhackme.com</li>
+      <li>Start with: Python for Pentesters</li>
+      <li>Linux Fundamentals / Bandit</li>
+    </ul>
+
+  </section>
+
+  <!-- SCRIPT -->
+  <section class="blog-section">
+
+    <h2>6. Example Script: Log Analyzer</h2>
+
+    <pre><code>#!/usr/bin/env python3
+
+from collections import Counter
+import argparse, re
+
+IP_RE = re.compile(r'(\d+\.\d+\.\d+\.\d+)')
+
+def top_ips(path, n=10):
+    cnt = Counter()
+    with open(path, 'r', errors='ignore') as f:
+        for line in f:
+            m = IP_RE.search(line)
+            if m:
+                cnt[m.group(1)] += 1
+
+    for ip, c in cnt.most_common(n):
+        print(f"{ip}\t{c}")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("file")
+    parser.add_argument("-n", type=int, default=10)
+    args = parser.parse_args()
+
+    top_ips(args.file, args.n)</code></pre>
+
+    <p><strong>Run:</strong></p>
+
+    <pre><code>python log_summary.py sample.log -n 10</code></pre>
+
+  </section>
+
+  <!-- 8 WEEK PLAN -->
+  <section class="blog-section">
+
+    <h2>8-Week Study Plan</h2>
+
+    <p>Recommended daily structure:</p>
+    <pre><code>10m review → 30–45m lesson → 30–60m lab → 10–15m documentation</code></pre>
+
+    <h3>Week 1: Python Fundamentals</h3>
+    <p>Variables, loops, functions, file handling, argparse, logging</p>
+
+    <h3>Week 2: Bash & Linux Toolchain</h3>
+    <p>grep, awk, sed, ssh, cron, system utilities</p>
+
+    <h3>Weeks 3–4: Networking & Web Automation</h3>
+    <p>socket programming, HTTP parsing, fuzzing, recon scripts</p>
+
+    <h3>Week 5: SSH Automation</h3>
+    <p>paramiko, remote execution, SFTP automation</p>
+
+    <h3>Week 6: Windows PowerShell</h3>
+    <p>Get-Process, event logs, remoting, CSV export</p>
+
+    <h3>Week 7: Pivoting & Post Exploitation</h3>
+    <p>proxychains, SOCKS tunneling, SSH pivoting (lab only)</p>
+
+    <h3>Week 8: Final Project</h3>
+    <p>Combine scanning, parsing, reporting, and automation into a full toolkit</p>
+
+  </section>
+
+  <!-- LINKS -->
+  <section class="blog-section">
+
+    <h2>Resources</h2>
+
+    <ul>
+      <li>Automate the Boring Stuff with Python</li>
+      <li>TryHackMe</li>
+      <li>PortSwigger Web Security Academy</li>
+      <li>OverTheWire Bandit</li>
+      <li>Microsoft Learn PowerShell</li>
+    </ul>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="blog-section">
+
+    <a class="btn btn-secondary" href="../index.html">
+      Back to Home
+    </a>
+
+  </footer>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SSH Connection Cheat Sheet | SOC Lab</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+
+  <main class="blog-post">
+
+    <!-- HEADER -->
+    <header class="blog-section">
+
+      <h1 class="section-title bright-title">
+        🔑 SSH Connection Cheat Sheet: Windows ↔ Mac/Linux
+      </h1>
+
+      <p class="section-subtitle">
+        Quick reference for setting up SSH connections between Windows, macOS, and Linux systems.
+      </p>
+
+    </header>
+
+    <!-- INTRO -->
+    <section class="blog-section">
+
+      <h2>Overview</h2>
+
+      <p>
+        SSH (Secure Shell) allows secure remote access between systems.
+        The command syntax is consistent across platforms:
+      </p>
+
+      <pre><code>ssh username@IPaddress</code></pre>
+
+      <p>
+        The main difference between systems is enabling the SSH server on the target machine.
+      </p>
+
+    </section>
+
+    <!-- WINDOWS -->
+    <section class="blog-section">
+
+      <h2>Windows (SSH Server Setup)</h2>
+
+      <ol>
+        <li>Open Settings → Apps → Optional Features</li>
+        <li>Click Add a Feature</li>
+        <li>Install OpenSSH Server</li>
+      </ol>
+
+      <p><strong>Start SSH service (PowerShell as Admin):</strong></p>
+
+      <pre><code>Get-Service sshd
+Start-Service sshd</code></pre>
+
+      <p>
+        Ensure Windows Firewall allows SSH connections when prompted.
+      </p>
+
+    </section>
+
+    <!-- LINUX -->
+    <section class="blog-section">
+
+      <h2>Linux (SSH Server Setup)</h2>
+
+      <p><strong>Install OpenSSH Server:</strong></p>
+
+      <pre><code>sudo apt install openssh-server</code></pre>
+
+      <p><strong>Enable SSH service:</strong></p>
+
+      <pre><code>sudo systemctl enable --now ssh</code></pre>
+
+    </section>
+
+    <!-- MACOS -->
+    <section class="blog-section">
+
+      <h2>macOS (SSH Server Setup)</h2>
+
+      <ul>
+        <li>Go to System Preferences</li>
+        <li>Select Sharing</li>
+        <li>Enable Remote Login</li>
+      </ul>
+
+    </section>
+
+    <!-- SSH EXAMPLES -->
+    <section class="blog-section">
+
+      <h2>SSH Command Examples</h2>
+
+      <p><strong>From Windows → Linux/macOS:</strong></p>
+
+      <pre><code>ssh bob@192.168.1.50</code></pre>
+
+      <p><strong>From Linux/macOS → Windows/Linux:</strong></p>
+
+      <pre><code>ssh alice@192.168.1.50</code></pre>
+
+      <ul>
+        <li>First connection may prompt for host key confirmation → type <code>yes</code></li>
+        <li>Then enter the password for the target user</li>
+      </ul>
+
+    </section>
+
+    <!-- TIPS -->
+    <section class="blog-section">
+
+      <h2>Notes & Tips</h2>
+
+      <ul>
+        <li>Use correct username on the target system</li>
+        <li>Find IP using <code>ipconfig</code> (Windows) or <code>ip a</code> (Linux)</li>
+        <li>Use <code>exit</code> to close SSH session</li>
+        <li>First-time connections will always verify host key</li>
+      </ul>
+
+    </section>
+
+    <!-- COMPLETION -->
+    <section class="blog-section">
+
+      <h2>Summary</h2>
+
+      <p>
+        SSH provides secure remote access between systems and is a foundational tool in networking,
+        system administration, and cybersecurity workflows.
+      </p>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="blog-section">
+
+      <a class="btn btn-secondary" href="../index.html">
+        🔙 Back to Home
+      </a>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>
