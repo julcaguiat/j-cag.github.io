@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Virtual SOC Home Lab | Knowledge Base</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+
+    /* ================= PAGE BACKGROUND ================= */
+    :root {
+      --page-bg-image: url('../../../assets/images/backgrounds/featured-projec-bg.png');
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:#0d1117;
+      color:#e6edf3;
+      margin:0;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:rgba(13,17,23,0.95);
+      border-bottom:1px solid #30363d;
+      backdrop-filter:blur(10px);
+    }
+
+    .nav-container{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 20px;
+      max-width:1400px;
+      margin:auto;
+    }
+
+    .logo{
+      color:#58a6ff;
+      font-weight:700;
+    }
+
+    .nav-links a{
+      margin-left:16px;
+      color:#c9d1d9;
+      text-decoration:none;
+      font-size:0.9rem;
+    }
+
+    .nav-links a:hover{ color:#58a6ff; }
+
+    /* ================= LAYOUT ================= */
+
+    .kb-layout{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:30px;
+      max-width:1400px;
+      margin:auto;
+      padding:0 20px;
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .kb-sidebar{
+      position:sticky;
+      top:90px;
+      height:fit-content;
+      border-right:1px solid #30363d;
+      padding-right:18px;
+    }
+
+    .kb-title{
+      font-size:0.85rem;
+      text-transform:uppercase;
+      color:#7cc7ff;
+      margin-bottom:18px;
+      letter-spacing:1px;
+    }
+
+    .kb-nav a{
+      display:block;
+      padding:8px 10px;
+      margin-bottom:6px;
+      border-radius:6px;
+      color:#c9d1d9;
+      text-decoration:none;
+      font-size:0.9rem;
+      transition:0.2s ease;
+    }
+
+    .kb-nav a:hover{
+      background:#161b22;
+      color:#58a6ff;
+      padding-left:14px;
+    }
+
+    /* ================= CONTENT ================= */
+
+    .kb-content { min-width:0; }
+
+    .lab-hero{
+      min-height:55vh;
+      display:flex;
+      align-items:center;
+      padding:100px 20px 70px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .lab-hero-content{
+      position:relative;
+      z-index:2;
+      max-width:1000px;
+    }
+
+    .lab-title{ font-size:3rem; }
+
+    .section{
+      max-width:1100px;
+      margin:auto;
+      padding:60px 20px;
+    }
+
+    /* ================= GRID ================= */
+
+    .overview-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:18px;
+    }
+
+    .overview-card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:14px;
+      padding:20px;
+    }
+
+    /* ================= STEPS ================= */
+
+    .steps-container{
+      display:grid;
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .step-card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:14px;
+      padding:22px;
+    }
+
+    .step-number{
+      color:#58a6ff;
+      font-size:0.8rem;
+      margin-bottom:8px;
+    }
+
+    /* ================= BUTTONS ================= */
+
+    .btn{
+      padding:10px 16px;
+      border-radius:8px;
+      border:1px solid #30363d;
+      color:#c9d1d9;
+      text-decoration:none;
+      display:inline-block;
+    }
+
+    .btn:hover{ background:#161b22; color:#58a6ff; }
+
+    .btn-primary{ border-color:#58a6ff; }
+
+    /* ================= FOOTER ================= */
+
+    footer{
+      text-align:center;
+      padding:30px;
+      border-top:1px solid #30363d;
+      color:#8b949e;
+      margin-top:40px;
+    }
+
+  </style>
+
+</head>
+
+<body id="top">
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+  <div class="nav-container">
+
+    <div class="logo">SOC KB</div>
+
+    <div class="nav-links">
+      <a href="../../../index.html">Home</a>
+      <a href="../../../index.html#labs">Labs</a>
+      <a href="#overview">Overview</a>
+      <a href="#deployment">Deployment</a>
+    </div>
+
+  </div>
+
+</nav>
+
+<div class="kb-layout">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="kb-sidebar">
+
+  <div class="kb-title">SOC Home Lab</div>
+
+  <nav class="kb-nav">
+    <a href="#overview">Overview</a>
+    <a href="#deployment">Deployment</a>
+  </nav>
+
+  <div class="kb-title">Setup Docs</div>
+
+  <nav class="kb-nav">
+
+    <a href="virtualbox-install.html">VirtualBox Install</a>
+    <a href="kali-linux-vm-deploy.html">Kali Linux VM</a>
+    <a href="windows10-vm-deploy.html">Windows 10 VM</a>
+    <a href="ubuntu-serve-deploy.html">Ubuntu Server</a>
+    <a href="wazuh-install.html">Wazuh Install</a>
+
+  </nav>
+
+  <div class="kb-title">Agent Deployment</div>
+
+  <nav class="kb-nav">
+
+    <a href="kali-agent-install.html">Kali Agent</a>
+    <a href="wind10-agent-install.html">Windows 10 Agent</a>
+
+  </nav>
+
+  <div class="kb-title">Network Config</div>
+
+  <nav class="kb-nav">
+
+    <a href="pfsensed-install.html">pfSense Install</a>
+    <a href="pfsense-network-config.html">pfSense Config</a>
+    <a href="kali-network-config.html">Kali Network Config</a>
+    <a href="wazuh-network-config.html">Wazuh Network Config</a>
+    <a href="win10-network-config.html">Windows Network Config</a>
+
+  </nav>
+
+</aside>
+
+<!-- ================= CONTENT ================= -->
+
+<main class="kb-content">
+
+<!-- HERO -->
+
+<section class="lab-hero">
+
+  <div class="lab-hero-content">
+
+    <h1 class="lab-title">
+      Virtual SOC Home Lab
+    </h1>
+
+    <p>
+      Full-stack SOC environment: endpoint telemetry, SIEM ingestion,
+      attack simulation, and firewall segmentation.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- OVERVIEW -->
+
+<section id="overview" class="section">
+
+  <h2>Infrastructure Overview</h2>
+
+  <div class="overview-grid">
+
+    <div class="overview-card">Kali Linux (Attacker VM)</div>
+    <div class="overview-card">Windows 10 (Endpoint)</div>
+    <div class="overview-card">Ubuntu + Wazuh SIEM</div>
+    <div class="overview-card">pfSense Firewall</div>
+
+  </div>
+
+</section>
+
+<!-- DEPLOYMENT -->
+
+<section id="deployment" class="section">
+
+  <h2>Deployment Pipeline</h2>
+
+  <div class="steps-container">
+
+    <div class="step-card">
+      <div class="step-number">01</div>
+      <h3>VirtualBox Installation</h3>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">02</div>
+      <h3>VM Deployment (Kali / Windows / Ubuntu)</h3>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">03</div>
+      <h3>Wazuh SIEM Setup</h3>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">04</div>
+      <h3>Agent Deployment (Kali + Windows)</h3>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">05</div>
+      <h3>pfSense Network Segmentation</h3>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- NAV -->
+
+<section class="section">
+
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+
+    <a class="btn" href="../../../index.html">Back to Home</a>
+    <a class="btn" href="../../../index.html#labs">Back to Labs</a>
+
+    <a class="btn btn-primary" href="virtualbox-install.html">
+      Start: VirtualBox Install
+    </a>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2026 SOC Home Lab — Detection Engineering Environment
+</footer>
+
+</main>
+
+</div>
+
+</body>
+</html>

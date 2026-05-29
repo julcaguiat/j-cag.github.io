@@ -1,0 +1,791 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    Julfri Caguiat | Phase 1 - Core Infrastructure
+  </title>
+
+  <link rel="stylesheet" href="../../assets/css/test-style.css" />
+
+  <style>
+
+  
+
+    /* =========================
+       METRICS
+    ========================= */
+
+    .metrics-grid{
+      display:grid;
+      grid-template-columns:repeat(5, 1fr);
+      gap:20px;
+    }
+
+    .metric-card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:24px;
+    }
+
+    .metric-card h3{
+      margin-top:0;
+      margin-bottom:12px;
+      color:#7cc7ff;
+    }
+
+    .metric-card p{
+      margin:0;
+      color:#c9d1d9;
+      line-height:1.6;
+    }
+
+    /* =========================
+       FEATURED BLOCK
+    ========================= */
+
+    .featured-project{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:30px;
+    }
+
+    /* =========================
+       TABLE
+    ========================= */
+
+    .tech-stack-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+    }
+
+    .tech-stack-table th,
+    .tech-stack-table td{
+      padding:16px;
+      border-bottom:1px solid #30363d;
+      text-align:left;
+    }
+
+    .tech-stack-table th{
+      color:#7cc7ff;
+      font-weight:600;
+    }
+
+    /* =========================
+       ARCHITECTURE
+    ========================= */
+
+    .architecture-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:24px;
+    }
+
+    .arch-card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    .arch-card img{
+      width:100%;
+      display:block;
+      border-bottom:1px solid #30363d;
+    }
+
+    .arch-body{
+      padding:26px;
+    }
+
+    .arch-body h3{
+      margin-top:0;
+      margin-bottom:14px;
+    }
+
+    .arch-body p{
+      color:#c9d1d9;
+      line-height:1.7;
+      margin-bottom:22px;
+    }
+
+    /* =========================
+       WORKFLOW
+    ========================= */
+
+    .workflow-line{
+      text-align:center;
+      line-height:2;
+      color:#c9d1d9;
+      font-size:1.05rem;
+    }
+
+    /* =========================
+       LINKS
+    ========================= */
+
+    .content-link{
+      display:block;
+      color:#58a6ff;
+      text-decoration:none;
+      margin-top:14px;
+      line-height:1.6;
+    }
+
+    .content-link:hover{
+      text-decoration:underline;
+    }
+
+
+ :root {
+  --hero-bg-image: url('../../assets/images/backgrounds/featured-project-bg.png');
+}
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:1100px){
+
+      .architecture-grid{
+        grid-template-columns:1fr;
+      }
+
+      .metrics-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body id="top">
+
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="logo">
+        JULFRI CAGUIAT
+      </div>
+
+      <div class="nav-links">
+
+        <a href="../../index.html">
+          Home
+        </a>
+        
+        <a href="#deployment-summary">
+          Environment
+        </a>
+
+        <a href="#architecture">
+          Architecture
+        </a>
+
+        <a href="#ip-plan">
+          VLANs
+        </a>
+
+        <a href="#references">
+          Documentation
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- MAIN LAYOUT -->
+
+  <div class="kb-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="kb-sidebar">
+
+      <details class="kb-group" open>
+
+        <summary class="kb-title">
+          Phase 1 Navigation
+        </summary>
+
+        <nav class="kb-nav"> 
+
+          <a href="#deployment-summary">
+            Deployment Summary
+          </a>
+
+          <a href="#architecture">
+            Architecture
+          </a>
+
+          <a href="#ip-plan">
+            VLAN Segmentation
+          </a>
+
+          <a href="#inventory">
+            Device Inventory
+          </a>
+
+          <a href="#workflow">
+            Operational Workflow
+          </a>
+
+          <a href="#security">
+            Security Controls
+          </a>
+
+          <a href="#references">
+            Documentation
+          </a>
+
+        </nav>
+
+      </details>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="kb-content">
+
+      <!-- HERO -->
+
+      <section class="hero">
+
+        <div class="hero-content">
+
+          <div class="hero-subtitle">
+            PHASE 1 • CORE INFRASTRUCTURE • NETWORK FOUNDATION
+          </div>
+
+          <h1 class="hero-title">
+            Enterprise Core Infrastructure Deployment
+          </h1>
+
+          <p>
+            Foundational enterprise infrastructure environment focused on
+            Cisco routing & switching, VLAN segmentation, Active Directory,
+            centralized network services, firewall integration, and operational
+            infrastructure management.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#deployment-summary" class="btn btn-primary">
+              Deployment Summary
+            </a>
+
+            <a href="#architecture" class="btn">
+              Architecture
+            </a>
+
+            <a href="#ip-plan" class="btn">
+              IP Addressing
+            </a>
+
+            <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing" 
+               target="_blank" class="btn" >
+              Deployment Documentation [PDF]
+            </a>
+
+        </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- DEPLOYMENT SUMMARY -->
+
+      <section id="deployment-summary" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Deployment Summary
+          </div>
+
+          <h2 class="portal-title">
+            Enterprise Infrastructure Foundation
+          </h2>
+
+        </div>
+
+        <p class="section-subtitle">
+          Phase 1 establishes the enterprise core infrastructure layer
+          including Layer 2/Layer 3 networking, VLAN segmentation,
+          Active Directory services, DHCP, DNS, firewall integration,
+          centralized management networks, and endpoint connectivity.
+        </p>
+
+        <div class="cards cards-2col">
+
+          <div class="card">
+
+            <h3>Infrastructure Objectives</h3>
+
+            <ul class="portal-list">
+
+              <li>Establish production-style VLAN segmentation</li>
+              <li>Implement centralized identity services</li>
+              <li>Deploy enterprise switching & routing</li>
+              <li>Prepare virtualization-ready infrastructure</li>
+              <li>Create scalable security boundaries</li>
+              <li>Standardize operational documentation</li>
+
+            </ul>
+
+          </div>
+
+          <div class="card">
+
+            <h3>Deployment Scope</h3>
+
+            <ul class="portal-list">
+
+              <li>Cisco ISR 1941 edge routing</li>
+              <li>Catalyst switching infrastructure</li>
+              <li>pfSense firewall integration</li>
+              <li>Windows Server 2019 services</li>
+              <li>Enterprise VLAN segmentation</li>
+              <li>Endpoint & management networks</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- METRICS -->
+
+      <section class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Environment Metrics
+          </div>
+
+          <h2 class="portal-title">
+            Infrastructure Statistics
+          </h2>
+
+        </div>
+
+        <div class="metrics-grid">
+
+          <div class="metric-card">
+            <h3>VLANs</h3>
+            <p>4 Operational Networks</p>
+          </div>
+
+          <div class="metric-card">
+            <h3>Switch/Router</h3>
+            <p>Inter-VLAN Routing</p>
+          </div>
+
+          <div class="metric-card">
+            <h3>Servers</h3>
+            <p>AD / DNS / DHCP Services</p>
+          </div>
+
+          <div class="metric-card">
+            <h3>Firewall</h3>
+            <p>pfSense Traffic Policies</p>
+          </div>
+
+          <div class="metric-card">
+            <h3>Endpoints</h3>
+            <p>Windows & Linux Systems</p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ARCHITECTURE -->
+
+      <section id="architecture" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Architecture
+          </div>
+
+          <h2 class="portal-title">
+            Logical & Physical Infrastructure Design
+          </h2>
+
+        </div>
+
+        <div class="architecture-grid">
+
+          <div class="arch-card">
+
+            <img src="../../assets/images/topology/logical-image.png"
+                 alt="Logical Enterprise Topology">
+
+            <div class="arch-body">
+
+              <h3>Logical Architecture</h3>
+
+              <p>
+                VLAN segmentation, routing boundaries,
+                Layer 3 traffic flow, enterprise services,
+                and network communication paths.
+              </p>
+
+              <ul class="portal-list">
+
+                <li>Inter-VLAN routing</li>
+                <li>Management network isolation</li>
+                <li>Server network segmentation</li>
+                <li>Firewall-controlled traffic flow</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+          <div class="arch-card">
+
+            <img src="../../assets/images/topology/physical-image.png"
+                 alt="Physical Enterprise Topology">
+
+            <div class="arch-body">
+
+              <h3>Physical Architecture</h3>
+
+              <p>
+                Physical device deployment including
+                routing infrastructure, switching layers,
+                virtualization hosts, and cable management.
+              </p>
+
+              <ul class="portal-list">
+
+                <li>Rack & desk deployment layout</li>
+                <li>Switch-to-router uplinks</li>
+                <li>Firewall transit connectivity</li>
+                <li>Virtualization host integration</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- VLANS -->
+
+      <section id="ip-plan" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Network Segmentation
+          </div>
+
+          <h2 class="portal-title">
+            VLAN Architecture & Traffic Isolation
+          </h2>
+
+        </div>
+
+        <div class="featured-project">
+
+          <table class="tech-stack-table">
+
+            <thead>
+
+              <tr>
+                <th>VLAN</th>
+                <th>Purpose</th>
+                <th>Subnet</th>
+                <th>Gateway</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>VLAN 10</td>
+                <td>Sales Network</td>
+                <td>10.10.10.0/24</td>
+                <td>10.10.10.1</td>
+              </tr>
+
+              <tr>
+                <td>VLAN 30</td>
+                <td>IT Administration</td>
+                <td>10.10.30.0/24</td>
+                <td>10.10.30.1</td>
+              </tr>
+
+              <tr>
+                <td>VLAN 99</td>
+                <td>Management Network</td>
+                <td>10.10.99.0/24</td>
+                <td>10.10.99.1</td>
+              </tr>
+
+              <tr>
+                <td>VLAN 100</td>
+                <td>Server Infrastructure</td>
+                <td>10.10.100.0/24</td>
+                <td>10.10.100.1</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+      <!-- INVENTORY -->
+
+      <section id="inventory" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Infrastructure Inventory
+          </div>
+
+          <h2 class="portal-title">
+            Core Infrastructure Assets
+          </h2>
+
+        </div>
+
+        <div class="cards cards-2col">
+
+          <div class="card">
+
+            <h3>Networking Infrastructure</h3>
+
+            <ul class="portal-list">
+
+              <li>Cisco ISR 1941 Router</li>
+              <li>Catalyst 2960G Switches</li>
+              <li>pfSense Firewall Appliance</li>
+              <li>Enterprise VLAN Trunks</li>
+
+            </ul>
+
+          </div>
+
+          <div class="card">
+
+            <h3>Enterprise Services</h3>
+
+            <ul class="portal-list">
+
+              <li>Windows Server 2019</li>
+              <li>Active Directory Domain Services</li>
+              <li>DNS & DHCP Infrastructure</li>
+              <li>SMB File Services</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- WORKFLOW -->
+
+      <section id="workflow" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Operational Workflow
+          </div>
+
+          <h2 class="portal-title">
+            Enterprise Traffic Flow
+          </h2>
+
+        </div>
+
+        <div class="featured-project">
+
+          <div class="workflow-line">
+
+            Endpoint →
+            Access Switch →
+            VLAN Assignment →
+            Inter-VLAN Routing →
+            Lab Router →
+            Firewall →
+            Home Router →
+            ISP
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- SECURITY -->
+
+      <section id="security" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Security Controls
+          </div>
+
+          <h2 class="portal-title">
+            Enterprise Security Baseline
+          </h2>
+
+        </div>
+
+        <div class="cards cards-2col">
+
+          <div class="card">
+
+            <h3>Network Security</h3>
+
+            <ul class="portal-list">
+
+              <li>VLAN segmentation</li>
+              <li>Port security controls</li>
+              <li>Administrative isolation</li>
+              <li>Firewall access policies</li>
+
+            </ul>
+
+          </div>
+
+          <div class="card">
+
+            <h3>Infrastructure Security</h3>
+
+            <ul class="portal-list">
+
+              <li>Centralized authentication</li>
+              <li>Controlled management access</li>
+              <li>Endpoint telemetry collection</li>
+              <li>Infrastructure monitoring</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- REFERENCES -->
+
+      <section id="references" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Documentation
+          </div>
+
+          <h2 class="portal-title">
+            Deployment References
+          </h2>
+
+        </div>
+
+        <div class="cards cards-2col">
+
+          <div class="card">
+
+            <h3>Infrastructure Documentation</h3>
+
+            <a href="#" class="content-link">
+              Core Infrastructure Deployment Sheet
+            </a>
+
+            <a href="#" class="content-link">
+              Device Inventory Mapping
+            </a>
+
+            <a href="#" class="content-link">
+              VLAN & Interface Assignments
+            </a>
+
+          </div>
+
+          <div class="card">
+
+            <h3>Operational References</h3>
+
+            <a href="#" class="content-link">
+              Network Troubleshooting Procedures
+            </a>
+
+            <a href="#" class="content-link">
+              Infrastructure Change Tracking
+            </a>
+
+            <a href="#" class="content-link">
+              Firewall & Routing Notes
+            </a>
+
+          </div>
+
+        </div>
+
+        
+    </section>
+
+
+<!-- FOOT NAV (STANDARDIZED) -->
+<div class="page-nav">
+
+  <a class="btn" href="../../index.html">← Back to Home</a>
+  <a class="btn" href="#top">↑ Back to Top</a>
+
+</div>
+
+<footer>
+  © 2026 Julfri Caguiat — Phase 1 Core Network Foundation
+</footer>
+   
+   
+    </main>
+
+  </div>
+
+</body>
+
+</html>

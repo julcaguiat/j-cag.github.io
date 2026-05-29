@@ -649,6 +649,7 @@ img{
   padding:120px 20px 80px;
 }
 
+
 .page-hero::before{
   content:"";
   position:absolute;
@@ -658,6 +659,8 @@ img{
   background-repeat:no-repeat;
   background-position:center;
 }
+
+
 
 .page-hero-content{
   position:relative;
@@ -746,6 +749,7 @@ img{
 }
 
 /* scrollbar */
+
 .kb-sidebar::-webkit-scrollbar{
   width:6px;
 }
@@ -1083,6 +1087,25 @@ img{
 .ops-list li{
   color:#d0d7de;
   margin-left:18px;
+}
+
+/* =========================================
+   FOOT NAV
+========================================= */
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+.page-nav{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:16px;
+  margin:50px auto;
+  flex-wrap:wrap;
 }
 
 /* =========================================

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>
+    Julfri Caguiat | Phase 3 - Security Operations & Automation
+  </title>
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* =========================
+       LAYOUT (PHASE 2 STANDARD)
+    ========================= */
+
+    .kb-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 40px;
+      max-width: 1600px;
+      margin: auto;
+      padding: 0 24px;
+    }
+
+    .kb-content { min-width: 0; }
+
+    .kb-sidebar {
+      position: sticky;
+      top: 90px;
+      height: fit-content;
+      padding-right: 20px;
+      border-right: 1px solid #30363d;
+    }
+
+    .kb-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7cc7ff;
+      margin-bottom: 14px;
+      margin-top: 30px;
+    }
+
+    .kb-title:first-child { margin-top: 0; }
+
+    .kb-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .kb-nav a {
+      color: #c9d1d9;
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: 0.2s;
+      font-size: 0.92rem;
+    }
+
+    .kb-nav a:hover {
+      background: #161b22;
+      color: #58a6ff;
+      padding-left: 16px;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #0d1117;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #e6edf3;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #c9d1d9;
+      text-decoration: none;
+      font-size: 0.92rem;
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+
+    .nav-links a:hover {
+      background: #161b22;
+      color: #58a6ff;
+    }
+
+    /* =========================
+       HERO (PHASE 2 STYLE)
+    ========================= */
+
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0 80px;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .hero-content {
+      max-width: 950px;
+    }
+
+    .hero-subtitle {
+      color: #7cc7ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: 3.4rem;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: #c9d1d9;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #161b22;
+      color: #58a6ff;
+    }
+
+    .btn-primary {
+      background: #1f6feb;
+      border-color: #1f6feb;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #388bfd;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    .section {
+      padding: 70px 0;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .section-subtitle {
+      color: #8b949e;
+      max-width: 850px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .portal-header {
+      margin-bottom: 34px;
+    }
+
+    .portal-label {
+      color: #7cc7ff;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .portal-title {
+      font-size: 2.2rem;
+      margin: 0;
+    }
+
+    /* =========================
+       GRID + CARDS
+    ========================= */
+
+    .overview-grid,
+    .docs-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .overview-grid {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .docs-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 26px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .card p,
+    .card li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    .portal-list {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    /* =========================
+       OBJECTIVES
+    ========================= */
+
+    .objectives-box {
+      margin-top: 50px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 18px;
+      padding: 40px;
+    }
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .objective-item {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 18px;
+      color: #d0d7de;
+      font-size: 0.95rem;
+    }
+
+    /* =========================
+       WORKFLOW
+    ========================= */
+
+    .workflow-stage {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 18px;
+      padding: 35px;
+      margin-bottom: 28px;
+    }
+
+    .workflow-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .workflow-step {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 18px;
+      min-width: 170px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .workflow-arrow {
+      color: #58a6ff;
+      font-weight: bold;
+    }
+
+    /* =========================
+       PHASE LINKS
+    ========================= */
+
+    .documentation-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-top: 40px;
+    }
+
+    .doc-link-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .doc-link-card h4 {
+      margin-bottom: 14px;
+    }
+
+    .doc-link-card p {
+      color: #c9d1d9;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: #8b949e;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 1100px) {
+      .kb-layout { grid-template-columns: 1fr; }
+      .kb-sidebar { display: none; }
+      .hero-title { font-size: 2.5rem; }
+    }
+
+  </style>
+
+</head>
+
+<body id="top">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">JULFRI CAGUIAT</div>
+
+    <div class="nav-links">
+      <a href="#architecture">Architecture</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#repository">Documentation</a>
+      <a href="#project-phases">Phases</a>
+    </div>
+  </div>
+</nav>
+
+<div class="kb-layout">
+
+<!-- SIDEBAR -->
+<aside class="kb-sidebar">
+  <div class="kb-title">Phase 3 Navigation</div>
+  <nav class="kb-nav">
+    <a href="#architecture">Architecture</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#repository">Repository</a>
+  </nav>
+</aside>
+
+<!-- CONTENT -->
+<main class="kb-content">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+
+    <div class="hero-subtitle">
+      PHASE 3 • SECURITY OPERATIONS
+    </div>
+
+    <h1 class="hero-title">
+      Detection Engineering & SOC Automation
+    </h1>
+
+    <p>
+      Wazuh SIEM monitoring, detection engineering, n8n automation workflows,
+      and incident response orchestration integrated into a unified SOC pipeline.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#architecture">Architecture</a>
+      <a class="btn" href="#workflow">Workflow</a>
+      <a class="btn" href="#repository">Docs</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- PHASE LINKS -->
+<section id="project-phases" class="section">
+
+  <div class="portal-header">
+    <div class="portal-label">Deployment Phases</div>
+    <h2 class="portal-title">Infrastructure Evolution</h2>
+  </div>
+
+  <div class="documentation-links">
+
+    <div class="doc-link-card">
+      <h4>Phase 1</h4>
+      <p>Core networking and infrastructure foundation.</p>
+      <a class="btn" href="featured-infrastructure-project.html">View</a>
+    </div>
+
+    <div class="doc-link-card">
+      <h4>Phase 2</h4>
+      <p>Virtualization and enterprise services expansion.</p>
+      <a class="btn" href="featured-infrastructure-project-ph2.html">View</a>
+    </div>
+
+    <div class="doc-link-card">
+      <h4>Phase 3</h4>
+      <p>Security operations and automation layer.</p>
+      <a class="btn btn-primary" href="#">Current</a>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="section">
+
+  <div class="portal-header">
+    <div class="portal-label">SOC Architecture</div>
+    <h2 class="portal-title">Security Operations Stack</h2>
+  </div>
+
+  <div class="overview-grid">
+
+    <div class="card">
+      <h3>Monitoring</h3>
+      <ul class="portal-list">
+        <li>Wazuh SIEM</li>
+        <li>Endpoint Telemetry</li>
+        <li>Windows Event Logs</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Automation</h3>
+      <ul class="portal-list">
+        <li>n8n Workflows</li>
+        <li>Webhook Processing</li>
+        <li>JSON Parsing</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Incident Response</h3>
+      <ul class="portal-list">
+        <li>Peppermint Ticketing</li>
+        <li>Email Alerts</li>
+        <li>Escalation Flow</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Testing Lab</h3>
+      <ul class="portal-list">
+        <li>Kali Linux</li>
+        <li>Juice Shop</li>
+        <li>DVWA</li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow" class="section">
+
+  <div class="portal-header">
+    <div class="portal-label">Automation Flow</div>
+    <h2 class="portal-title">SOC Pipeline</h2>
+  </div>
+
+  <div class="card">
+    <p>
+      Endpoint → Wazuh → Detection Rules → n8n → Peppermint → Incident Response
+    </p>
+  </div>
+
+</section>
+
+<!-- REPOSITORY -->
+<section id="repository" class="section">
+
+  <div class="portal-header">
+    <div class="portal-label">Documentation</div>
+    <h2 class="portal-title">Repository</h2>
+  </div>
+
+  <div class="docs-grid">
+
+    <div class="card">
+      <h3>SIEM Docs</h3>
+      <p>Wazuh deployment and configuration.</p>
+    </div>
+
+    <div class="card">
+      <h3>Detection Engineering</h3>
+      <p>Rule tuning and correlation logic.</p>
+    </div>
+
+    <div class="card">
+      <h3>Automation</h3>
+      <p>n8n workflows and integrations.</p>
+    </div>
+
+    <div class="card">
+      <h3>Testing</h3>
+      <p>Attack simulation and validation.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOT NAV -->
+    <div class="page-nav">
+      <a href="../../index.html" class="btn btn-primary">← Home</a>
+      <a href="#top" class="btn">↑ Top</a>
+    </div>
+
+</section>
+
+<footer>
+  © 2026 Julfri Caguiat — Security Operations
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>

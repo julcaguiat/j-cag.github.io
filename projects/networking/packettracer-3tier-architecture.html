@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Enterprise Network Simulation | Packet Tracer Labs</title>
+
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* =========================
+       LAYOUT (STANDARDIZED)
+    ========================= */
+
+    .kb-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 40px;
+      max-width: 1600px;
+      margin: auto;
+      padding: 0 24px;
+    }
+
+    .kb-content { min-width: 0; }
+
+    .kb-sidebar {
+      position: sticky;
+      top: 90px;
+      height: fit-content;
+      padding-right: 20px;
+      border-right: 1px solid #30363d;
+    }
+
+    .kb-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7cc7ff;
+      margin-bottom: 14px;
+    }
+
+    .kb-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .kb-nav a {
+      color: #c9d1d9;
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      transition: 0.2s;
+    }
+
+    .kb-nav a:hover {
+      background: #161b22;
+      color: #58a6ff;
+      padding-left: 16px;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #0d1117;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #e6edf3;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #c9d1d9;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a:hover {
+      background: #161b22;
+      color: #58a6ff;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 20px 80px;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .hero-content { max-width: 1000px; }
+
+    .hero-subtitle {
+      color: #7cc7ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      line-height: 1.1;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      color: #c9d1d9;
+      line-height: 1.7;
+      max-width: 900px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .btn {
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid #30363d;
+      text-decoration: none;
+      color: #c9d1d9;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #161b22;
+      color: #58a6ff;
+    }
+
+    .btn-primary {
+      background: #1f6feb;
+      border-color: #1f6feb;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #388bfd;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    .section {
+      padding: 70px 20px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .phase-header h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .phase-header p {
+      color: #9da7b3;
+      max-width: 900px;
+    }
+
+    /* =========================
+       LAB CARDS
+    ========================= */
+
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 26px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    .lab-description {
+      color: #c9d1d9;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: #c9d1d9;
+    }
+
+    .lab-links {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================
+       FOOT NAV
+    ========================= */
+
+    .page-nav {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    :root {
+  --page-bg-image: url('../../assets/images/backgrounds/packet-tracer-bg.png');
+}
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 1100px) {
+      .kb-layout { grid-template-columns: 1fr; }
+      .kb-sidebar { display: none; }
+      .hero-title { font-size: 2.4rem; }
+    }
+
+  </style>
+
+</head>
+
+<body id="top">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-container">
+
+    <div class="logo">JULFRI CAGUIAT</div>
+
+    <div class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="#phase-1">Phase 1</a>
+      <a href="#phase-2">Phase 2</a>
+      <a href="#phase-3">Phase 3</a>
+    </div>
+
+  </div>
+</nav>
+
+<div class="kb-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="kb-sidebar">
+    <div class="kb-title">Navigation</div>
+    <nav class="kb-nav">
+      <a href="#phase-1">Phase 1</a>
+      <a href="#phase-2">Phase 2</a>
+      <a href="#phase-3">Phase 3</a>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="kb-content">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="hero-subtitle">
+          Cisco Enterprise Networking • Packet Tracer Labs
+        </div>
+
+        <h1 class="hero-title">
+          Three-Tier Enterprise Network Simulation
+        </h1>
+
+        <p>
+          Multi-phase Cisco Packet Tracer lab series covering VLANs, redundancy,
+          routing protocols, WAN design, enterprise services, and security enforcement.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#phase-1" class="btn btn-primary">Phase 1</a>
+          <a href="#phase-2" class="btn">Phase 2</a>
+          <a href="#phase-3" class="btn">Phase 3</a>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PHASE 1 -->
+    <section id="phase-1" class="section">
+
+      <div class="phase-header">
+        <h2>Phase 1 — Core Network Foundation</h2>
+        <p>VLANs, trunking, and inter-VLAN routing.</p>
+      </div>
+
+      <div class="labs-grid">
+
+        <div class="card">
+          <h3>Lab 1 — VLANs & Router-on-a-Stick</h3>
+
+          <div class="tags">
+            <span class="tag">VLAN</span>
+            <span class="tag">802.1Q</span>
+            <span class="tag">SSH</span>
+            <span class="tag">NTP</span>
+          </div>
+
+          <p class="lab-description">
+            VLAN segmentation, trunking, and inter-VLAN routing using RoaS.
+          </p>
+
+          <div class="lab-links">
+            <a href="../../documentation/packet-tracer-labs-pdfs/Lab1.pdf" class="btn btn-primary">View Lab 1</a>
+          </div>
+
+        </div>
+
+        <div class="card">
+          <h3>Lab 2 — Redundant Layer 2 Network</h3>
+
+          <div class="tags">
+            <span class="tag">PVST+</span>
+            <span class="tag">EtherChannel</span>
+            <span class="tag">VTP</span>
+          </div>
+
+          <p class="lab-description">
+            Layer 2 redundancy using STP, EtherChannel, and VLAN management.
+          </p>
+
+          <div class="lab-links">
+            <a href="../../documentation/packet-tracer-labs-pdfs/Lab2.pdf" class="btn btn-primary">View Lab 2</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PHASE 2 -->
+    <section id="phase-2" class="section">
+
+      <div class="phase-header">
+        <h2>Phase 2 — Routing & WAN</h2>
+        <p>Dynamic routing and enterprise WAN connectivity.</p>
+      </div>
+
+      <div class="labs-grid">
+
+        <div class="card">
+          <h3>Lab 3 — VLANs & Static Routing</h3>
+
+          <div class="tags">
+            <span class="tag">Static Routing</span>
+            <span class="tag">Voice VLAN</span>
+            <span class="tag">EtherChannel</span>
+          </div>
+
+          <p class="lab-description">
+            Campus routing and VLAN integration.
+          </p>
+
+          <div class="lab-links">
+            <a href="../../documentation/packet-tracer-labs-pdfs/Lab3.pdf" class="btn btn-primary">View Lab 3</a>
+          </div>
+
+        </div>
+
+        <div class="card">
+          <h3>Lab 4 — WAN & Redundancy</h3>
+
+          <div class="tags">
+            <span class="tag">OSPF</span>
+            <span class="tag">HSRP</span>
+            <span class="tag">NAT</span>
+          </div>
+
+          <p class="lab-description">
+            WAN routing, redundancy, and internet connectivity.
+          </p>
+
+          <div class="lab-links">
+            <a href="../../documentation/packet-tracer-labs-pdfs/Lab4.pdf" class="btn btn-primary">View Lab 4</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PHASE 3 -->
+    <section id="phase-3" class="section">
+
+      <div class="phase-header">
+        <h2>Phase 3 — Enterprise Services & Security</h2>
+        <p>Monitoring, AAA, and enterprise service integration.</p>
+      </div>
+
+      <div class="labs-grid">
+
+        <div class="card">
+          <h3>Lab 5 — Enterprise Services</h3>
+
+          <div class="tags">
+            <span class="tag">AAA</span>
+            <span class="tag">DNS</span>
+            <span class="tag">DHCP</span>
+            <span class="tag">SNMP</span>
+          </div>
+
+          <p class="lab-description">
+            Enterprise service deployment and monitoring.
+          </p>
+
+          <div class="lab-links">
+            <a href="https://drive.google.com/file/d/1nsEqOuFEJtb7gsOubp2JbPd8TIoyggJc/view?usp=sharing"
+               class="btn btn-primary">View Lab 5</a>
+
+            <a href="https://drive.google.com/uc?export=download&id=1nsEqOuFEJtb7gsOubp2JbPd8TIoyggJc"
+               class="btn">Download</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOOT NAV -->
+    <div class="page-nav">
+      <a href="../../index.html" class="btn btn-primary">← Home</a>
+      <a href="#top" class="btn">↑ Top</a>
+    </div>
+
+     <!-- FOOTER -->     
+      <footer>
+        © 2026 Julfri Caguiat — Three-Tier Enterprise Infrastructure Simulation
+      </footer>
+  </main>
+
+</div>
+
+</body>
+</html>
