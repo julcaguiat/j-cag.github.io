@@ -7,300 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>
-    Julfri Caguiat | Phase 2 - Infrastructure Expansion
+    Julfri Caguiat | Phase 2 - Infrastructure Expansion [Systems Administration]
   </title>
 
   <link rel="stylesheet" href="../../assets/css/test-style.css">
-
-  <style>
-
-    /* =========================
-       LAYOUT (MATCH PHASE 1)
-    ========================= */
-/*
-    .kb-layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 40px;
-      max-width: 1600px;
-      margin: auto;
-      padding: 0 24px;
-    }
-
-    .kb-content { min-width: 0; }
-
-    .kb-sidebar {
-      position: sticky;
-      top: 90px;
-      height: fit-content;
-      padding-right: 20px;
-      border-right: 1px solid #30363d;
-    }
-
-    .kb-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #7cc7ff;
-      margin-bottom: 14px;
-      margin-top: 30px;
-    }
-
-    .kb-title:first-child { margin-top: 0; }
-
-    .kb-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .kb-nav a {
-      color: #c9d1d9;
-      text-decoration: none;
-      padding: 10px 12px;
-      border-radius: 8px;
-      transition: 0.2s;
-      font-size: 0.92rem;
-    }
-
-    .kb-nav a:hover {
-      background: #161b22;
-      color: #58a6ff;
-      padding-left: 16px;
-    }
-*/
-    /* =========================
-       NAVBAR (MATCH PHASE 1)
-    ========================= */
-
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: #0d1117;
-      border-bottom: 1px solid #30363d;
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    .logo {
-      font-weight: 600;
-      letter-spacing: 1px;
-      color: #e6edf3;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: #c9d1d9;
-      text-decoration: none;
-      font-size: 0.92rem;
-      padding: 8px 10px;
-      border-radius: 6px;
-    }
-
-    .nav-links a:hover {
-      background: #161b22;
-      color: #58a6ff;
-    }
-
-    /* =========================
-       HERO (CONVERTED TO PHASE 1 STYLE)
-    ========================= */
-
-    .hero {
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
-      padding: 100px 20px 80px;
-      border-bottom: 1px solid #30363d;
-    }
-
-    .hero-content { max-width: 950px; }
-
-    .hero-subtitle {
-      color: #7cc7ff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 0.85rem;
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-size: 3.4rem;
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-
-    .hero p {
-      max-width: 760px;
-      color: #c9d1d9;
-      line-height: 1.8;
-      font-size: 1.05rem;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 34px;
-    }
-
-    /* =========================
-       BUTTONS (SHARED STYLE)
-    ========================= */
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 18px;
-      border-radius: 10px;
-      text-decoration: none;
-      border: 1px solid #30363d;
-      color: #c9d1d9;
-      transition: 0.2s;
-    }
-
-    .btn:hover {
-      background: #161b22;
-      color: #58a6ff;
-    }
-
-    .btn-primary {
-      background: #1f6feb;
-      border-color: #1f6feb;
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: #388bfd;
-    }
-
-    /* =========================
-       SECTIONS (MATCH PHASE 1)
-    ========================= */
-
-    .section {
-      padding: 70px 20px;
-      border-bottom: 1px solid #21262d;
-    }
-
-    .section-subtitle {
-      color: #8b949e;
-      max-width: 850px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-    }
-
-    /* =========================
-       PORTAL HEADER
-    ========================= */
-
-    .portal-header { margin-bottom: 34px; }
-
-    .portal-label {
-      color: #7cc7ff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 0.78rem;
-      margin-bottom: 12px;
-    }
-
-    .portal-title {
-      font-size: 2.2rem;
-      margin: 0;
-    }
-
-    /* =========================
-       CARDS (MATCH PHASE 1)
-    ========================= */
-
-    .cards {
-      display: grid;
-      gap: 20px;
-    }
-
-    .cards-2col {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 16px;
-      padding: 26px;
-    }
-
-    .card h3 { margin-top: 0; }
-
-    .card p {
-      color: #c9d1d9;
-      line-height: 1.7;
-    }
-
-    .portal-list {
-      padding-left: 18px;
-      margin: 0;
-    }
-
-    .portal-list li {
-      margin-bottom: 10px;
-      color: #c9d1d9;
-      line-height: 1.7;
-    }
-
-    /* =========================
-       GRID UTILITIES
-    ========================= */
-
-    .overview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .docs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      padding: 40px 20px;
-      text-align: center;
-      color: #8b949e;
-    }
-
-    /* =========================
-       MOBILE (MATCH PHASE 1 BREAKPOINT STYLE)
-    ========================= */
-
-    @media (max-width: 1100px) {
-      .kb-layout { grid-template-columns: 1fr; }
-      .kb-sidebar { display: none; }
-      .cards-2col { grid-template-columns: 1fr; }
-      .hero-title { font-size: 2.5rem; }
-    }
-
-  </style>
 
 </head>
 
@@ -312,7 +22,7 @@
     <div class="logo">JULFRI CAGUIAT</div>
 
     <div class="nav-links">
-      <a href="#overview">Environment</a>
+      <a href="#overview">Home</a>
       <a href="#deployment">Architecture</a>
       <a href="#repository">VLANs</a>
       <a href="#repository">Documentation</a>
@@ -347,13 +57,11 @@
         </div>
 
         <h1 class="hero-title">
-          Enterprise Services, Virtualization & Integration
+          Enterprise Services & System Administration
         </h1>
 
         <p>
-          Expansion of enterprise infrastructure into virtualization,
-          centralized services, monitoring systems, automation tooling,
-          and integrated security operations.
+          Expansion of enterprise infrastructure into 
         </p>
 
         <div class="hero-buttons">
@@ -374,7 +82,7 @@
       </div>
 
       <p class="section-subtitle">
-        Virtualization, enterprise services, monitoring stack, and lab expansion.
+        Virtualization, enterprise services, & system administration.
       </p>
 
       <div class="overview-grid">
@@ -426,7 +134,7 @@
 
       <div class="card">
         <p class="workflow-line">
-          Hardware Upgrade → Proxmox → Services → Monitoring → Security Lab → Endpoint Integration
+          Hardware Upgrade → Proxmox → Services: AD DS, CML, Peppermint → Endpoint Integration
         </p>
       </div>
 
@@ -454,18 +162,18 @@
 
       </div>
 
-      
-    <!-- FOOT NAV -->
-    <div class="page-nav">
-      <a href="../../index.html" class="btn btn-primary">← Home</a>
-      <a href="#top" class="btn">↑ Top</a>
-    </div>
-
-
+    
     </section>
 
+   <!-- FOOT NAV -->
+    <div class="page-nav">
+      <a href="../../index.html" class="btn">← Home</a>
+      <a href="#top" class="btn">↑ Top</a>
+      <a class="btn" href="featured-project-phase3.html">→ Phase 3</a>
+    </div>
+
     <footer>
-      © 2026 Julfri Caguiat — Virtualization Layer
+      © 2026 Julfri Caguiat — 
     </footer>
 
   </main>
