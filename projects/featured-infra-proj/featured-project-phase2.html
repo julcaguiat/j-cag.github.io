@@ -91,7 +91,7 @@
           <h3>Virtualization</h3>
           <ul class="portal-list">
             <li>Proxmox VE</li>
-            <li>VM Hosting</li>
+            <li>VirtualBox</li>
             <li>Container Services</li>
           </ul>
         </div>
@@ -100,29 +100,105 @@
           <h3>Enterprise Services</h3>
           <ul class="portal-list">
             <li>Windows Server 2019</li>
-            <li>AD / DNS / DHCP</li>
+            <li>AD DS / DNS / DHCP / File Sharing</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>Security Ops</h3>
+          <h3>Ticketing Services</h3>
           <ul class="portal-list">
-            <li>Wazuh SIEM</li>
-            <li>n8n Automation</li>
+            <li>Peppermint</li>
+            <li>Dockers Container</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>Lab Systems</h3>
+          <h3>CCNP Lab Platform</h3>
           <ul class="portal-list">
-            <li>Juice Shop</li>
-            <li>Kali Linux</li>
+            <li>CML</li>
+            <li>Ubuntu Server LTS</li>
           </ul>
         </div>
-
+      
       </div>
 
     </section>
+<!-- ARCHITECTURE -->
+
+      <section id="architecture" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Architecture
+          </div>
+
+          <h2 class="portal-title">
+            Enterprise 
+          </h2>
+
+        </div>
+
+        <div class="architecture-grid">
+
+          <div class="arch-card">
+
+            <img src="../../assets/images/topology/logical-image.png"
+                 alt="Logical Enterprise Topology">
+
+            <div class="arch-body">
+
+              <h3>Inspiron 3650 </h3>
+
+              <p>
+                Upgrades: Storage 500GB SSD & 2X 1TB HDD, RAM 16GB (max spec). Proxmox VE.
+                Proxmox
+              </p>
+
+              <ul class="portal-list">
+
+                <li>Inter-VLAN routing</li>
+                <li>Management network isolation</li>
+                <li>Server network segmentation</li>
+                <li>Firewall-controlled traffic flow</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+          <div class="arch-card">
+
+            <img src="../../assets/images/topology/physical-image.png"
+                 alt="Physical Enterprise Topology">
+
+            <div class="arch-body">
+
+              <h3>Physical Architecture</h3>
+
+              <p>
+                Physical device deployment including
+                routing infrastructure, switching layers,
+                virtualization hosts, and cable management.
+              </p>
+
+              <ul class="portal-list">
+
+                <li>Rack & desk deployment layout</li>
+                <li>Switch-to-router uplinks</li>
+                <li>Firewall transit connectivity</li>
+                <li>Virtualization host integration</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
 
     <!-- DEPLOYMENT -->
     <section id="deployment" class="section">

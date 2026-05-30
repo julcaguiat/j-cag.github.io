@@ -310,7 +310,10 @@ body {
 
 .overview-grid {
   display: grid;
+  /*
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  */
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -413,6 +416,45 @@ footer {
   border-top: 1px solid var(--border);
   margin-top: 40px;
 }
+
+
+    /* =========================
+       ARCHITECTURE
+    ========================= */
+
+    .architecture-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:24px;
+    }
+
+    .arch-card{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    .arch-card img{
+      width:100%;
+      display:block;
+      border-bottom:1px solid #30363d;
+    }
+
+    .arch-body{
+      padding:26px;
+    }
+
+    .arch-body h3{
+      margin-top:0;
+      margin-bottom:14px;
+    }
+
+    .arch-body p{
+      color:#c9d1d9;
+      line-height:1.7;
+      margin-bottom:22px;
+    }
 
 
 
