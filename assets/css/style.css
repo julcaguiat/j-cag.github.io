@@ -864,8 +864,8 @@ img{
   border-radius:8px;
 
   font-size:0.85rem;
-  color:#c9d1d9;
-
+/*  color:#c9d1d9; */
+  color:#a7d0fc;
   transition:0.2s ease;
 }
 
