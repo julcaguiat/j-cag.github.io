@@ -628,14 +628,6 @@ img{
 
 
 
-
-
-
-
-
-
-
-
 /* =========================================
    SHARED HERO SYSTEM
 ========================================= */
@@ -864,8 +856,10 @@ img{
   border-radius:8px;
 
   font-size:0.85rem;
-/*  color:#c9d1d9; */
-  color:#a7d0fc;
+  /*
+  color:#c9d1d9; 
+  */
+  color:#ffffff; 
   transition:0.2s ease;
 }
 
