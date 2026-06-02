@@ -98,12 +98,12 @@
       overflow:hidden;
     }
 
-    .arch-card img{
-      width:100%;
-      display:block;
-      border-bottom:1px solid #30363d;
-    }
-
+.arch-card img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-bottom:1px solid #30363d;
+}
     .arch-body{
       padding:26px;
     }
@@ -260,6 +260,23 @@
 
       </details>
 
+      <br>
+       <details class="kb-group">
+      <summary class="kb-title">Phase 2 Navigation</summary>
+
+      <nav class="kb-nav">
+        <a href="#overview">Overview</a>
+        <a href="#deployment">Deployment Flow</a>
+        <a href="#repository">Documentation</a>
+      </nav>
+    </details>
+
+
+
+
+
+
+
     </aside>
 
     <!-- CONTENT -->
@@ -313,6 +330,66 @@
         </div>
 
       </section>
+
+        <!-- ARCHITECTURE -->
+
+      <section id="architecture" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Architecture
+          </div>
+
+          <h2 class="portal-title">
+            Server Upgrade & Network Device Deployment
+          </h2>
+
+        </div>
+
+        <div class="architecture-grid">
+
+  <div class="arch-card">
+    <img src="../../assets/images/feat-proj-ph1/server-image.png" alt="Inspiron 3650">
+
+    <div class="arch-body">
+      <h3>Upgraded Inspiron 3650</h3>
+
+      <p>
+        Upgraded Inspiron 3650 desktop to host Proxmox VE.
+      </p>
+
+      <ul class="portal-list">
+        <li>Storage upgrade: 1TB HDD to 500GB SSD & 2X 1TB HDD</li>
+        <li>RAM upgrade: from 8GB to 16GB</li>
+        <li>Phase 1 servers on Proxmox: Windows Server 2019, CML</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arch-card">
+    <img src="../../assets/images/feat-proj-ph1/server-image2.png" alt="Infra Blue Print">
+
+    <div class="arch-body">
+      <h3>Network Device Integration</h3>
+
+      <p>
+        Devices connectivity and traffic flow.
+      </p>
+
+      <ul class="portal-list">
+        <li>Cisco ISR 1941 Router (Layer 3)</li>
+        <li>Cisco Catalyst 2960G Switch (Layer 2)</li>
+        <li>HP-All-in-One (pfSense firewall)</li>
+        <li>Inspiron 3650 (Proxmox VE)</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+      </section>
+
+
 
       <!-- DEPLOYMENT SUMMARY -->
 
@@ -422,64 +499,6 @@
 
         </div>
 
-      </section>
-
-      <!-- ARCHITECTURE -->
-
-      <section id="architecture" class="section">
-
-        <div class="portal-header">
-
-          <div class="portal-label">
-            Architecture
-          </div>
-
-          <h2 class="portal-title">
-            Server Upgrade & Network Inrastructure Blue Print
-          </h2>
-
-        </div>
-
-        <div class="architecture-grid">
-
-  <div class="arch-card">
-    <img src="../../assets/images/feat-proj-ph1/server-image.png" alt="Inspiron 3650">
-
-    <div class="arch-body">
-      <h3>Upgraded Inspiron 3650</h3>
-
-      <p>
-        Upgraded Inspiron 3650 desktop to host Proxmox VE.
-      </p>
-
-      <ul class="portal-list">
-        <li>Storage upgrade: 1TB HDD to 500GB SSD & 2X 1TB HDD</li>
-        <li>RAM upgrade: from 8GB to 16GB</li>
-        <li>Phase 1 servers on Proxmox: Windows Server 2019, EVE-NG, CML</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="arch-card">
-    <img src="../../assets/images/feat-proj-ph1/infra-blueprint.png" alt="Infra Blue Print">
-
-    <div class="arch-body">
-      <h3>Network Infrastructure Blue Print</h3>
-
-      <p>
-        Displays the infrastructure device composition, IP address scheme, and network flow.
-      </p>
-
-      <ul class="portal-list">
-        <li>Inter-VLAN routing</li>
-        <li>Management network isolation</li>
-        <li>Server network segmentation</li>
-        <li>Firewall-controlled traffic flow</li>
-      </ul>
-    </div>
-  </div>
-
-</div>
       </section>
 
       <!-- VLANS -->
