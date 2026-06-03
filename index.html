@@ -333,6 +333,22 @@
 
     }
 
+
+.architecture-grid2{
+  display:grid;
+  grid-template-columns:1fr;
+}
+
+.arch-card2{
+  width:100%;
+}
+
+.arch-card2 img{
+  width:100%;
+  height:auto;
+}
+
+
   </style>
 
 </head>
@@ -463,6 +479,7 @@
 
       <a href="#featured">Environment Overview</a>
       <a href="#architecture">Architecture</a>
+      <a href="#blueprint">Blue Print & Traffic Flow</a>
       <a href="#tech-stack">Technology Stack</a>
       <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing"
            target="_blank">
@@ -612,10 +629,10 @@
 
           <p>
             This project is a continuously evolving enterprise infrastructure and security
-            operations environment designed to simulate real-world IT and cybersecurity
+            operations environment designed to simulate real-world enterprise and network security
             operations. The environment integrates Cisco networking (VLANs, Router-on-a-Stick), 
             Windows Server Active Directory services (AD DS, DNS, DHCP, SMB), Proxmox virtualization, 
-            isolated pentesting environment and centralized SIEM monitoring with Wazuh. 
+            isolated security testing environment and centralized SIEM monitoring with Wazuh. 
             Security operations are extended through Sysmon telemetry, automated incident response, 
             and workflow orchestration using n8n and Peppermint. This project serves as a hands-on portfolio 
             demonstrating practical experience across network engineering, systems administration, 
@@ -688,7 +705,7 @@
 
             <div class="arch-body">
 
-              <h3>Physical Architecture</h3>
+              <h3>Physical Deployment</h3>
 
               <p>
                 Physical device placement, switching & routing infrastructure,
@@ -702,6 +719,41 @@
         </div>
 
       </section>
+
+       <!-- BLUEPRINT -->
+     
+      <section id=blueprint class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Architecture
+          </div>
+
+          <h2 class="portal-title">
+            Network Inrastructure Blue Print 
+          </h2>
+
+        </div>
+
+        <div class="architecture-grid2">
+
+  <div class="arch-card2">
+    <img src="assets/images/feat-proj/infra-blueprint.png" alt="Infra Blue Print">
+
+    <div class="arch-body">
+      <h3>Network Infrastructure Blue Print</h3>
+
+      <p>
+        Displays the infrastructure device composition, IP address scheme, domain services, 
+        and network traffic flow.
+      </p>
+    </div>
+  </div>
+
+</div>
+      </section>
+
 
 
 

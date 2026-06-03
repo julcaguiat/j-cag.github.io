@@ -435,7 +435,7 @@ footer {
   overflow:hidden;
   transition:0.3s ease;
 }
-
+/*
 .arch-card img{
   width:100%;
   height:260px;
@@ -443,7 +443,7 @@ footer {
   display:block;
   border-bottom:1px solid #30363d;
 }
-
+*/
 .arch-body{
   padding:22px;
 }
@@ -458,7 +458,33 @@ footer {
   line-height:1.6;
 }
 
+ /* =========================
+       PHASE LINKS
+    ========================= */
 
+    .documentation-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 22px;
+      margin-top: 40px;
+    }
+
+    .doc-link-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .doc-link-card h4 {
+      margin-bottom: 14px;
+    }
+
+    .doc-link-card p {
+      color: #c9d1d9;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
 /* =========================
    RESPONSIVE
 ========================= */
