@@ -174,7 +174,7 @@ body {
 }
 
 .hero-content {
-  margin-top:20px;
+  margin-top:40px;
   position:relative;
   z-index: 1;
 }
@@ -485,6 +485,25 @@ footer {
       line-height: 1.7;
       margin-bottom: 18px;
     }
+
+  /* =========================
+       FEATURED BLOCK
+    ========================= */
+
+    .featured-project{
+      background:#161b22;
+      border:1px solid #30363d;
+      border-radius:16px;
+      padding:30px;
+    }
+/* =========================
+       BACK GROUND IMAGE
+    ========================= */
+
+    :root {
+  --hero-bg-image: url('../../assets/images/backgrounds/featured-project-bg.png');
+ }
+
 /* =========================
    RESPONSIVE
 ========================= */

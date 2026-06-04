@@ -14,368 +14,7 @@
 
   <style>
 
-    /* =========================
-       LAYOUT (PHASE 2 STANDARD)
-    ========================= */
-/*
-    .kb-layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 40px;
-      max-width: 1600px;
-      margin: auto;
-      padding: 0 24px;
-    }
-
-    .kb-content { min-width: 0; }
-
-    .kb-sidebar {
-      position: sticky;
-      top: 90px;
-      height: fit-content;
-      padding-right: 20px;
-      border-right: 1px solid #30363d;
-    }
-
-    .kb-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #7cc7ff;
-      margin-bottom: 14px;
-      margin-top: 30px;
-    }
-
-    .kb-title:first-child { margin-top: 0; }
-
-    .kb-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .kb-nav a {
-      color: #c9d1d9;
-      text-decoration: none;
-      padding: 10px 12px;
-      border-radius: 8px;
-      transition: 0.2s;
-      font-size: 0.92rem;
-    }
-
-    .kb-nav a:hover {
-      background: #161b22;
-      color: #58a6ff;
-      padding-left: 16px;
-    }
-*/
-    /* =========================
-       NAVBAR
-    ========================= */
-/*
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: #0d1117;
-      border-bottom: 1px solid #30363d;
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    .logo {
-      font-weight: 600;
-      letter-spacing: 1px;
-      color: #e6edf3;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: #c9d1d9;
-      text-decoration: none;
-      font-size: 0.92rem;
-      padding: 8px 10px;
-      border-radius: 6px;
-    }
-
-    .nav-links a:hover {
-      background: #161b22;
-      color: #58a6ff;
-    }
-*/
-    /* =========================
-       HERO (PHASE 2 STYLE)
-    ========================= */
-/*
-    .hero {
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
-      padding: 100px 0 80px;
-      border-bottom: 1px solid #30363d;
-    }
-
-    .hero-content {
-      max-width: 950px;
-    }
-
-    .hero-subtitle {
-      color: #7cc7ff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 0.85rem;
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-size: 3.4rem;
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-
-    .hero p {
-      max-width: 760px;
-      color: #c9d1d9;
-      line-height: 1.8;
-      font-size: 1.05rem;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 34px;
-    }
-*/
-    /* =========================
-       BUTTONS
-    ========================= */
-/*
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 18px;
-      border-radius: 10px;
-      text-decoration: none;
-      border: 1px solid #30363d;
-      color: #c9d1d9;
-      transition: 0.2s;
-    }
-
-    .btn:hover {
-      background: #161b22;
-      color: #58a6ff;
-    }
-
-    .btn-primary {
-      background: #1f6feb;
-      border-color: #1f6feb;
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: #388bfd;
-    }
-*/
-    /* =========================
-       SECTIONS
-    ========================= */
-/*
-    .section {
-      padding: 70px 0;
-      border-bottom: 1px solid #21262d;
-    }
-
-    .section-subtitle {
-      color: #8b949e;
-      max-width: 850px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-    }
-
-    .portal-header {
-      margin-bottom: 34px;
-    }
-
-    .portal-label {
-      color: #7cc7ff;
-      text-transform: uppercase;
-      font-size: 0.78rem;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
-
-    .portal-title {
-      font-size: 2.2rem;
-      margin: 0;
-    }
-*/
-    /* =========================
-       GRID + CARDS
-    ========================= */
-/*
-    .overview-grid,
-    .docs-grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .overview-grid {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .docs-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 16px;
-      padding: 26px;
-    }
-
-    .card h3 {
-      margin-top: 0;
-    }
-
-    .card p,
-    .card li {
-      color: #c9d1d9;
-      line-height: 1.7;
-    }
-
-    .portal-list {
-      padding-left: 18px;
-      margin: 0;
-    }
-*/
-    /* =========================
-       OBJECTIVES
-    ========================= */
-/*
-    .objectives-box {
-      margin-top: 50px;
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 18px;
-      padding: 40px;
-    }
-
-    .objectives-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .objective-item {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      padding: 18px;
-      color: #d0d7de;
-      font-size: 0.95rem;
-    }
-*/
-    /* =========================
-       WORKFLOW
-    ========================= */
-/*
-    .workflow-stage {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 18px;
-      padding: 35px;
-      margin-bottom: 28px;
-    }
-
-    .workflow-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-    }
-
-    .workflow-step {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      padding: 18px;
-      min-width: 170px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .workflow-arrow {
-      color: #58a6ff;
-      font-weight: bold;
-    }
-*/
-    /* =========================
-       PHASE LINKS
-    ========================= */
-/*
-    .documentation-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-      gap: 22px;
-      margin-top: 40px;
-    }
-
-    .doc-link-card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 14px;
-      padding: 28px;
-    }
-
-    .doc-link-card h4 {
-      margin-bottom: 14px;
-    }
-
-    .doc-link-card p {
-      color: #c9d1d9;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-*/
-    /* =========================
-       FOOTER
-    ========================= */
-/*
-    footer {
-      padding: 40px 0;
-      text-align: center;
-      color: #8b949e;
-    }
-*/
-    /* =========================
-       MOBILE
-    ========================= */
-/*
-    @media (max-width: 1100px) {
-      .kb-layout { grid-template-columns: 1fr; }
-      .kb-sidebar { display: none; }
-      .hero-title { font-size: 2.5rem; }
-    }
-*/
+   
   </style>
 
 </head>
@@ -388,10 +27,11 @@
     <div class="logo">JULFRI CAGUIAT</div>
 
     <div class="nav-links">
-      <a href="#architecture">Architecture</a>
+      <a href="../../index.html">Home</a>
+      <a href="#automation">Automation Process</a>
+      <a href="#overview">Overview</a>
       <a href="#workflow">Workflow</a>
       <a href="#repository">Documentation</a>
-      <a href="#project-phases">Phases</a>
     </div>
   </div>
 </nav>
@@ -404,12 +44,28 @@
       <summary class="kb-title">Phase 3 Navigation</summary>
 
       <nav class="kb-nav">
+        <a href="#automation">Automation Process</a>
         <a href="#overview">Overview</a>
         <a href="#deployment">Deployment Flow</a>
         <a href="#repository">Documentation</a>
       </nav>
     </details>
-  </aside>
+ 
+    <br>
+    <details class="kb-group" open>
+      <summary class="kb-title">Phases 2 & 3</summary>
+
+      <nav class="kb-nav">
+        <a href="featured-project-phase1.html">Back to Phase 1</a>
+      </nav>
+
+      <nav class="kb-nav">
+        <a href="featured-project-phase2.html">Back to Phase 2</a>
+      </nav>
+    </details>
+
+ </aside>
+
 
 <!-- CONTENT -->
 <main class="kb-content">
@@ -471,6 +127,41 @@
   </div>
 
 </section>
+
+
+       <!-- AUTOMATION -->
+
+      <section id="blueprint" class="section">
+
+        <div class="portal-header">
+
+          <div class="portal-label">
+            Architecture
+          </div>
+
+          <h2 class="portal-title">
+            Security Orchestration and Automation Response Workflow 
+          </h2>
+
+        </div>
+
+        <div class="architecture-grid2">
+
+  <div class="arch-card2">
+    <img src="../../assets/images/feat-proj/.png" alt="Automation">
+
+    <div class="arch-body">
+      <h3>SOC Automation Workflow</h3>
+
+      <p>
+        Displays the automation process from incident detection to response.
+      </p>
+    </div>
+  </div>
+
+</div>
+      </section>
+
 
 <!-- ARCHITECTURE -->
 <section id="architecture" class="section">
