@@ -45,11 +45,27 @@ a{
   align-items:center;
 }
 
+/*
 .logo{
   font-size:1.05rem;
   font-weight:bold;
   letter-spacing:1px;
   color:#ffffff;
+}
+*/
+.logo-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.status-banner {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+  white-space: nowrap;
 }
 
 .nav-links{
@@ -390,11 +406,15 @@ img{
 
 .content-link{
   display:block;
-  padding:10px 12px;
+ /* padding:10px 12px; */
+ padding:4px 12px;
   border-radius:8px;
-  color:#c9d1d9;
+ /* color:#c9d1d9; */
   text-decoration:none;
   transition:0.25s ease;
+
+color:#58a6ff;
+  margin-bottom: 4px;
 }
 
 .content-link:hover{

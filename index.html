@@ -282,19 +282,19 @@
       color:#c9d1d9;
       line-height:1.7;
     }
-
+/*
     .content-link{
       display:block;
       color:#58a6ff;
       text-decoration:none;
-      margin-top:14px;
+      margin-top:6px;
       line-height:1.6;
     }
 
     .content-link:hover{
       text-decoration:underline;
     }
-
+*/
     /* =========================
        FOOTER
     ========================= */
@@ -362,10 +362,18 @@
   <nav class="navbar">
 
     <div class="nav-container">
-
+<!--
       <div class="logo">
         JULFRI CAGUIAT
       </div>
+-->
+     <div class="logo-group">
+        <div class="logo">JULFRI CAGUIAT</div>
+  
+        <div class="status-banner">
+        Website Work-in-Progress • Updated: 06-06-2026  
+      </div>
+    </div>
 
       <div class="nav-links">
         <a href="#featured">Environment</a>
@@ -376,7 +384,7 @@
        </a>
         <a href="#labs">Labs</a>
         <a href="#resources">Resources</a>
-        <a href="#">About</a>
+        <a href="about.html">About</a>
       </div>
 
     </div>
@@ -479,7 +487,7 @@
 
       <a href="#featured">Environment Overview</a>
       <a href="#architecture">Architecture</a>
-      <a href="#blueprint">Blue Print & Traffic Flow</a>
+      <a href="#blueprint">Blueprint & Traffic Flow</a>
       <a href="#tech-stack">Technology Stack</a>
       <a href="https://drive.google.com/file/d/1zhS0uNs9g-M2RttkYl5uwt1tnTee9Gyv/view?usp=sharing"
            target="_blank">
@@ -511,13 +519,13 @@
         Packet Tracer: 3-Tier Architecture Sim
       </a>
 
-      <a href="#">
-        CML: CCNP ENCOR Labs
+      <a href="projects/networking/ccnp-encor-notes.html">
+        CCNP ENCOR Study Guide
       </a>
 
-      <a href="#">
-        CCNP ENCOR Notes
-      </a>
+       <a href=>
+        CML: CCNP ENCOR Labs
+       </a>
 
     </nav>
   </details>
@@ -533,19 +541,19 @@
         VirtualBox: SOC Lab Deployment
       </a>
 
-      <a href="">
-        SOAR Deployment for Brute Force Detection
-      </a>
-
       <a href="projects/security/windows10-login-bypass/windows-login-bypass.html">
         Windows Login Recovery
       </a>
 
-      <a href="#">
+      <a href=>
+        SOAR Deployment for Brute Force Detection
+      </a>
+
+      <a href=>
         TryHackMe Walkthroughs
       </a>
 
-      <a href="#">
+      <a href=>
         Pentest Notes
       </a>
 
@@ -559,15 +567,15 @@
 
     <nav class="kb-nav">
 
-      <a href="#">
+      <a href=>
         Active Directory
       </a>
 
-      <a href="#">
+      <a href=>
         DNS / DHCP / SMB
       </a>
 
-      <a href="#">
+      <a href=>
         SSH / SCP / RDP Guides
       </a>
 
@@ -581,19 +589,19 @@
 
     <nav class="kb-nav">
 
-      <a href="#">
+      <a href=>
         n8n Installation
       </a>
 
-      <a href="#">
+      <a href=>
         Local LLM Setup
       </a>
 
-      <a href="#">
+      <a href=>
         AI Workflow Automation
       </a>
 
-      <a href="#">
+      <a href=>
         SIEM → Ticket Automation
       </a>
 
@@ -601,11 +609,6 @@
   </details>
 
 </aside>
-
-
-
-
-
 
     <!-- =========================
          CONTENT
@@ -731,7 +734,7 @@
           </div>
 
           <h2 class="portal-title">
-            Network Inrastructure Blue Print 
+            Network Inrastructure Blueprint 
           </h2>
 
         </div>
@@ -739,10 +742,10 @@
         <div class="architecture-grid2">
 
   <div class="arch-card2">
-    <img src="assets/images/feat-proj/infra-blueprint.png" alt="Infra Blue Print">
+    <img src="assets/images/feat-proj/infra-blueprint.png" alt="Infra Blueprint">
 
     <div class="arch-body">
-      <h3>Network Infrastructure Blue Print</h3>
+      <h3>Network Infrastructure Blueprint</h3>
 
       <p>
         Displays the infrastructure device composition, IP address scheme, domain services, 
@@ -753,10 +756,6 @@
 
 </div>
       </section>
-
-
-
-
 
       <!-- ENVIRONMENT -->
 
@@ -837,12 +836,6 @@
         </div>
 
       </section>
-
-
- 
-
-
-
 
       <!-- TECH STACK -->
 
@@ -926,12 +919,15 @@
             <p>
               Cisco switching, routing,
               VLANs, inter-VLAN routing,
-              Packet Tracer simulations,
-              and CCNA/CCNP labs.
+              Packet Tracer/CML simulations,
+              and CCNA/CCNP notes/labs.
             </p>
 
             <a href="projects/networking/packettracer-project.html" class="content-link">
               Three-Tier Enterprise Packet Tracer Project
+            </a>
+            <a href="projects/networking/ccnp-encor-notes.html" class="content-link">
+              CCNP ENCOR Study Guide
             </a>
 
           </div>
@@ -967,11 +963,11 @@
               SSH/SCP workflows,
               and identity services.
             </p>
-
-            <a href="#" class="content-link">
+<!--
+            <a href="" class="content-link">
               Open Documentation
             </a>
-
+-->
           </div>
 
           <div class="card">
@@ -984,11 +980,11 @@
               PowerShell,
               and infrastructure workflow automation.
             </p>
-
-            <a href="#" class="content-link">
+<!--
+            <a href="" class="content-link">
               Open Documentation
             </a>
-
+-->
           </div>
 
         </div>
@@ -1000,7 +996,7 @@
       <section id="resources" class="section">
 
         <h2 class="section-title">
-          Resources & References
+          Resources & References - NOTE: Technical notes being prepared.
         </h2>
 
         <div class="cards">

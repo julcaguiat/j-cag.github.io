@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>CCNP ENCOR v1.2 Study Dashboard</title>
+
+  <link rel="stylesheet" href="../../assets/css/test-style.css" />
+
+  <style>
+
+    /*
+    :root{
+      --hero-bg-image: url('../../assets/images/backgrounds/ccnp-bg.png');
+    }
+    */
+
+
+/* =========================
+   DASHBOARD GRID (CORE UI)
+========================= */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 60px 20px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* =========================
+   DOMAIN CARD
+========================= */
+
+.domain-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  padding: 22px;
+  transition: 0.2s ease;
+}
+
+.domain-card:hover {
+  transform: translateY(-4px);
+  border-color: #58a6ff;
+}
+
+.domain-title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.domain-weight {
+  color: #7cc7ff;
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.domain-list {
+  padding-left: 18px;
+  color: #c9d1d9;
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
+
+
+/* =========================
+   LAB MAPPING SECTION
+========================= */
+
+.mapping {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px 20px 60px;
+}
+
+.mapping-box {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.mapping-box h2 {
+  margin-top: 0;
+}
+
+.mapping-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.map-item {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 0.9rem;
+  color: #c9d1d9;
+}
+
+
+  </style>
+
+</head>
+
+<body id="top">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-container">
+
+    <div class="logo">CCNP ENCOR DASHBOARD</div>
+
+    <div class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="#domains">Domains</a>
+      <a href="https://learningnetwork.cisco.com/s/encor-exam-topics"  target="_blank">Exam Blueprint</a>
+      <a href="#mapping">Lab Mapping</a>
+    </div>
+
+  </div>
+</nav>
+
+<div class="kb-layout">
+
+<!-- SIDEBAR -->
+<aside class="kb-sidebar">
+
+  <div class="kb-title">CCNP ENCOR</div>
+
+  <nav class="kb-nav">
+    <a href="#domains">Exam Domains</a>
+    <a href="https://learningnetwork.cisco.com/s/encor-exam-topics" target="_blank">Exam Blueprint</a>
+    <a href="#mapping">Lab Mapping</a>
+  </nav>
+
+</aside>
+
+<!-- CONTENT -->
+<main class="kb-content">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+
+    <div class="hero-subtitle">
+      Cisco CCNP Enterprise • 350-401 ENCOR
+    </div>
+
+    <h1 class="hero-title">
+      CCNP ENCOR (350-401) Study Dashboard
+    </h1>
+
+    <p>
+      Structured study dashboard covering Architecture, Virtualization,
+      Infrastructure, Network Assurance, Security, and Automation.
+      All domains mapped directly to official CCNP ENCOR blueprint.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#domains">Explore Domains</a>
+      <a class="btn" href="https://learningnetwork.cisco.com/s/encor-exam-topics" target="_blank">Exam Blueprint</a>
+      <a class="btn" href="#mapping">Lab Mapping</a>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="dashboard-grid">
+
+  <div class="domain-card">
+    <div class="domain-title">Architecture</div>
+    <div class="domain-weight">15% of exam</div>
+
+    <ul class="domain-list">
+      <li>3-tier / Fabric / Cloud design</li>
+      <li>HA (FHRP, redundancy, SSO)</li>
+      <li>SD-WAN / SD-Access</li>
+      <li>QoS interpretation</li>
+    </ul>
+
+    <div class="card-links">
+      <a class="btn btn-primary" href="../../documentation/ccnp/architecture.pdf">PDF</a>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">Virtualization</div>
+    <div class="domain-weight">10% of exam</div>
+
+    <ul class="domain-list">
+      <li>Hypervisors (Type 1/2)</li>
+      <li>VRF / GRE / IPsec</li>
+      <li>VXLAN / LISP concepts</li>
+    </ul>
+
+    <div class="card-links">
+      <a class="btn btn-primary" href="../../documentation/ccnp/virtualization.pdf">PDF</a>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">Infrastructure</div>
+    <div class="domain-weight">30% of exam</div>
+
+    <ul class="domain-list">
+      <li>STP / EtherChannel</li>
+      <li>OSPF / EIGRP / BGP</li>
+      <li>NAT / HSRP / Multicast</li>
+    </ul>
+
+    <div class="card-links">
+      <a class="btn btn-primary" href="../../documentation/ccnp/infrastructure.pdf">PDF</a>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">Network Assurance</div>
+    <div class="domain-weight">10% of exam</div>
+
+    <ul class="domain-list">
+      <li>NetFlow</li>
+      <li>SPAN / ERSPAN</li>
+      <li>Syslog / SNMP / IPSLA</li>
+    </ul>
+
+    <div class="card-links">
+      <a class="btn btn-primary" href="../../documentation/ccnp/assurance.pdf">PDF</a>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">Security</div>
+    <div class="domain-weight">20% of exam</div>
+
+    <ul class="domain-list">
+      <li>AAA / TACACS / RADIUS</li>
+      <li>ACL / CoPP</li>
+      <li>TrustSec / MACsec</li>
+    </ul>
+
+    <div class="card-links">
+      <a class="btn btn-primary" href="../../documentation/ccnp/security.pdf">PDF</a>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">Automation & AI</div>
+    <div class="domain-weight">15% of exam</div>
+
+    <ul class="domain-list">
+      <li>Python basics</li>
+      <li>JSON / YAML / YANG</li>
+      <li>RESTCONF / NETCONF</li>
+      <li>EEM scripting</li>
+    </ul>
+
+    <div class="card-links">
+      <a class="btn btn-primary" href="../../documentation/ccnp/automation.pdf">PDF</a>
+    </div>
+  </div>
+
+</section>
+
+
+
+<!-- LAB MAPPING -->
+<section id="mapping" class="mapping">
+
+  <div class="mapping-box">
+
+    <h2>Lab Mapping (Theory → Practice)</h2>
+
+    <p style="color:#c9d1d9;">
+      Theory application to the actual lab environments.
+    </p>
+
+    <div class="mapping-grid">
+
+      <div class="map-item">Packet Tracer 3-Tier → Infrastructure</div>
+      <div class="map-item">Proxmox / VM Lab → Virtualization</div>
+      <div class="map-item">SOC Wazuh Lab → Security</div>
+      <div class="map-item">n8n Automation → Automation Domain</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+<!-- FOOT NAV -->
+<div class="page-nav">
+  <a href="../../index.html" class="btn btn-primary">← Home</a>
+  <a href="#top" class="btn">↑ Top</a>
+</div>
+
+<footer>
+  © 2026 CCNP ENCOR Study Dashboard — Julfri Caguiat
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>
