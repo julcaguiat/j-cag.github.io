@@ -555,6 +555,36 @@ footer {
   width:100%;
   height:auto;
 }
+/* =========================================
+   PORTAL SECTIONS
+========================================= */
+
+.portal-section{
+  margin-top:70px;
+}
+
+.portal-header{
+  margin-bottom:26px;
+}
+
+.portal-label{
+  color:#7cc7ff;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size:0.8rem;
+  margin-bottom:10px;
+}
+
+.portal-title{
+  font-size:2rem;
+  color:#ffffff;
+  margin-bottom:12px;
+}
+
+.portal-description{
+  color:#9da7b3;
+  max-width:850px;
+}
 
 
  /* =========================
