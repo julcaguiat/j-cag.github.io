@@ -5,210 +5,232 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Install pfSense on VirtualBox | Home Lab Setup</title>
+  <title>pfSense Installation (VirtualBox)</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 800px;
+    }
+
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .step-section {
+      margin-bottom: 28px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      color: #e6edf3;
+    }
+
+    figure {
+      margin-top: 14px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+    }
+
+    .page-nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    code {
+      background: #161b22;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+    <div class="hero-content">
 
-      <h1 class="section-title bright-title">
-        Install pfSense on VirtualBox (Windows 11 Host)
+      <div class="hero-subtitle">
+        NETWORK SECURITY INFRASTRUCTURE
+      </div>
+
+      <h1 class="hero-title">
+        Install pfSense on VirtualBox
       </h1>
 
-      <p class="section-subtitle">
-        Step-by-step guide to installing pfSense Community Edition as a virtual firewall/router
-        in VirtualBox for your home SOC lab environment.
-      </p>
-
-    </header>
-
-    <!-- OVERVIEW -->
-    <section class="blog-section">
-
-      <h2>Overview</h2>
-
       <p>
-        This guide covers installation of pfSense CE on VirtualBox. pfSense will act as
-        the network firewall/router for your lab environment, enabling segmentation between
-        attacker, endpoint, and SIEM systems.
+        Deploy pfSense Community Edition as a virtual firewall/router to segment and secure
+        your SOC home lab environment.
       </p>
 
-    </section>
+    </div>
 
-    <!-- TERMINOLOGY -->
-    <section class="blog-section">
+  </section>
 
-      <h2>Key Terms & Acronyms</h2>
+  <!-- CONTENT -->
+  <main class="kb-content">
+
+    <div class="step-section">
+      <h2>Overview</h2>
+      <p>
+        pfSense acts as the central firewall and routing layer in this lab,
+        enabling segmentation between attacker, endpoint, and SIEM systems.
+      </p>
+    </div>
+
+    <div class="step-section">
+      <h2>Key Concepts</h2>
 
       <ul>
-        <li><strong>pfSense</strong>: Open-source firewall/router based on FreeBSD.</li>
-        <li><strong>VM</strong>: Virtual Machine running on hypervisor software.</li>
-        <li><strong>NIC</strong>: Network Interface Card / adapter.</li>
-        <li><strong>WAN</strong>: External network interface (internet-facing).</li>
-        <li><strong>LAN</strong>: Internal network interface (trusted network).</li>
-        <li><strong>NAT</strong>: Network Address Translation.</li>
-        <li><strong>ISO</strong>: Disk image used for OS installation.</li>
+        <li><strong>WAN</strong>: External network interface</li>
+        <li><strong>LAN</strong>: Internal lab network</li>
+        <li><strong>NIC</strong>: Virtual network adapter</li>
+        <li><strong>NAT</strong>: Network address translation</li>
+        <li><strong>ISO</strong>: Installation image</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- REQUIREMENTS -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Requirements</h2>
 
       <ul>
-        <li>VirtualBox installed on Windows 11</li>
-        <li>pfSense CE ISO downloaded</li>
-        <li>Hardware virtualization enabled (BIOS/UEFI)</li>
+        <li>VirtualBox installed</li>
+        <li>pfSense ISO downloaded</li>
+        <li>Hardware virtualization enabled</li>
         <li>2 GB RAM minimum</li>
-        <li>20 GB storage minimum</li>
+        <li>20 GB disk space</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- TIP -->
-    <section class="blog-section">
-
-      <h2>Tip: Use an AI Assistant</h2>
-
-      <p>
-        Keep an AI assistant available during installation. Firewall setups often fail due to
-        interface misconfiguration, ISO issues, or boot errors.
-      </p>
-
-    </section>
-
-    <!-- STEP 1 -->
-    <section class="blog-section">
-
-      <h2>Step 1 — Download pfSense ISO</h2>
+    <div class="step-section">
+      <h2>Step 1 — Download ISO</h2>
 
       <ol>
         <li>Go to <a href="https://www.pfsense.org/download/" target="_blank">pfSense Download Page</a></li>
-        <li>Create account and log in</li>
-        <li>Select AMD64 ISO for Virtual Machines</li>
-        <li>Download installer ISO</li>
+        <li>Select AMD64 installer</li>
+        <li>Download ISO file</li>
       </ol>
 
       <figure>
-        <img src="../images/8pf-images/1.png" alt="pfSense download page" />
+        <img src="../../../assets/images/virtual-soc-images/8pf-images/1.png" alt="pfSense download" />
       </figure>
+    </div>
 
-      <figure>
-        <img src="../images/8pf-images/2.png" alt="pfSense download options" />
-      </figure>
-
-    </section>
-
-    <!-- STEP 2 -->
-    <section class="blog-section">
-
-      <h2>Step 2 — Prepare ISO File</h2>
+    <div class="step-section">
+      <h2>Step 2 — Prepare ISO</h2>
 
       <ol>
-        <li>Extract ISO using 7-Zip if compressed</li>
-        <li>Move ISO to D:\virtualbox-VMs\pfSense</li>
+        <li>Move ISO to lab storage directory</li>
         <li>Verify file integrity</li>
       </ol>
 
       <figure>
-        <img src="../images/8pf-images/3.png" alt="ISO extraction" />
+        <img src="../../../assets/images/virtual-soc-images/8pf-images/3.png" alt="ISO setup" />
       </figure>
+    </div>
 
-      <figure>
-        <img src="../images/8pf-images/4.png" alt="pfSense ISO folder" />
-      </figure>
-
-    </section>
-
-    <!-- STEP 3 -->
-    <section class="blog-section">
-
-      <h2>Step 3 — Create pfSense VM</h2>
+    <div class="step-section">
+      <h2>Step 3 — Create VM</h2>
 
       <ol>
-        <li>Open VirtualBox → Click New</li>
+        <li>Open VirtualBox → New</li>
         <li>Name: pfSenseVM</li>
-        <li>Type: BSD → FreeBSD (64-bit)</li>
-        <li>Attach pfSense ISO</li>
+        <li>Type: FreeBSD (64-bit)</li>
+        <li>Attach ISO</li>
       </ol>
 
       <figure>
-        <img src="../images/8pf-images/12.png" alt="Create VM" />
+        <img src="../../../assets/images/virtual-soc-images/8pf-images/12.png" alt="VM creation" />
       </figure>
+    </div>
 
-      <figure>
-        <img src="../images/8pf-images/13.png" alt="VM settings" />
-      </figure>
-
-    </section>
-
-    <!-- STEP 4 -->
-    <section class="blog-section">
-
-      <h2>Step 4 — Configure Resources</h2>
+    <div class="step-section">
+      <h2>Step 4 — Allocate Resources</h2>
 
       <ul>
         <li>RAM: 2048 MB</li>
         <li>CPU: 1 core</li>
-        <li>Disk: 20 GB (VDI)</li>
+        <li>Disk: 20 GB</li>
       </ul>
 
       <figure>
-        <img src="../images/8pf-images/14.png" alt="Hardware config" />
+        <img src="../../../assets/images/virtual-soc-images/8pf-images/14.png" alt="Resources config" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- STEP 5 -->
-    <section class="blog-section">
-
-      <h2>Step 5 — Install pfSense</h2>
+    <div class="step-section">
+      <h2>Step 5 — Installation</h2>
 
       <ol>
         <li>Boot VM</li>
-        <li>Press Enter through installer prompts</li>
-        <li>Accept defaults for disk partitioning</li>
-        <li>Wait for installation to complete</li>
+        <li>Accept defaults</li>
+        <li>Install to disk</li>
+        <li>Wait for completion</li>
       </ol>
 
       <figure>
-        <img src="../images/8pf-images/16.png" alt="pfSense boot" />
+        <img src="../../../assets/images/virtual-soc-images/8pf-images/16.png" alt="pfSense install" />
       </figure>
+    </div>
 
-      <figure>
-        <img src="../images/8pf-images/33.png" alt="pfSense console" />
-      </figure>
-
-    </section>
-
-    <!-- COMPLETION -->
-    <section class="blog-section">
-
-      <h2>Completion</h2>
+    <div class="step-section">
+      <h2>Install Complete</h2>
 
       <p>
-        pfSense is now installed and running in VirtualBox. The next step is configuring
-        network adapters and integrating all VMs into a segmented lab topology.
+        pfSense is now installed and ready to function as the core firewall layer.
       </p>
+    </div>
 
-    </section>
-
-    <!-- NAV -->
-    <footer class="blog-section">
-
-      <a class="btn btn-secondary" href="win10-vm-deploy.html">Back</a>
+    <div class="page-nav">
+      <a class="btn" href="virtual-soc-landing.html">← Back to Staging Area</a>
       <a class="btn btn-secondary" href="../../../index.html">Home</a>
-      <a class="btn btn-primary" href="pfsense-network-config.html">Next: Network Configuration</a>
-
-    </footer>
+      <a class="btn btn-primary" href="pfsense-network-config.html">Next: pfSense Config</a>
+    </div>
 
   </main>
 

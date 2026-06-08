@@ -4,210 +4,333 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Wazuh SIEM Installation | Home Lab Setup</title>
+  <title>Install Wazuh SIEM | Ubuntu Server Deployment Guide</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    /* Reduce hero footprint */
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      margin-top: 10px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      margin-bottom: 0;
+      max-width: 800px;
+    }
+
+    /* Main readable container */
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    /* Section spacing tighter than default */
+    .step-section {
+      margin-bottom: 22px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    /* Images consistent */
+    .step-image img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+      margin-top: 12px;
+    }
+
+    /* Footer spacing */
+    .page-nav {
+      margin-top: 40px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+      <div class="hero-subtitle">
+        PHASE 2 • WAZUH ENVIRONMENT DEPLOYMENT
+      </div>
 
-      <h1 class="section-title bright-title">
-        How to Install Wazuh SIEM on Ubuntu Server
+      <h1 class="hero-title">
+        Install Wazuh SIEM on Ubuntu Server
       </h1>
 
-      <p class="section-subtitle">
-        Step-by-step guide to installing Wazuh SIEM (Manager, Indexer, Dashboard, and Filebeat) on an Ubuntu Server VM for SOC home lab monitoring.
+      <p>
+        Step-by-step deployment guide for installing the Wazuh Manager, Indexer, Dashboard, and Filebeat components on
+        Ubuntu Server.
       </p>
 
-    </header>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="kb-content">
 
     <!-- OVERVIEW -->
-    <section class="blog-section">
+    <div class="step-section">
 
       <h2>Overview</h2>
 
       <p>
-        Wazuh is a Security Information and Event Management (SIEM) platform used for log analysis,
-        threat detection, and endpoint monitoring. In this lab, Wazuh will be deployed on Ubuntu Server
-        to centralize security telemetry from Windows and Linux endpoints.
+        Wazuh is an open-source Security Information and Event Management (SIEM)
+        platform used for log collection, threat detection, file integrity monitoring,
+        vulnerability assessment, and security analytics.
       </p>
 
       <p>
-        This setup simulates a real SOC environment where security analysts monitor events, alerts,
-        and system activity from a centralized dashboard.
+        In this environment, Wazuh serves as the centralized monitoring platform
+        responsible for collecting telemetry from Windows and Linux endpoints.
       </p>
 
-    </section>
-
-    <!-- TIP -->
-    <section class="blog-section">
-
-      <h2>Tip: Use an AI Assistant During Setup</h2>
-
-      <p>
-        Wazuh installation involves multiple services and configuration files. Using an AI assistant
-        helps troubleshoot installation errors, service failures, and configuration issues quickly.
-      </p>
-
-    </section>
+    </div>
 
     <!-- STEP 1 -->
-    <section class="blog-section">
+
+    <div class="step-section">
 
       <h2>Step 1 — Install Wazuh Components</h2>
 
       <ol>
-        <li>Start Ubuntu-Wazuh-Server VM</li>
-        <li>Log in to the system</li>
-        <li>Run the following commands:</li>
+
+        <li>Start the Ubuntu-Wazuh-Server virtual machine.</li>
+        <li>Log in using your administrative account.</li>
+        <li>Update the operating system and download the installation script.</li>
+        <li>Run the automated deployment installer.</li>
       </ol>
 
       <pre>
+
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl apt-transport-https lsb-release gnupg -y
+
+sudo apt install curl apt-transport-https \
+
+lsb-release gnupg -y
+
 curl -sO https://packages.wazuh.com/4.8/wazuh-install.sh
+
 chmod +x wazuh-install.sh
+
 sudo ./wazuh-install.sh -a
+
       </pre>
 
       <p>
-        Installation may take 10–15 minutes. After completion, save the generated admin credentials
-        (username and password) for dashboard access.
+        Installation typically takes 10–15 minutes depending on system resources.<br>
+        <br>
+        <b>IMPORTANT:</b> Save the generated administrator credentials displayed during installation.
       </p>
 
-      <figure>
-        <img src="../images/5wazuh2-images/1.png" alt="Wazuh installation output" />
-      </figure>
+      <div class="step-image">
 
-    </section>
+        <img src="../../../assets/images/virtual-soc-images/5wazuh2-images/1.png" alt="Wazuh installation output">
+
+      </div>
+
+    </div>
 
     <!-- STEP 2 -->
-    <section class="blog-section">
+
+    <div class="step-section">
 
       <h2>Step 2 — Verify Wazuh Services</h2>
 
-      <p>Check that all services are running correctly:</p>
+      <p>
+        Confirm all Wazuh components are running correctly.
+      </p>
 
       <pre>
+
 sudo systemctl status wazuh-manager
+
 sudo systemctl status wazuh-indexer
+
 sudo systemctl status filebeat
+
 sudo systemctl status wazuh-dashboard
+
       </pre>
 
       <p>
-        All services should show an active (running) state.
+        Verify each service displays an <strong>active (running)</strong> status.
       </p>
 
-      <figure>
-        <img src="../images/5wazuh2-images/2.png" alt="Wazuh services status" />
-      </figure>
+      <div class="step-image">
 
-    </section>
+        <img src="../../../assets/images/virtual-soc-images/5wazuh2-images/2.png" alt="Wazuh service verification">
+
+      </div>
+
+    </div>
 
     <!-- STEP 3 -->
-    <section class="blog-section">
 
-      <h2>Step 3 — Configure Wazuh Dashboard Access</h2>
+    <div class="step-section">
+
+      <h2>Step 3 — Configure Dashboard Access</h2>
 
       <ol>
-        <li>Get Ubuntu server IP address using <code>ip a</code></li>
-        <li>Navigate to configuration directory:</li>
+        <li>Determine the Ubuntu server IP address.</li>
+        <li>Open the Wazuh Dashboard configuration file.</li>
       </ol>
 
       <pre>
+
+ip a
+
 sudo su
-cd /
+
 cd /etc/wazuh-dashboard
-ls
+
 nano opensearch_dashboards.yml
+
       </pre>
 
       <p>
-        Update <code>opensearch.hosts</code> with your Ubuntu server IP address.
+        Update the dashboard configuration if necessary and verify the
+        correct server IP address is being used.
       </p>
 
-      <figure>
-        <img src="../images/5wazuh2-images/3.png" alt="Dashboard configuration" />
-      </figure>
+      <div class="step-image">
 
-      <ol>
-        <li>Navigate to indexer configuration:</li>
-      </ol>
+        <img src="../../../assets/images/virtual-soc-images/5wazuh2-images/3.png" alt="Dashboard configuration">
 
-      <pre>
-cd /
-cd /etc/wazuh-indexer
-ls
-nano opensearch.yml
-      </pre>
+      </div>
 
-      <p>
-        Set <code>network.host</code> to <code>0.0.0.0</code> if required.
-      </p>
-
-      <figure>
-        <img src="../images/5wazuh2-images/5.png" alt="Indexer configuration" />
-      </figure>
-
-    </section>
+    </div>
 
     <!-- STEP 4 -->
-    <section class="blog-section">
 
-      <h2>Step 4 — Access Wazuh Dashboard</h2>
+    <div class="step-section">
+
+      <h2>Step 4 — Configure Wazuh Indexer</h2>
 
       <ol>
-        <li>Open browser on Kali Linux or Windows host</li>
-        <li>Navigate to: https://&lt;Wazuh-Server-IP&gt;:443</li>
-        <li>Accept browser security warning</li>
-        <li>Log in using admin credentials</li>
+        <li>Open the indexer configuration file.</li>
+        <li>Verify network accessibility settings.</li>
       </ol>
+      <pre>
 
-      <figure>
-        <img src="../images/5wazuh2-images/6.png" alt="Browser security warning" />
-      </figure>
+cd /etc/wazuh-indexer
 
-      <figure>
-        <img src="../images/5wazuh2-images/9.png" alt="Wazuh dashboard" />
-      </figure>
+nano opensearch.yml
 
-    </section>
-
-    <!-- COMPLETION -->
-    <section class="blog-section">
-
-      <h2>Completion</h2>
+      </pre>
 
       <p>
-        Wazuh SIEM is now fully deployed on Ubuntu Server and accessible via web dashboard.
-        The next step is deploying Wazuh agents on Windows 10 and Kali Linux endpoints for full telemetry coverage.
+        If remote access is required, configure:
       </p>
 
-    </section>
+      <pre>
+
+network.host: 0.0.0.0
+
+      </pre>
+
+      <p>
+        Save the configuration and restart services if modifications are made.
+      </p>
+
+      <div class="step-image">
+
+        <img src="../../../assets/images/virtual-soc-images/5wazuh2-images/5.png" alt="Indexer configuration">
+
+      </div>
+
+    </div>
+
+    <!-- STEP 5 -->
+
+    <div class="step-section">
+
+      <h2>Step 5 — Access the Wazuh Dashboard</h2>
+
+      <ol>
+        <li>Open a browser from the Windows or Kali Linux endpoint.</li>
+        <li>Navigate to the Wazuh web interface.</li>
+      </ol>
+
+      <pre>
+
+https://&lt;WAZUH-SERVER-IP&gt;
+
+      </pre>
+
+      <ol start="3">
+        <li>Accept the certificate warning.</li>
+        <li>Log in using the administrator credentials generated during installation.</li>
+      </ol>
+
+      <div class="step-image">
+
+        <img src="../../../assets/images/virtual-soc-images/5wazuh2-images/6.png" alt="Browser certificate warning">
+
+      </div>
+
+      <div class="step-image">
+
+        <img src="../../../assets/images/virtual-soc-images/5wazuh2-images/9.png" alt="Wazuh dashboard">
+
+      </div>
+
+    </div>
+
+    <!-- COMPLETION -->
+
+    <div class="step-section">
+
+      <h2>Install Complete</h2>
+
+      <p>
+        Wazuh SIEM is now operational and accessible through the web dashboard.
+        The next phase is deploying Wazuh agents on Windows and Linux endpoints.
+      </p>
+
+    </div>
 
     <!-- NAVIGATION -->
-    <footer class="blog-section">
 
-      <a class="btn btn-secondary" href="ubuntu-install.html">
-        ← Previous: Ubuntu Server VM
-      </a>
+    <div class="page-nav">
 
+      <a class="btn btn-secondary" href="virtual-soc-landing.html">← Back to Staging Area</a>
       <a class="btn btn-secondary" href="../../../index.html">
         Home
       </a>
-
       <a class="btn btn-primary" href="kali-agent-install.html">
-        Next: Kali Wazuh Agent →
+        Next: Kali Wazuh Agent
       </a>
 
-    </footer>
+    </div>
 
   </main>
 

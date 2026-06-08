@@ -8,228 +8,264 @@
   <title>Windows Password Reset (Ubuntu Live USB) | SOC Lab</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0;
+    }
+
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .step-section {
+      margin-bottom: 30px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section h3 {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      color: #e6edf3;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    figure {
+      margin-top: 14px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+    }
+
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      color: #e6edf3;
+      margin-top: 10px;
+    }
+
+    code {
+      background: #161b22;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+    }
+
+    .page-nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+    <div class="hero-content">
 
-      <h1 class="section-title bright-title">
-        Resetting Windows Password & Disabling PIN Login (Windows 10)
+      <div class="hero-subtitle">
+        OFFLINE WINDOWS RECOVERY LAB
+      </div>
+
+      <h1 class="hero-title">
+        Windows Password Reset (Rufus + chntpw)
       </h1>
 
-      <p class="section-subtitle">
-        Offline password reset using Ubuntu Live USB and chntpw for local Windows accounts (lab-only procedure).
+      <p>
+        Offline password reset and Windows Hello PIN removal using Ubuntu Live USB and chntpw in a controlled SOC lab
+        environment.<br>
+        <b>NOTE: This is for educational purpose only!</b>
       </p>
 
-    </header>
+    </div>
 
-    <!-- OVERVIEW -->
-    <section class="blog-section">
+  </section>
 
+  <!-- CONTENT -->
+  <main class="kb-content">
+
+    <div class="step-section">
       <h2>Overview</h2>
-
       <p>
-        This guide demonstrates how to reset a Windows local account password and disable Windows Hello PIN authentication
-        using an Ubuntu Live USB environment and the chntpw utility.
+        This procedure demonstrates offline modification of the Windows SAM database using Ubuntu Live USB.
+        It is used in lab environments to simulate endpoint recovery and credential reset scenarios.
       </p>
+    </div>
 
-      <p>
-        This technique works by modifying the Windows SAM (Security Account Manager) database offline.
-      </p>
-
-    </section>
-
-    <!-- REQUIREMENTS -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Requirements</h2>
 
       <ul>
-        <li>Second working computer</li>
-        <li>USB drive (8GB or larger)</li>
+        <li>Second working system or VM host</li>
+        <li>USB drive (8GB+)</li>
         <li>Ubuntu Desktop ISO</li>
-        <li>Rufus (USB creation tool)</li>
-        <li>Internet access (for chntpw installation)</li>
+        <li>Rufus USB creation tool</li>
+        <li>Internet access for package installation</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- PART 1 -->
-    <section class="blog-section">
-
-      <h2>1. Create Ubuntu Live USB</h2>
+    <div class="step-section">
+      <h2>Step 1 — Create Ubuntu Live USB</h2>
 
       <h3>Download Ubuntu</h3>
-
       <p>
-        Download Ubuntu Desktop ISO from:
-        <a href="https://ubuntu.com/download/desktop" target="_blank">Ubuntu Official Website</a>
+        Download ISO:
+        <a href="https://ubuntu.com/download/desktop" target="_blank">Ubuntu Desktop Download</a>
       </p>
 
-      <h3>Create Bootable USB (Rufus)</h3>
-
+      <h3>Rufus Configuration</h3>
       <ul>
-        <li>Insert USB drive</li>
-        <li>Open Rufus</li>
         <li>Select Ubuntu ISO</li>
         <li>Partition scheme: MBR</li>
         <li>File system: FAT32</li>
-        <li>Click Start</li>
+        <li>Start USB creation</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- PART 2 -->
-    <section class="blog-section">
-
-      <h2>2. Boot Locked System from USB</h2>
+    <div class="step-section">
+      <h2>Step 2 — Boot Target System</h2>
 
       <ul>
         <li>Insert USB into target system</li>
-        <li>Power on and press ESC repeatedly</li>
-        <li>Press F12 for boot menu</li>
-        <li>Select USB (UEFI preferred)</li>
-        <li>Choose “Try Ubuntu” (do not install)</li>
+        <li>Press ESC/F12 for boot menu</li>
+        <li>Select USB (UEFI)</li>
+        <li>Choose “Try Ubuntu”</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- PART 3 -->
-    <section class="blog-section">
-
-      <h2>3. Connect to Internet</h2>
-
-      <ul>
-        <li>Connect to Wi-Fi from top-right icon</li>
-        <li>Verify connectivity</li>
-      </ul>
-
-      <pre><code>ping -c 2 google.com</code></pre>
-
-    </section>
-
-    <!-- PART 4 -->
-    <section class="blog-section">
-
-      <h2>4. Install chntpw Tool</h2>
+    <div class="step-section">
+      <h2>Step 3 — Install Required Tools</h2>
 
       <pre><code>sudo apt update
-sudo apt install chntpw</code></pre>
+ sudo apt install chntpw</code></pre>
+    </div>
 
-    </section>
-
-    <!-- PART 5 -->
-    <section class="blog-section">
-
-      <h2>5. Locate Windows Partition</h2>
+    <div class="step-section">
+      <h2>Step 4 — Locate Windows Partition</h2>
 
       <pre><code>lsblk -f
-sudo lsblk -o NAME,FSTYPE,SIZE,LABEL,MOUNTPOINT</code></pre>
+ sudo lsblk -o NAME,FSTYPE,SIZE,LABEL,MOUNTPOINT</code></pre>
 
-      <p>Example output indicates NTFS partition (Windows system drive).</p>
-
-      <h3>Mount Windows Partition</h3>
+      <h3>Mount Windows Disk</h3>
 
       <pre><code>sudo mkdir /mnt/win
-sudo mount -t ntfs-3g /dev/nvme0n1p3 /mnt/win</code></pre>
+ sudo mount -t ntfs-3g /dev/nvme0n1p3 /mnt/win</code></pre>
 
       <h3>Verify SAM File</h3>
 
       <pre><code>ls /mnt/win/Windows/System32/config/</code></pre>
+    </div>
 
-    </section>
-
-    <!-- PART 6 -->
-    <section class="blog-section">
-
-      <h2>6. Reset Password with chntpw</h2>
+    <div class="step-section">
+      <h2>Step 5 — Reset Windows Password</h2>
 
       <pre><code>sudo chntpw -i /mnt/win/Windows/System32/config/SAM</code></pre>
 
       <p>Inside menu:</p>
 
       <ul>
-        <li>Option 1: Edit user data</li>
-        <li>Select username or RID</li>
-        <li>Option 1: Clear password</li>
-        <li>Option 4: Unlock user (if needed)</li>
-        <li>Option !: Exit editor</li>
-        <li>Option q: Quit</li>
-        <li>Confirm with y</li>
+        <li>Edit user data</li>
+        <li>Select account</li>
+        <li>Clear password</li>
+        <li>Unlock user (if needed)</li>
+        <li>Write changes and exit</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- PART 7 -->
-    <section class="blog-section">
-
-      <h2>7. Disable Windows Hello (PIN Login)</h2>
-
-      <p>Remove Windows Hello credential store:</p>
+    <div class="step-section">
+      <h2>Step 6 — Disable Windows Hello PIN</h2>
 
       <pre><code>sudo rm -rf /mnt/win/Windows/ServiceProfiles/LocalService/AppData/Local/Microsoft/Ngc</code></pre>
 
-      <p>This removes PIN, fingerprint, and facial authentication data.</p>
+      <p>
+        This removes stored Windows Hello credential data including PIN authentication.
+      </p>
+    </div>
 
-    </section>
-
-    <!-- PART 8 -->
-    <section class="blog-section">
-
-      <h2>8. Reboot and Login</h2>
+    <div class="step-section">
+      <h2>Step 7 — Reboot System</h2>
 
       <pre><code>sudo reboot</code></pre>
 
       <ul>
         <li>Remove USB when prompted</li>
-        <li>Select “Sign-in options”</li>
-        <li>Choose password login</li>
-        <li>Press Enter (blank password if cleared)</li>
+        <li>Select password login option</li>
+        <li>Log in with cleared or updated credentials</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- NOTES -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>chntpw Overview</h2>
 
       <p>
-        chntpw stands for “Change NT Password” and is a Linux utility used to modify Windows local account data
-        by editing the SAM registry hive offline.
+        chntpw (Change NT Password) is a Linux utility used to modify Windows local account SAM database offline.
       </p>
 
-      <h3>Key Functions</h3>
-
+      <h3>Capabilities</h3>
       <ul>
-        <li>Reset or clear local Windows passwords</li>
-        <li>Unlock user accounts</li>
-        <li>Promote users to administrator</li>
-        <li>Edit SAM registry entries offline</li>
+        <li>Reset local Windows passwords</li>
+        <li>Unlock accounts</li>
+        <li>Modify SAM registry hive</li>
       </ul>
 
-      <h3>Important Notes</h3>
-
+      <h3>Limitations</h3>
       <ul>
-        <li>Does not decrypt passwords (it clears them)</li>
-        <li>Does not work on Microsoft cloud accounts</li>
-        <li>Requires offline access to Windows disk</li>
+        <li>Does not work on Microsoft accounts</li>
+        <li>Clears passwords rather than decrypting them</li>
+        <li>Requires offline disk access</li>
       </ul>
+    </div>
 
-    </section>
+    <div class="step-section">
+      <h2>Completion</h2>
+      <p>
+        Windows password reset and Windows Hello PIN removal has been completed in a controlled lab environment
+        using Ubuntu Live USB and chntpw.
+      </p>
+    </div>
 
-    <!-- FOOTER -->
-    <footer class="blog-section">
-
-      <a class="btn btn-secondary" href="../../../index.html">
-        Back to Home
-      </a>
-
-    </footer>
+    <div class="page-nav">
+      <a class="btn btn-primary" href="../../../index.html">← Home</a>
+    </div>
 
   </main>
 

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SSH Configuration & Key-Based Authentication (macOS ↔ Windows)</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                SECURE REMOTE ACCESS LAB
+            </div>
+
+            <h1 class="hero-title">
+                SSH Configuration & Key-Based Authentication (macOS ↔ Windows)
+            </h1>
+
+            <p>
+                Configure SSH services and implement key-based authentication between macOS and Windows for secure
+                passwordless remote access in a lab environment.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <div class="step-section">
+            <h2>Scope</h2>
+
+            <div class="box">
+                <p><strong>Purpose:</strong> Establish secure SSH connectivity between macOS and Windows systems.</p>
+                <p><strong>Environment:</strong> macOS ↔ Windows OpenSSH Server</p>
+                <p><strong>Example IP:</strong> 192.168.1.100</p>
+            </div>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 1 — Enable SSH Server</h2>
+
+            <h3>macOS (Remote Login)</h3>
+            <pre><code>sudo systemsetup -setremotelogin on
+ systemsetup -getremotelogin</code></pre>
+
+            <pre><code>sudo lsof -iTCP -sTCP:LISTEN -n -P | grep ssh</code></pre>
+
+            <h3>Windows (OpenSSH Server)</h3>
+            <pre><code>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+
+ Start-Service sshd
+ Set-Service -Name sshd -StartupType Automatic
+
+ Get-Service sshd</code></pre>
+
+            <h3>Firewall Rule</h3>
+            <pre><code>New-NetFirewallRule -Name sshd -DisplayName "OpenSSH Server" `
+ -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 2 — Verify Connectivity</h2>
+
+            <h3>macOS → Windows</h3>
+            <pre><code>ping 192.168.1.100
+ nc -vz 192.168.1.100 22</code></pre>
+
+            <h3>Windows → macOS</h3>
+            <pre><code>Test-NetConnection -ComputerName 192.168.1.100 -Port 22</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 3 — SSH Login (Password-Based)</h2>
+
+            <h3>macOS → Windows</h3>
+            <pre><code>ssh user@192.168.1.100</code></pre>
+
+            <h3>Windows → macOS</h3>
+            <pre><code>ssh user@192.168.1.100</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 4 — Generate SSH Key Pair</h2>
+
+            <h3>macOS Client</h3>
+            <pre><code>ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C "mac-to-windows"</code></pre>
+
+            <p>Key files:</p>
+            <ul>
+                <li>~/.ssh/id_ed25519 (private key)</li>
+                <li>~/.ssh/id_ed25519.pub (public key)</li>
+            </ul>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 5 — Deploy Public Key to Windows</h2>
+
+            <h3>Option A — ssh-copy-id</h3>
+            <pre><code>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.1.100</code></pre>
+
+            <h3>Option B — Manual Method</h3>
+
+            <pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+
+            <p>Windows PowerShell:</p>
+
+            <pre><code>mkdir $env:USERPROFILE\.ssh
+ notepad $env:USERPROFILE\.ssh\authorized_keys</code></pre>
+
+            <p>Restart SSH service:</p>
+
+            <pre><code>Restart-Service sshd</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 6 — Enable Passwordless Login</h2>
+
+            <pre><code>ssh user@192.168.1.100</code></pre>
+
+            <p>Expected result:</p>
+            <ul>
+                <li>No password prompt</li>
+                <li>Authentication via SSH key</li>
+            </ul>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 7 — Reverse Setup (Windows → macOS)</h2>
+
+            <pre><code>ssh-keygen -t ed25519</code></pre>
+
+            <p>macOS configuration:</p>
+
+            <pre><code>mkdir -p ~/.ssh
+ nano ~/.ssh/authorized_keys
+ chmod 600 ~/.ssh/authorized_keys
+ chmod 700 ~/.ssh</code></pre>
+
+            <pre><code>sudo systemsetup -setremotelogin on
+ sudo launchctl kickstart -k system/com.openssh.sshd</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 8 — SCP File Transfer</h2>
+
+            <h3>macOS → Windows</h3>
+            <pre><code>scp file.txt user@192.168.1.100:"C:/Users/user/Downloads/"</code></pre>
+
+            <h3>Windows → macOS</h3>
+            <pre><code>scp file.txt user@192.168.1.100:/Users/user/Downloads/</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Troubleshooting</h2>
+
+            <pre><code>Permission denied → wrong user or missing key
+ Connection refused → sshd not running or firewall blocked
+ No route to host → network mismatch
+ Key not working → permissions issue in .ssh folder
+ SCP errors → incorrect Windows path format</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Summary</h2>
+
+            <div class="box">
+                <ul>
+                    <li>SSH enabled on macOS and Windows</li>
+                    <li>Port 22 open and reachable</li>
+                    <li>Key-based authentication configured</li>
+                    <li>SCP enabled for secure file transfer</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-nav">
+            <a class="btn btn-primary" href="../../../index.html">← Home</a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

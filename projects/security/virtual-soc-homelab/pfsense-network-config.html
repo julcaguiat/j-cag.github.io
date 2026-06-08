@@ -5,158 +5,200 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>pfSense VM Configuration | Home Lab Setup</title>
+  <title>pfSense VM Configuration</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0;
+    }
+
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .step-section {
+      margin-bottom: 30px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #e6edf3;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    figure {
+      margin-top: 14px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+    }
+
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      color: #e6edf3;
+      margin-top: 10px;
+    }
+
+    code {
+      background: #161b22;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+    }
+
+    .page-nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+    <div class="hero-content">
 
-      <h1 class="section-title bright-title">
-        pfSense VM — Adapter Settings & LAN IP Configuration
+      <div class="hero-subtitle">
+        NETWORK SEGMENTATION
+      </div>
+
+      <h1 class="hero-title">
+        pfSense VM Configuration
       </h1>
 
-      <p class="section-subtitle">
-        Configure NAT and Internal Network adapters for pfSense and set a static LAN IP for lab segmentation.
-      </p>
-
-    </header>
-
-    <!-- INTRO -->
-    <section class="blog-section">
-
-      <h2>Introduction</h2>
-
       <p>
-        In this part of the lab, we configure pfSense with two network adapters:
-        NAT for external connectivity and Internal Network for LAN communication.
-        pfSense will act as the central firewall and gateway between Internet and internal systems.
-        DHCP is disabled to maintain static IP consistency across the lab.
+        Configure WAN and LAN interfaces for pfSense to establish network segmentation
+        and gateway control for your SOC home lab environment.
       </p>
 
-    </section>
+    </div>
 
-    <!-- TIP -->
-    <section class="blog-section">
+  </section>
 
-      <h2>Tip: Keep ChatGPT Handy</h2>
+  <!-- CONTENT -->
+  <main class="kb-content">
 
+    <div class="step-section">
+      <h2>Overview</h2>
       <p>
-        If pfSense fails to boot or LAN is unreachable, you can troubleshoot using prompts like:
+        pfSense is configured with two interfaces: WAN (NAT) and LAN (Internal Network).
+        This allows isolation between external traffic and internal lab systems.
       </p>
+    </div>
 
-      <p>
-        <em>
-          "pfSense VirtualBox NAT + Internal Network not reachable at 192.168.10.1.
-          Console output: ... What should I check?"
-        </em>
-      </p>
+    <div class="step-section">
+      <h2>Step 1 — Configure Virtual Adapters</h2>
 
-    </section>
-
-    <!-- STEP 1 -->
-    <section class="blog-section">
-
-      <h2>Step 1 — Configure pfSense Network Adapters</h2>
-
-      <ol>
-        <li>Power off pfSense VM</li>
-        <li>Go to VirtualBox → Settings → Network</li>
-      </ol>
-
-      <h3>Adapter 1 (WAN - NAT)</h3>
-
+      <h3>WAN (NAT)</h3>
       <ul>
-        <li>Enable Network Adapter</li>
-        <li>Attached to: NAT</li>
+        <li>Adapter Type: NAT</li>
         <li>Promiscuous Mode: Allow All</li>
-        <li>Open Port Forwarding</li>
+        <li>Port Forwarding: Enabled</li>
       </ul>
 
       <figure>
-        <img src="../images/9p1-images/Pf1.png" alt="WAN NAT configuration" />
+        <img src="../../../assets/images/virtual-soc-images/9p1-images/Pf1.png" alt="WAN configuration" />
       </figure>
 
-      <p>Add Port Forwarding Rule:</p>
-
+      <p>Port Forward Rule:</p>
       <ul>
-        <li>Name: pfSense</li>
-        <li>Protocol: TCP</li>
         <li>Host Port: 8443</li>
-        <li>Guest IP: 10.0.2.15</li>
         <li>Guest Port: 8443</li>
+        <li>Protocol: TCP</li>
       </ul>
 
       <figure>
-        <img src="../images/9p1-images/Pf2.png" alt="Port forwarding setup" />
+        <img src="../../../assets/images/virtual-soc-images/9p1-images/Pf2.png" alt="Port forwarding" />
       </figure>
 
-      <h3>Adapter 2 (LAN - Internal Network)</h3>
-
+      <h3>LAN (Internal Network)</h3>
       <ul>
-        <li>Enable Network Adapter</li>
-        <li>Attached to: Internal Network</li>
+        <li>Adapter Type: Internal Network</li>
         <li>Name: LabNet</li>
         <li>Promiscuous Mode: Allow All</li>
       </ul>
 
       <figure>
-        <img src="../images/9p1-images/Pf3.png" alt="LAN internal network setup" />
+        <img src="../../../assets/images/virtual-soc-images/9p1-images/Pf3.png" alt="LAN configuration" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- STEP 2 -->
-    <section class="blog-section">
-
-      <h2>Step 2 — Configure LAN Static IP</h2>
-
-      <ol>
-        <li>Boot pfSense VM</li>
-        <li>Select Option 2: Set interface IP</li>
-      </ol>
-
-      <p><strong>Configuration Inputs:</strong></p>
+    <div class="step-section">
+      <h2>Step 2 — Set LAN IP Address</h2>
 
       <ul>
         <li>Interface: LAN (em1)</li>
-        <li>IPv4: Static</li>
-        <li>IP Address: 192.168.10.1</li>
-        <li>Subnet: /24</li>
+        <li>IPv4 Type: Static</li>
+        <li>IP: 192.168.10.1/24</li>
         <li>DHCP: Disabled</li>
-        <li>IPv6: Disabled</li>
       </ul>
 
       <figure>
-        <img src="../images/9p1-images/Pf44.png" alt="LAN IP configuration step 1" />
+        <img src="../../../assets/images/virtual-soc-images/9p1-images/Pf44.png" alt="LAN setup 1" />
       </figure>
 
       <figure>
-        <img src="../images/9p1-images/Pf55.png" alt="LAN IP configuration step 2" />
+        <img src="../../../assets/images/virtual-soc-images/9p1-images/Pf55.png" alt="LAN setup 2" />
       </figure>
 
       <figure>
-        <img src="../images/9p1-images/Pf66.png" alt="pfSense configuration complete" />
+        <img src="../../../assets/images/virtual-soc-images/9p1-images/Pf66.png" alt="LAN complete" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- ACCESS -->
-    <section class="blog-section">
-
-      <h2>Access pfSense Web UI</h2>
+    <div class="step-section">
+      <h2>Access Web Interface</h2>
 
       <p>
-        Once configured, access the firewall using:
+        Once configured, access pfSense via:
       </p>
 
       <p>
-        <strong>https://192.168.10.1:8443</strong>
+        <code>https://192.168.10.1:8443</code>
       </p>
 
       <ul>
@@ -165,40 +207,24 @@
       </ul>
 
       <p>
-        If access fails, disable packet filtering via shell:
+        If access fails, disable packet filtering:
         <code>pfctl -d</code>
       </p>
+    </div>
 
-    </section>
-
-    <!-- COMPLETION -->
-    <section class="blog-section">
-
-      <h2>Completion</h2>
-
+    <div class="step-section">
+      <h2>Configuration Complete</h2>
       <p>
-        pfSense is now configured with WAN and LAN interfaces.
-        The LAN subnet 192.168.10.0/24 will serve as the core internal lab network.
+        pfSense now provides WAN/LAN segmentation for the lab network and can now be
+        used for practicing firewall rule implentations.
       </p>
+    </div>
 
-    </section>
-
-    <!-- FOOTER NAV -->
-    <footer class="blog-section">
-
-      <a class="btn btn-secondary" href="pfsense-install.html">
-        Back: pfSense Installation
-      </a>
-
-      <a class="btn btn-primary" href="../index.html">
-        Back to Home
-      </a>
-
-      <a class="btn btn-secondary" href="kali-network-config.html">
-        Next: Kali Network Config
-      </a>
-
-    </footer>
+    <div class="page-nav">
+      <a class="btn btn-secondary" href="virtual-soc-landing.html">← Back to Staging Area</a>
+      <a class="btn btn-secondary" href="../index.html">Home</a>
+      <a class="btn btn-primary" href="kali-network-config.html">Next: Kali Network Config</a>
+    </div>
 
   </main>
 

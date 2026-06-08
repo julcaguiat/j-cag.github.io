@@ -4,228 +4,271 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Windows 10 VM Installation | Home Lab Setup</title>
+  <title>Install Windows 10 VM | VirtualBox Deployment Guide</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    /* Reduce hero footprint */
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      margin-top: 10px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      margin-bottom: 0;
+      max-width: 800px;
+    }
+
+    /* Main readable container */
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    /* Section spacing tighter than default */
+    .step-section {
+      margin-bottom: 22px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    /* Images consistent */
+    .step-image img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+      margin-top: 12px;
+    }
+
+    /* Footer spacing */
+    .page-nav {
+      margin-top: 40px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+      <div class="hero-subtitle">
 
-      <h1 class="section-title bright-title">
-        How to Install Windows 10 VM on VirtualBox
+        VIRTUAL MACHINE DEPLOYMENT
+
+      </div>
+
+      <h1 class="hero-title">
+
+        Install Windows 10 on VirtualBox
+
       </h1>
 
-      <p class="section-subtitle">
-        Step-by-step guide to deploying Windows 10 as a VirtualBox virtual machine and storing it in Drive D for structured lab organization.
+      <p>
+
+        Step-by-step deployment guide of a Windows 10 virtual machine on VirtualBox.
+
       </p>
 
-    </header>
+    </div>
+  </section>
 
-    <!-- OVERVIEW -->
-    <section class="blog-section">
+  <!-- CONTENT -->
+  <main class="kb-content">
+
+    <div class="step-section">
 
       <h2>Overview</h2>
 
       <p>
-        This guide walks through installing a Windows 10 virtual machine using VirtualBox.
-        The VM will be used as a monitored endpoint within a SOC home lab environment.
-        If Drive D is unavailable, use the default C drive.
+        This guide explains how to deploy a Windows 10 virtual machine on VirtualBox hypervisor.
       </p>
 
-    </section>
+    </div>
 
-    <!-- OBJECTIVES -->
-    <section class="blog-section">
+    <div class="step-section">
 
       <h2>What You Will Learn</h2>
 
       <ul>
-        <li>Download Windows 10 ISO using Microsoft Media Creation Tool</li>
-        <li>Create and configure a VirtualBox VM</li>
-        <li>Set correct storage and ISO mounting</li>
-        <li>Complete Windows 10 installation</li>
+        <li>Download Windows 10 installation media</li>
+        <li>Create a Windows 10 VirtualBox VM</li>
+        <li>Configure storage and ISO mounting</li>
+        <li>Allocate virtual hardware resources</li>
+        <li>Complete Windows installation</li>
       </ul>
 
-    </section>
+    </div>
 
-    <!-- TIP -->
-    <section class="blog-section">
-
-      <h2>Tip: Keep an AI Assistant Ready</h2>
-
-      <p>
-        VM installation issues such as boot loops, ISO errors, or storage misconfiguration are common.
-        Having an AI assistant available can significantly reduce troubleshooting time.
-      </p>
-
-    </section>
-
-    <!-- STEP 1 -->
-    <section class="blog-section">
+    <div class="step-section">
 
       <h2>Step 1 — Download Windows 10 ISO</h2>
 
       <ol>
-        <li>
-          Go to:
-          <a href="https://www.microsoft.com/software-download/windows10" target="_blank">
-            Microsoft Windows 10 Download Page
-          </a>
-        </li>
-
-        <li>Click Download Now (Media Creation Tool)</li>
-
-        <li>Run MediaCreationTool_22H2.exe</li>
-
-        <li>Select Create Installation Media</li>
-
-        <li>Choose ISO File option</li>
-
-        <li>Save ISO to D:\virtualbox-VMs</li>
+        <li>Navigate to Microsoft's Windows 10 download page.</li>
+        <li>Download the Media Creation Tool.</li>
+        <li>Launch MediaCreationTool_22H2.exe.</li>
+        <li>Select <strong>Create Installation Media</strong>.</li>
+        <li>Choose the <strong>ISO File</strong> option.</li>
+        <li>Save the ISO to your VM storage location.</li>
       </ol>
 
-      <figure>
-        <img src="../images/3winV2-images/1.png" alt="Windows download page" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/1.png" alt="Windows download page">
+      </div>
 
-      <figure>
-        <img src="../images/3winV2-images/2.png" alt="Media creation tool" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/2.png" alt="Media Creation Tool">
+      </div>
 
-    </section>
+    </div>
 
-    <!-- STEP 2 -->
-    <section class="blog-section">
+    <div class="step-section">
 
       <h2>Step 2 — Create VirtualBox VM</h2>
 
       <ol>
-        <li>Open VirtualBox</li>
-        <li>Click New</li>
-        <li>Name VM: Windows10VM</li>
-        <li>Select Windows 10 (64-bit)</li>
-        <li>Attach downloaded ISO file</li>
+        <li>Open VirtualBox.</li>
+        <li>Select <strong>New</strong>.</li>
+        <li>Name the VM <strong>Windows10VM</strong>.</li>
+        <li>Select Windows 10 (64-bit).</li>
+        <li>Attach the downloaded ISO.</li>
       </ol>
 
-      <figure>
-        <img src="../images/3winV2-images/10.png" alt="Create VM" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/10.png" alt="Create VM">
+      </div>
 
-      <figure>
-        <img src="../images/3winV2-images/11.png" alt="ISO selection" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/11.png" alt="Attach ISO">
+      </div>
 
-    </section>
+    </div>
 
-    <!-- STEP 3 -->
-    <section class="blog-section">
+    <div class="step-section">
 
-      <h2>Step 3 — VM Configuration</h2>
+      <h2>Step 3 — Configure Virtual Hardware</h2>
 
       <ol>
-        <li>Enable Unattended Install</li>
-        <li>Set Username and Password</li>
-        <li>Assign Resources (Recommended):</li>
-        <ul>
-          <li>RAM: 2048 MB</li>
-          <li>CPU: 1 Core</li>
-          <li>Disk: 50 GB</li>
-        </ul>
-        <li>Click Finish</li>
+        <li>Enable Unattended Installation.</li>
+        <li>Configure a local username and password.</li>
+        <li>Assign system resources.</li>
       </ol>
 
-      <figure>
-        <img src="../images/3winV2-images/13.png" alt="VM configuration" />
-      </figure>
+      <ul>
+        <li>Memory: 2048 MB</li>
+        <li>Processor: 1 CPU Core</li>
+        <li>Disk: 50 GB</li>
+      </ul>
 
-      <figure>
-        <img src="../images/3winV2-images/14.png" alt="VM settings final" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/13.png" alt="Hardware configuration">
+      </div>
 
-    </section>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/14.png" alt="Hardware settings">
+      </div>
 
-    <!-- STEP 4 -->
-    <section class="blog-section">
+    </div>
 
-      <h2>Step 4 — Storage Configuration Fix</h2>
+    <div class="step-section">
+
+      <h2>Step 4 — Correct Storage Configuration</h2>
 
       <ol>
-        <li>Open VM Settings → Storage</li>
-        <li>Remove existing ISO attachment</li>
-        <li>Add IDE Controller (PIIX4)</li>
-        <li>Reattach Windows ISO</li>
+        <li>Open VM Settings.</li>
+        <li>Navigate to Storage.</li>
+        <li>Remove the existing ISO attachment.</li>
+        <li>Add an IDE Controller (PIIX4).</li>
+        <li>Reattach the Windows ISO.</li>
       </ol>
 
-      <figure>
-        <img src="../images/3winV2-images/16.png" alt="Storage settings issue" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/16.png" alt="Storage issue">
+      </div>
 
-      <figure>
-        <img src="../images/3winV2-images/18.png" alt="Correct storage configuration" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/18.png" alt="Storage fix">
+      </div>
 
-    </section>
+    </div>
 
-    <!-- STEP 5 -->
-    <section class="blog-section">
+    <div class="step-section">
 
       <h2>Step 5 — Install Windows 10</h2>
 
       <ol>
-        <li>Start the VM</li>
-        <li>Boot from ISO</li>
-        <li>Select Region: United States</li>
-        <li>Click Install Now</li>
-        <li>Select Windows 10 Home</li>
-        <li>Choose Custom Install</li>
-        <li>Select Unallocated Disk</li>
-        <li>Proceed with installation</li>
+        <li>Start the virtual machine.</li>
+        <li>Boot from the mounted ISO.</li>
+        <li>Select the appropriate region settings.</li>
+        <li>Click Install Now.</li>
+        <li>Select Windows 10 Home.</li>
+        <li>Choose Custom Installation.</li>
+        <li>Select the unallocated virtual disk.</li>
+        <li>Complete the installation wizard.</li>
       </ol>
 
-      <figure>
-        <img src="../images/3winV2-images/20.png" alt="Windows setup" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/20.png" alt="Windows installation">
+      </div>
 
-      <figure>
-        <img src="../images/3winV2-images/21.png" alt="Windows installed" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/3winV2-images/21.png" alt="Windows desktop">
+      </div>
 
-    </section>
+    </div>
 
-    <!-- COMPLETION -->
-    <section class="blog-section">
+    <div class="step-section">
 
-      <h2>Completion</h2>
+      <h2>Install Complete</h2>
 
       <p>
-        Windows 10 VM is now successfully deployed in VirtualBox.
-        This system will function as a monitored endpoint within the SOC lab architecture.
+        Windows 10 is now successfully deployed and ready for network adapter configuration later.
       </p>
 
-    </section>
+    </div>
 
     <!-- NAVIGATION -->
-    <footer class="blog-section">
 
-      <a class="btn btn-secondary" href="kali-linux-vm-install.html">
-        ← Previous: Kali Linux VM
+    <div class="page-nav">
+
+      <a class="btn" href="virtual-soc-landing.html">
+        ← Back to Staging Area
       </a>
-
-      <a class="btn btn-secondary" href="../../../index.html">
+      <a class="btn" href="../../../index.html">
         Home
       </a>
-
       <a class="btn btn-primary" href="ubuntu-server-deploy.html">
-        Next: Ubuntu Server VM →
+        Next: Ubuntu Server
       </a>
 
-    </footer>
+    </div>
 
   </main>
 

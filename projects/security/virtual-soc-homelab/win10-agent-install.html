@@ -5,189 +5,214 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Wazuh Agent Installation (Windows 10) | Home Lab Setup</title>
+  <title>Wazuh Agent Installation (Windows 10)</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 800px;
+    }
+
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .step-section {
+      margin-bottom: 28px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      color: #e6edf3;
+    }
+
+    figure {
+      margin-top: 14px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+    }
+
+    .page-nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+    <div class="hero-content">
 
-      <h1 class="section-title bright-title">
-        How to Install Wazuh Agent on Windows 10 VM
+      <div class="hero-subtitle">
+        ENDPOINT SECURITY MONITORING
+      </div>
+
+      <h1 class="hero-title">
+        Install Wazuh Agent on Windows 10
       </h1>
 
-      <p class="section-subtitle">
-        Step-by-step guide to installing and registering the Wazuh Agent on a Windows 10 virtual machine for SIEM monitoring in a SOC home lab environment.
+      <p>
+        Configure Windows 10 as a monitored endpoint by installing and registering the Wazuh agent
+        for centralized SIEM telemetry collection in a SOC environment.
       </p>
 
-    </header>
+    </div>
 
-    <!-- OVERVIEW -->
-    <section class="blog-section">
+  </section>
 
+  <!-- CONTENT -->
+  <main class="kb-content">
+
+    <div class="step-section">
       <h2>Overview</h2>
-
       <p>
-        The Wazuh Agent collects security telemetry such as event logs, system activity,
-        and file integrity changes from endpoints and forwards them to the Wazuh Manager
-        for centralized analysis.
+        The Wazuh Agent collects Windows security events, system activity, and integrity changes
+        and forwards them to the Wazuh Manager for analysis and alerting.
       </p>
+    </div>
 
-      <p>
-        In this guide, a Windows 10 VM is configured as a monitored endpoint inside the SOC lab environment.
-      </p>
-
-    </section>
-
-    <!-- REQUIREMENTS -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Requirements</h2>
-
       <ul>
-        <li>Windows 10 VM running on VirtualBox</li>
-        <li>Wazuh Server (Ubuntu) already deployed</li>
+        <li>Windows 10 VM</li>
+        <li>Wazuh Server (Ubuntu) deployed</li>
         <li>Wazuh Dashboard access</li>
         <li>Network connectivity between systems</li>
       </ul>
+    </div>
 
-    </section>
+    <div class="step-section">
+      <h2>Step 1 — Get Wazuh Server IP</h2>
 
-    <!-- STEP 1 -->
-    <section class="blog-section">
+      <p>On Ubuntu Wazuh Server:</p>
 
-      <h2>Step 1 — Identify Wazuh Server IP Address</h2>
-
-      <p>On the Ubuntu Wazuh Server, run:</p>
-
-      <pre>
-ip a
-      </pre>
+      <pre>ip a</pre>
 
       <p>
-        Locate the <code>inet</code> address (example: 10.10.100.15). This will be used during agent setup.
+        Identify the <code>inet</code> address used for agent communication.
       </p>
 
       <figure>
-        <img src="../images/7win-agent2-images/1.png" alt="Wazuh server IP address" />
+        <img src="../../../assets/images/virtual-soc-images/7win-agent2-images/1.png" alt="Server IP" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- STEP 2 -->
-    <section class="blog-section">
-
-      <h2>Step 2 — Deploy Windows Agent from Wazuh Dashboard</h2>
+    <div class="step-section">
+      <h2>Step 2 — Deploy Agent from Dashboard</h2>
 
       <ol>
-        <li>Log in to Wazuh Dashboard</li>
-        <li>Navigate to Active Agents</li>
-        <li>Click Deploy New Agent</li>
-        <li>Select MSI (32/64-bit)</li>
-        <li>Enter Wazuh Server IP address</li>
-        <li>Set Agent Name (Windows10-VM)</li>
-        <li>Copy generated installation commands</li>
+        <li>Open Wazuh dashboard</li>
+        <li>Go to Agents → Deploy New Agent</li>
+        <li>Select MSI package</li>
+        <li>Enter server IP</li>
+        <li>Name agent (Windows10-VM)</li>
+        <li>Copy install commands</li>
       </ol>
 
       <figure>
-        <img src="../images/7win-agent2-images/2.png" alt="Wazuh agent deployment dashboard" />
+        <img src="../../../assets/images/virtual-soc-images/7win-agent2-images/2.png" alt="Dashboard deploy" />
       </figure>
+    </div>
 
-      <figure>
-        <img src="../images/7win-agent2-images/4.png" alt="Agent configuration details" />
-      </figure>
-
-    </section>
-
-    <!-- STEP 3 -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Step 3 — Install Agent on Windows 10</h2>
 
       <ol>
-        <li>Open Windows 10 VM</li>
-        <li>Launch PowerShell as Administrator</li>
-        <li>Paste installation commands from Wazuh Dashboard</li>
+        <li>Open Windows VM</li>
+        <li>Run PowerShell as Administrator</li>
+        <li>Execute installation commands from dashboard</li>
       </ol>
 
-      <p>After installation, start the Wazuh service:</p>
+      <p>Start service:</p>
 
-      <pre>
-NET START WazuhSvc
-      </pre>
+      <pre>NET START WazuhSvc</pre>
 
       <figure>
-        <img src="../images/7win-agent2-images/5.png" alt="PowerShell installation" />
+        <img src="../../../assets/images/virtual-soc-images/7win-agent2-images/5.png" alt="Installation PowerShell" />
       </figure>
+    </div>
 
-      <figure>
-        <img src="../images/7win-agent2-images/6.png" alt="Wazuh service start" />
-      </figure>
-
-    </section>
-
-    <!-- STEP 4 -->
-    <section class="blog-section">
-
-      <h2>Step 4 — Verify Agent in Wazuh Dashboard</h2>
+    <div class="step-section">
+      <h2>Step 4 — Verify in Dashboard</h2>
 
       <p>
-        Once successfully installed, the Windows 10 VM will appear as an active agent in the Wazuh dashboard.
+        The Windows 10 VM should now appear as an active agent in the Wazuh dashboard.
       </p>
 
       <figure>
-        <img src="../images/7win-agent2-images/7.png" alt="Active Windows agent in dashboard" />
+        <img src="../../../assets/images/virtual-soc-images/7win-agent2-images/7.png" alt="Active agent" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- STEP 5 -->
-    <section class="blog-section">
-
-      <h2>Step 5 — Monitor Logs and Events</h2>
+    <div class="step-section">
+      <h2>Step 5 — Monitoring Scope</h2>
 
       <ul>
-        <li>Windows Event Logs (logins, failures, policy changes)</li>
-        <li>File Integrity Monitoring (FIM)</li>
+        <li>Windows event logs</li>
+        <li>File integrity monitoring</li>
         <li>Registry modifications</li>
-        <li>Service and process monitoring</li>
+        <li>Process and service monitoring</li>
       </ul>
+    </div>
 
-    </section>
-
-    <!-- COMPLETION -->
-    <section class="blog-section">
-
-      <h2>Completion</h2>
+    <div class="step-section">
+      <h2>Install Complete</h2>
 
       <p>
-        The Windows 10 VM is now successfully integrated with Wazuh SIEM and actively monitored.
-        This completes endpoint visibility across both Linux and Windows systems in the SOC lab.
+        Windows 10 is now integrated into the SIEM pipeline as a monitored endpoint.
       </p>
+    </div>
 
-    </section>
-
-    <!-- NAVIGATION -->
-    <footer class="blog-section">
-
-      <a class="btn btn-secondary" href="kali-agent-install.html">
-        ← Previous: Kali Linux Agent
-      </a>
-
-      <a class="btn btn-secondary" href="../../../index.html">
-        Home
-      </a>
-
-      <a class="btn btn-primary" href="pfsense-install.html">
-        Next: pfSense Firewall →
-      </a>
-
-    </footer>
+    <div class="page-nav">
+      <a class="btn btn-secondary" href="virtual-soc-landing.html">← Back to Staging Area</a>
+      <a class="btn btn-secondary" href="../../../index.html">Home</a>
+      <a class="btn btn-primary" href="pfsense-install.html">Next: pfSense</a>
+    </div>
 
   </main>
 

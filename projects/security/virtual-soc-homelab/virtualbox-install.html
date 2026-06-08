@@ -4,171 +4,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install VirtualBox on Windows 11 | Home Lab Setup</title>
+  <title>VirtualBox Install Guide</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    /* Reduce hero footprint */
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      margin-top: 10px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      margin-bottom: 0;
+      max-width: 800px;
+    }
+
+    /* Main readable container */
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    /* Section spacing tighter than default */
+    .step-section {
+      margin-bottom: 22px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    /* Images consistent */
+    .step-image img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+      margin-top: 12px;
+    }
+
+    /* Footer spacing */
+    .page-nav {
+      margin-top: 40px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+      <div class="hero-subtitle">
+        INSTALL GUIDE
+      </div>
 
-      <h1 class="section-title bright-title">
-        How to Install VirtualBox on Windows 11
+      <h1 class="hero-title">
+        Install VirtualBox on Windows 11
       </h1>
 
-      <p class="section-subtitle">
-        Step-by-step guide to setting up VirtualBox as the foundation for a home lab environment.
+      <p>
+        Step-by-step deployment guide for virtualization setup used in SOC and home lab environments.
       </p>
 
-    </header>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="kb-content">
 
     <!-- OVERVIEW -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Overview</h2>
-
       <p>
-        VirtualBox is an open-source virtualization platform that allows you to run multiple operating systems
-        (Kali Linux, Ubuntu, Windows, etc.) as virtual machines on a single host system.
-        This guide covers installation on Windows 11 and prepares the foundation for a SOC home lab.
+        VirtualBox is a type-2 hypervisor used to run multiple operating systems on a single host machine.
+        This guide establishes the foundation for lab environments used in security and networking simulations.
       </p>
-
-    </section>
-
-    <!-- TIP -->
-    <section class="blog-section">
-
-      <h2>Tip: Use an AI Assistant During Setup</h2>
-
-      <p>
-        Installation issues such as virtualization errors, driver conflicts, or networking misconfiguration are common.
-        Using an AI assistant can help troubleshoot errors and interpret system messages during setup.
-      </p>
-
-    </section>
-
-    <!-- REQUIREMENTS -->
-    <section class="blog-section">
-
-      <h2>Requirements</h2>
-
-      <ul>
-        <li>Windows 11 Home or Pro</li>
-        <li>10–20 GB free disk space (recommended 80 GB for lab expansion)</li>
-        <li>16 GB RAM recommended for multiple VMs</li>
-        <li>Stable internet connection</li>
-      </ul>
-
-    </section>
+    </div>
 
     <!-- STEP 1 -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Step 1 — Download VirtualBox</h2>
 
       <ol>
-        <li>
-          Navigate to:
-          <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">
-            https://www.virtualbox.org/wiki/Downloads
-          </a>
-        </li>
-
-        <li>
-          Select <strong>Windows Hosts</strong> under platform packages.
-        </li>
+        <li>Go to official VirtualBox downloads page.</li>
+        <li>Select Windows Hosts installer.</li>
       </ol>
 
-      <br>
-      <figure class="image-figure">
-        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/1.png" alt="VirtualBox download page" />
-      </figure>
-
-    </section>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/1VBox2-images/1.png" />
+      </div>
+    </div>
 
     <!-- STEP 2 -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Step 2 — Run Installer</h2>
 
       <ol>
-        <li>Open Downloads folder.</li>
-        <li>Right-click installer → Run as Administrator.</li>
+        <li>Open installer from Downloads folder.</li>
+        <li>Run as Administrator.</li>
       </ol>
 
-      <br>
-      <figure class="image-figure">
-        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/2.png" alt="VirtualBox installer" />
-      </figure>
-
-    </section>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/1VBox2-images/2.png" />
+      </div>
+    </div>
 
     <!-- STEP 3 -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Step 3 — Installation Wizard</h2>
 
       <ol>
-        <li>Click Next to begin setup.</li>
+        <li>Proceed with default settings.</li>
         <li>Accept license agreement.</li>
-        <li>Keep default installation settings.</li>
       </ol>
 
-      <br>
-      <figure class="image-figure">
-        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/3.png" alt="Installation wizard" />
-      </figure>
-
-    </section>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/1VBox2-images/3.png" />
+      </div>
+    </div>
 
     <!-- STEP 4 -->
-    <section class="blog-section">
-
-      <h2>Step 4 — Finish Installation</h2>
+    <div class="step-section">
+      <h2>Step 4 — Complete Installation</h2>
 
       <ol>
-        <li>Click Install.</li>
-        <li>Accept network interface warning.</li>
-        <li>Complete setup and reboot system.</li>
+        <li>Install dependencies when prompted.</li>
+        <li>Finish setup and reboot system.</li>
       </ol>
 
-      <br>
-      <figure class="image-figure">
-        <img src="../../assets/images/virtual-soc-homelab-images/1VBox2-images/9.png" alt="Installation complete screen" />
-      </figure>
-
-    </section>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/1VBox2-images/9.png" />
+      </div>
+    </div>
 
     <!-- COMPLETION -->
-    <section class="blog-section">
+    <div class="step-section">
+      <h2>Install Complete</h2>
 
-      <h2>Completion</h2>
-
-      <p>
-        VirtualBox is now installed. You are ready to proceed with:
-      </p>
-
+      <p>VirtualBox is now ready for use to deploy the following virtual machines:</p>
       <ul>
-        <li>Kali Linux VM (attack simulation)</li>
-        <li>Windows 10 VM (endpoint monitoring)</li>
-        <li>Ubuntu Server VM (Wazuh SIEM)</li>
-        <li>pfSense firewall (network segmentation)</li>
+        <li>Kali-Linux VM </li>
+        <li>Windows 10 VM</li>
+        <li>Ubuntu server / Wazuh SIEM</li>
+        <li>pfSense firewall</li>
       </ul>
-
-    </section>
+    </div>
 
     <!-- NAV -->
-    <footer class="blog-section">
 
-      <a class="btn btn-secondary" href="landing-page.html">Back to Deployment</a>
-      <a class="btn btn-secondary" href="../../../index.html">Back to Home</a>
-      <a class="btn btn-primary" href="kali-linux-vm-deploy.html">Next: Kali Linux VM</a>
-
-    </footer>
+    <div class="page-nav">
+      <a class="btn btn-secondary" href="virtual-soc-landing.html">← Back to Staging Area</a>
+      <a class="btn btn-secondary" href="../../../index.html">Home</a>
+      <a class="btn btn-primary" href="kali-linux-vm-deploy.html">Next: Kali-Linux VM</a>
+    </div>
 
   </main>
 

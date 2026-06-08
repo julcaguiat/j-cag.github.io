@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SCP File Transfer Guide</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                SECURE FILE TRANSFER LAB
+            </div>
+
+            <h1 class="hero-title">
+                SCP File Transfer Guide (Windows ↔ macOS/Linux)
+            </h1>
+
+            <p>
+                Comprehensive guide covering SSH enable/verification, SCP file transfers, directory movement, key-based
+                authentication, and troubleshooting across Windows, macOS/Linux systems.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <div class="step-section">
+            <h2>Scope</h2>
+
+            <div class="box">
+                <p><strong>Purpose:</strong> Secure remote access and file transfer using SSH and SCP.</p>
+                <p><strong>Environment:</strong> Windows ↔ macOS/Linux</p>
+                <p><strong>Example IP:</strong> 192.168.1.100</p>
+            </div>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 1 — Enable and Verify SSH</h2>
+
+            <h3>macOS / Linux</h3>
+            <pre><code>sudo systemsetup -setremotelogin on
+ systemsetup -getremotelogin
+ sudo lsof -iTCP -sTCP:LISTEN -n -P | grep ssh
+ netstat -an | grep ".22"</code></pre>
+
+            <h3>Windows (PowerShell Admin)</h3>
+            <pre><code>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+ Start-Service sshd
+ Set-Service -Name sshd -StartupType Automatic
+ Get-Service sshd
+
+ New-NetFirewallRule -Name sshd -DisplayName "OpenSSH Server (sshd)" `
+ -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 2 — SSH Sessions (optional: try connection for full verification)</h2>
+
+            <pre><code>ssh user@192.168.1.100</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 3 — SCP File Transfers</h2>
+
+            <h3>Pull File (Remote → Local)</h3>
+            <pre><code>scp user@192.168.1.100:/Users/user/Desktop/file.docx ~/Downloads/
+ scp user@192.168.1.100:"C:/Users/user/Desktop/file.docx" ~/Downloads/</code></pre>
+
+            <h3>Push File (Local → Remote)</h3>
+            <pre><code>scp ~/Desktop/file.docx user@192.168.1.100:"C:/Users/user/Downloads/"
+ scp C:\Users\user\Desktop\file.docx user@192.168.1.100:/Users/user/Downloads/</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 4 — Directory Transfers</h2>
+
+            <pre><code>scp -r user@192.168.1.100:/Users/user/Desktop/Folder ~/Downloads/
+ scp -r ~/Desktop/Folder user@192.168.1.100:"C:/Users/user/Downloads/Folder"
+ scp -r C:\Users\user\Desktop\Folder user@192.168.1.100:/Users/user/Downloads/</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 5 — Connectivity & Service Checks</h2>
+
+            <h3>macOS / Linux</h3>
+            <pre><code>systemsetup -getremotelogin
+ sudo launchctl kickstart -k system/com.openssh.sshd
+ nc -vz 192.168.1.100 22</code></pre>
+
+            <h3>Windows</h3>
+            <pre><code>Get-Service sshd
+ Restart-Service sshd
+ netstat -ano | findstr ":22"
+ Test-NetConnection -ComputerName 192.168.1.100 -Port 22</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 6 — Key-Based Authentication</h2>
+
+            <h3>Generate Key</h3>
+            <pre><code>ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C "ssh-key"</code></pre>
+
+            <h3>Copy Key</h3>
+            <pre><code>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.1.100</code></pre>
+
+            <h3>Manual Setup (Windows)</h3>
+            <pre><code>mkdir $env:USERPROFILE\.ssh
+notepad $env:USERPROFILE\.ssh\authorized_keys
+icacls $env:USERPROFILE\.ssh /grant $env:USERNAME:(R,W)
+Restart-Service sshd</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Step 7 — Troubleshooting</h2>
+
+            <pre><code>Permission denied:
+ - Check username
+ - Use password instead of PIN
+ - Validate authorized_keys entry
+
+ Connection issues:
+ - Ensure sshd service is running
+ - Confirm firewall allows port 22
+
+ File path issues:
+ - macOS: /Users/user/...
+ - Windows: C:/Users/user/...
+
+ Authentication issues:
+ - Ensure PasswordAuthentication is enabled
+
+ Network issues:
+ - ping 192.168.1.100</code></pre>
+        </div>
+
+        <div class="step-section">
+            <h2>Summary</h2>
+
+            <div class="box">
+                <ul>
+                    <li>SSH enabled on both endpoints</li>
+                    <li>Port 22 accessible and open</li>
+                    <li>SCP used for file and directory transfer</li>
+                    <li>Key-based authentication improves security</li>
+                    <li>Troubleshooting covers service, network, and permission issues</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-nav">
+            <a class="btn btn-primary" href="../../../index.html">← Home</a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

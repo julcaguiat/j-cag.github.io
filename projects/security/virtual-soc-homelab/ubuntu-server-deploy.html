@@ -4,209 +4,266 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Ubuntu Server VM Installation | Home Lab Setup</title>
-
+  <title>Install Ubuntu Server | VirtualBox Deployment Guide</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    /* Reduce hero footprint */
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      margin-top: 10px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      margin-bottom: 0;
+      max-width: 800px;
+    }
+
+    /* Main readable container */
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    /* Section spacing tighter than default */
+    .step-section {
+      margin-bottom: 22px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    /* Images consistent */
+    .step-image img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+      margin-top: 12px;
+    }
+
+    /* Footer spacing */
+    .page-nav {
+      margin-top: 40px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+      <div class="hero-subtitle">
+        PHASE 1 • WAZUH ENVIRONMENT DEPLOYMENT
+      </div>
 
-      <h1 class="section-title bright-title">
-        How to Install Ubuntu Server VM (Wazuh SIEM)
+      <h1 class="hero-title">
+        Install Ubuntu Server on VirtualBox
       </h1>
 
-      <p class="section-subtitle">
-        Step-by-step guide to installing Ubuntu Server as a VirtualBox VM for Wazuh SIEM deployment in a SOC home lab environment.
+      <p>
+        Step-by-step deployment guide for deploying Ubuntu Server platform for Wazuh SIEM environment.
       </p>
 
-    </header>
+    </div>
+  </section>
 
-    <!-- OVERVIEW -->
-    <section class="blog-section">
+  <!-- CONTENT -->
+  <main class="kb-content">
+
+    <div class="step-section">
 
       <h2>Overview</h2>
 
       <p>
-        This guide covers installing Ubuntu Server 22.04/24.04 as a virtual machine
-        on VirtualBox. This VM will host the Wazuh SIEM platform in later stages of the SOC lab.
-        Store all VM files in D:\virtualbox-VMs for proper organization.
+        This guide covers downloading Ubuntu Server, creating a VirtualBox virtual machine,
+        assigning system resources, and completing the initial deployment. The server will
+        later be used as the foundation for Wazuh SIEM and security monitoring services.
       </p>
 
-    </section>
+    </div>
 
-    <!-- TIP -->
-    <section class="blog-section">
+    <div class="step-section">
 
-      <h2>Tip: Keep an AI Assistant Handy</h2>
+      <h2>What You Will Learn</h2>
 
-      <p>
-        Ubuntu Server installation involves command-line configuration and network setup.
-        Having an AI assistant available helps resolve installation and configuration issues faster.
-      </p>
+      <ul>
+        <li>Download Ubuntu Server installation media</li>
+        <li>Create an Ubuntu Server VirtualBox VM</li>
+        <li>Allocate CPU, memory, and storage resources</li>
+        <li>Configure VirtualBox settings</li>
+        <li>Validate server installation and connectivity</li>
+      </ul>
 
-    </section>
+    </div>
 
-    <!-- REQUIREMENTS -->
-    <section class="blog-section">
+    <div class="step-section">
 
       <h2>Requirements</h2>
 
       <ul>
-        <li>VirtualBox installed</li>
-        <li>Ubuntu Server ISO downloaded</li>
-        <li>Internet connection</li>
+        <li>Oracle VirtualBox installed</li>
+        <li>Ubuntu Server ISO</li>
+        <li>Internet connectivity</li>
+        <li>Minimum 40 GB available storage</li>
       </ul>
 
-    </section>
+    </div>
 
-    <!-- STEP 1 -->
-    <section class="blog-section">
+    <div class="step-section">
 
       <h2>Step 1 — Download Ubuntu Server ISO</h2>
 
       <ol>
-        <li>
-          Visit:
-          <a href="https://ubuntu.com/download/server" target="_blank">
-            Ubuntu Server Download Page
-          </a>
-        </li>
-
-        <li>Download Ubuntu Server 22.04 LTS or 24.04 LTS</li>
-
-        <li>Move ISO file to: D:\virtualbox-VMs</li>
+        <li>Navigate to the Ubuntu Server download page.</li>
+        <li>Download Ubuntu Server 22.04 LTS or 24.04 LTS.</li>
+        <li>Save the ISO file to the VM storage location.</li>
       </ol>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/1.png" alt="Ubuntu download page" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/1.png" alt="Ubuntu download page">
+      </div>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/2.png" alt="ISO file download" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/2.png" alt="Ubuntu ISO download">
+      </div>
 
-    </section>
+    </div>
 
-    <!-- STEP 2 -->
-    <section class="blog-section">
+    <div class="step-section">
 
-      <h2>Step 2 — Create Ubuntu VM in VirtualBox</h2>
+      <h2>Step 2 — Create Ubuntu Server VM</h2>
 
       <ol>
-        <li>Open VirtualBox</li>
-        <li>Click New</li>
-        <li>Name VM: Ubuntu-Wazuh-Server</li>
-        <li>Select Linux → Ubuntu (64-bit)</li>
-        <li>Attach Ubuntu ISO file</li>
+        <li>Open VirtualBox.</li>
+        <li>Select <strong>New</strong>.</li>
+        <li>Name the VM <strong>Ubuntu-Wazuh-Server</strong>.</li>
+        <li>Select Linux → Ubuntu (64-bit).</li>
+        <li>Attach the Ubuntu ISO.</li>
       </ol>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/4.png" alt="Create VM" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/4.png" alt="Create Ubuntu VM">
+      </div>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/5.png" alt="ISO selection" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/5.png" alt="Attach Ubuntu ISO">
+      </div>
 
-    </section>
+    </div>
 
-    <!-- STEP 3 -->
-    <section class="blog-section">
+    <div class="step-section">
 
-      <h2>Step 3 — VM Configuration</h2>
+      <h2>Step 3 — Configure Virtual Hardware</h2>
 
       <ol>
-        <li>Enable Unattended Install</li>
-        <li>Set Username and Password</li>
-        <li>Assign Resources:</li>
-        <ul>
-          <li>RAM: 2048–4096 MB (recommended 4096 MB)</li>
-          <li>CPU: 2 cores</li>
-          <li>Disk: 40 GB</li>
-        </ul>
-        <li>Click Finish</li>
+        <li>Enable Unattended Installation.</li>
+        <li>Create a local username and password.</li>
+        <li>Assign system resources.</li>
       </ol>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/7.png" alt="VM configuration" />
-      </figure>
+      <ul>
+        <li>Memory: 4096 MB recommended</li>
+        <li>Processor: 2 CPU cores</li>
+        <li>Disk: 40 GB</li>
+      </ul>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/10.png" alt="Final VM setup" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/7.png" alt="Ubuntu hardware settings">
+      </div>
 
-    </section>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/10.png" alt="Ubuntu VM configuration">
+      </div>
 
-    <!-- STEP 4 -->
-    <section class="blog-section">
+    </div>
 
-      <h2>Step 4 — Post Installation Configuration</h2>
+    <div class="step-section">
+
+      <h2>Step 4 — Post-Installation Configuration</h2>
 
       <ol>
-        <li>Wait for installation to complete (10–15 minutes)</li>
-        <li>Shut down VM after first boot</li>
-        <li>Open Settings in VirtualBox</li>
-        <li>Disable Floppy Drive under System → Motherboard</li>
-        <li>Verify ISO is correctly mounted in Storage (IDE Controller)</li>
+        <li>Allow the installation process to complete.</li>
+        <li>Perform the initial boot.</li>
+        <li>Shut down the VM.</li>
+        <li>Open VirtualBox Settings.</li>
+        <li>Disable the Floppy Drive under System → Motherboard.</li>
+        <li>Verify storage controller and ISO configuration.</li>
       </ol>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/12.png" alt="VM settings" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/12.png" alt="Ubuntu VM settings">
+      </div>
 
-      <figure>
-        <img src="../images/4ubuntu2-images/15.png" alt="Storage configuration" />
-      </figure>
+      <div class="step-image">
+        <img src="../../../assets/images/virtual-soc-images/4ubuntu2-images/15.png" alt="Ubuntu storage settings">
+      </div>
 
-    </section>
+    </div>
 
-    <!-- STEP 5 -->
-    <section class="blog-section">
+    <div class="step-section">
 
-      <h2>Step 5 — Start Ubuntu Server VM</h2>
+      <h2>Step 5 — Verify Ubuntu Server Operation</h2>
 
       <ol>
-        <li>Start the VM</li>
-        <li>Login using configured credentials</li>
-        <li>Verify network connectivity</li>
+        <li>Start the virtual machine.</li>
+        <li>Log in using the configured credentials.</li>
+        <li>Verify network connectivity.</li>
+        <li>Confirm the server boots without errors.</li>
       </ol>
 
-    </section>
+    </div>
 
-    <!-- COMPLETION -->
-    <section class="blog-section">
+    <div class="step-section">
 
-      <h2>Completion</h2>
+      <h2>Install Complete</h2>
 
       <p>
-        Ubuntu Server is now successfully installed and ready for Wazuh SIEM deployment.
-        The next step is installing and configuring the Wazuh security monitoring platform.
+        Ubuntu Server is now ready. Next will be installing Wazuh SEIM.
       </p>
 
-    </section>
+    </div>
 
     <!-- NAVIGATION -->
-    <footer class="blog-section">
 
-      <a class="btn btn-secondary" href="windows10-vm-install.html">
-        ← Previous: Windows 10 VM
-      </a>
+    <div class="page-nav">
 
-      <a class="btn btn-secondary" href="../../../index.html">
+      <a class="btn" href="virtual-soc-landing.html">← Back to Staging Area</a>
+
+      <a class="btn" href="../../../index.html">
         Home
       </a>
 
       <a class="btn btn-primary" href="wazuh-install.html">
-        Next: Wazuh SIEM →
+        Next: Wazuh SIEM
       </a>
 
-    </footer>
+    </div>
+
 
   </main>
 

@@ -5,132 +5,184 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Ubuntu Wazuh VM Network Configuration | Home Lab Setup</title>
+  <title>Wazuh Network Configuration</title>
 
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0;
+    }
+
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .step-section {
+      margin-bottom: 30px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section h3 {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      color: #e6edf3;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    figure {
+      margin-top: 14px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+    }
+
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      color: #e6edf3;
+      margin-top: 10px;
+    }
+
+    code {
+      background: #161b22;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+    }
+
+    .page-nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="blog-post">
+  <!-- HERO -->
+  <section class="hero">
 
-    <!-- HEADER -->
-    <header class="blog-section">
+    <div class="hero-content">
 
-      <h1 class="section-title bright-title">
-        Ubuntu-Wazuh VM — Adapter Settings & LAN IP Configuration
+      <div class="hero-subtitle">
+        SIEM NETWORK CONFIGURATION
+      </div>
+
+      <h1 class="hero-title">
+        Wazuh Network Setup
       </h1>
 
-      <p class="section-subtitle">
-        Configure Ubuntu Wazuh as a central SIEM server with NAT + Internal Network connectivity for full lab monitoring.
+      <p>
+        Configure Wazuh with NAT and Internal Network interfaces for centralized SIEM monitoring
+        across the SOC home lab environment.
       </p>
 
-    </header>
+    </div>
 
-    <!-- INTRO -->
-    <section class="blog-section">
+  </section>
 
-      <h2>Introduction</h2>
+  <!-- CONTENT -->
+  <main class="kb-content">
 
+    <div class="step-section">
+      <h2>Overview</h2>
       <p>
-        In this part of the lab, the Ubuntu Wazuh VM is configured with two network adapters:
-        NAT for external connectivity and Internal Network (LabNet) for communication with pfSense,
+        Wazuh is configured with two network interfaces:
+        NAT for external connectivity and LabNet (Internal Network) for communication with pfSense,
         Kali Linux, and Windows endpoints.
       </p>
 
       <p>
-        This setup enables Wazuh to function as a centralized SIEM platform for log collection,
-        alerting, and security monitoring across the entire home lab environment.
+        This enables centralized log aggregation, alerting, and security monitoring in a simulated SOC environment.
       </p>
+    </div>
 
-    </section>
-
-    <!-- TIP -->
-    <section class="blog-section">
-
-      <h2>Tip: Keep ChatGPT Handy</h2>
-
-      <p>
-        If Netplan fails to apply configuration changes, use:
-      </p>
-
-      <p>
-        <em>
-          “Ubuntu VM won't take static IP 192.168.10.4 via Netplan. Here is my 50-cloud-init.yaml file. Can you fix indentation or syntax?”
-        </em>
-      </p>
-
-    </section>
-
-    <!-- STEP 1 -->
-    <section class="blog-section">
-
-      <h2>Step 1 — Ubuntu Wazuh Network Adapter Configuration</h2>
-
-      <ol>
-        <li>Power off Ubuntu Wazuh VM</li>
-        <li>Go to VirtualBox → Settings → Network</li>
-      </ol>
+    <div class="step-section">
+      <h2>Step 1 — VirtualBox Network Adapter Configuration</h2>
 
       <h3>Adapter 1 (WAN - NAT)</h3>
-
       <ul>
-        <li>Enable Network Adapter</li>
+        <li>Enable Adapter</li>
         <li>Attached to: NAT</li>
         <li>Promiscuous Mode: Allow All</li>
-        <li>Configure Port Forwarding</li>
+        <li>Enable Port Forwarding (optional for dashboard access)</li>
       </ul>
 
       <figure>
-        <img src="../images/11u3-images/1.png" alt="Ubuntu NAT adapter configuration" />
-      </figure>
-
-      <h3>Port Forwarding Rules</h3>
-
-      <ul>
-        <li>Wazuh-API → TCP → 5500 → 192.168.10.4:5500</li>
-        <li>Wazuh-Dashboard → TCP → 443 → 192.168.10.4:443</li>
-      </ul>
-
-      <figure>
-        <img src="../images/11u3-images/2.png" alt="Port forwarding rules" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/1.png" alt="NAT adapter configuration" />
       </figure>
 
       <h3>Adapter 2 (LAN - Internal Network)</h3>
-
       <ul>
-        <li>Enable Network Adapter</li>
+        <li>Enable Adapter</li>
         <li>Attached to: Internal Network</li>
         <li>Name: LabNet</li>
         <li>Promiscuous Mode: Allow All</li>
       </ul>
 
       <figure>
-        <img src="../images/11u3-images/3.png" alt="Internal network configuration" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/3.png" alt="Internal network configuration" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- STEP 2 -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Step 2 — Configure Static IP (Netplan)</h2>
 
-      <p><strong>Commands:</strong></p>
+      <p>Edit Netplan configuration:</p>
 
-      <pre><code>sudo su
-cd /
+      <pre><code>
+sudo su
 cd /etc/netplan
 ls
-nano 50-cloud-init.yaml</code></pre>
+nano 50-cloud-init.yaml
+      </code></pre>
 
       <figure>
-        <img src="../images/11u3-images/4.png" alt="Editing Netplan config" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/4.png" alt="Editing Netplan file" />
       </figure>
 
-      <h3>Netplan Configuration</h3>
+      <h3>Static IP Configuration</h3>
 
-      <pre><code>network:
+      <pre><code>
+network:
   version: 2
   ethernets:
     enp0s3:
@@ -145,45 +197,42 @@ nano 50-cloud-init.yaml</code></pre>
       nameservers:
         addresses:
           - 1.1.1.1
-          - 8.8.8.8</code></pre>
+          - 8.8.8.8
+      </code></pre>
 
       <p>
-        Save file: <strong>CTRL + X</strong> → <strong>Y</strong> → <strong>Enter</strong>
+        Save file: CTRL + X → Y → ENTER
       </p>
 
       <figure>
-        <img src="../images/11u3-images/5.png" alt="Saving Netplan configuration" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/5.png" alt="Saving Netplan configuration" />
       </figure>
+    </div>
 
-    </section>
+    <div class="step-section">
+      <h2>Step 3 — Apply Configuration & Test</h2>
 
-    <!-- STEP 3 -->
-    <section class="blog-section">
-
-      <h2>Step 3 — Apply Configuration & Test Connectivity</h2>
-
-      <pre><code>sudo netplan apply
+      <pre><code>
+sudo netplan apply
+ip a
 ping -c 4 192.168.10.1
 ping -c 4 google.com
-ip a</code></pre>
+      </code></pre>
 
       <p>
-        Ubuntu Wazuh is now assigned static IP: <strong>192.168.10.4</strong>
+        Confirm assigned IP: <strong>192.168.10.4</strong>
       </p>
 
       <figure>
-        <img src="../images/11u3-images/6.png" alt="Network connectivity test" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/6.png" alt="Network test output" />
       </figure>
 
       <figure>
-        <img src="../images/11u3-images/7.png" alt="IP verification output" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/7.png" alt="IP verification output" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- STEP 4 -->
-    <section class="blog-section">
-
+    <div class="step-section">
       <h2>Step 4 — Access Wazuh Dashboard</h2>
 
       <ul>
@@ -192,43 +241,27 @@ ip a</code></pre>
       </ul>
 
       <figure>
-        <img src="../images/11u3-images/8.png" alt="Wazuh dashboard login" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/8.png" alt="Wazuh login page" />
       </figure>
 
       <figure>
-        <img src="../images/11u3-images/9.png" alt="Wazuh dashboard overview" />
+        <img src="../../../assets/images/virtual-soc-images/11u3-images/9.png" alt="Wazuh dashboard" />
       </figure>
+    </div>
 
-    </section>
-
-    <!-- COMPLETION -->
-    <section class="blog-section">
-
-      <h2>Completion</h2>
-
+    <div class="step-section">
+      <h2>Configuration Complete</h2>
       <p>
-        Ubuntu Wazuh is now fully configured as a SIEM server with static IP 192.168.10.4.
-        It is integrated into the LabNet network and ready to collect logs from all endpoints.
+        Ubuntu Wazuh is now fully configured with a static IP (192.168.10.4) and integrated into the LabNet network.
+        It is ready to collect logs and telemetry from all endpoints in the SOC lab.
       </p>
+    </div>
 
-    </section>
-
-    <!-- FOOTER NAV -->
-    <footer class="blog-section">
-
-      <a class="btn btn-secondary" href="pfsense-config.html">
-        Back: pfSense Configuration
-      </a>
-
-      <a class="btn btn-primary" href="../index.html">
-        Back to Home
-      </a>
-
-      <a class="btn btn-secondary" href="win10-network-config.html">
-        Next: Windows 10 Agent Setup
-      </a>
-
-    </footer>
+    <div class="page-nav">
+      <a class="btn btn-secondary" href="virtual-soc-landing.html">← Back to Staging Area</a>
+      <a class="btn btn-secondary" href="../index.html">Home</a>
+      <a class="btn btn-primary" href="win10-network-config.html">Next: Windows 10 Network Config</a>
+    </div>
 
   </main>
 
