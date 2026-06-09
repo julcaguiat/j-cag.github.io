@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JCAG-LAB Network Infrastructure Inventory</title>
+
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+
+    <style>
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #30363d;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #161b22;
+            color: #e6edf3;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                NETWORK INFRASTRUCTURE CMDB
+            </div>
+
+            <h1 class="hero-title">
+                JCAG-LAB Network Infrastructure Inventory
+            </h1>
+
+            <p>
+                Source of truth inventory covering physical, virtual, network, endpoint, and service-layer components
+                for JCAG-LAB.local enterprise environment.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                This document represents the authoritative infrastructure inventory for JCAG-LAB.local.
+                It consolidates compute, networking, security, and automation components into a CMDB-style reference
+                model.
+            </p>
+
+            <div class="note">
+                All infrastructure changes must be reflected in this document to maintain source-of-truth consistency.
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Domain Information</h2>
+
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Domain Name</td>
+                    <td>jcag-lab.local</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>WAN / Edge Architecture</h2>
+
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Role</th>
+                    <th>IP / Notes</th>
+                </tr>
+                <tr>
+                    <td>Home ISP Router</td>
+                    <td>Internet Gateway</td>
+                    <td>Upstream WAN</td>
+                </tr>
+                <tr>
+                    <td>pfSense Firewall</td>
+                    <td>Primary Gateway</td>
+                    <td>10.10.255.1</td>
+                </tr>
+                <tr>
+                    <td>Cisco ISR 1941 (RTR-01)</td>
+                    <td>Inter-VLAN Routing</td>
+                    <td>10.10.255.2</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Switching Infrastructure</h2>
+
+            <table>
+                <tr>
+                    <th>Device</th>
+                    <th>Model</th>
+                    <th>Role</th>
+                </tr>
+                <tr>
+                    <td>SW-01</td>
+                    <td>Cisco Catalyst 2960G</td>
+                    <td>Layer 2 Switching / VLAN Trunking</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>VLAN Architecture</h2>
+
+            <table>
+                <tr>
+                    <th>VLAN</th>
+                    <th>Name</th>
+                    <th>Subnet</th>
+                    <th>DHCP Scope</th>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Sales</td>
+                    <td>10.10.10.0/24</td>
+                    <td>10.10.10.21–100</td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td>IT</td>
+                    <td>10.10.30.0/24</td>
+                    <td>10.10.30.21–100</td>
+                </tr>
+                <tr>
+                    <td>99</td>
+                    <td>Network-Mgmt</td>
+                    <td>10.10.99.0/24</td>
+                    <td>Static</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>Servers</td>
+                    <td>10.10.100.0/24</td>
+                    <td>Static</td>
+                </tr>
+            </table>
+
+            <div class="note">
+                VLAN 10/30 dynamic ranges are controlled via Windows Server 2019 DHCP.
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Compute Infrastructure</h2>
+
+            <table>
+                <tr>
+                    <th>Host</th>
+                    <th>IP</th>
+                    <th>Role</th>
+                </tr>
+                <tr>
+                    <td>SVR-01 (Proxmox)</td>
+                    <td>10.10.100.10</td>
+                    <td>Primary Hypervisor</td>
+                </tr>
+                <tr>
+                    <td>Legacy Host</td>
+                    <td>DHCP</td>
+                    <td>Secondary Lab Host</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Virtual Infrastructure (VLAN 100)</h2>
+
+            <table>
+                <tr>
+                    <th>System</th>
+                    <th>IP</th>
+                    <th>Role</th>
+                </tr>
+
+                <tr>
+                    <td>Windows Server 2019</td>
+                    <td>10.10.100.11</td>
+                    <td>AD / DNS / DHCP</td>
+                </tr>
+
+                <tr>
+                    <td>Peppermint</td>
+                    <td>10.10.100.12</td>
+                    <td>ITSM / Ticketing</td>
+                </tr>
+
+                <tr>
+                    <td>Cisco CML</td>
+                    <td>10.10.100.13</td>
+                    <td>Network Simulation</td>
+                </tr>
+
+                <!-- ADDED SECTION -->
+                <tr>
+                    <td>WEB-SVR</td>
+                    <td>10.10.100.14</td>
+                    <td>
+                        Application Hosting / Security Testing Platform<br>
+                        <small>
+                            Java Backend (7000) • Java Frontend (8080) • Juice Shop (3000) • DVWA (8081)
+                        </small>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Wazuh SIEM</td>
+                    <td>10.10.100.15</td>
+                    <td>Security Monitoring</td>
+                </tr>
+
+                <tr>
+                    <td>n8n</td>
+                    <td>10.10.100.16</td>
+                    <td>SOAR Automation</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Endpoints</h2>
+
+            <table>
+                <tr>
+                    <th>Device</th>
+                    <th>IP</th>
+                    <th>Role</th>
+                </tr>
+                <tr>
+                    <td>Windows 11 VM</td>
+                    <td>10.10.10.101</td>
+                    <td>Domain Endpoint</td>
+                </tr>
+                <tr>
+                    <td>Kali Linux</td>
+                    <td>Dynamic</td>
+                    <td>Offensive Security</td>
+                </tr>
+                <tr>
+                    <td>macOS Host</td>
+                    <td>10.10.100.19</td>
+                    <td>Admin Workstation</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Network Services</h2>
+
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Port</th>
+                    <th>System</th>
+                </tr>
+                <tr>
+                    <td>Wazuh API</td>
+                    <td>55000</td>
+                    <td>SIEM</td>
+                </tr>
+                <tr>
+                    <td>Agent Communication</td>
+                    <td>1514</td>
+                    <td>SIEM</td>
+                </tr>
+                <tr>
+                    <td>n8n UI</td>
+                    <td>5678</td>
+                    <td>Automation</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Summary</h2>
+
+            <p>
+                JCAG-LAB infrastructure is segmented into VLAN-based zones with centralized identity, SIEM monitoring,
+                automation workflows, and virtualization hosting.
+            </p>
+
+            <div class="warning">
+                This document is the authoritative CMDB source for all lab infrastructure changes.
+            </div>
+
+        </div>
+
+        <div class="page-nav">
+            <a class="btn btn-secondary" href="../../index.html">← Home</a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

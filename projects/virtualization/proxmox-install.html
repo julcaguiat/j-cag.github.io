@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Proxmox VE Installation on Dell Inspiron 3650</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #30363d;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #161b22;
+            color: #e6edf3;
+        }
+
+        .note {
+            background: rgba(59, 130, 246, 0.10);
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                VIRTUALIZATION PLATFORM DEPLOYMENT
+            </div>
+
+            <h1 class="hero-title">
+                Proxmox VE Installation on Dell Inspiron 3650
+            </h1>
+
+            <p>
+                Deploy Proxmox Virtual Environment directly on Dell hardware and configure
+                a dedicated management interface using static IP address 10.10.100.10/24.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                This guide documents the deployment of Proxmox Virtual Environment (VE)
+                on a Dell Inspiron 3650 using the official Proxmox installer.
+            </p>
+
+            <p>
+                The resulting platform provides enterprise-grade virtualization using KVM
+                virtual machines and LXC containers suitable for networking, cybersecurity,
+                SOC, Active Directory, and infrastructure automation labs.
+            </p>
+
+            <div class="note">
+                The management interface will be configured with static IP address:
+                <strong>10.10.100.10/24</strong>
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Hardware Requirements</h2>
+
+            <h3>Minimum Requirements</h3>
+
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Requirement</th>
+                </tr>
+                <tr>
+                    <td>CPU</td>
+                    <td>64-bit Dual Core with VT-x / AMD-V</td>
+                </tr>
+                <tr>
+                    <td>Memory</td>
+                    <td>8 GB RAM</td>
+                </tr>
+                <tr>
+                    <td>Storage</td>
+                    <td>120 GB SSD/HDD</td>
+                </tr>
+                <tr>
+                    <td>Network</td>
+                    <td>Gigabit Ethernet</td>
+                </tr>
+            </table>
+
+            <h3>Recommended Requirements</h3>
+
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Recommendation</th>
+                </tr>
+                <tr>
+                    <td>CPU</td>
+                    <td>Intel i5 or higher</td>
+                </tr>
+                <tr>
+                    <td>Memory</td>
+                    <td>16-32 GB RAM</td>
+                </tr>
+                <tr>
+                    <td>Storage</td>
+                    <td>500 GB SSD or larger</td>
+                </tr>
+                <tr>
+                    <td>Network</td>
+                    <td>Gigabit Ethernet</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Required Software</h2>
+
+            <ul>
+                <li>Proxmox VE ISO Installer</li>
+                <li>Rufus (Windows) or balenaEtcher (Windows/macOS/Linux)</li>
+                <li>8 GB or larger USB flash drive</li>
+                <li>Internet connectivity</li>
+            </ul>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 1 — Download Proxmox VE</h2>
+
+            <p>
+                Download the latest stable ISO installer from:
+            </p>
+
+            <pre><code>https://www.proxmox.com/en/downloads</code></pre>
+
+            <p>
+                Select:
+            </p>
+
+            <ul>
+                <li>Proxmox VE ISO Installer</li>
+            </ul>
+
+            <div class="note">
+                The ISO contains the operating system, hypervisor,
+                web interface, and required management components.
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 2 — Create Bootable USB</h2>
+
+            <h3>Using Rufus</h3>
+
+            <ol>
+                <li>Insert USB flash drive</li>
+                <li>Launch Rufus</li>
+                <li>Select Proxmox ISO</li>
+                <li>Partition Scheme: GPT</li>
+                <li>Target System: UEFI</li>
+                <li>Click Start</li>
+            </ol>
+
+            <h3>Using balenaEtcher</h3>
+
+            <ol>
+                <li>Select ISO file</li>
+                <li>Select USB device</li>
+                <li>Click Flash</li>
+            </ol>
+
+            <div class="warning">
+                All data on the USB device will be erased.
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 3 — Configure BIOS</h2>
+
+            <p>
+                Enter BIOS Setup on the Dell Inspiron 3650 and configure:
+            </p>
+
+            <table>
+                <tr>
+                    <th>Setting</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Intel Virtualization Technology</td>
+                    <td>Enabled</td>
+                </tr>
+                <tr>
+                    <td>VT-d</td>
+                    <td>Enabled</td>
+                </tr>
+                <tr>
+                    <td>Secure Boot</td>
+                    <td>Disabled</td>
+                </tr>
+                <tr>
+                    <td>Boot Mode</td>
+                    <td>UEFI</td>
+                </tr>
+                <tr>
+                    <td>USB Boot</td>
+                    <td>Enabled</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 4 — Install Proxmox VE</h2>
+
+            <ol>
+                <li>Boot from USB installer</li>
+                <li>Select <strong>Install Proxmox VE</strong></li>
+                <li>Accept EULA</li>
+                <li>Select target disk</li>
+                <li>Choose default LVM-Thin storage</li>
+                <li>Configure region and keyboard layout</li>
+                <li>Create root password</li>
+                <li>Enter administrator email address</li>
+            </ol>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 5 — Configure Management Network</h2>
+
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Hostname</td>
+                    <td>SVR-01</td>
+                </tr>
+                <tr>
+                    <td>IP Address</td>
+                    <td>10.10.100.10</td>
+                </tr>
+                <tr>
+                    <td>Subnet Mask</td>
+                    <td>255.255.255.0</td>
+                </tr>
+                <tr>
+                    <td>Gateway</td>
+                    <td>10.10.100.1</td>
+                </tr>
+                <tr>
+                    <td>DNS Server</td>
+                    <td>8.8.8.8</td>
+                </tr>
+            </table>
+
+            <div class="note">
+                This IP address becomes the primary management interface for
+                the Proxmox web console.
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 6 — Complete Installation</h2>
+
+            <p>
+                Click Install and allow the installer to:
+            </p>
+
+            <ul>
+                <li>Partition storage</li>
+                <li>Install Proxmox OS</li>
+                <li>Install KVM components</li>
+                <li>Configure networking</li>
+                <li>Deploy management services</li>
+            </ul>
+
+            <p>
+                After installation:
+            </p>
+
+            <ol>
+                <li>Remove USB media</li>
+                <li>Reboot system</li>
+            </ol>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 7 — Access the Web Interface</h2>
+
+            <p>Open a browser and navigate to:</p>
+
+            <pre><code>https://10.10.100.10:8006</code></pre>
+
+            <h3>Login Information</h3>
+
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>User</td>
+                    <td>root</td>
+                </tr>
+                <tr>
+                    <td>Realm</td>
+                    <td>PAM</td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td>Configured during installation</td>
+                </tr>
+            </table>
+
+            <div class="warning">
+                A certificate warning is expected because Proxmox uses a
+                self-signed certificate by default.
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 8 — Verification</h2>
+
+            <h3>Verify Network Connectivity</h3>
+
+            <pre><code>ping 10.10.100.10</code></pre>
+
+            <h3>Verify Cluster Status</h3>
+
+            <pre><code>pvecm status</code></pre>
+
+            <h3>Verify Interface Configuration</h3>
+
+            <pre><code>ip a
+
+ ip route</code></pre>
+
+            <h3>Verify Core Services</h3>
+
+            <pre><code>systemctl status pveproxy
+
+ systemctl status pvedaemon</code></pre>
+
+            <p>
+                Expected state:
+            </p>
+
+            <pre><code>Active (running)</code></pre>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 9 — Update the System</h2>
+
+            <pre><code>apt update && apt upgrade -y</code></pre>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Post-Installation Tasks</h2>
+
+            <ul>
+                <li>Enable SSH access</li>
+                <li>Add secondary storage</li>
+                <li>Create Windows Server 2019 virtual machine for Active Directory</li>
+                <li>Create Peppermint virtual machine for ticketing services</li>
+                <li>Create CML virtual machine for CCNP labs</li>
+                <li>Configure backups</li>
+            </ul>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Deployment Complete</h2>
+
+            <p>
+                Proxmox VE is now installed and operational on the Dell Inspiron 3650.
+            </p>
+
+            <p>
+                The platform is ready to host virtual machines, containers,
+                networking labs, Active Directory environments, SIEM platforms,
+                and cybersecurity projects.
+            </p>
+
+        </div>
+
+        <div class="page-nav">
+            <a class="btn btn-primary" href="../../index.html">← Home</a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

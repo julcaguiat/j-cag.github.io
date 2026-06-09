@@ -653,6 +653,29 @@ footer {
 }
 
 /* =========================
+   DOCUMENTATION LINKS
+========================= */
+
+.content-link {
+  display: block;
+  /* padding:10px 12px; */
+  padding: 4px 12px;
+  border-radius: 8px;
+  /* color:#c9d1d9; */
+  text-decoration: none;
+  transition: 0.25s ease;
+
+  color: #58a6ff;
+  margin-bottom: 4px;
+}
+
+.content-link:hover {
+  background: #161b22;
+  color: #58a6ff;
+  padding-left: 18px;
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 
