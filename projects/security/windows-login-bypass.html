@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Windows Password Reset (Ubuntu Live USB) | SOC Lab</title>
+
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+  <style>
+    /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+    .hero {
+      padding: 40px 20px 10px;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0;
+    }
+
+    .kb-content {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .step-section {
+      margin-bottom: 30px;
+    }
+
+    .step-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .step-section h3 {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      color: #e6edf3;
+    }
+
+    .step-section p,
+    .step-section li {
+      color: #c9d1d9;
+      line-height: 1.7;
+    }
+
+    figure {
+      margin-top: 14px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+    }
+
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      color: #e6edf3;
+      margin-top: 10px;
+    }
+
+    code {
+      background: #161b22;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+    }
+
+    .page-nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="hero-subtitle">
+        OFFLINE WINDOWS RECOVERY LAB
+      </div>
+
+      <h1 class="hero-title">
+        Windows Password Reset (Rufus + chntpw)
+      </h1>
+
+      <p>
+        Offline password reset and Windows Hello PIN removal using Ubuntu Live USB and chntpw in a controlled SOC lab
+        environment.<br>
+        <b>NOTE: For educational purpose only!</b>
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- CONTENT -->
+  <main class="kb-content">
+
+    <div class="step-section">
+      <h2>Overview</h2>
+      <p>
+        This procedure demonstrates offline modification of the Windows SAM database using Ubuntu Live USB.
+        It is used in lab environments to simulate endpoint recovery and credential reset scenarios.
+      </p>
+    </div>
+
+    <div class="step-section">
+      <h2>Requirements</h2>
+
+      <ul>
+        <li>Second working system or VM host</li>
+        <li>USB drive (8GB+)</li>
+        <li>Ubuntu Desktop ISO</li>
+        <li>Rufus USB creation tool (NOTE: Research how to create one)</li>
+        <li>Internet access for package installation</li>
+      </ul>
+    </div>
+
+    <div class="step-section">
+      <h2>Step 1 — Create Ubuntu Live USB</h2>
+
+      <h3>Download Ubuntu</h3>
+      <p>
+        Download ISO:
+        <a href="https://ubuntu.com/download/desktop" target="_blank">Ubuntu Desktop ISO Download</a>
+      </p>
+
+      <h3>Rufus Configuration</h3>
+      <ul>
+        <li>Select Ubuntu ISO</li>
+        <li>Partition scheme: MBR</li>
+        <li>File system: FAT32</li>
+        <li>Start USB creation</li>
+      </ul>
+    </div>
+
+    <div class="step-section">
+      <h2>Step 2 — Boot Target System</h2>
+
+      <ul>
+        <li>Insert USB into target system</li>
+        <li>Press ESC/F12 for boot menu</li>
+        <li>Select USB (UEFI)</li>
+        <li>Choose “Try Ubuntu”</li>
+      </ul>
+    </div>
+
+    <figure>
+      <img src="../../assets/images/win-login-byppass/1.png" alt="UEFI" />
+    </figure>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/2.png" alt="Try Ubuntu" />
+    </figure>
+
+    <div class="step-section">
+      <h2>Step 3 — Install Required Tools</h2>
+
+      <pre><code>sudo apt update
+ sudo apt install chntpw</code></pre>
+    </div>
+
+    <figure>
+      <img src="../../assets/images/win-login-byppass/3.png" alt="update" />
+    </figure>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/4.png" alt="install chntpw - lsblk -f" />
+    </figure>
+
+    <div class="step-section">
+      <h2>Step 4 — Locate Windows Partition</h2>
+
+      <pre><code>lsblk -f
+ sudo lsblk -o NAME,FSTYPE,SIZE,LABEL,MOUNTPOINT</code></pre>
+
+      <figure>
+        <img src="../../assets/images/win-login-byppass/.png" alt=" Check previous image" />
+      </figure>
+
+      <h3>Mount Windows Disk</h3>
+
+      <pre><code>sudo mkdir /mnt/win
+ sudo mount -t ntfs-3g /dev/nvme0n1p3 /mnt/win</code></pre>
+
+      <figure>
+        <img src="../../assets/images/win-login-byppass/5.png" alt="mount windows disk" />
+      </figure>
+
+      <h3>Verify SAM File</h3>
+
+      <pre><code>ls /mnt/win/Windows/System32/config/</code></pre>
+    </div>
+
+    <div class="step-section">
+      <h2>Step 5 — Reset Windows Password</h2>
+
+      <pre><code>sudo chntpw -i /mnt/win/Windows/System32/config/SAM</code></pre>
+
+      <p>Inside menu:</p>
+
+      <ul>
+        <li>Edit user data</li>
+        <li>Select account</li>
+        <li>Clear password</li>
+        <li>Unlock user (if needed)</li>
+        <li>Write changes and exit</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/6.png" alt="check SAM" />
+    </figure>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/7.png" alt="disable admin password" />
+    </figure>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/8.png" alt="quit" />
+    </figure>
+
+
+    <div class="step-section">
+      <h2>Step 6 — Disable Windows Hello PIN</h2>
+
+      <pre><code>sudo rm -rf /mnt/win/Windows/ServiceProfiles/LocalService/AppData/Local/Microsoft/Ngc</code></pre>
+      <figure>
+        <img src="../../assets/images/win-login-byppass/9.png" alt="disable PIN" />
+      </figure>
+
+      <p>
+        This removes stored Windows Hello credential data including PIN authentication.
+      </p>
+    </div>
+
+    <div class="step-section">
+      <h2>Step 7 — Reboot System</h2>
+      <figure>
+        <img src="../../assets/images/win-login-byppass/.png" alt=" Check previous image" />
+      </figure>
+
+      <pre><code>sudo reboot</code></pre>
+
+      <ul>
+        <li>Remove USB when prompted</li>
+        <li>Select password login option</li>
+        <li>Log in with cleared or updated credentials</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/10.png" alt="disable PIN" />
+    </figure>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/11.png" alt="disable PIN" />
+    </figure>
+    <figure>
+      <img src="../../assets/images/win-login-byppass/12.png" alt="disable PIN" />
+    </figure>
+
+    <div class="step-section">
+      <h2>chntpw Overview</h2>
+
+      <p>
+        chntpw (Change NT Password) is a Linux utility used to modify Windows local account SAM database offline.
+      </p>
+
+      <h3>Capabilities</h3>
+      <ul>
+        <li>Reset local Windows passwords</li>
+        <li>Unlock accounts</li>
+        <li>Modify SAM registry hive</li>
+      </ul>
+
+      <h3>Limitations</h3>
+      <ul>
+        <li>Does not work on Microsoft accounts</li>
+        <li>Clears passwords rather than decrypting them</li>
+        <li>Requires offline disk access</li>
+      </ul>
+    </div>
+
+    <div class="step-section">
+      <h2>Login bypassed!</h2>
+      <p>
+        Windows password reset and Windows Hello PIN removal has been completed in a controlled lab environment
+        using Ubuntu Live USB and chntpw.
+      </p>
+    </div>
+
+    <div class="page-nav">
+      <a class="btn btn-primary" href="../../../index.html">← Home</a>
+    </div>
+
+  </main>
+
+</body>
+
+</html>

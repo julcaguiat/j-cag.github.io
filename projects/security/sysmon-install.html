@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sysmon Installation & Configuration | Windows 11 Endpoint Monitoring</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box {
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                DETECTION ENGINEERING
+            </div>
+
+            <h1 class="hero-title">
+                Sysmon Installation & Configuration
+            </h1>
+
+            <p>
+                Deploy Sysmon on a Windows 11 endpoint and integrate it with Wazuh SIEM to provide enhanced endpoint
+                telemetry, process visibility, network monitoring, and detection engineering capabilities.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <div class="step-section">
+
+            <h2>Introduction</h2>
+
+            <p>
+                Sysmon (System Monitor) is a Microsoft Sysinternals utility that extends native Windows logging by
+                recording detailed endpoint activity such as process creation, network connections, file modifications,
+                image loads, and DNS requests.
+            </p>
+
+            <p>
+                When integrated with Wazuh, Sysmon provides high-fidelity telemetry used for threat hunting, incident
+                response, detection engineering, and SOC operations.
+            </p>
+
+            <div class="box">
+                <strong>Sysmon Event Log Location</strong>
+
+                <pre><code>Applications and Services Logs
+└── Microsoft
+    └── Windows
+        └── Sysmon
+            └── Operational</code></pre>
+            </div>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Prerequisites</h2>
+
+            <ul>
+                <li>Windows 11 Pro VM</li>
+                <li>Administrator privileges</li>
+                <li>Internet access</li>
+                <li>Wazuh Agent installed (optional but recommended)</li>
+                <li>PowerShell access</li>
+            </ul>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 1 — Download Sysmon</h2>
+
+            <p>
+                Download Sysmon from Microsoft's Sysinternals Suite.
+            </p>
+
+            <p>
+                Recommended extraction directory:
+            </p>
+
+            <pre><code>C:\Tools\Sysmon\</code></pre>
+
+            <p>
+                After extraction, verify the following files exist:
+            </p>
+
+            <ul>
+                <li>Sysmon.exe</li>
+                <li>Sysmon64.exe</li>
+            </ul>
+
+            <figure>
+                <img src="../../assets/images/sysmon-images/1.png" alt="Sysmon download and extraction" />
+            </figure>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 2 — Download a Sysmon Configuration</h2>
+
+            <p>
+                Sysmon requires an XML configuration file that defines which events will be collected.
+            </p>
+
+            <p>
+                A commonly used baseline is the SwiftOnSecurity Sysmon configuration.
+            </p>
+
+            <p>
+                Save the configuration as:
+            </p>
+
+            <pre><code>C:\Tools\Sysmon\sysmonconfig.xml</code></pre>
+
+            <div class="box">
+                The SwiftOnSecurity configuration provides a strong balance between visibility and event noise reduction
+                and is widely used throughout the security community.
+            </div>
+
+            <figure>
+                <img src="../../../assets/images/sysmon-images/2.png" alt="Sysmon configuration file" />
+            </figure>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 3 — Install Sysmon</h2>
+
+            <p>
+                Open PowerShell as Administrator and navigate to the Sysmon directory.
+            </p>
+
+            <pre><code>cd C:\Tools\Sysmon
+
+.\Sysmon64.exe -accepteula -i sysmonconfig.xml</code></pre>
+
+            <p>
+                This command:
+            </p>
+
+            <ul>
+                <li>Accepts the Sysinternals EULA</li>
+                <li>Installs the Sysmon service</li>
+                <li>Installs the Sysmon driver</li>
+                <li>Applies the XML configuration</li>
+                <li>Begins event collection immediately</li>
+            </ul>
+
+            <figure>
+                <img src="../../../assets/images/sysmon-images/3.png" alt="Sysmon installation" />
+            </figure>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 4 — Verify Sysmon Service</h2>
+
+            <p>
+                Verify the service is running.
+            </p>
+
+            <pre><code>Get-Service Sysmon64</code></pre>
+
+            <p>
+                Expected output:
+            </p>
+
+            <pre><code>Status   Name      DisplayName
+Running  Sysmon64  System Monitor service</code></pre>
+
+            <figure>
+                <img src="../../../assets/images/virtual-soc-images/sysmon-images/4.png" alt="Check previous image" />
+            </figure>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 5 — Verify Event Generation</h2>
+
+            <p>
+                Open Event Viewer and navigate to:
+            </p>
+
+            <pre><code>Event Viewer
+→ Applications and Services Logs
+→ Microsoft
+→ Windows
+→ Sysmon
+→ Operational</code></pre>
+
+            <p>
+                Generate activity such as:
+            </p>
+
+            <ul>
+                <li>Opening PowerShell</li>
+                <li>Launching applications</li>
+                <li>Browsing websites</li>
+                <li>Running command-line tools</li>
+            </ul>
+
+            <p>
+                New Sysmon events should appear immediately.
+            </p>
+
+            <figure>
+                <img src="../../../assets/images/virtual-soc-images/sysmon-images/5.png" alt="Sysmon event logs" />
+            </figure>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 6 — Configure Wazuh Agent Collection</h2>
+
+            <p>
+                Verify the Wazuh Agent is configured to monitor the Sysmon Event Channel.
+            </p>
+
+            <p>
+                Edit:
+            </p>
+
+            <pre><code>C:\Program Files (x86)\ossec-agent\ossec.conf</code></pre>
+
+            <p>
+                Add or verify the following configuration:
+            </p>
+
+            <pre><code>&lt;localfile&gt;
+  &lt;location&gt;Microsoft-Windows-Sysmon/Operational&lt;/location&gt;
+  &lt;log_format&gt;eventchannel&lt;/log_format&gt;
+&lt;/localfile&gt;</code></pre>
+
+            <p>
+                Restart the Wazuh agent:
+            </p>
+
+            <pre><code>Restart-Service WazuhSvc</code></pre>
+
+            <figure>
+                <img src="../../../assets/images/virtual-soc-images/sysmon-images/6.png"
+                    alt="Wazuh Sysmon configuration" />
+            </figure>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 7 — Validate Log Forwarding</h2>
+
+            <p>
+                On the Wazuh Manager, search for incoming Sysmon events.
+            </p>
+
+            <pre><code>grep Sysmon /var/ossec/logs/archives/archives.json</code></pre>
+
+            <p>
+                Typical fields include:
+            </p>
+
+            <ul>
+                <li>providerName: Microsoft-Windows-Sysmon</li>
+                <li>eventID: 1</li>
+                <li>eventID: 3</li>
+                <li>eventID: 7</li>
+                <li>eventID: 22</li>
+            </ul>
+
+            <figure>
+                <img src="../../../assets/images/virtual-soc-images/sysmon-images/7.png" alt="Sysmon events in Wazuh" />
+            </figure>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 8 — Common Sysmon Event IDs</h2>
+
+            <ul>
+                <li><strong>Event ID 1</strong> — Process Creation</li>
+                <li><strong>Event ID 2</strong> — File Creation Time Changed</li>
+                <li><strong>Event ID 3</strong> — Network Connection</li>
+                <li><strong>Event ID 7</strong> — Image Loaded</li>
+                <li><strong>Event ID 10</strong> — Process Access</li>
+                <li><strong>Event ID 11</strong> — File Creation</li>
+                <li><strong>Event ID 22</strong> — DNS Query</li>
+            </ul>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Step 9 — Troubleshooting</h2>
+
+            <h3>Sysmon Not Running</h3>
+
+            <pre><code>Get-Service Sysmon64</code></pre>
+
+            <h3>Verify Current Configuration</h3>
+
+            <pre><code>Sysmon64.exe -c</code></pre>
+
+            <h3>Wazuh Not Receiving Logs</h3>
+
+            <pre><code>netstat -ano | findstr 1514</code></pre>
+
+            <ul>
+                <li>Verify Wazuh agent is running</li>
+                <li>Verify manager connectivity</li>
+                <li>Verify EventChannel configuration exists</li>
+            </ul>
+
+            <h3>Decoder Verification</h3>
+
+            <pre><code>windows_eventchannel</code></pre>
+
+            <pre><code>/var/ossec/ruleset/rules/0595-win-sysmon_rules.xml</code></pre>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Configuration Complete</h2>
+
+            <p>
+                Sysmon is now installed and actively collecting endpoint telemetry from the Windows 11 endpoint.
+            </p>
+
+            <p>
+                With Wazuh integration enabled, process activity, network connections, DNS requests, and file events are
+                now available for centralized monitoring, alerting, threat hunting, and detection engineering workflows.
+            </p>
+
+            <div class="warning-box">
+                Proper Sysmon tuning is important. Excessive event collection can generate significant storage
+                consumption and alert fatigue, while insufficient logging may reduce visibility during investigations.
+            </div>
+
+        </div>
+
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Home
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
