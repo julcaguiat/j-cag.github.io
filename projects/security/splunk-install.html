@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Splunk Enterprise Deployment Guide on Proxmox VE</title>
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box {
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #1e293b;
+            color: #38bdf8;
+            text-align: left;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #334155;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Splunk Enterprise Deployment Guide on Proxmox VE
+            </h1>
+
+            <p class="hero-description">
+                Complete deployment procedure for installing Splunk Enterprise on an Ubuntu Server virtual machine
+                hosted on Proxmox VE within the JCAG-LAB environment.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <div class="container">
+
+            <div class="step-section">
+
+                <h2>1. Objective</h2>
+
+                <p>
+                    This document provides the complete deployment procedure for installing
+                    Splunk Enterprise on an Ubuntu Server virtual machine hosted on
+                    Proxmox Virtual Environment (VE).
+                </p>
+
+                <p>The deployment includes:</p>
+
+                <ul>
+                    <li>Splunk Enterprise account creation</li>
+                    <li>Downloading the Splunk Enterprise installation package</li>
+                    <li>Creating a dedicated Ubuntu Server VM on Proxmox</li>
+                    <li>Configuring static network settings</li>
+                    <li>Installing Splunk Enterprise</li>
+                    <li>Resolving installation and permission issues</li>
+                    <li>Initializing the Splunk service</li>
+                    <li>Verifying successful deployment</li>
+                </ul>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>2. Environment Overview</h2>
+
+                <h3>Virtual Machine Information</h3>
+
+                <table>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>VM Name</td>
+                        <td>SPLUNK-SVR</td>
+                    </tr>
+
+                    <tr>
+                        <td>VM ID</td>
+                        <td>107</td>
+                    </tr>
+
+                    <tr>
+                        <td>Hypervisor</td>
+                        <td>Proxmox VE</td>
+                    </tr>
+
+                    <tr>
+                        <td>Host</td>
+                        <td>SVR-01</td>
+                    </tr>
+
+                    <tr>
+                        <td>Operating System</td>
+                        <td>Ubuntu Server 26.04 LTS</td>
+                    </tr>
+
+                    <tr>
+                        <td>Static IP</td>
+                        <td>10.10.100.17</td>
+                    </tr>
+
+                    <tr>
+                        <td>Gateway</td>
+                        <td>10.10.100.1</td>
+                    </tr>
+
+                    <tr>
+                        <td>Primary DNS</td>
+                        <td>10.10.100.11</td>
+                    </tr>
+
+                    <tr>
+                        <td>Secondary DNS</td>
+                        <td>1.1.1.1</td>
+                    </tr>
+
+                    <tr>
+                        <td>Domain</td>
+                        <td>jcag-lab.local</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>3. Prerequisites</h2>
+
+                <h3>Minimum Hardware Requirements</h3>
+
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Requirement</th>
+                    </tr>
+
+                    <tr>
+                        <td>CPU</td>
+                        <td>2 vCPU</td>
+                    </tr>
+
+                    <tr>
+                        <td>Memory</td>
+                        <td>4 GB RAM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage</td>
+                        <td>50 GB</td>
+                    </tr>
+                </table>
+
+                <h3>Recommended Hardware Requirements</h3>
+
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Recommendation</th>
+                    </tr>
+
+                    <tr>
+                        <td>CPU</td>
+                        <td>2–4 vCPU</td>
+                    </tr>
+
+                    <tr>
+                        <td>Memory</td>
+                        <td>8 GB RAM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage</td>
+                        <td>100 GB</td>
+                    </tr>
+                </table>
+
+                <h3>Required Downloads</h3>
+
+                <ul>
+                    <li>Ubuntu Server 26.04 LTS ISO</li>
+                    <li>Splunk Enterprise Linux AMD64 Package (.deb)</li>
+                </ul>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>4. Create Splunk Enterprise Account</h2>
+
+                <p>
+                    Navigate to the Splunk website and create a Splunk Enterprise account.
+                </p>
+
+                <div class="path">
+                    https://www.splunk.com
+                </div>
+
+                <p>
+                    After authentication, navigate to Splunk Enterprise page > look for Linux Debian package.
+                </p>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>5. Preserve Installation Command</h2>
+
+                <p>
+                    Splunk provides a direct download command that can be reused later for installation.
+                </p>
+
+                <pre>
+wget -O splunk-10.4.0-f798d4d49089-linux-amd64.deb \
+"https://download.splunk.com/products/splunk/releases/10.4.0/linux/splunk-10.4.0-f798d4d49089-linux-amd64.deb"
+</pre>
+
+                <div class="note">
+                    Save this command for future deployments. It downloads the installation
+                    package directly from Splunk's distribution servers.
+                </div>
+
+                <img src="../../assets/images/splunk-images/1.jpg" alt="Splunk Download Page">
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>6. Create Ubuntu Virtual Machine</h2>
+
+                <h3>General Settings</h3>
+
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>Node</td>
+                        <td>SVR-01</td>
+                    </tr>
+
+                    <tr>
+                        <td>VM ID</td>
+                        <td>107</td>
+                    </tr>
+
+                    <tr>
+                        <td>Name</td>
+                        <td>SPLUNK-SVR</td>
+                    </tr>
+                </table>
+
+                <img src="../../assets/images/splunk-images/2.jpg" alt="Create VM General Settings">
+
+                <h3>Operating System</h3>
+
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>ISO</td>
+                        <td>ubuntu-26.04-live-server-amd64.iso</td>
+                    </tr>
+
+                    <tr>
+                        <td>Type</td>
+                        <td>Linux</td>
+                    </tr>
+
+                    <tr>
+                        <td>Version</td>
+                        <td>6.x Kernel</td>
+                    </tr>
+                </table>
+
+                <img src="../../assets/images/splunk-images/3.jpg" alt="Operating System Configuration">
+
+                <h3>System Configuration</h3>
+
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>BIOS</td>
+                        <td>OVMF (UEFI)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Machine</td>
+                        <td>q35</td>
+                    </tr>
+
+                    <tr>
+                        <td>SCSI Controller</td>
+                        <td>VirtIO SCSI</td>
+                    </tr>
+
+                    <tr>
+                        <td>QEMU Agent</td>
+                        <td>Enabled</td>
+                    </tr>
+                </table>
+
+                <img src="../../assets/images/splunk-images/4.jpg" alt="System Configuration">
+
+            </div>
+
+
+
+
+            <!-- ===================================================== -->
+            <!-- STEP 7 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>7. Configure Virtual Hardware (Disk)</h2>
+
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>Storage</td>
+                        <td>local-lvm-hdd-01</td>
+                    </tr>
+
+                    <tr>
+                        <td>Disk Size</td>
+                        <td>100 GB</td>
+                    </tr>
+
+                    <tr>
+                        <td>Bus Type</td>
+                        <td>VirtIO SCSI</td>
+                    </tr>
+                    <!--
+                    <tr>
+                        <td>Discard</td>
+                        <td>Enabled</td>
+                    </tr>
+-->
+                </table>
+
+                <img src="../../assets/images/splunk-images/5.jpg" alt="Disk Configuration">
+
+                <div class="note">
+                    HDD-backed storage is sufficient for lab Splunk workloads and preserves SSD resources.
+                </div>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 8 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>8. Configure CPU</h2>
+
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>Sockets</td>
+                        <td>1</td>
+                    </tr>
+
+                    <tr>
+                        <td>Cores</td>
+                        <td>2</td>
+                    </tr>
+
+                    <tr>
+                        <td>CPU Type</td>
+                        <td>host</td>
+                    </tr>
+
+                    <tr>
+                        <td>NUMA</td>
+                        <td>Disabled</td>
+                    </tr>
+                </table>
+
+                <img src="../../assets/images/splunk-images/6.jpg" alt="CPU Configuration">
+
+                <div class="note">
+                    CPU allocation is sized for lightweight SIEM workloads in a lab environment.
+                </div>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 9 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>9. Configure Memory</h2>
+
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>Memory</td>
+                        <td>6144 MB</td>
+                    </tr>
+
+                    <tr>
+                        <td>Ballooning</td>
+                        <td>Enabled</td>
+                    </tr>
+                </table>
+
+                <img src="../../assets/images/splunk-images/7.jpg" alt="Memory Configuration">
+
+                <div class="note">
+                    Memory allocation supports indexing and search workloads while allowing host-level optimization.
+                </div>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 10 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>10. Configure Network (Proxmox Bridge)</h2>
+
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <tr>
+                        <td>Bridge</td>
+                        <td>vmbr0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Model</td>
+                        <td>VirtIO</td>
+                    </tr>
+
+                    <tr>
+                        <td>Firewall</td>
+                        <td>Disabled</td>
+                    </tr>
+                </table>
+
+                <img src="../../assets/images/splunk-images/8.jpg" alt="Network Configuration">
+
+                <div class="note">
+                    This ensures direct connectivity to the SOC management subnet (10.10.100.0/24).
+                </div>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 11 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>11. Confirm VM Configuration</h2>
+
+                <p>Review all settings before final creation:</p>
+
+                <ul>
+                    <li>Disk: 100GB VirtIO SCSI</li>
+                    <li>CPU: 2 Cores</li>
+                    <li>Memory: 6144MB</li>
+                    <li>Network: vmbr0</li>
+                    <li>ISO: Ubuntu Server 26.04 LTS</li>
+                </ul>
+
+                <div class="note">
+                    Ensure all parameters are correct before initiating VM creation in Proxmox.
+                </div>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 12 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>12. Boot Ubuntu Server Installation</h2>
+
+                <p>Start the VM and boot from ISO:</p>
+
+                <pre><code>Install Ubuntu Server</code></pre>
+
+            </div>
+            <!-- ===================================================== -->
+            <!-- STEP 13-->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>13. Configure Network Settings</h2>
+
+                <p>Assign a static IP address for Splunk VM management access.</p>
+
+                <table>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>10.10.100.17</td>
+                    </tr>
+                    <tr>
+                        <td>Subnet</td>
+                        <td>10.10.100.0/24</td>
+                    </tr>
+                    <tr>
+                        <td>Gateway</td>
+                        <td>10.10.100.1</td>
+                    </tr>
+                    <tr>
+                        <td>DNS 1</td>
+                        <td>10.10.100.11</td>
+                    </tr>
+                    <tr>
+                        <td>DNS 2</td>
+                        <td>1.1.1.1</td>
+                    </tr>
+                </table>
+
+                <img src="../../assets/images/splunk-images/9.jpg" alt="Network Configuration">
+                <img src="../../assets/images/splunk-images/10.jpg" alt="Network Configuration">
+                <img src="../../assets/images/splunk-images/11.jpg" alt="Network Configuration">
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 14 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>14. Storage Configuration (Ubuntu Installer)</h2>
+
+                <p>Select storage configuration during installation:</p>
+
+                <pre><code>Use Entire Disk + LVM</code></pre>
+
+                <img src="../../assets/images/splunk-images/13.jpg" alt="Storage Configuration">
+
+                <div class="note">
+                    LVM enables flexible volume management and future disk expansion for Splunk indexing workloads.
+                </div>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 15 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>15. Finalize Configuration</h2>
+
+                <p>Storage Configuration: Click 'Done' > 'Continue' </p>
+                <p>Profile Configuration: Enter credentials</p>
+                <p>Upgrade to Ubuntu Pro: click 'Continue' </p>
+                <p>SSH Configuration: 'x' - select > 'Done' </p>
+                <p>Featured server snaps: 'Done' </p>
+                <p>'Reboot Now' </p>
+
+            </div>
+
+
+
+            <div class="step-section">
+
+                <h2>16. System Update and Base Preparation</h2>
+
+                <p>After first login, update system packages:</p>
+
+                <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+
+                <p>Install required dependencies:</p>
+
+                <pre><code>sudo apt install wget curl net-tools -y</code></pre>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- STEP 16 -->
+            <!-- ===================================================== -->
+
+            <div class="step-section">
+
+                <h2>12. Download Splunk Package</h2>
+
+                <p>Navigate to the <strong>/opt</strong> directory:</p>
+
+                <pre><code>cd /opt</code></pre>
+
+                <p>Download the Splunk Enterprise package:</p>
+
+                <pre><code>
+sudo wget -O /opt/splunk-10.4.0-f798d4d49089-linux-amd64.deb \
+"https://download.splunk.com/products/splunk/releases/10.4.0/linux/splunk-10.4.0-f798d4d49089-linux-amd64.deb"
+    </code></pre>
+
+                <img src="../../assets/images/splunk-images/22.jpg" alt="Splunk package download">
+
+                <div class="note">
+                    Expected Result: ~1.21 GB package successfully downloaded from Splunk repository.
+                </div>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>13. Install Splunk Enterprise</h2>
+
+                <p>Install the downloaded package:</p>
+
+                <pre>sudo dpkg -i /opt/splunk-10.4.0-f798d4d49089-linux-amd64.deb</pre>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk-images/23.jpg" alt="Splunk installation">
+                </div>
+
+                <h3>Observed Output</h3>
+
+                <pre>
+find: '/opt/splunk/lib/python3.7/site-packages':
+No such file or directory</pre>
+
+                <div class="note">
+                    This warning is non-critical. Installation completes successfully despite the message.
+                </div>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>14. Verify Dependencies</h2>
+
+                <p>Verify package dependencies:</p>
+
+                <pre>sudo apt -f install -y</pre>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk/14.png" alt=" Check previous image">
+                </div>
+
+                <h3>Expected Result</h3>
+
+                <pre>No additional dependencies required.</pre>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>15. Initial Startup Attempt</h2>
+
+                <p>Attempt to start Splunk:</p>
+
+                <pre>sudo /opt/splunk/bin/splunk start --accept-license</pre>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk/15.png" alt=" Check previous image">
+                </div>
+
+                <h3>Observed Behavior</h3>
+
+                <pre>Running Splunk Enterprise as root is deprecated.</pre>
+
+                <div class="warning">
+                    Splunk no longer recommends operating the platform using the root account.
+                </div>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>16. Service Account Startup Attempt</h2>
+
+                <p>Attempt startup using the Splunk service account:</p>
+
+                <pre>sudo -u splunk /opt/splunk/bin/splunk start --accept-license</pre>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk/16.png" alt=" Check prievious image">
+                </div>
+
+                <h3>Observed Error</h3>
+
+                <pre>Could not open log file for writing.</pre>
+
+                <h3>Root Cause</h3>
+
+                <ul>
+                    <li>Files were owned by root after package installation</li>
+                    <li>Splunk service account lacked write permissions</li>
+                </ul>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>17. Correct File Ownership</h2>
+
+                <p>Assign ownership of all Splunk files to the Splunk service account:</p>
+
+                <pre>sudo chown -R splunk:splunk /opt/splunk</pre>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk/17.png" alt=" Check previous image">
+                </div>
+
+                <div class="note">
+                    This grants the Splunk account full control over required application directories.
+                </div>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>18. Successful Startup</h2>
+
+                <p>Start Splunk again:</p>
+
+                <pre>sudo -u splunk /opt/splunk/bin/splunk start --accept-license</pre>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk/18.png" alt=" Check previous image">
+                </div>
+
+                <p>Create administrator credentials when prompted:</p>
+
+                <pre>
+Username: admin
+Password: ********</pre>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>19. Splunk Initialization Tasks</h2>
+
+                <p>During startup Splunk performs the following operations:</p>
+
+                <ul>
+                    <li>Certificate generation</li>
+                    <li>Directory creation</li>
+                    <li>Index validation</li>
+                    <li>Configuration validation</li>
+                    <li>Service initialization</li>
+                    <li>Web server startup</li>
+                </ul>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk/19.png" alt=" Check previous image">
+                </div>
+
+            </div>
+
+            <div class="step-section">
+
+                <h2>20. Successful Deployment Verification</h2>
+
+                <h3>Verify Startup Messages</h3>
+
+                <pre>Checking http port [8000]: open
+Checking mgmt port [8089]: open
+
+All preliminary checks passed.</pre>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk/20.png" alt="Startup verification">
+                </div>
+
+                <h3>Verify Web Interface</h3>
+
+                <div class="path">
+                    http://splunk-svr:8000 (splunk-svr = 10.10.100.17)
+                </div>
+
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk-images/24.jpg" alt="Splunk login page">
+                </div>
+
+                <h3>Expected Result</h3>
+
+                <pre>Splunk Web Login Page</pre>
+                <div class="image-placeholder">
+                    <img src="../../assets/images/splunk-images/25.jpg" alt="Splunk login page">
+                    <div class="image-placeholder">
+                        <img src="../../assets/images/splunk-images/26.jpg" alt="Splunk login page">
+                    </div>
+
+                </div>
+
+                <div class="step-section">
+
+                    <h2>21. Deployment Complete</h2>
+
+                    <p>The Splunk Enterprise server is now operational.</p>
+
+                    <table>
+                        <tr>
+                            <th>Component</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>Ubuntu Server</td>
+                            <td>Operational</td>
+                        </tr>
+                        <tr>
+                            <td>Splunk Enterprise</td>
+                            <td>Operational</td>
+                        </tr>
+                        <tr>
+                            <td>Web Interface</td>
+                            <td>Operational</td>
+                        </tr>
+                        <tr>
+                            <td>Management Port 8089</td>
+                            <td>Operational</td>
+                        </tr>
+                        <tr>
+                            <td>Static IP</td>
+                            <td>10.10.100.17</td>
+                        </tr>
+                        <tr>
+                            <td>Integration Configuration</td>
+                            <td>Pending</td>
+                        </tr>
+                    </table>
+
+                    <h3>Future Phases</h3>
+
+                    <ul>
+                        <li>Splunk initial configuration</li>
+                        <li>Index creation</li>
+                        <li>Data ingestion configuration</li>
+                        <li>Wazuh integration</li>
+                        <li>n8n automation integration</li>
+                        <li>SOC dashboard development</li>
+                    </ul>
+
+                    <div class="note">
+                        Splunk Enterprise has been successfully deployed on Ubuntu Server
+                        and is ready for data onboarding, security monitoring, and SOC
+                        development activities within JCAG-LAB.
+                    </div>
+
+                </div>
+
+                <div class="page-nav">
+
+                    <a class="btn btn-primary" href="../../index.html">
+                        ← Home
+                    </a>
+
+                </div>
+                <!--
+                <div class="footer">
+                    Splunk Enterprise Deployment Guide |
+                    SPLUNK-SVR (VM 107) |
+                    JCAG-LAB.local SOC Platform
+                </div>
+-->
+            </div>
+    </main>
+</body>
+
+</html>
