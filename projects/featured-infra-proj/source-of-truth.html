@@ -152,6 +152,67 @@
 
         </div>
 
+        <!-- HARDWARES -->
+
+        <section id="architecture" class="section">
+
+            <div class="portal-header">
+
+                <div class="portal-label">
+                    Hardwares
+                </div>
+
+                <h2 class="portal-title">
+                    Networking Devices & Enpoints
+                </h2>
+
+
+            </div>
+
+            <div class="architecture-grid">
+
+                <div class="arch-card">
+                    <img src="../../assets/images/feat-proj/cisco-router-switch.png" alt="cisco devices">
+
+                    <div class="arch-body">
+                        <h3>Cisco Networking Devices</h3>
+
+                        <p>
+                            Router and Switch.
+                        </p>
+
+                        <ul class="portal-list">
+                            <li>Cisco ISR 1941 (Layer 3 device)</li>
+                            <li>Cisco Catalyst 2960G Switch (Layer 2 device)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="arch-card">
+                    <img src="../../assets/images/feat-proj/endpoints.png" alt="endpoints">
+
+                    <div class="arch-body">
+                        <h3>Endpoint Devices</h3>
+
+                        <p>
+                            Hosts and Pheriperal Hardwares
+                        </p>
+
+                        <ul class="portal-list">
+                            <li>Lenovo IdeaPad 3 Laptop</li>
+                            <li>Apple macOS m1 Laptop</li>
+                            <li>Dell Inspiron 3650 Desktop</li>
+                            <li>HP All-in-One Light PC</li>
+                            <li>HP Envy Photo 7855 Printer</li>
+                            <li>2x External NIC Adapter</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
         <div class="step-section">
 
             <h2>Domain Information</h2>
@@ -175,22 +236,26 @@
 
             <table>
                 <tr>
+                    <th>Hostname</th>
                     <th>Component</th>
                     <th>Role</th>
                     <th>IP / Notes</th>
                 </tr>
                 <tr>
+                    <td>--</td>
                     <td>Home ISP Router</td>
                     <td>Internet Gateway</td>
                     <td>Upstream WAN</td>
                 </tr>
                 <tr>
+                    <td>FW</td>
                     <td>pfSense Firewall</td>
                     <td>Primary Gateway</td>
                     <td>10.10.255.1</td>
                 </tr>
                 <tr>
-                    <td>Cisco ISR 1941 (RTR-01)</td>
+                    <td>RTR-01</td>
+                    <td>Cisco ISR 1941 </td>
                     <td>Inter-VLAN Routing</td>
                     <td>10.10.255.2</td>
                 </tr>
@@ -204,18 +269,58 @@
 
             <table>
                 <tr>
-                    <th>Device</th>
-                    <th>Model</th>
+                    <th>Hostname</th>
+                    <th>Component</th>
                     <th>Role</th>
                 </tr>
                 <tr>
                     <td>SW-01</td>
-                    <td>Cisco Catalyst 2960G</td>
+                    <td>(SW-01) Cisco Catalyst 2960G</td>
                     <td>Layer 2 Switching / VLAN Trunking</td>
                 </tr>
             </table>
 
         </div>
+        <div class="step-section">
+
+            <h2>Endpoints</h2>
+
+            <table>
+                <tr>
+                    <th>Hostname</th>
+                    <th>Device</th>
+                    <th>IP</th>
+                    <th>Role</th>
+                </tr>
+                <tr>
+                    <td>WS-01</td>
+                    <td>Lenovo Windows 11</td>
+                    <td>10.10.10.19</td>
+                    <td>VLAN 10 Sales - Domain Endpoint</td>
+                </tr>
+                <tr>
+                    <td>SALES-VM01</td>
+                    <td>Windows 11 Pro VM</td>
+                    <td>via DHCP</td>
+                    <td>VLAN 10 Sales - Domain Endpoint</td>
+                </tr>
+                <tr>
+                    <td>--</td>
+                    <td>Kali Linux</td>
+                    <td>Dynamic</td>
+                    <td>Offensive Security</td>
+                </tr>
+                <tr>
+                    <td>WS-02</td>
+                    <td>macOS Host</td>
+                    <td>Dynamic</td>
+                    <td>VLAN 30 IT - Admin Workstation</td>
+                </tr>
+            </table>
+
+        </div>
+
+
 
         <div class="step-section">
 
@@ -260,81 +365,88 @@
 
         </div>
 
+
+
         <div class="step-section">
 
-            <h2>Compute Infrastructure</h2>
+            <h2>Hypervisors</h2>
 
             <table>
                 <tr>
-                    <th>Host</th>
+                    <th>Hostname</th>
+                    <th>Name / Type</th>
                     <th>IP</th>
                     <th>Role</th>
                 </tr>
                 <tr>
-                    <td>SVR-01 (Proxmox)</td>
+                    <td>SVR-01</td>
+                    <td>Proxmox VE (Type 1)</td>
                     <td>10.10.100.10</td>
-                    <td>Primary Hypervisor</td>
+                    <td>Services Primary Host</td>
                 </tr>
                 <tr>
-                    <td>Legacy Host</td>
-                    <td>DHCP</td>
-                    <td>Secondary Lab Host</td>
+                    <td>--</td>
+                    <td>VirtualBox (Type 2)</td>
+                    <td>--</td>
+                    <td>Windows 11 Pro VM Endpoint Host</td>
                 </tr>
             </table>
 
         </div>
 
+
         <div class="step-section">
 
-            <h2>Virtual Infrastructure (VLAN 100)</h2>
+            <h2>Virtual Server Infrastructure (VLAN 100)</h2>
 
             <table>
                 <tr>
+                    <th>Hostname</th>
                     <th>System</th>
-                    <th>IP</th>
-                    <th>Role</th>
+                    <th>IP Address</th>
+                    <th>Primary Role</th>
                 </tr>
 
                 <tr>
-                    <td>Windows Server 2019</td>
+                    <td>WIN-SVR</td>
+                    <td>Windows Server 201)</td>
                     <td>10.10.100.11</td>
-                    <td>AD / DNS / DHCP</td>
+                    <td>Active Directory, DNS, DHCP, SMB Services</td>
                 </tr>
 
                 <tr>
-                    <td>Peppermint</td>
+                    <td>PEPPERMINT-VM</td>
+                    <td>Peppermint ITSM Platform</td>
                     <td>10.10.100.12</td>
-                    <td>ITSM / Ticketing</td>
+                    <td>ITSM / Help Desk / Ticket Management</td>
                 </tr>
 
                 <tr>
+                    <td>CML</td>
                     <td>Cisco CML</td>
                     <td>10.10.100.13</td>
-                    <td>Network Simulation</td>
+                    <td>Network Simulation & Enterprise Topology Labs</td>
                 </tr>
 
-                <!-- ADDED SECTION -->
                 <tr>
                     <td>WEB-SVR</td>
+                    <td>Web Server</td>
                     <td>10.10.100.14</td>
-                    <td>
-                        Application Hosting / Security Testing Platform<br>
-                        <small>
-                            Java Backend (7000) • Java Frontend (8080) • Juice Shop (3000) • DVWA (8081)
-                        </small>
-                    </td>
+                    <td>Application Hosting & Security Testing Platform</td>
                 </tr>
 
                 <tr>
+                    <td>WAZUH-SVR</td>
                     <td>Wazuh SIEM</td>
                     <td>10.10.100.15</td>
-                    <td>Security Monitoring</td>
+                    <td>Security Monitoring, Log Analysis & Detection Engineering</td>
                 </tr>
 
                 <tr>
-                    <td>n8n</td>
+                    <td>N8N-SVR</td>
+                    <td>n8n Automation Server</td>
                     <td>10.10.100.16</td>
-                    <td>SOAR Automation</td>
+                    <td>SOAR Automation & Workflow Orchestration</td>
                 </tr>
 
             </table>
@@ -342,39 +454,266 @@
         </div>
 
 
-
         <div class="step-section">
 
-            <h2>Endpoints</h2>
+            <h2>Peppermint ITSM Platform (10.10.100.12)</h2>
+
+            <p>
+                Containerized IT Service Management (ITSM) platform used for incident tracking,
+                service request management, help desk operations, and automated ticket creation
+                workflows.
+            </p>
 
             <table>
                 <tr>
-                    <th>Device</th>
-                    <th>IP</th>
-                    <th>Role</th>
+                    <th>Field</th>
+                    <th>Value</th>
                 </tr>
+
                 <tr>
-                    <td>Windows 11 VM</td>
-                    <td>10.10.10.101</td>
-                    <td>Domain Endpoint</td>
+                    <td>Host</td>
+                    <td>Peppermint VM</td>
                 </tr>
+
                 <tr>
-                    <td>Kali Linux</td>
-                    <td>Dynamic</td>
-                    <td>Offensive Security</td>
+                    <td>Primary IP</td>
+                    <td>10.10.100.12</td>
                 </tr>
+
                 <tr>
-                    <td>macOS Host</td>
-                    <td>10.10.100.19</td>
-                    <td>Admin Workstation</td>
+                    <td>Frontend Port</td>
+                    <td>3000</td>
                 </tr>
+
+                <tr>
+                    <td>API Port</td>
+                    <td>5003</td>
+                </tr>
+
+                <tr>
+                    <td>Database</td>
+                    <td>PostgreSQL Container</td>
+                </tr>
+
+                <tr>
+                    <td>Role</td>
+                    <td>ITSM / Help Desk / Ticket Management</td>
+                </tr>
+
             </table>
+
+            <h3>Container Services</h3>
+
+            <table>
+                <tr>
+                    <th>Container</th>
+                    <th>Service</th>
+                    <th>Port</th>
+                    <th>Purpose</th>
+                </tr>
+
+                <tr>
+                    <td>peppermint</td>
+                    <td>Web UI</td>
+                    <td>3000</td>
+                    <td>Frontend User Interface</td>
+                </tr>
+
+                <tr>
+                    <td>peppermint</td>
+                    <td>API Services</td>
+                    <td>5003</td>
+                    <td>Backend Application Services</td>
+                </tr>
+
+                <tr>
+                    <td>peppermint_postgres</td>
+                    <td>PostgreSQL</td>
+                    <td>5432</td>
+                    <td>Database Backend</td>
+                </tr>
+
+                <tr>
+                    <td>peppermint_bridge</td>
+                    <td>Bridge API</td>
+                    <td>8080</td>
+                    <td>n8n Integration Layer</td>
+                </tr>
+
+            </table>
+
+            <h3>Primary Functions</h3>
+
+            <ul>
+                <li>User ticket management</li>
+                <li>Incident tracking</li>
+                <li>Service request management</li>
+                <li>Ticket lifecycle management</li>
+                <li>Integration target for automation workflows</li>
+            </ul>
+
+            <h3>Peppermint Bridge Architecture</h3>
+
+            <p>
+                The Peppermint Bridge service provides a simplified integration layer between
+                automation platforms and the Peppermint API.
+            </p>
+
+            <pre>
+Wazuh SIEM
+     │
+     ▼
+n8n Automation
+     │
+     ▼
+Peppermint Bridge (8080)
+     │
+     ▼
+Peppermint API (5003)
+     │
+     ▼
+PostgreSQL (5432)
+</pre>
+
+            <h3>Bridge Benefits</h3>
+
+            <ul>
+                <li>Removes authentication complexity from n8n</li>
+                <li>Centralizes API credentials</li>
+                <li>Simplifies workflow design</li>
+                <li>Enables automated ticket creation</li>
+                <li>Supports future integrations without exposing credentials</li>
+            </ul>
 
         </div>
 
         <div class="step-section">
 
-            <h2>Network Services</h2>
+            <h2>WEB-SVR (10.10.100.14)</h2>
+
+            <p>
+                Centralized application hosting and security testing platform supporting
+                custom applications and intentionally vulnerable environments.
+            </p>
+
+            <table>
+                <tr>
+                    <th>Application</th>
+                    <th>Port</th>
+                    <th>Type</th>
+                </tr>
+
+                <tr>
+                    <td>Java Web Application Backend</td>
+                    <td>7000</td>
+                    <td>VM Service</td>
+                </tr>
+
+                <tr>
+                    <td>Java Web Application Frontend</td>
+                    <td>8080</td>
+                    <td>VM Service</td>
+                </tr>
+
+                <tr>
+                    <td>OWASP Juice Shop</td>
+                    <td>3000</td>
+                    <td>Docker Container</td>
+                </tr>
+
+                <tr>
+                    <td>DVWA (Damn Vulnerable Web Application)</td>
+                    <td>8081</td>
+                    <td>Docker Container</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="step-section">
+
+            <h2>Wazuh SIEM Server (10.10.100.15)</h2>
+
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Port</th>
+                    <th>Purpose</th>
+                </tr>
+
+                <tr>
+                    <td>Wazuh API</td>
+                    <td>55000</td>
+                    <td>Management API</td>
+                </tr>
+
+                <tr>
+                    <td>Agent Communication</td>
+                    <td>1514</td>
+                    <td>Log Collection & Event Transport</td>
+                </tr>
+
+                <tr>
+                    <td>Agent Enrollment</td>
+                    <td>1515</td>
+                    <td>Agent Registration & Enrollment</td>
+                </tr>
+
+            </table>
+
+            <p>
+                Primary platform for security monitoring, log aggregation,
+                threat detection, alerting, and detection engineering activities.
+            </p>
+
+        </div>
+
+
+        <div class="step-section">
+
+            <h2>n8n Automation Server (10.10.100.16)</h2>
+
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+
+                <tr>
+                    <td>IP Address</td>
+                    <td>10.10.100.16</td>
+                </tr>
+
+                <tr>
+                    <td>Port</td>
+                    <td>5678</td>
+                </tr>
+
+                <tr>
+                    <td>Role</td>
+                    <td>Security Automation, Workflow Orchestration & Incident Response Automation</td>
+                </tr>
+
+            </table>
+
+            <h3>Primary Functions</h3>
+
+            <ul>
+                <li>Wazuh alert processing</li>
+                <li>Automated incident response workflows</li>
+                <li>Peppermint ticket creation automation</li>
+                <li>Email notification workflows</li>
+                <li>SOC process orchestration</li>
+            </ul>
+
+        </div>
+
+
+        <div class="step-section">
+
+            <h2>Security Response Automation Network Services</h2>
 
             <table>
                 <tr>
@@ -417,7 +756,7 @@
         </div>
 
         <div class="page-nav">
-            <a class="btn btn-secondary" href="../../index.html">← Home</a>
+            <a class="btn btn-primary" href="../../index.html">← Home</a>
 
         </div>
 
