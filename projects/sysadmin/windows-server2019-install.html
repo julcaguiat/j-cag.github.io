@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Server 2019 on Proxmox VE - Installation Guide</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <!--
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #38bdf8;
+            border-bottom: 3px solid #38bdf8;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #7dd3fc;
+            margin-top: 40px;
+            border-left: 4px solid #38bdf8;
+            padding-left: 12px;
+        }
+
+        h3 {
+            color: #93c5fd;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #334155;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1e293b;
+            color: #38bdf8;
+        }
+
+        pre {
+            background-color: #111827;
+            padding: 12px;
+            border-left: 4px solid #38bdf8;
+            overflow-x: auto;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+-->
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #334155;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1e293b;
+            color: #38bdf8;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+
+                WINDOWS SERVER 2019 DEPLOYMENT
+
+            </div>
+
+            <h1 class="hero-title">
+
+                Windows Server 2019 Installation on Proxmox VE
+
+            </h1>
+
+            <p>
+
+                Complete deployment and configuration guide for Windows Server 2019
+
+                within the JCAG-LAB environment. This server provides Active Directory,
+
+                DNS, DHCP, SMB services, and centralized identity management.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <main class="kb-content">
+
+        <div class="step-section">
+
+
+            <article class="documentation-content">
+
+                <h2>1. Objective</h2>
+
+                <p>
+                    Deploy Windows Server 2019 as a VM on Proxmox VE and configure it as a core infrastructure server.
+                </p>
+
+                <ul>
+                    <li>Active Directory Domain Services (AD DS)</li>
+                    <li>DNS Server</li>
+                    <li>DHCP Server</li>
+                    <li>SMB File Services</li>
+                </ul>
+
+                <table>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>VM ID</td>
+                        <td>101</td>
+                    </tr>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>WIN-SVR2019</td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>10.10.100.11</td>
+                    </tr>
+                    <tr>
+                        <td>Role</td>
+                        <td>Domain Controller / Core Infrastructure</td>
+                    </tr>
+                </table>
+
+                <h2>2. Tools & Requirements</h2>
+
+                <ul>
+                    <li>Proxmox VE installed and operational</li>
+                    <li>Windows Server 2019 ISO</li>
+                    <li>Proxmox Web UI access</li>
+                    <li>RDP Client for management</li>
+                </ul>
+
+                <h2>3. VM Resource Planning</h2>
+
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Minimum</th>
+                        <th>Recommended</th>
+                    </tr>
+                    <tr>
+                        <td>vCPU</td>
+                        <td>2 cores</td>
+                        <td>4 cores</td>
+                    </tr>
+                    <tr>
+                        <td>RAM</td>
+                        <td>4 GB</td>
+                        <td>8–16 GB</td>
+                    </tr>
+                    <tr>
+                        <td>Storage</td>
+                        <td>60 GB</td>
+                        <td>100 GB</td>
+                    </tr>
+                    <tr>
+                        <td>Network</td>
+                        <td>1 NIC (VLAN 100)</td>
+                        <td>1–2 NICs</td>
+                    </tr>
+                </table>
+
+                <h2>4. Download Windows Server 2019 ISO</h2>
+
+                <ol>
+                    <li>Download from Microsoft Evaluation Center</li>
+                    <li>Upload ISO to Proxmox storage</li>
+                </ol>
+
+                <div class="warning">
+                    Always verify ISO integrity before deployment.
+                </div>
+
+                <h2>5. Upload ISO to Proxmox</h2>
+
+                <pre>
+Datacenter → Storage → ISO Images → Upload
+</pre>
+
+                <h2>6. Create Virtual Machine (VM 101)</h2>
+
+                <h3>General Configuration</h3>
+                <ul>
+                    <li>Name: WIN-SVR2019</li>
+                    <li>VM ID: 101</li>
+                </ul>
+
+                <h3>OS Configuration</h3>
+                <ul>
+                    <li>Select Windows Server 2019 ISO</li>
+                    <li>Guest OS: Microsoft Windows</li>
+                </ul>
+
+                <h3>System Configuration</h3>
+                <ul>
+                    <li>BIOS: OVMF (UEFI)</li>
+                    <li>Machine: q35</li>
+                </ul>
+
+                <h3>CPU Configuration</h3>
+                <ul>
+                    <li>Type: host</li>
+                    <li>Cores: 2–4</li>
+                </ul>
+
+                <h3>Memory Configuration</h3>
+                <ul>
+                    <li>RAM: 8192 MB recommended</li>
+                </ul>
+
+                <h3>Disk Configuration</h3>
+                <ul>
+                    <li>Bus: VirtIO SCSI</li>
+                    <li>Size: 80–100 GB</li>
+                </ul>
+
+                <h3>Network Configuration</h3>
+                <ul>
+                    <li>Bridge: vmbr0</li>
+                    <li>VLAN: 100</li>
+                    <li>Model: VirtIO</li>
+                </ul>
+
+                <h2>7. Windows Server Installation</h2>
+
+                <ol>
+                    <li>Boot VM from ISO</li>
+                    <li>Select Install Now</li>
+                    <li>Choose Windows Server 2019 (Desktop Experience)</li>
+                    <li>Accept license</li>
+                    <li>Custom installation</li>
+                </ol>
+
+                <h2>8. Initial System Configuration</h2>
+
+                <h3>Rename Host</h3>
+                <pre>WIN-SVR2019</pre>
+
+                <h3>Static IP Configuration</h3>
+
+                <table>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>IP</td>
+                        <td>10.10.100.11</td>
+                    </tr>
+                    <tr>
+                        <td>Subnet</td>
+                        <td>255.255.255.0</td>
+                    </tr>
+                    <tr>
+                        <td>Gateway</td>
+                        <td>10.10.100.1</td>
+                    </tr>
+                    <tr>
+                        <td>DNS</td>
+                        <td>10.10.100.11</td>
+                    </tr>
+                </table>
+
+                <h3>PowerShell Commands</h3>
+                <pre>
+Rename-Computer -NewName "WIN-SVR2019"
+Restart-Computer
+</pre>
+
+                <h2>9. Install Core Roles</h2>
+
+                <pre>
+Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+Install-WindowsFeature DHCP -IncludeManagementTools
+</pre>
+
+                <pre>
+Install-ADDSForest -DomainName "jcag-lab.local" -InstallDNS
+</pre>
+
+                <h2>10. Post Configuration</h2>
+
+                <ul>
+                    <li>Create DHCP scopes</li>
+                    <li>Configure AD OUs</li>
+                    <li>Create admin accounts</li>
+                </ul>
+
+                <h2>11. Verification</h2>
+
+                <pre>
+ipconfig /all
+Get-ADDomain
+Get-Service DNS
+Get-Service DHCP
+</pre>
+
+                <h2>12. Summary</h2>
+
+                <p>
+                    This server is the core identity infrastructure for JCAG-LAB providing AD, DNS, DHCP, and SMB
+                    services.
+                </p>
+
+                <div class="warning">
+                    This is critical infrastructure and should be backed up regularly using Proxmox snapshots.
+                </div>
+
+        </div>
+
+        </article>
+
+        </div>
+
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">← Home</a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
