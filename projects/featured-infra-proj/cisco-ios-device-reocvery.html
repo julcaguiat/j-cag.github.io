@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cisco IOS Device Recovery (ROMMON) | SOC Lab</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                CISCO NETWORK OPERATIONS LAB
+            </div>
+
+            <h1 class="hero-title">
+                Cisco IOS Device Recovery & Configuration Restoration (ROMMON)
+            </h1>
+
+            <p>
+                Technical recovery procedure for Cisco IOS devices using ROMMON mode.
+                This lab simulates real-world scenarios involving misconfigured routers,
+                password recovery, and configuration restoration in enterprise environments.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+            <h2>Overview</h2>
+            <p>
+                This procedure demonstrates Cisco IOS recovery using ROMMON mode to restore access to a misconfigured
+                or locked network device. It is commonly used in enterprise environments when devices become
+                inaccessible
+                due to configuration errors or credential loss.
+            </p>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step-section">
+            <h2>Step 1 — Interrupt Boot Process (ROMMON Access)</h2>
+
+            <ul>
+                <li>Power on the Cisco device</li>
+                <li>Interrupt boot sequence (Ctrl + Break / ESC depending on platform)</li>
+                <li>Enter ROMMON prompt</li>
+            </ul>
+
+            <div class="note">
+                ROMMON mode provides low-level access to boot and recovery functions.
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-section">
+            <h2>Step 2 — Modify Configuration Register</h2>
+
+            <p>Set device to ignore startup configuration:</p>
+
+            <pre><code>confreg 0x2142
+ reset</code></pre>
+
+            <figure>
+                <img src="../../assets/images/cisco-ios-recovery/1.png" alt="ROMMON Configuration Register">
+            </figure>
+
+            <div class="warning">
+                This forces the device to boot without loading the saved startup configuration.
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-section">
+            <h2>Step 3 — Boot Without Startup Config</h2>
+
+            <ul>
+                <li>Device boots into default configuration state</li>
+                <li>Startup configuration is ignored</li>
+                <li>Initial setup prompt appears</li>
+            </ul>
+
+            <pre><code>no</code></pre>
+
+            <figure>
+                <img src="../../assets/images/cisco-ios-recovery/2.png" alt="Initial Setup Prompt">
+            </figure>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-section">
+            <h2>Step 4 — Enter Privileged EXEC Mode</h2>
+
+            <pre><code>enable</code></pre>
+
+            <figure>
+                <img src="../../assets/images/cisco-ios-recovery/3.png" alt="Enable Mode">
+            </figure>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step-section">
+            <h2>Step 5 — Restore Startup Configuration</h2>
+
+            <pre><code>copy startup-config running-config</code></pre>
+
+            <figure>
+                <img src="../../assets/images/cisco-ios-recovery/4.png" alt="Restore Startup Config">
+            </figure>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="step-section">
+            <h2>Step 6 — Restore Enable Secret</h2>
+
+            <pre><code>conf t
+ enable secret &lt;new-password&gt;
+ end
+ write memory</code></pre>
+
+            <figure>
+                <img src="../../assets/images/cisco-ios-recovery/5.png" alt="Enable Secret Configuration">
+            </figure>
+
+            <div class="note">
+                Ensure secure password policies are applied when redefining privileged access credentials.
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="step-section">
+            <h2>Step 7 — Restore Normal Boot Behavior</h2>
+
+            <pre><code>conf t
+ config-register 0x2102
+ end
+ write memory
+ reload</code></pre>
+
+            <figure>
+                <img src="../../assets/images/cisco-ios-recovery/6.png" alt="Config Register Restore">
+            </figure>
+
+            <div class="warning">
+                This step ensures the device resumes normal boot behavior and loads startup configuration on reboot.
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="step-section">
+            <h2>Summary</h2>
+
+            <p>
+                This procedure simulates a real-world infrastructure recovery scenario where a Cisco IOS device becomes
+                inaccessible due to configuration or credential issues. ROMMON-based recovery ensures controlled
+                restoration
+                of service while maintaining configuration integrity.
+            </p>
+        </div>
+
+        <!-- NAV -->
+        <div class="page-nav">
+            <a class="btn btn-primary" href="../../index.html">← Home</a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>
