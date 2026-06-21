@@ -778,7 +778,7 @@ img {
 ========================================= */
 
 .kb-group {
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 /* clickable section header */
@@ -826,6 +826,62 @@ img {
 /* hide default marker */
 .kb-group summary::-webkit-details-marker {
   display: none;
+}
+
+/* =========================================
+   SUBGROUPS (Phase Deployments etc.)
+========================================= */
+
+.kb-subgroup {
+  margin-top: 6px;
+}
+
+/* sub-group header */
+.kb-subgroup > summary {
+  cursor: pointer;
+
+  padding: 8px 10px;
+  border-radius: 8px;
+
+  font-size: 0.85rem;
+  /*
+  color:#c9d1d9; 
+  */
+  color: #ffffff;
+  transition: 0.2s ease;
+}
+
+.kb-subgroup > summary:hover {
+  background: #161b22;
+  color: #58a6ff;
+}
+
+/* sub-links container */
+.kb-subnav {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 14px;
+  margin-top: 6px;
+
+  padding-left: 10px;
+  border-left: 1px dashed #30363d;
+}
+
+.kb-subnav a {
+  font-size: 0.88rem;
+  color: #aeb7c2;
+
+  padding: 6px 10px;
+  border-radius: 6px;
+
+  transition: 0.2s ease;
+}
+
+.kb-subnav a:hover {
+  background: #161b22;
+  color: #58a6ff;
+  padding-left: 14px;
 }
 
 /* =========================================
@@ -916,6 +972,24 @@ img {
   background: #161b22;
   color: #58a6ff;
   padding-left: 14px;
+}
+
+/* =========================
+   SIDEBAR SEPARATED BY '/'
+========================= */
+
+.protocol-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.protocol-links a {
+  text-decoration: none;
+}
+
+.protocol-links span {
+  color: #888;
 }
 
 /* =========================================
@@ -1138,24 +1212,6 @@ img {
   .ops-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* =========================
-   SIDEBAR SEPARATED BY '/'
-========================= */
-
-.protocol-links {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.protocol-links a {
-  text-decoration: none;
-}
-
-.protocol-links span {
-  color: #888;
 }
 
 /* =========================

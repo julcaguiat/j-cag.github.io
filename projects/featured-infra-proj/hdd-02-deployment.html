@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cisco IOS Device Recovery (ROMMON) | SOC Lab</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                PROXMOX STORAGE MANAGEMENT
+            </div>
+
+            <h1 class="hero-title">
+                3-Tier Storage Architecture (HDD-02 Backup Storage Deployment)
+            </h1>
+
+            <p>
+                Design and implementation of a multi-tier storage architecture
+                within JCAG-LAB. This deployment introduces dedicated backup
+                storage (Tier 2) for VM recovery operations while maintaining
+                separation between production workloads and backup repositories.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                The JCAG-LAB storage architecture is divided into multiple functional
+                tiers to separate performance workloads, general-purpose VM storage,
+                and backup repositories.
+            </p>
+
+        </div>
+        <!-- STEPS -->
+        <div class="step-section">
+
+            <h2>Storage Architecture</h2>
+
+            <table>
+
+                <tr>
+                    <th>Tier</th>
+                    <th>Storage</th>
+                    <th>Purpose</th>
+                </tr>
+
+                <tr>
+                    <td>Tier 0</td>
+                    <td>SSD (local-lvm)</td>
+                    <td>Performance-Critical Workloads</td>
+                </tr>
+
+                <tr>
+                    <td>Tier 1</td>
+                    <td>HDD-01 (local-lvm-hdd-01)</td>
+                    <td>General Purpose VM Storage</td>
+                </tr>
+
+                <tr>
+                    <td>Tier 2</td>
+                    <td>HDD-02 (Directory Storage)</td>
+                    <td>Backup Repository (VZDump)</td>
+                </tr>
+
+                <tr>
+                    <td>Tier 3</td>
+                    <td>Future NAS</td>
+                    <td>Centralized Backup Expansion</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <!-- TIER 0 -->
+        <div class="step-section">
+
+            <h2>Tier 0 — SSD Storage (local-lvm)</h2>
+
+            <p>
+                High-performance storage reserved for latency-sensitive workloads.
+            </p>
+
+            <h3>Use Cases</h3>
+
+            <ul>
+                <li>Windows Server 2019 (AD DS, DNS, DHCP)</li>
+                <li>Wazuh SIEM</li>
+                <li>Sysmon Telemetry Collection</li>
+                <li>n8n Automation Services</li>
+                <li>API Services</li>
+            </ul>
+
+        </div>
+
+        <!-- TIER 1 -->
+
+        <div class="step-section">
+
+            <h2>Tier 1 — HDD Capacity Storage (local-lvm-hdd-01)</h2>
+
+            <p>
+                General-purpose storage pool used for lab workloads and
+                non-critical virtual machines.
+            </p>
+
+            <h3>Characteristics</h3>
+
+            <ul>
+                <li>Large storage capacity</li>
+                <li>Thin provisioning enabled</li>
+                <li>Lower performance than SSD storage</li>
+            </ul>
+
+        </div>
+        <!-- TIER 2 -->
+        <div class="step-section">
+
+            <h2>Tier 2 — Backup Storage (HDD-02)</h2>
+
+            <p>
+                Dedicated recovery storage used exclusively for backup
+                repositories and restore operations.
+            </p>
+
+            <h3>Purpose</h3>
+
+            <ul>
+                <li>Proxmox VZDump backups</li>
+                <li>Recovery checkpoints</li>
+                <li>Restore testing</li>
+                <li>Break/Fix validation</li>
+            </ul>
+
+        </div>
+
+        <!-- DESIGN RULES -->
+        <div class="step-section">
+
+            <h2>Key Design Rules</h2>
+
+            <ul>
+
+                <li>Snapshots are not backups.</li>
+
+                <li>Backups must be stored on Tier 2 storage.</li>
+
+                <li>Tier 0 is reserved for performance-critical workloads.</li>
+
+                <li>Tier 1 may be thin provisioned.</li>
+
+                <li>Tier 2 must remain isolated from VM storage pools.</li>
+
+                <li>Tier 2 must not use LVM-Thin.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- DESIGN RULES -->
+        <div class="step-section">
+
+            <h2>Key Design Rules</h2>
+
+            <ul>
+
+                <li>Snapshots are not backups.</li>
+
+                <li>Backups must be stored on Tier 2 storage.</li>
+
+                <li>Tier 0 is reserved for performance-critical workloads.</li>
+
+                <li>Tier 1 may be thin provisioned.</li>
+
+                <li>Tier 2 must remain isolated from VM storage pools.</li>
+
+                <li>Tier 2 must not use LVM-Thin.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- TECHNICAL PROCEURE STEP 1 -->
+
+        <div class="step-section">
+
+            <h2>Step 1 — Identify Available Storage Device</h2>
+
+            <p>Review existing storage devices.</p>
+
+            <pre><code>pvesm status
+ lsblk</code></pre>
+
+            <p>
+                Identify the unused storage device that will become HDD-02.
+                Example:
+            </p>
+
+            <pre><code>/dev/sdc</code></pre>
+
+            <figure>
+                <img src="../../assets/images/hdd-02-deployment-png/1.jpg" alt="Identify Unused Disk">
+            </figure>
+
+        </div>
+
+        <!-- TECHNICAL PROCEURE STEP 2 -->
+        <div class="step-section">
+
+            <h2>Step 2 — Create Partition</h2>
+
+            <pre><code>fdisk /dev/sdc</code></pre>
+
+            <p>Create a primary partition:</p>
+
+            <pre><code>m</code></pre>
+            <img src="../../assets/images/hdd-02-deployment-png/2.jpg" alt="FDISK Partition Creation">
+            <code><pre>n
+ p
+ 1
+ ENTER
+ ENTER
+ Y
+ w</code></pre>
+
+            <figure>
+                <img src="../../assets/images/hdd-02-deployment-png/3.jpg" alt="FDISK Partition Creation">
+            </figure>
+
+        </div>
+
+        <!-- TECHNICAL PROCEURE STEP 3 -->
+        <div class="step-section">
+
+            <h2>Step 3 — Verify Partition</h2>
+
+            <pre><code>lsblk</code></pre>
+
+            <p>Expected result:</p>
+
+            <pre><code>/dev/sdc1</code></pre>
+
+            <figure>
+                <img src="../../assets/images/hdd-02-deployment-png/4.jpg" alt="Verify Partition">
+            </figure>
+
+        </div>
+
+        <!-- TECHNICAL PROCEURE STEP 4 -->
+        <div class="step-section">
+
+            <h2>Step 4 — Format Filesystem</h2>
+
+            <pre><code>mkfs.ext4 /dev/sdc1</code></pre>
+
+            <figure>
+                <img src="../../assets/images/proxmox-storage/4.jpg" alt=" Check previous image">
+            </figure>
+
+        </div>
+
+
+        <!-- TECHNICAL PROCEURE STEP 5 -->
+        <div class="step-section">
+
+            <h2>Step 5 — Create Mount Point</h2>
+
+            <pre><code>mkdir /mnt/hdd-02</code></pre>
+
+            <figure>
+                <img src="../../assets/images/proxmox-storage/5.jpg" alt=" Check previous image">
+            </figure>
+
+        </div>
+
+        <!-- TECHNICAL PROCEURE STEP 6 -->
+        <div class="step-section">
+
+            <h2>Step 6 — Mount Storage and Configure Persistence</h2>
+
+            <pre><code>mount /dev/sdc1 /mnt/hdd-02</code></pre>
+
+            <figure>
+                <img src="../../assets/images/proxmox-storage/5.jpg" alt=" Check previous image">
+            </figure>
+
+            <p>Edit fstab:</p>
+
+            <pre><code>nano /etc/fstab</code></pre>
+
+            <figure>
+                <img src="../../assets/images/proxmox-storage/6.jpg" alt=" Check previous image">
+            </figure>
+
+            <p>Add:</p>
+
+            <pre><code>/dev/sdc1  /mnt/hdd-02  ext4  defaults  0  2</code></pre>
+
+            <figure>
+                <img src="../../assets/images/hdd-02-deployment-png/5.jpg" alt="FSTAB Entry">
+            </figure>
+
+        </div>
+
+        <!-- TECHNICAL PROCEURE STEP 7 -->
+        <div class="step-section">
+
+            <h2>Step 7 — Add Storage to Proxmox</h2>
+
+            <p>Navigate to:</p>
+
+            <pre><code>Datacenter → Storage → Add → Directory</code></pre>
+
+            <table>
+
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                </tr>
+
+                <tr>
+                    <td>ID</td>
+                    <td>hdd-02-backup</td>
+                </tr>
+
+                <tr>
+                    <td>Directory</td>
+                    <td>/mnt/hdd-02</td>
+                </tr>
+
+                <tr>
+                    <td>Content</td>
+                    <td>Backup</td>
+                </tr>
+
+                <tr>
+                    <td>Nodes</td>
+                    <td>SVR-01</td>
+                </tr>
+
+            </table>
+
+            <figure>
+                <img src="../../assets/images/hdd-02-deployment-png/6.jpg" alt="Add Storage Directory">
+            </figure>
+
+        </div>
+
+        <!-- TECHNICAL PROCEURE STEP 8 -->
+        <div class="step-section">
+
+            <h2>Step 8 — Verify Storage</h2>
+
+            <pre><code>pvesm status</code></pre>
+
+            <p>Expected result:</p>
+
+            <ul>
+                <li>Storage appears as active</li>
+                <li>hdd-02-backup is available</li>
+            </ul>
+
+            <figure>
+                <img src="../../assets/images/hdd-02-deployment-png/7.jpg" alt="Storage Verification">
+            </figure>
+
+        </div>
+
+        <!-- FINAL LAYOUT SECTION -->
+        <div class="step-section">
+
+            <h2>Final Storage Layout</h2>
+
+            <pre><code>Tier 0  → SSD Storage (local-lvm)
+
+Tier 1  → HDD-01 (local-lvm-hdd-01)
+
+Tier 2  → HDD-02 Backup Storage
+           (hdd-02-backup)
+
+Tier 3  → Future NAS Expansion</code></pre>
+
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="step-section">
+
+            <h2>Summary</h2>
+
+            <p>
+                HDD-02 has been deployed as dedicated backup storage within the
+                JCAG-LAB Proxmox environment. The storage architecture now
+                separates production workloads, general-purpose virtual machines,
+                and recovery repositories into independent tiers, improving
+                operational resilience and recovery readiness.
+            </p>
+
+        </div>
+
+
+        <!-- NAV -->
+        <div class="page-nav">
+            <a class="btn btn-primary" href="../../index.html">← Home</a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>
