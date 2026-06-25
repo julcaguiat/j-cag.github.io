@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Linux Networking & Connectivity Troubleshooting | JCAG-LAB</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <style>
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 35px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #30363d;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #161b22;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .note {
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                LINUX ADMINISTRATION
+            </div>
+
+            <h1 class="hero-title">
+                Module 5: Linux Process & Service Troubleshooting
+
+            </h1>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+
+
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+            <h2>Overview</h2>
+            <p>
+                Processes and services are the foundation of Linux system operations. Every application, daemon,
+                background task,
+                and system function executes as one or more processes. When users report application failures,
+                performance degradation,
+                service outages, or server instability, Linux administrators must be able to identify, analyze, and
+                resolve
+                process-related issues efficiently.
+            </p>
+            <p>
+                This module focuses on process management, service administration, resource analysis, systemd
+                troubleshooting,
+                performance diagnostics, and common operational scenarios encountered in enterprise Linux environments.
+            </p>
+        </div>
+        <!-- LEARNING OBJECTIVES -->
+        <div class="step-section">
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Understand Linux process architecture.</li>
+                <li>Monitor running processes.</li>
+                <li>Identify resource-intensive processes.</li>
+                <li>Manage process lifecycles.</li>
+                <li>Troubleshoot failed services.</li>
+                <li>Analyze systemd service states.</li>
+                <li>Investigate startup failures.</li>
+                <li>Diagnose CPU, memory, and process-related issues.</li>
+                <li>Examine service dependencies.</li>
+                <li>Apply structured troubleshooting methodologies.</li>
+            </ul>
+        </div>
+        <!-- UNDERSTANDING PROCESSES -->
+        <div class="step-section">
+            <h2>Understanding Linux Processes</h2>
+            <p>
+                A process is an executing instance of a program. Every process is assigned a unique Process ID (PID).
+            </p>
+            <p>
+                Examples:
+            </p>
+            <ul>
+                <li>nginx → Web server process</li>
+                <li>sshd → SSH daemon</li>
+                <li>systemd → System initialization process</li>
+                <li>wazuh-manager → Security monitoring service</li>
+                <li>mysql → Database service</li>
+            </ul>
+        </div>
+        <!-- PROCESS HIERARCHY -->
+        <div class="step-section">
+            <h2>Process Hierarchy</h2>
+            <p>
+                Linux processes operate in a parent-child structure.
+            </p>
+            <p>Example process tree:</p>
+            <pre><code>systemd
+
+├─sshd
+│ └─bash
+├─cron
+├─nginx
+└─wazuh-manager
+
+</div>
+<!-- PROCESS STATES -->
+<div class="step-section">
+<h2>Process States</h2>
+<table>
+    <tr>
+        <th>State</th>
+        <th>Meaning</th>
+    </tr>
+    <tr>
+        <td>R</td>
+        <td>Running</td>
+    </tr>
+    <tr>
+        <td>S</td>
+        <td>Sleeping</td>
+    </tr>
+    <tr>
+        <td>D</td>
+        <td>Uninterruptible sleep</td>
+    </tr>
+    <tr>
+        <td>T</td>
+        <td>Stopped</td>
+    </tr>
+    <tr>
+        <td>Z</td>
+        <td>Zombie</td>
+    </tr>
+    <tr>
+        <td>I</td>
+        <td>Idle kernel process</td>
+    </tr>
+</table>
+</div>
+<!-- VIEWING PROCESSES -->
+<div class="step-section">
+<h2>Viewing Running Processes</h2>
+<ul>
+    <li>ps aux → list all processes</li>
+    <li>ps -ef → detailed process listing</li>
+    <li>ps aux | grep nginx → filter specific process</li>
+</ul>
+</div>
+<!-- REAL TIME MONITORING -->
+<div class="step-section">
+<h2>Real-Time Process Monitoring</h2>
+<p>
+    top and htop are used for live monitoring of CPU, memory, and process behavior.
+</p>
+<ul>
+    <li>top → built-in system monitor</li>
+    <li>htop → interactive enhanced monitor</li>
+</ul>
+</div>
+<!-- CPU AND MEMORY ANALYSIS -->
+<div class="step-section">
+<h2>Resource Usage Analysis</h2>
+<p>Sort processes by CPU:</p>
+<p>ps aux --sort=-%cpu | head</p>
+<p>Sort processes by memory:</p>
+<p>ps aux --sort=-%mem | head</p>
+<p>Check system memory:</p>
+<p>free -h</p>
+<p>Check load average:</p>
+<p>uptime</p>
+</div>
+<!-- PROCESS CONTROL -->
+<div class="step-section">
+<h2>Process Control</h2>
+<ul>
+    <li>kill PID → terminate process</li>
+    <li>kill -9 PID → force kill</li>
+    <li>pkill nginx → kill by name</li>
+    <li>killall nginx → terminate all matching processes</li>
+    <li>nice -n 10 command → lower priority execution</li>
+    <li>renice PID → change priority of running process</li>
+</ul>
+</div>
+<!-- SYSTEMD INTRO -->
+<div class="step-section">
+<h2>Understanding systemd</h2>
+<p>
+    systemd is the service manager responsible for starting, stopping, and managing services in modern Linux systems.
+</p>
+<ul>
+    <li>systemctl status service → check service state</li>
+    <li>systemctl start service → start service</li>
+    <li>systemctl stop service → stop service</li>
+    <li>systemctl restart service → restart service</li>
+    <li>systemctl reload service → reload configuration</li>
+    <li>systemctl enable service → start at boot</li>
+    <li>systemctl disable service → disable at boot</li>
+</ul>
+</div>
+
+<!-- STARTING SERVICES -->
+<div class="step-section">
+<h2>Starting Services</h2>
+<pre><code>sudo systemctl start nginx</code></pre>
+        </div>
+        <!-- STOPPING SERVICES -->
+        <div class="step-section">
+            <h2>Stopping Services</h2>
+            <pre><code>sudo systemctl stop nginx</code></pre>
+        </div>
+        <!-- RESTARTING SERVICES -->
+        <div class="step-section">
+            <h2>Restarting Services</h2>
+            <pre><code>sudo systemctl restart nginx</code></pre>
+        </div>
+        <!-- RELOADING CONFIGURATION -->
+        <div class="step-section">
+            <h2>Reloading Configuration</h2>
+            <pre><code>sudo systemctl reload nginx</code></pre>
+        </div>
+        <!-- ENABLE SERVICE -->
+        <div class="step-section">
+            <h2>Enable Service at Boot</h2>
+            <pre><code>sudo systemctl enable nginx</code></pre>
+        </div>
+        <!-- DISABLE SERVICE -->
+        <div class="step-section">
+            <h2>Disable Service at Boot</h2>
+            <pre><code>sudo systemctl disable nginx</code></pre>
+        </div>
+        <!-- FAILED SERVICES -->
+        <div class="step-section">
+            <h2>Investigating Failed Services</h2>
+            <h3>Check Status</h3>
+            <pre><code>systemctl status nginx</code></pre>
+            <p>Example:</p>
+            <pre><code>Active: failed</code></pre>
+            <h3>Review Service Logs</h3>
+            <pre><code>journalctl -u nginx</code></pre>
+            <h3>Recent Logs</h3>
+            <pre><code>journalctl -u nginx -n 50</code></pre>
+            <h3>View Errors Only</h3>
+            <pre><code>journalctl -p err</code></pre>
+        </div>
+        <!-- SERVICE DEPENDENCIES -->
+        <div class="step-section">
+            <h2>Service Dependency Analysis</h2>
+            <p>
+                Some services depend on other services or targets before they can start successfully.
+            </p>
+            <h3>Display Dependencies</h3>
+            <pre><code>systemctl list-dependencies nginx</code></pre>
+            <p>Example:</p>
+            <pre><code>network.target
+
+syslog.target
+
+</div>
+<!-- STARTUP SERVICES -->
+<div class="step-section">
+<h2>Viewing Startup Services</h2>
+<pre><code>systemctl list-unit-files --type=service</code></pre>
+        </div>
+        <!-- BOOT TROUBLESHOOTING -->
+        <div class="step-section">
+            <h2>Boot Troubleshooting</h2>
+            <h3>Current Boot Logs</h3>
+            <pre><code>journalctl -b</code></pre>
+            <h3>Previous Boot Logs</h3>
+            <pre><code>journalctl -b -1</code></pre>
+            <h3>Boot Performance</h3>
+            <pre><code>systemd-analyze</code></pre>
+            <p>Example:</p>
+            <pre><code>Startup finished in 3.2s</code></pre>
+            <h3>Identify Slow Services</h3>
+            <pre><code>systemd-analyze blame</code></pre>
+            <p>Example:</p>
+            <pre><code>12.4s network-online.target
+
+8.1s mysql.service
+
+</div>
+<!-- RESOURCE MONITORING -->
+<div class="step-section">
+<h2>Monitoring Resource Consumption</h2>
+<h3>CPU Statistics</h3>
+<pre><code>mpstat</code></pre>
+            <p>Install:</p>
+            <pre><code>sudo apt install sysstat</code></pre>
+            <h3>Memory Statistics</h3>
+            <pre><code>vmstat</code></pre>
+            <h3>I/O Statistics</h3>
+            <pre><code>iostat</code></pre>
+            <h3>Combined Monitoring</h3>
+            <pre><code>sar</code></pre>
+        </div>
+        <!-- ZOMBIE PROCESSES -->
+        <div class="step-section">
+            <h2>Identifying Zombie Processes</h2>
+            <h3>Display Zombies</h3>
+            <pre><code>ps aux | grep Z</code></pre>
+            <p>Example:</p>
+            <pre><code>STAT Z</code></pre>
+            <h3>Process Tree Investigation</h3>
+            <pre><code>pstree -p</code></pre>
+            <p>
+                Locate the parent process and determine why it has not cleaned up the child process.
+            </p>
+        </div>
+        <!-- HUNG PROCESSES -->
+        <div class="step-section">
+            <h2>Investigating Hung Processes</h2>
+            <p>
+                Processes in state <code>D</code> are in uninterruptible sleep and are typically waiting
+                for hardware or storage operations to complete.
+            </p>
+            <h3>Check for Hung Processes</h3>
+            <pre><code>ps aux | grep D</code></pre>
+            <p>Common causes:</p>
+            <ul>
+                <li>Storage failures</li>
+                <li>NFS issues</li>
+                <li>Disk latency</li>
+                <li>Hardware problems</li>
+            </ul>
+        </div>
+        <!-- PORT VERIFICATION -->
+        <div class="step-section">
+            <h2>Application Port Verification</h2>
+            <h3>Check Listening Ports</h3>
+            <pre><code>ss -tulpn</code></pre>
+            <p>Example:</p>
+            <pre><code>tcp LISTEN 0.0.0.0:443</code></pre>
+            <h3>Verify Specific Service Port</h3>
+            <pre><code>ss -tulpn | grep nginx</code></pre>
+        </div>
+        <!-- FILE HANDLE INVESTIGATION -->
+        <div class="step-section">
+            <h2>File Handle Investigation</h2>
+            <h3>Display Open Files</h3>
+            <pre><code>lsof</code></pre>
+            <h3>Specific Process</h3>
+            <pre><code>lsof -p PID</code></pre>
+            <p>Example:</p>
+            <pre><code>lsof -p 4521</code></pre>
+            <h3>Port Usage</h3>
+            <pre><code>lsof -i :443</code></pre>
+        </div>
+        <!-- TROUBLESHOOTING WORKFLOW -->
+        <div class="step-section">
+            <h2>Common Troubleshooting Workflow</h2>
+            <h3>Service Not Running</h3>
+            <ol>
+                <li>systemctl status service</li>
+                <li>journalctl -u service</li>
+                <li>ss -tulpn</li>
+                <li>ps aux | grep service</li>
+            </ol>
+            <h3>High CPU Usage</h3>
+            <ol>
+                <li>top</li>
+                <li>ps aux --sort=-%cpu</li>
+                <li>Investigate process before termination</li>
+            </ol>
+            <h3>High Memory Usage</h3>
+            <ol>
+                <li>free -h</li>
+                <li>ps aux --sort=-%mem</li>
+                <li>vmstat</li>
+            </ol>
+            <h3>Application Unresponsive</h3>
+            <ol>
+                <li>ps aux</li>
+                <li>systemctl status</li>
+                <li>journalctl -xe</li>
+                <li>ss -tulpn</li>
+            </ol>
+        </div>
+        <!-- ENTERPRISE EXAMPLES -->
+        <div class="step-section">
+            <h2>Enterprise Troubleshooting Examples</h2>
+            <h3>Scenario 1 – NGINX Will Not Start</h3>
+            <p>Verify:</p>
+            <pre><code>systemctl status nginx</code></pre>
+            <p>Check logs:</p>
+            <pre><code>journalctl -u nginx</code></pre>
+            <p>Test configuration:</p>
+            <pre><code>nginx -t</code></pre>
+            <p>Common causes:</p>
+            <ul>
+                <li>Invalid configuration</li>
+                <li>Port conflict</li>
+                <li>Missing permissions</li>
+            </ul>
+            <h3>Scenario 2 – Wazuh Manager Offline</h3>
+            <pre><code>systemctl status wazuh-manager
+
+journalctl -u wazuh-manager
+ss -tulpn
+free -h
+
+<h3>Scenario 3 – High CPU Alert</h3>
+<pre><code>top
+
+ps aux –sort=-%cpu
+lsof -p PID
+
+<h3>Scenario 4 – Service Starts Then Stops</h3>
+<pre><code>journalctl -u service
+
+systemctl list-dependencies service
+ls -l
+
+</div>
+<!-- PRACTICAL EXERCISES -->
+<div class="step-section">
+<h2>Practical Exercises</h2>
+<h3>Exercise 1 – Process Investigation</h3>
+<pre><code>ps aux --sort=-%cpu | head
+
+ps aux –sort=-%mem | head
+
+<h3>Exercise 2 – Service Administration</h3>
+<pre><code>sudo apt install nginx -y
+
+systemctl status nginx
+sudo systemctl restart nginx
+
+<h3>Exercise 3 – Log Analysis</h3>
+<pre><code>journalctl -u nginx
+
+journalctl -p err
+
+<h3>Exercise 4 – Port Verification</h3>
+<pre><code>ss -tulpn
+
+lsof -i :80
+
+</div>
+<!-- CHECKLIST -->
+<div class="step-section">
+<h2>Process &amp; Service Troubleshooting Checklist</h2>
+<table>
+    <tr>
+        <th>Task</th>
+        <th>Command</th>
+    </tr>
+    <tr>
+        <td>View processes</td>
+        <td>ps aux</td>
+    </tr>
+    <tr>
+        <td>Real-time monitoring</td>
+        <td>top</td>
+    </tr>
+    <tr>
+        <td>Interactive monitoring</td>
+        <td>htop</td>
+    </tr>
+    <tr>
+        <td>Process tree</td>
+        <td>pstree</td>
+    </tr>
+    <tr>
+        <td>Kill process</td>
+        <td>kill</td>
+    </tr>
+    <tr>
+        <td>Terminate by name</td>
+        <td>pkill</td>
+    </tr>
+    <tr>
+        <td>Service status</td>
+        <td>systemctl status</td>
+    </tr>
+    <tr>
+        <td>Start service</td>
+        <td>systemctl start</td>
+    </tr>
+    <tr>
+        <td>Restart service</td>
+        <td>systemctl restart</td>
+    </tr>
+    <tr>
+        <td>Service logs</td>
+        <td>journalctl -u</td>
+    </tr>
+    <tr>
+        <td>Boot logs</td>
+        <td>journalctl -b</td>
+    </tr>
+    <tr>
+        <td>Open files</td>
+        <td>lsof</td>
+    </tr>
+    <tr>
+        <td>Listening ports</td>
+        <td>ss -tulpn</td>
+    </tr>
+    <tr>
+        <td>Boot analysis</td>
+        <td>systemd-analyze</td>
+    </tr>
+</table>
+</div>
+<!-- KEY TAKEAWAYS -->
+<div class="step-section">
+<h2>Key Takeaways</h2>
+<ul>
+    <li>Every application and daemon running on Linux operates as a process.</li>
+    <li>ps, top, htop, and pstree are fundamental process analysis tools.</li>
+    <li>High CPU and memory consumption should be investigated systematically.</li>
+    <li>Services are managed through systemd and monitored using systemctl.</li>
+    <li>journalctl is the primary source for service troubleshooting.</li>
+    <li>Port verification and file handle analysis are critical for diagnosing application failures.</li>
+    <li>Boot performance and dependency analysis assist with startup troubleshooting.</li>
+    <li>A structured troubleshooting methodology significantly reduces mean time to resolution (MTTR).</li>
+    <li>Process and service troubleshooting skills are essential for Linux administrators, NOC engineers, SOC analysts, systems engineers, and infrastructure support personnel.</li>
+</ul>
+</div>
+<!-- MODULE COMPLETION OUTCOME -->
+<div class="step-section">
+<h2>Module Completion Outcome</h2>
+<p>
+    At the completion of Module 5: Capable of monitoring Linux processes,
+    diagnosing resource utilization issues, managing service lifecycles,
+    investigating service failures, analyzing system logs, troubleshooting
+    startup problems, and resolving common process- and service-related
+    incidents encountered in enterprise Linux environments.
+</p>
+</div>
+
+
+  <!-- PAGE NAVIGATION -->
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Return to Linux Modules
+            </a>
+            <a class="btn btn-primary" href="../../projects/linux/module6.html">
+                Proceed to Module 6 →
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- PAGE NAVIGATION -->
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Return to Linux Modules
+            </a>
+            <a class="btn btn-primary" href="../../projects/linux/module6.html">
+                Proceed to Module 6 →
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Linux Networking & Connectivity Troubleshooting | JCAG-LAB</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <style>
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 35px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #30363d;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #161b22;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .note {
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                LINUX ADMINISTRATION
+            </div>
+
+            <h1 class="hero-title">
+                Module 4: Linux Networking & Connectivity Troubleshooting
+
+            </h1>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                Network connectivity is a fundamental requirement for Linux servers operating in enterprise
+                environments.
+                Whether supporting Active Directory integrations, web services, cloud workloads, monitoring systems,
+                virtualization platforms, or security operations, Linux administrators must be capable of diagnosing
+                and resolving network-related issues quickly.
+            </p>
+
+            <p>
+                This module focuses on Linux networking fundamentals, interface configuration, routing, DNS
+                troubleshooting, connectivity validation, firewall analysis, port investigation, and common
+                troubleshooting methodologies used in production environments.
+            </p>
+
+        </div>
+
+        <!-- LEARNING OBJECTIVES -->
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+                <li>Understand Linux networking architecture.</li>
+                <li>Identify and configure network interfaces.</li>
+                <li>Verify IP addressing and routing.</li>
+                <li>Troubleshoot DNS resolution issues.</li>
+                <li>Test network connectivity.</li>
+                <li>Analyze open ports and listening services.</li>
+                <li>Capture and inspect network traffic.</li>
+                <li>Troubleshoot firewall-related connectivity problems.</li>
+                <li>Diagnose common enterprise network issues.</li>
+                <li>Perform systematic network troubleshooting.</li>
+            </ul>
+
+        </div>
+
+        <!-- NETWORK ARCHITECTURE -->
+        <div class="step-section">
+
+            <h2>Linux Networking Architecture</h2>
+
+            <p>
+                Every Linux host communicates through a networking stack consisting of:
+            </p>
+
+            <pre><code>Application Layer
+       │
+       ▼
+TCP / UDP
+       │
+       ▼
+IP Layer
+       │
+       ▼
+Network Interface Card (NIC)
+       │
+       ▼
+Physical Network</code></pre>
+
+        </div>
+
+        <!-- NETWORK INTERFACES -->
+        <div class="step-section">
+
+            <h2>Viewing Network Interfaces</h2>
+
+            <h3>Display Interface Information</h3>
+
+            <pre><code>ip addr</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>2: ens18:
+    inet 10.10.100.15/24</code></pre>
+
+            <h3>Display Interface Summary</h3>
+
+            <pre><code>ip -br addr</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>lo      UNKNOWN 127.0.0.1/8
+ens18   UP      10.10.100.15/24</code></pre>
+
+            <h3>Legacy Method</h3>
+
+            <pre><code>ifconfig</code></pre>
+
+            <p>
+                Modern Linux distributions use the <code>ip</code> command instead of
+                <code>ifconfig</code>.
+            </p>
+
+        </div>
+
+        <!-- INTERFACE STATES -->
+        <div class="step-section">
+
+            <h2>Understanding Interface States</h2>
+
+            <table>
+                <tr>
+                    <th>State</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td>UP</td>
+                    <td>Interface operational</td>
+                </tr>
+                <tr>
+                    <td>DOWN</td>
+                    <td>Interface disabled</td>
+                </tr>
+                <tr>
+                    <td>UNKNOWN</td>
+                    <td>Virtual or loopback interface</td>
+                </tr>
+                <tr>
+                    <td>NO-CARRIER</td>
+                    <td>No physical link detected</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- ENABLE DISABLE INTERFACES -->
+        <div class="step-section">
+
+            <h2>Enable and Disable Interfaces</h2>
+
+            <h3>Bring Interface Up</h3>
+
+            <pre><code>sudo ip link set ens18 up</code></pre>
+
+            <h3>Bring Interface Down</h3>
+
+            <pre><code>sudo ip link set ens18 down</code></pre>
+
+            <h3>Verify Status</h3>
+
+            <pre><code>ip link show ens18</code></pre>
+
+        </div>
+
+        <!-- IP ADDRESSING -->
+        <div class="step-section">
+
+            <h2>Viewing IP Address Configuration</h2>
+
+            <p>Display IPv4 information:</p>
+
+            <pre><code>ip -4 addr</code></pre>
+
+            <p>Display IPv6 information:</p>
+
+            <pre><code>ip -6 addr</code></pre>
+
+        </div>
+
+        <!-- ASSIGNING IP ADDRESSES -->
+        <div class="step-section">
+
+            <h2>Assigning IP Addresses</h2>
+
+            <h3>Temporary Static Address</h3>
+
+            <pre><code>sudo ip addr add 10.10.100.50/24 dev ens18</code></pre>
+
+            <h3>Remove Address</h3>
+
+            <pre><code>sudo ip addr del 10.10.100.50/24 dev ens18</code></pre>
+
+            <h3>Verify Configuration</h3>
+
+            <pre><code>ip addr show ens18</code></pre>
+
+        </div>
+
+        <!-- ROUTING -->
+        <div class="step-section">
+
+            <h2>Routing Fundamentals</h2>
+
+            <p>
+                A routing table determines where network traffic is forwarded.
+            </p>
+
+            <h3>View Routing Table</h3>
+
+            <pre><code>ip route</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>default via 10.10.100.1 dev ens18
+10.10.100.0/24 dev ens18</code></pre>
+
+        </div>
+
+        <!-- UNDERSTANDING ROUTES -->
+        <div class="step-section">
+
+            <h2>Understanding Routes</h2>
+
+            <table>
+                <tr>
+                    <th>Route</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>Default Route</td>
+                    <td>Gateway to external networks</td>
+                </tr>
+                <tr>
+                    <td>Connected Route</td>
+                    <td>Directly attached network</td>
+                </tr>
+                <tr>
+                    <td>Static Route</td>
+                    <td>Manually configured route</td>
+                </tr>
+                <tr>
+                    <td>Dynamic Route</td>
+                    <td>Learned via routing protocol</td>
+                </tr>
+            </table>
+
+            <h3>Add Static Route</h3>
+
+            <pre><code>sudo ip route add 10.10.30.0/24 via 10.10.100.1</code></pre>
+
+        </div>
+
+        <!-- TESTING CONNECTIVITY -->
+        <div class="step-section">
+
+            <h2>Testing Connectivity</h2>
+
+            <h3>Ping</h3>
+
+            <p>Verify network reachability:</p>
+
+            <pre><code>ping 10.10.100.1</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>64 bytes from 10.10.100.1</code></pre>
+
+            <h3>Limit Ping Count</h3>
+
+            <pre><code>ping -c 4 8.8.8.8</code></pre>
+
+            <h3>Measure Latency</h3>
+
+            <pre><code>ping google.com</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>time=18 ms</code></pre>
+
+        </div>
+
+        <!-- PATH ANALYSIS -->
+        <div class="step-section">
+
+            <h2>Path Analysis</h2>
+
+            <h3>traceroute</h3>
+
+            <p>
+                Displays the network path to a destination.
+            </p>
+
+            <p>Install:</p>
+
+            <pre><code>sudo apt install traceroute</code></pre>
+
+            <p>Run:</p>
+
+            <pre><code>traceroute 8.8.8.8</code></pre>
+
+            <h3>tracepath</h3>
+
+            <p>Alternative utility:</p>
+
+            <pre><code>tracepath 8.8.8.8</code></pre>
+
+        </div>
+
+        <!-- DNS FUNDAMENTALS -->
+        <div class="step-section">
+
+            <h2>DNS Fundamentals</h2>
+
+            <p>
+                DNS translates hostnames into IP addresses.
+            </p>
+
+            <pre><code>wazuh.company.local
+       │
+       ▼
+10.10.100.15</code></pre>
+
+        </div>
+
+        <!-- DNS CONFIGURATION -->
+        <div class="step-section">
+
+            <h2>DNS Configuration</h2>
+
+            <h3>View DNS Servers</h3>
+
+            <pre><code>cat /etc/resolv.conf</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>nameserver 10.10.100.11</code></pre>
+
+            <h3>View Resolver Status</h3>
+
+            <pre><code>resolvectl status</code></pre>
+
+        </div>
+
+        <!-- DNS TROUBLESHOOTING -->
+        <div class="step-section">
+
+            <h2>DNS Troubleshooting</h2>
+
+            <h3>nslookup</h3>
+
+            <pre><code>nslookup google.com</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>Address: 142.250.190.14</code></pre>
+
+            <h3>dig</h3>
+
+            <p>Install:</p>
+
+            <pre><code>sudo apt install dnsutils</code></pre>
+
+            <p>Query:</p>
+
+            <pre><code>dig google.com</code></pre>
+
+            <h3>Query Specific DNS Server</h3>
+
+            <pre><code>dig google.com @8.8.8.8</code></pre>
+
+        </div>
+
+        <!-- HOSTNAME RESOLUTION -->
+        <div class="step-section">
+
+            <h2>Hostname Resolution</h2>
+
+            <p>Verify hostname lookup:</p>
+
+            <pre><code>host google.com</code></pre>
+
+        </div>
+
+        <!-- PORT CONNECTIVITY -->
+        <div class="step-section">
+
+            <h2>Testing Port Connectivity</h2>
+
+            <p>
+                Sometimes hosts respond to ping but applications remain unreachable.
+            </p>
+
+            <h3>telnet</h3>
+
+            <pre><code>telnet 10.10.100.15 443</code></pre>
+
+            <h3>netcat (nc)</h3>
+
+            <pre><code>nc -zv 10.10.100.15 443</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>Connection succeeded</code></pre>
+
+        </div>
+
+        <!-- LISTENING PORTS -->
+        <div class="step-section">
+
+            <h2>Viewing Listening Ports</h2>
+
+            <h3>ss Command</h3>
+
+            <pre><code>ss -tulpn</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>tcp LISTEN 0 128 0.0.0.0:22</code></pre>
+
+            <h3>Filter for Specific Port</h3>
+
+            <pre><code>ss -tulpn | grep 443</code></pre>
+
+            <h3>Legacy Method</h3>
+
+            <pre><code>netstat -tulpn</code></pre>
+
+        </div>
+
+        <!-- NETWORK CONNECTIONS -->
+        <div class="step-section">
+
+            <h2>Network Connections</h2>
+
+            <p>Display active sessions:</p>
+
+            <pre><code>ss -ant</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>ESTABLISHED</code></pre>
+
+        </div>
+
+
+
+
+        <!-- FIREWALL FUNDAMENTALS -->
+        <div class="step-section">
+
+            <h2>Firewall Fundamentals</h2>
+
+            <p>Linux systems commonly use the following firewall technologies:</p>
+
+            <table>
+                <tr>
+                    <th>Firewall</th>
+                    <th>Distribution</th>
+                </tr>
+                <tr>
+                    <td>UFW</td>
+                    <td>Ubuntu</td>
+                </tr>
+                <tr>
+                    <td>firewalld</td>
+                    <td>Rocky Linux</td>
+                </tr>
+                <tr>
+                    <td>nftables</td>
+                    <td>Modern Linux</td>
+                </tr>
+                <tr>
+                    <td>iptables</td>
+                    <td>Legacy Linux</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- UFW ADMINISTRATION -->
+        <div class="step-section">
+
+            <h2>UFW Administration</h2>
+
+            <h3>View Status</h3>
+            <pre><code>sudo ufw status</code></pre>
+
+            <h3>Enable Firewall</h3>
+            <pre><code>sudo ufw enable</code></pre>
+
+            <h3>Allow SSH</h3>
+            <pre><code>sudo ufw allow 22/tcp</code></pre>
+
+            <h3>Allow HTTPS</h3>
+            <pre><code>sudo ufw allow 443/tcp</code></pre>
+
+            <h3>Delete Rule</h3>
+            <pre><code>sudo ufw delete allow 443/tcp</code></pre>
+
+        </div>
+
+        <!-- FIREWALLD -->
+        <div class="step-section">
+
+            <h2>firewalld Administration</h2>
+
+            <h3>View Status</h3>
+            <pre><code>sudo firewall-cmd --state</code></pre>
+
+            <h3>List Rules</h3>
+            <pre><code>sudo firewall-cmd --list-all</code></pre>
+
+            <h3>Allow Service</h3>
+
+            <pre><code>sudo firewall-cmd --permanent --add-service=https</code></pre>
+
+            <p>Apply configuration:</p>
+
+            <pre><code>sudo firewall-cmd --reload</code></pre>
+
+        </div>
+
+        <!-- PACKET CAPTURE -->
+        <div class="step-section">
+
+            <h2>Packet Capture Fundamentals</h2>
+
+            <p>Packet captures assist in identifying connectivity problems.</p>
+
+            <h3>tcpdump</h3>
+
+            <p>Capture traffic:</p>
+
+            <pre><code>sudo tcpdump -i ens18</code></pre>
+
+            <h3>Capture ICMP</h3>
+
+            <pre><code>sudo tcpdump icmp</code></pre>
+
+            <h3>Capture Specific Host</h3>
+
+            <pre><code>sudo tcpdump host 10.10.100.15</code></pre>
+
+            <h3>Capture Specific Port</h3>
+
+            <pre><code>sudo tcpdump port 443</code></pre>
+
+            <h3>Save Capture</h3>
+
+            <pre><code>sudo tcpdump -i ens18 -w capture.pcap</code></pre>
+
+            <p>Open the capture later using Wireshark.</p>
+
+        </div>
+
+        <!-- NETWORK PERFORMANCE -->
+        <div class="step-section">
+
+            <h2>Network Performance Testing</h2>
+
+            <h3>Interface Statistics</h3>
+
+            <pre><code>ip -s link</code></pre>
+
+            <h3>Display Errors</h3>
+
+            <pre><code>ip -s link show ens18</code></pre>
+
+            <p>Look for:</p>
+
+            <ul>
+                <li>RX Errors</li>
+                <li>TX Errors</li>
+                <li>Dropped Packets</li>
+            </ul>
+
+        </div>
+
+        <!-- ARP -->
+        <div class="step-section">
+
+            <h2>ARP Troubleshooting</h2>
+
+            <p>ARP maps IP addresses to MAC addresses.</p>
+
+            <h3>View ARP Table</h3>
+
+            <pre><code>ip neigh</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>10.10.100.1 dev ens18 lladdr aa:bb:cc:dd:ee:ff</code></pre>
+
+            <h3>Flush ARP Cache</h3>
+
+            <pre><code>sudo ip neigh flush all</code></pre>
+
+        </div>
+
+        <!-- INTERFACE CONFIGURATION -->
+        <div class="step-section">
+
+            <h2>Interface Configuration Files</h2>
+
+            <h3>Ubuntu (Netplan)</h3>
+
+            <p>Configuration location:</p>
+
+            <pre><code>/etc/netplan/</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>network:
+  version: 2
+  ethernets:
+    ens18:
+      addresses:
+        - 10.10.100.15/24
+      gateway4: 10.10.100.1
+      nameservers:
+        addresses:
+          - 10.10.100.11</code></pre>
+
+            <p>Apply configuration:</p>
+
+            <pre><code>sudo netplan apply</code></pre>
+
+            <h3>Rocky Linux</h3>
+
+            <p>Configuration location:</p>
+
+            <pre><code>/etc/NetworkManager/</code></pre>
+
+            <p>Restart NetworkManager:</p>
+
+            <pre><code>sudo systemctl restart NetworkManager</code></pre>
+
+        </div>
+
+        <!-- TROUBLESHOOTING WORKFLOW -->
+        <div class="step-section">
+
+            <h2>Common Enterprise Troubleshooting Workflow</h2>
+
+            <p>When a server cannot reach a resource:</p>
+
+            <h3>Step 1: Verify Interface</h3>
+
+            <pre><code>ip addr</code></pre>
+
+            <p>Questions:</p>
+
+            <ul>
+                <li>Is the interface UP?</li>
+                <li>Is an IP address assigned?</li>
+            </ul>
+
+            <h3>Step 2: Verify Gateway</h3>
+
+            <pre><code>ip route</code></pre>
+
+            <p>Question:</p>
+
+            <ul>
+                <li>Is a default route present?</li>
+            </ul>
+
+            <h3>Step 3: Ping Gateway</h3>
+
+            <pre><code>ping 10.10.100.1</code></pre>
+
+            <h3>Step 4: Ping External IP</h3>
+
+            <pre><code>ping 8.8.8.8</code></pre>
+
+            <p>Success indicates routing is functioning correctly.</p>
+
+            <h3>Step 5: Test DNS</h3>
+
+            <pre><code>nslookup google.com</code></pre>
+
+            <h3>Step 6: Verify Service Port</h3>
+
+            <pre><code>nc -zv server 443</code></pre>
+
+            <h3>Step 7: Check Firewall</h3>
+
+            <pre><code>sudo ufw status
+
+sudo firewall-cmd --list-all</code></pre>
+
+            <h3>Step 8: Capture Traffic</h3>
+
+            <pre><code>sudo tcpdump</code></pre>
+
+        </div>
+
+        <!-- PRACTICAL EXERCISES -->
+        <div class="step-section">
+
+            <h2>Practical Exercises</h2>
+
+            <h3>Exercise 1 – Verify Network Configuration</h3>
+
+            <pre><code>ip addr
+ip route
+hostname</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+                <li>IP Address</li>
+                <li>Gateway</li>
+                <li>Hostname</li>
+            </ul>
+
+            <!-- Insert Image 1 -->
+
+            <h3>Exercise 2 – DNS Troubleshooting</h3>
+
+            <pre><code>nslookup google.com
+dig google.com
+host google.com</code></pre>
+
+            <p>Compare the results.</p>
+
+            <!-- Insert Image 2 -->
+
+            <h3>Exercise 3 – Service Verification</h3>
+
+            <pre><code>ss -tulpn | grep 22
+nc -zv localhost 22</code></pre>
+
+            <!-- Insert Image 3 -->
+
+            <h3>Exercise 4 – Packet Capture</h3>
+
+            <pre><code>sudo tcpdump icmp</code></pre>
+
+            <p>From another terminal:</p>
+
+            <pre><code>ping 8.8.8.8</code></pre>
+
+            <p>Observe the packets.</p>
+
+            <!-- Insert Image 4 -->
+
+            <h3>Exercise 5 – Firewall Validation</h3>
+
+            <pre><code>sudo ufw status
+sudo ufw allow 443/tcp
+sudo ufw status</code></pre>
+
+            <!-- Insert Image 5 -->
+
+        </div>
+
+        <!-- TROUBLESHOOTING SCENARIOS -->
+        <div class="step-section">
+
+            <h2>Troubleshooting Scenarios</h2>
+
+            <h3>Scenario 1: No Internet Access</h3>
+
+            <pre><code>ip addr
+ip route
+ping gateway
+ping 8.8.8.8</code></pre>
+
+            <p>Likely causes:</p>
+
+            <ul>
+                <li>Interface down</li>
+                <li>Missing default route</li>
+                <li>Gateway unavailable</li>
+            </ul>
+
+            <h3>Scenario 2: Internet Works but Hostnames Fail</h3>
+
+            <pre><code>nslookup google.com
+cat /etc/resolv.conf</code></pre>
+
+            <p>Likely causes:</p>
+
+            <ul>
+                <li>Incorrect DNS server</li>
+                <li>DNS service outage</li>
+            </ul>
+
+            <h3>Scenario 3: Application Unreachable</h3>
+
+            <pre><code>ss -tulpn
+nc -zv server 443</code></pre>
+
+            <p>Likely causes:</p>
+
+            <ul>
+                <li>Service stopped</li>
+                <li>Firewall blocking traffic</li>
+                <li>Incorrect port</li>
+            </ul>
+
+            <h3>Scenario 4: Intermittent Connectivity</h3>
+
+            <pre><code>ip -s link</code></pre>
+
+            <p>Look for:</p>
+
+            <ul>
+                <li>RX errors</li>
+                <li>TX errors</li>
+                <li>Packet drops</li>
+            </ul>
+
+        </div>
+
+        <!-- NETWORKING ADMINISTRATION CHECKLIST -->
+        <div class="step-section">
+
+            <h2>Networking Administration Checklist</h2>
+
+            <table>
+                <tr>
+                    <th>Task</th>
+                    <th>Command</th>
+                </tr>
+                <tr>
+                    <td>View interfaces</td>
+                    <td>ip addr</td>
+                </tr>
+                <tr>
+                    <td>View routes</td>
+                    <td>ip route</td>
+                </tr>
+                <tr>
+                    <td>Test reachability</td>
+                    <td>ping</td>
+                </tr>
+                <tr>
+                    <td>Trace network path</td>
+                    <td>traceroute</td>
+                </tr>
+                <tr>
+                    <td>Test DNS</td>
+                    <td>nslookup</td>
+                </tr>
+                <tr>
+                    <td>Advanced DNS query</td>
+                    <td>dig</td>
+                </tr>
+                <tr>
+                    <td>View listening ports</td>
+                    <td>ss -tulpn</td>
+                </tr>
+                <tr>
+                    <td>Test ports</td>
+                    <td>nc</td>
+                </tr>
+                <tr>
+                    <td>View firewall</td>
+                    <td>ufw status</td>
+                </tr>
+                <tr>
+                    <td>View ARP table</td>
+                    <td>ip neigh</td>
+                </tr>
+                <tr>
+                    <td>Capture packets</td>
+                    <td>tcpdump</td>
+                </tr>
+                <tr>
+                    <td>View interface errors</td>
+                    <td>ip -s link</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+                <li>The Linux networking troubleshooting process follows a layered methodology.</li>
+                <li><code>ip addr</code> and <code>ip route</code> are foundational diagnostic commands.</li>
+                <li>Connectivity validation starts with interface status, gateway reachability, and routing
+                    verification.</li>
+                <li>DNS failures often appear as application connectivity problems.</li>
+                <li><code>ss</code>, <code>nc</code>, and <code>telnet</code> help validate service availability.</li>
+                <li>Firewalls frequently cause connectivity issues and should always be investigated.</li>
+                <li><code>tcpdump</code> is one of the most valuable troubleshooting tools available to Linux
+                    administrators.</li>
+                <li>A structured troubleshooting process reduces downtime and improves operational efficiency.</li>
+                <li>These networking skills are directly applicable to Linux administration, NOC operations, SOC
+                    environments, cloud platforms, and enterprise infrastructure support.</li>
+            </ul>
+
+        </div>
+
+        <!-- MODULE COMPLETION -->
+        <div class="step-section">
+
+            <h2>Module Completion Outcome</h2>
+
+            <p>
+                At the completion of Module 4: Capable of configuring Linux network interfaces,
+                validating connectivity, troubleshooting routing and DNS issues, analyzing ports and services,
+                inspecting firewall behavior, capturing network traffic, and systematically diagnosing enterprise
+                networking problems on Linux systems.
+            </p>
+
+        </div>
+
+        <!-- PAGE NAVIGATION -->
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Return to Linux Modules
+            </a>
+            <a class="btn btn-primary" href="../../projects/linux/module5.html">
+                Proceed to Module 5 →
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

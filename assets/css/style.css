@@ -631,7 +631,7 @@ footer {
 }
 
 /* =========================
-       TABLE
+        TECH-STACK-TABLE
     ========================= */
 
 .tech-stack-table {
@@ -652,6 +652,27 @@ footer {
   font-weight: 600;
 }
 
+/* =========================
+       TABLE
+    ========================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #30363d;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background: #161b22;
+  color: #e6edf3;
+}
 /* =========================
    DOCUMENTATION LINKS
 ========================= */

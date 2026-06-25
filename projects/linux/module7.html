@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Linux Log Analysis & Incident Investigation | JCAG-LAB</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <style>
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 35px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #30363d;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #161b22;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .note {
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                LINUX ADMINISTRATION
+            </div>
+
+            <h1 class="hero-title">
+                Module 6: Linux Log Analysis & Incident Investigation
+
+
+            </h1>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+            <h2>Overview</h2>
+            <p>
+                Linux administrators are frequently required to recover systems that fail to boot, suffer filesystem
+                corruption, experience service failures, lose network connectivity, or become inaccessible after
+                configuration
+                changes. Recovery operations are critical skills in enterprise environments where minimizing downtime
+                and
+                restoring business services are primary objectives.
+            </p>
+            <p>
+                This module focuses on system recovery procedures, rescue environments, bootloader troubleshooting,
+                filesystem repair, password recovery, service restoration, and disaster recovery methodologies used in
+                Linux
+                infrastructure operations.
+            </p>
+        </div>
+        <!-- LEARNING OBJECTIVES -->
+        <div class="step-section">
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Understand Linux boot and recovery processes.</li>
+                <li>Access recovery and rescue environments.</li>
+                <li>Troubleshoot boot failures.</li>
+                <li>Repair damaged filesystems.</li>
+                <li>Recover root account access.</li>
+                <li>Restore failed services.</li>
+                <li>Recover network connectivity.</li>
+                <li>Repair bootloader issues.</li>
+                <li>Perform backup and recovery operations.</li>
+                <li>Follow structured disaster recovery procedures.</li>
+            </ul>
+        </div>
+        <!-- RECOVERY OPERATIONS -->
+        <div class="step-section">
+            <h2>Understanding Linux Recovery Operations</h2>
+            <p>
+                Recovery operations involve restoring a system to a functional state after:
+            </p>
+            <ul>
+                <li>Failed system updates</li>
+                <li>Filesystem corruption</li>
+                <li>Bootloader failures</li>
+                <li>Service outages</li>
+                <li>Configuration mistakes</li>
+                <li>Lost administrator credentials</li>
+                <li>Hardware failures</li>
+                <li>Security incidents</li>
+            </ul>
+            <p>Recovery objectives:</p>
+            <ol>
+                <li>Restore availability.</li>
+                <li>Preserve data integrity.</li>
+                <li>Minimize downtime.</li>
+                <li>Identify root cause.</li>
+                <li>Prevent recurrence.</li>
+            </ol>
+        </div>
+        <!-- BOOT PROCESS REVIEW -->
+        <div class="step-section">
+            <h2>Linux Boot Process Review</h2>
+            <p>
+                Understanding the boot sequence is essential for troubleshooting startup failures.
+            </p>
+            <p>Boot sequence:</p>
+            <pre><code>BIOS / UEFI
+
+↓
+
+Bootloader (GRUB)
+
+↓
+
+Linux Kernel
+
+↓
+
+initramfs
+
+↓
+
+systemd
+
+↓
+
+Services
+
+↓
+
+Login Prompt</code></pre>
+
+            <p>
+                Failure at any stage can prevent successful startup.
+            </p>
+        </div>
+        <!-- BOOT FAILURE STAGES -->
+        <div class="step-section">
+            <h2>Identifying Boot Failure Stages</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Failure Stage</th>
+                        <th>Common Symptoms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BIOS/UEFI</td>
+                        <td>No operating system found</td>
+                    </tr>
+                    <tr>
+                        <td>GRUB</td>
+                        <td>GRUB rescue prompt</td>
+                    </tr>
+                    <tr>
+                        <td>Kernel</td>
+                        <td>Kernel panic</td>
+                    </tr>
+                    <tr>
+                        <td>Initramfs</td>
+                        <td>BusyBox shell</td>
+                    </tr>
+                    <tr>
+                        <td>Systemd</td>
+                        <td>Failed services</td>
+                    </tr>
+                    <tr>
+                        <td>Login</td>
+                        <td>Authentication failure</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- BOOT LOGS -->
+        <div class="step-section">
+            <h2>Viewing Boot Logs</h2>
+            <h3>Review Current Boot</h3>
+            <pre><code>journalctl -b</code></pre>
+            <h3>Review Previous Boot</h3>
+            <pre><code>journalctl -b -1</code></pre>
+            <h3>List Boot Sessions</h3>
+            <pre><code>journalctl --list-boots</code></pre>
+            <p>Example:</p>
+            <pre><code>-1 7a6d5c Previous Boot
+
+0 4f3a8b Current Boot</code></pre>
+
+        </div>
+        <!-- RECOVERY MODE -->
+        <div class="step-section">
+            <h2>Accessing Recovery Mode</h2>
+            <p>
+                Ubuntu systems provide a recovery option through GRUB.
+            </p>
+            <p>Boot process:</p>
+            <ol>
+                <li>Reboot system.</li>
+                <li>Hold Shift (BIOS) or press Esc (UEFI).</li>
+                <li>Access GRUB menu.</li>
+                <li>Select:</li>
+            </ol>
+            <pre><code>Advanced options for Ubuntu
+
+↓
+
+Recovery Mode</code></pre>
+
+            <p>Recovery options:</p>
+            <ul>
+                <li>fsck</li>
+                <li>network</li>
+                <li>root</li>
+                <li>dpkg</li>
+                <li>resume</li>
+            </ul>
+        </div>
+        <!-- EMERGENCY MODE -->
+        <div class="step-section">
+            <h2>Emergency Mode</h2>
+            <p>
+                Emergency mode provides minimal system functionality.
+            </p>
+            <h3>Check Current Mode</h3>
+            <pre><code>systemctl get-default</code></pre>
+            <h3>Boot into Emergency Shell</h3>
+            <pre><code>systemd.unit=emergency.target</code></pre>
+            <p>Typical use cases:</p>
+            <ul>
+                <li>Filesystem corruption</li>
+                <li>Broken mounts</li>
+                <li>Startup failures</li>
+            </ul>
+        </div>
+        <!-- RESCUE MODE -->
+        <div class="step-section">
+            <h2>Rescue Mode</h2>
+            <p>
+                Rescue mode provides a limited multi-user environment.
+            </p>
+            <h3>Boot Parameter</h3>
+            <pre><code>systemd.unit=rescue.target</code></pre>
+            <h3>Equivalent Command</h3>
+            <pre><code>systemctl rescue</code></pre>
+        </div>
+        <!-- ROOT PASSWORD RECOVERY -->
+        <div class="step-section">
+            <h2>Root Password Recovery</h2>
+            <p><strong>Scenario:</strong> Administrator password lost.</p>
+            <h3>Access GRUB Editor</h3>
+            <p>At the GRUB menu:</p>
+            <pre><code>Press e</code></pre>
+            <p>Locate the line:</p>
+            <pre><code>linux /boot/vmlinuz</code></pre>
+            <p>Append:</p>
+            <pre><code>rw init=/bin/bash</code></pre>
+            <p>Boot using:</p>
+            <pre><code>Ctrl + X</code></pre>
+        </div>
+        <!-- REMOUNT FILESYSTEM -->
+        <div class="step-section">
+            <h2>Remount Filesystem</h2>
+            <pre><code>mount -o remount,rw /</code></pre>
+        </div>
+        <!-- CHANGE ROOT PASSWORD -->
+        <div class="step-section">
+            <h2>Change Root Password</h2>
+            <pre><code>passwd root</code></pre>
+            <p>Example:</p>
+            <pre><code>New password:
+
+Retype new password:</code></pre>
+
+        </div>
+        <!-- SAVE AND REBOOT -->
+        <div class="step-section">
+            <h2>Synchronize Changes and Reboot</h2>
+            <h3>Synchronize Changes</h3>
+            <pre><code>sync</code></pre>
+            <h3>Reboot Options</h3>
+            <pre><code>exec /sbin/init</code></pre>
+            <p>or</p>
+            <pre><code>reboot -f</code></pre>
+        </div>
+        <!-- FILESYSTEM RECOVERY -->
+        <div class="step-section">
+            <h2>Filesystem Recovery</h2>
+            <p>
+                Filesystems can become corrupted due to:
+            </p>
+            <ul>
+                <li>Power loss</li>
+                <li>Hardware failure</li>
+                <li>Storage controller issues</li>
+                <li>Improper shutdown</li>
+            </ul>
+        </div>
+        <!-- DETECT FILESYSTEM PROBLEMS -->
+        <div class="step-section">
+            <h2>Detect Filesystem Problems</h2>
+            <h3>Review Logs</h3>
+            <pre><code>journalctl -p err</code></pre>
+            <h3>Review Kernel Messages</h3>
+            <pre><code>dmesg</code></pre>
+            <p>Common indicators:</p>
+            <ul>
+                <li>I/O error</li>
+                <li>Filesystem corruption</li>
+                <li>Read-only filesystem</li>
+            </ul>
+        </div>
+
+        <!-- VERIFY FILESYSTEMS -->
+        <div class="step-section">
+            <h2>Verify Filesystems</h2>
+            <h3>Display Mounted Devices</h3>
+            <pre><code>lsblk</code></pre>
+            <h3>Display Filesystem Usage</h3>
+            <pre><code>df -h</code></pre>
+        </div>
+        <!-- UNMOUNT FILESYSTEM -->
+        <div class="step-section">
+            <h2>Unmount Filesystem</h2>
+            <pre><code>umount /dev/sdb1</code></pre>
+        </div>
+        <!-- FILESYSTEM CHECKS -->
+        <div class="step-section">
+            <h2>Run Filesystem Check</h2>
+            <h3>Standard Check</h3>
+            <pre><code>fsck /dev/sdb1</code></pre>
+            <h3>Force Check</h3>
+            <pre><code>fsck -f /dev/sdb1</code></pre>
+            <h3>Automatically Repair</h3>
+            <pre><code>fsck -y /dev/sdb1</code></pre>
+        </div>
+        <!-- XFS RECOVERY -->
+        <div class="step-section">
+            <h2>XFS Filesystem Recovery</h2>
+            <h3>Repair XFS Filesystem</h3>
+            <pre><code>xfs_repair /dev/sdb1</code></pre>
+            <p>Example:</p>
+            <pre><code>xfs_repair /dev/mapper/vg_data-lv_backup</code></pre>
+        </div>
+        <!-- READ ONLY FILESYSTEM -->
+        <div class="step-section">
+            <h2>Read-Only Filesystem Recovery</h2>
+            <p>Common symptoms:</p>
+            <ul>
+                <li>Cannot write file</li>
+                <li>Permission denied</li>
+                <li>Filesystem mounted read-only</li>
+            </ul>
+            <h3>Verify Mount Status</h3>
+            <pre><code>mount</code></pre>
+            <p>Example indicator:</p>
+            <pre><code>(ro)</code></pre>
+            <h3>Remount as Read/Write</h3>
+            <pre><code>mount -o remount,rw /</code></pre>
+        </div>
+        <!-- BOOTLOADER RECOVERY -->
+        <div class="step-section">
+            <h2>Bootloader Recovery</h2>
+            <p>
+                GRUB corruption can prevent a Linux system from booting successfully.
+            </p>
+            <p>Common symptoms:</p>
+            <ul>
+                <li>grub rescue&gt;</li>
+                <li>No bootable device</li>
+                <li>Operating system not found</li>
+            </ul>
+        </div>
+        <!-- REINSTALL GRUB -->
+        <div class="step-section">
+            <h2>Reinstall GRUB (Ubuntu)</h2>
+            <p>Boot from live media.</p>
+            <h3>Mount Root Partition</h3>
+            <pre><code>mount /dev/sda2 /mnt</code></pre>
+            <h3>Mount System Directories</h3>
+            <pre><code>mount --bind /dev /mnt/dev
+
+mount –bind /proc /mnt/proc
+mount –bind /sys /mnt/sys</code></pre>
+
+            <h3>Chroot into Installed System</h3>
+            <pre><code>chroot /mnt</code></pre>
+            <h3>Install GRUB</h3>
+            <pre><code>grub-install /dev/sda</code></pre>
+            <h3>Update Configuration</h3>
+            <pre><code>update-grub</code></pre>
+            <h3>Exit Chroot</h3>
+            <pre><code>exit</code></pre>
+            <p>Reboot the system after completion.</p>
+        </div>
+        <!-- GRUB CONFIGURATION -->
+        <div class="step-section">
+            <h2>Recovering Missing GRUB Configuration</h2>
+            <h3>Generate New Configuration</h3>
+            <pre><code>update-grub</code></pre>
+            <h3>Verify Configuration</h3>
+            <pre><code>cat /boot/grub/grub.cfg</code></pre>
+        </div>
+        <!-- SERVICE RECOVERY -->
+        <div class="step-section">
+            <h2>Service Recovery Operations</h2>
+            <p>
+                Service outages are among the most common incidents encountered by Linux administrators.
+            </p>
+        </div>
+        <!-- SERVICE STATUS -->
+        <div class="step-section">
+            <h2>Verify Service Status</h2>
+            <pre><code>systemctl status nginx</code></pre>
+            <p>Example:</p>
+            <pre><code>Active: failed</code></pre>
+        </div>
+        <!-- SERVICE LOGS -->
+        <div class="step-section">
+            <h2>Review Service Logs</h2>
+            <pre><code>journalctl -u nginx</code></pre>
+            <h3>Recent Entries</h3>
+            <pre><code>journalctl -u nginx -n 50</code></pre>
+        </div>
+        <!-- RESTART SERVICE -->
+        <div class="step-section">
+            <h2>Restart Service</h2>
+            <pre><code>systemctl restart nginx</code></pre>
+            <h3>Verify Status</h3>
+            <pre><code>systemctl status nginx</code></pre>
+        </div>
+        <!-- RELOAD CONFIGURATION -->
+        <div class="step-section">
+            <h2>Reload Configuration</h2>
+            <pre><code>systemctl reload nginx</code></pre>
+        </div>
+        <!-- VALIDATE CONFIGURATION -->
+        <div class="step-section">
+            <h2>Validate Service Configuration</h2>
+            <h3>NGINX</h3>
+            <pre><code>nginx -t</code></pre>
+            <h3>Apache</h3>
+            <pre><code>apachectl configtest</code></pre>
+        </div>
+        <!-- DEPENDENCY ANALYSIS -->
+        <div class="step-section">
+            <h2>Dependency Analysis</h2>
+            <pre><code>systemctl list-dependencies nginx</code></pre>
+            <p>Example:</p>
+            <pre><code>network.target
+
+syslog.target</code></pre>
+
+        </div>
+        <!-- NETWORK RECOVERY -->
+        <div class="step-section">
+            <h2>Network Recovery</h2>
+            <p>
+                Network failures frequently occur after configuration changes.
+            </p>
+        </div>
+        <!-- VERIFY INTERFACES -->
+        <div class="step-section">
+            <h2>Verify Interfaces</h2>
+            <pre><code>ip addr</code></pre>
+            <p>Check interface state:</p>
+            <ul>
+                <li>UP</li>
+                <li>DOWN</li>
+                <li>NO-CARRIER</li>
+            </ul>
+        </div>
+        <!-- VERIFY ROUTES -->
+        <div class="step-section">
+            <h2>Verify Routes</h2>
+            <pre><code>ip route</code></pre>
+            <p>Verify the presence of:</p>
+            <pre><code>default via</code></pre>
+        </div>
+        <!-- VERIFY DNS -->
+        <div class="step-section">
+            <h2>Verify DNS</h2>
+            <pre><code>cat /etc/resolv.conf</code></pre>
+            <h3>Test Resolution</h3>
+            <pre><code>nslookup google.com</code></pre>
+        </div>
+        <!-- RESTART NETWORKING -->
+        <div class="step-section">
+            <h2>Restart Networking</h2>
+            <h3>Ubuntu</h3>
+            <pre><code>systemctl restart NetworkManager</code></pre>
+            <p>or</p>
+            <pre><code>netplan apply</code></pre>
+        </div>
+        <!-- VALIDATE CONNECTIVITY -->
+        <div class="step-section">
+            <h2>Validate Connectivity</h2>
+            <h3>Ping Gateway</h3>
+            <pre><code>ping 10.10.100.1</code></pre>
+            <h3>Ping Internet</h3>
+            <pre><code>ping 8.8.8.8</code></pre>
+            <h3>Test DNS Resolution</h3>
+            <pre><code>ping google.com</code></pre>
+        </div>
+        <!-- PACKAGE RECOVERY -->
+        <div class="step-section">
+            <h2>Package Recovery</h2>
+            <p>
+                Broken packages can prevent services from starting correctly.
+            </p>
+        </div>
+        <!-- REPAIR PACKAGES -->
+        <div class="step-section">
+            <h2>Repair Packages (Ubuntu)</h2>
+            <pre><code>apt --fix-broken install</code></pre>
+            <h3>Reconfigure Packages</h3>
+            <pre><code>dpkg --configure -a</code></pre>
+            <h3>Update Repositories</h3>
+            <pre><code>apt update</code></pre>
+        </div>
+        <!-- VERIFY INSTALLED PACKAGES -->
+        <div class="step-section">
+            <h2>Verify Installed Packages</h2>
+            <pre><code>dpkg -l</code></pre>
+            <h3>Search Package</h3>
+            <pre><code>dpkg -l | grep nginx</code></pre>
+        </div>
+        <!-- STORAGE RECOVERY -->
+        <div class="step-section">
+            <h2>Storage Recovery</h2>
+            <p>
+                Disk utilization issues can cause application and service failures.
+            </p>
+        </div>
+        <!-- STORAGE ANALYSIS -->
+        <div class="step-section">
+            <h2>Check Filesystem Usage</h2>
+            <pre><code>df -h</code></pre>
+            <h3>Identify Large Directories</h3>
+            <pre><code>du -sh /*</code></pre>
+        </div>
+        <!-- LARGE FILES -->
+        <div class="step-section">
+            <h2>Locate Large Files</h2>
+            <pre><code>find / -type f -size +500M</code></pre>
+        </div>
+        <!-- CLEAN PACKAGE CACHE -->
+        <div class="step-section">
+            <h2>Clean Package Cache</h2>
+            <pre><code>apt clean</code></pre>
+        </div>
+        <!-- REMOVE OLD LOGS -->
+        <div class="step-section">
+            <h2>Remove Old Logs</h2>
+            <pre><code>journalctl --vacuum-time=30d</code></pre>
+        </div>
+        <!-- LOG INVESTIGATION -->
+        <div class="step-section">
+            <h2>Log Recovery and Investigation</h2>
+            <h3>Review Startup Logs</h3>
+            <pre><code>journalctl -b</code></pre>
+            <h3>View Errors</h3>
+            <pre><code>journalctl -p err</code></pre>
+            <h3>Review Service Logs</h3>
+            <pre><code>journalctl -u service</code></pre>
+            <h3>Review Kernel Logs</h3>
+            <pre><code>dmesg</code></pre>
+        </div>
+
+        <!-- BACKUP VERIFICATION -->
+        <div class="step-section">
+            <h2>Backup Verification</h2>
+            <h3>Verify Backup Existence</h3>
+            <pre><code>ls -lh /backup</code></pre>
+            <h3>Check Backup Integrity</h3>
+            <pre><code>tar -tvf backup.tar.gz</code></pre>
+        </div>
+        <!-- CREATE BACKUP -->
+        <div class="step-section">
+            <h2>Create Backup</h2>
+            <pre><code>tar -czvf backup.tar.gz /etc</code></pre>
+        </div>
+        <!-- RESTORE BACKUP -->
+        <div class="step-section">
+            <h2>Restore Backup</h2>
+            <pre><code>tar -xzvf backup.tar.gz -C /</code></pre>
+        </div>
+        <!-- DISASTER RECOVERY PRINCIPLES -->
+        <div class="step-section">
+            <h2>Disaster Recovery Principles</h2>
+            <p>Recovery priorities:</p>
+            <ol>
+                <li>Human safety</li>
+                <li>Data integrity</li>
+                <li>Service restoration</li>
+                <li>Root cause analysis</li>
+                <li>Documentation</li>
+            </ol>
+        </div>
+        <!-- RECOVERY DOCUMENTATION TEMPLATE -->
+        <div class="step-section">
+            <h2>Recovery Documentation Template</h2>
+            <pre><code>Incident Number:
+
+Date:
+
+Affected System:
+
+Problem Description:
+
+Impact:
+
+Root Cause:
+
+Corrective Actions:
+
+Recovery Time:
+
+Preventive Actions:
+
+</div>
+<!-- ENTERPRISE RECOVERY WORKFLOW -->
+<div class="step-section">
+<h2>Enterprise Recovery Workflow</h2>
+</div>
+<!-- STEP 1 -->
+<div class="step-section">
+<h2>Step 1 — Identify Failure</h2>
+<p>Questions:</p>
+<ul>
+    <li>What failed?</li>
+    <li>When did it fail?</li>
+    <li>What changed?</li>
+</ul>
+</div>
+<!-- STEP 2 -->
+<div class="step-section">
+<h2>Step 2 — Assess Impact</h2>
+<p>Questions:</p>
+<ul>
+    <li>Single host?</li>
+    <li>Multiple systems?</li>
+    <li>Production impact?</li>
+</ul>
+</div>
+<!-- STEP 3 -->
+<div class="step-section">
+<h2>Step 3 — Preserve Evidence</h2>
+<p>Collect:</p>
+<ul>
+    <li>journalctl output</li>
+    <li>dmesg output</li>
+    <li>systemctl status results</li>
+    <li>Network configuration</li>
+    <li>Screenshots</li>
+</ul>
+</div>
+<!-- STEP 4 -->
+<div class="step-section">
+<h2>Step 4 — Perform Recovery</h2>
+<p>Examples:</p>
+<ul>
+    <li>Filesystem repair</li>
+    <li>Service restart</li>
+    <li>Password reset</li>
+    <li>Network restoration</li>
+    <li>Bootloader repair</li>
+</ul>
+</div>
+<!-- STEP 5 -->
+<div class="step-section">
+<h2>Step 5 — Validate Recovery</h2>
+<p>Verify:</p>
+<ul>
+    <li>Service status</li>
+    <li>Application functionality</li>
+    <li>Network connectivity</li>
+    <li>User access</li>
+    <li>Monitoring systems</li>
+</ul>
+</div>
+<!-- STEP 6 -->
+<div class="step-section">
+<h2>Step 6 — Document Findings</h2>
+<p>Record:</p>
+<ul>
+    <li>Root cause</li>
+    <li>Actions performed</li>
+    <li>Recovery timeline</li>
+    <li>Lessons learned</li>
+</ul>
+</div>
+<!-- PRACTICAL EXERCISE 1 -->
+<div class="step-section">
+<h2>Practical Exercise 1 — Recover Failed Service</h2>
+<h3>Verify Service</h3>
+<pre><code>systemctl status nginx</code></pre>
+            <h3>Review Logs</h3>
+            <pre><code>journalctl -u nginx</code></pre>
+            <h3>Validate Configuration</h3>
+            <pre><code>nginx -t</code></pre>
+            <h3>Restart Service</h3>
+            <pre><code>systemctl restart nginx</code></pre>
+            <h3>Verify Recovery</h3>
+            <pre><code>systemctl status nginx</code></pre>
+        </div>
+        <!-- PRACTICAL EXERCISE 2 -->
+        <div class="step-section">
+            <h2>Practical Exercise 2 — Filesystem Recovery</h2>
+            <h3>Display Devices</h3>
+            <pre><code>lsblk</code></pre>
+            <h3>Unmount Filesystem</h3>
+            <pre><code>umount /dev/sdb1</code></pre>
+            <h3>Run Filesystem Check</h3>
+            <pre><code>fsck -f /dev/sdb1</code></pre>
+            <h3>Verify Recovery</h3>
+            <pre><code>mount /dev/sdb1 /data</code></pre>
+        </div>
+        <!-- PRACTICAL EXERCISE 3 -->
+        <div class="step-section">
+            <h2>Practical Exercise 3 — Network Recovery</h2>
+            <h3>Verify Interface</h3>
+            <pre><code>ip addr</code></pre>
+            <h3>Verify Route</h3>
+            <pre><code>ip route</code></pre>
+            <h3>Verify DNS</h3>
+            <pre><code>nslookup google.com</code></pre>
+            <h3>Restart Networking</h3>
+            <pre><code>systemctl restart NetworkManager</code></pre>
+            <h3>Validate Connectivity</h3>
+            <pre><code>ping 8.8.8.8</code></pre>
+        </div>
+        <!-- PRACTICAL EXERCISE 4 -->
+        <div class="step-section">
+            <h2>Practical Exercise 4 — Boot Investigation</h2>
+            <h3>Review Previous Boot</h3>
+            <pre><code>journalctl -b -1</code></pre>
+            <h3>Review Startup Errors</h3>
+            <pre><code>journalctl -p err</code></pre>
+            <h3>Analyze Startup Performance</h3>
+            <pre><code>systemd-analyze</code></pre>
+            <h3>Identify Slow Services</h3>
+            <pre><code>systemd-analyze blame</code></pre>
+        </div>
+        <!-- COMMON RECOVERY COMMANDS -->
+        <div class="step-section">
+            <h2>Common Recovery Commands</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Command</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>View boot logs</td>
+                        <td><code>journalctl -b</code></td>
+                    </tr>
+                    <tr>
+                        <td>View previous boot</td>
+                        <td><code>journalctl -b -1</code></td>
+                    </tr>
+                    <tr>
+                        <td>View errors</td>
+                        <td><code>journalctl -p err</code></td>
+                    </tr>
+                    <tr>
+                        <td>Check service status</td>
+                        <td><code>systemctl status</code></td>
+                    </tr>
+                    <tr>
+                        <td>Restart service</td>
+                        <td><code>systemctl restart</code></td>
+                    </tr>
+                    <tr>
+                        <td>View interfaces</td>
+                        <td><code>ip addr</code></td>
+                    </tr>
+                    <tr>
+                        <td>View routes</td>
+                        <td><code>ip route</code></td>
+                    </tr>
+                    <tr>
+                        <td>Check storage</td>
+                        <td><code>df -h</code></td>
+                    </tr>
+                    <tr>
+                        <td>Check filesystem</td>
+                        <td><code>fsck</code></td>
+                    </tr>
+                    <tr>
+                        <td>Repair XFS</td>
+                        <td><code>xfs_repair</code></td>
+                    </tr>
+                    <tr>
+                        <td>Check memory</td>
+                        <td><code>free -h</code></td>
+                    </tr>
+                    <tr>
+                        <td>Check processes</td>
+                        <td><code>top</code></td>
+                    </tr>
+                    <tr>
+                        <td>Check kernel logs</td>
+                        <td><code>dmesg</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- RECOVERY OPERATIONS CHECKLIST -->
+        <div class="step-section">
+            <h2>Recovery Operations Checklist</h2>
+            <h3>Boot Recovery</h3>
+            <ul>
+                <li>□ Review GRUB</li>
+                <li>□ Review kernel messages</li>
+                <li>□ Review boot logs</li>
+                <li>□ Verify filesystem mounts</li>
+            </ul>
+            <h3>Filesystem Recovery</h3>
+            <ul>
+                <li>□ Verify storage devices</li>
+                <li>□ Run fsck</li>
+                <li>□ Check mount status</li>
+                <li>□ Verify available space</li>
+            </ul>
+            <h3>Service Recovery</h3>
+            <ul>
+                <li>□ Check service status</li>
+                <li>□ Review logs</li>
+                <li>□ Validate configuration</li>
+                <li>□ Restart service</li>
+            </ul>
+            <h3>Network Recovery</h3>
+            <ul>
+                <li>□ Verify interface status</li>
+                <li>□ Verify routes</li>
+                <li>□ Verify DNS</li>
+                <li>□ Test connectivity</li>
+            </ul>
+            <h3>Security Recovery</h3>
+            <ul>
+                <li>□ Verify user access</li>
+                <li>□ Reset credentials if needed</li>
+                <li>□ Review authentication logs</li>
+                <li>□ Review privilege escalation events</li>
+            </ul>
+            <h3>Post-Recovery Validation</h3>
+            <ul>
+                <li>□ Verify services</li>
+                <li>□ Verify applications</li>
+                <li>□ Verify monitoring</li>
+                <li>□ Verify backups</li>
+                <li>□ Document incident</li>
+            </ul>
+        </div>
+        <!-- KEY TAKEAWAYS -->
+        <div class="step-section">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li>Recovery operations are focused on restoring system availability while preserving data integrity.
+                </li>
+                <li>Understanding the Linux boot process is critical for diagnosing startup failures.</li>
+                <li>Filesystem corruption is commonly repaired using <code>fsck</code> or <code>xfs_repair</code>.</li>
+                <li>GRUB recovery procedures are essential for resolving bootloader failures.</li>
+                <li>Service recovery requires log analysis, dependency verification, and configuration validation.</li>
+                <li>Network recovery should follow a structured approach involving interfaces, routing, and DNS.</li>
+                <li>Backups are a critical component of disaster recovery planning.</li>
+                <li>Thorough documentation improves future recovery efforts and supports operational maturity.</li>
+                <li>Effective recovery operations significantly reduce downtime and improve service reliability.</li>
+            </ul>
+        </div>
+        <!-- MODULE COMPLETION OUTCOME -->
+        <div class="step-section">
+            <h2>Module Completion Outcome</h2>
+            <p>
+                At the completion of Module 7: Capable of recovering Linux systems from boot
+                failures,
+                repairing filesystems, restoring administrator access, recovering failed services, troubleshooting
+                network
+                outages, repairing GRUB bootloader issues, validating backup integrity, and executing structured
+                recovery
+                procedures commonly encountered in enterprise Linux server environments.
+            </p>
+        </div>
+
+
+
+
+
+        <!-- PAGE NAVIGATION -->
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Return to Linux Modules
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

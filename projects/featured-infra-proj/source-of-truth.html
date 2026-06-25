@@ -64,25 +64,6 @@
             color: #e6edf3;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            border: 1px solid #30363d;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background: #161b22;
-            color: #e6edf3;
-        }
-
         .note {
             background: rgba(56, 189, 248, 0.10);
             border-left: 4px solid #38bdf8;
@@ -147,7 +128,9 @@
             </p>
 
             <div class="note">
-                All infrastructure changes must be reflected in this document to maintain source-of-truth consistency.
+                All infrastructure changes is reflected in this document to maintain source-of-truth
+                consistency.<br><br>
+                UPDATED: 06-21-2026 [added: hdd-02]
             </div>
 
         </div>
@@ -281,6 +264,7 @@
             </table>
 
         </div>
+
         <div class="step-section">
 
             <h2>Endpoints</h2>
@@ -315,6 +299,46 @@
                     <td>macOS Host</td>
                     <td>Dynamic</td>
                     <td>VLAN 30 IT - Admin Workstation</td>
+                </tr>
+            </table>
+
+        </div>
+
+
+        <div class="step-section">
+
+            <h2>3-Tier Main Server Storage Architecture (Proxmox on Inspiron 3650)</h2>
+
+            <table>
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                </tr>
+                <tr>
+                    <td>Tier 0</td>
+                    <td>local-lvm</td>
+                    <td>SSD</td>
+                    <td>500 GB</td>
+                </tr>
+                <tr>
+                    <td>Tier 1</td>
+                    <td>local-lvm-hdd-01</td>
+                    <td>HDD</td>
+                    <td>1 TB</td>
+                </tr>
+                <tr>
+                    <td>Tier 2</td>
+                    <td>local-lvm-hdd-02</td>
+                    <td>HDD</td>
+                    <td>1 TB</td>
+                </tr>
+                <tr>
+                    <td>--</td>
+                    <td>volatile memory</td>
+                    <td>RAM</td>
+                    <td>2x 8 GB</td>
                 </tr>
             </table>
 
@@ -447,6 +471,13 @@
                     <td>n8n Automation Server</td>
                     <td>10.10.100.16</td>
                     <td>SOAR Automation & Workflow Orchestration</td>
+                </tr>
+
+                <tr>
+                    <td>Splunk-SVR</td>
+                    <td>Splunk Core</td>
+                    <td>10.10.100.16</td>
+                    <td>Log Management (NOTE: Installed but not integrated at this stage)</td>
                 </tr>
 
             </table>

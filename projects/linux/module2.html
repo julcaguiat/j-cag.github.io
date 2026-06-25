@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2 - Linux Server Administration | JCAG-LAB</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <style>
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 35px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #30363d;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #161b22;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .note {
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                LINUX ADMINISTRATION
+            </div>
+
+            <h1 class="hero-title">
+                Module 2: Linux Server Administration
+            </h1>
+
+            <p>
+                User administration, package management, service management,
+                system monitoring, scheduling, logging, and operational
+                administration skills required for enterprise Linux servers.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                Linux servers power a significant portion of enterprise infrastructure,
+                cloud platforms, web services, security appliances, virtualization
+                environments, and network management systems.
+            </p>
+
+            <p>
+                Effective Linux administration requires understanding user management,
+                software installation, service management, system monitoring,
+                scheduled tasks, and basic security practices.
+            </p>
+
+            <p>
+                This module focuses on the core administrative responsibilities
+                of managing Linux servers in production and enterprise environments.
+            </p>
+
+        </div>
+
+        <!-- LEARNING OBJECTIVES -->
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+                <li>Manage local user and group accounts.</li>
+                <li>Configure password policies and account security.</li>
+                <li>Install, update, and remove software packages.</li>
+                <li>Manage system services and daemons.</li>
+                <li>Monitor server performance and resource utilization.</li>
+                <li>Schedule administrative tasks.</li>
+                <li>Configure hostnames and time settings.</li>
+                <li>Understand system startup and boot processes.</li>
+                <li>Perform basic server hardening procedures.</li>
+                <li>Collect system information for troubleshooting.</li>
+            </ul>
+
+        </div>
+
+        <!-- PRIVILEGED ACCESS -->
+        <div class="step-section">
+
+            <h2>Understanding Privileged Access</h2>
+
+            <h3>Root User</h3>
+
+            <p>
+                The root account possesses unrestricted access to all system resources.
+            </p>
+
+            <p>Display current user:</p>
+
+            <pre><code>whoami</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>root</code></pre>
+
+            <h3>Using sudo</h3>
+
+            <p>
+                Most administrative tasks should be performed using sudo rather
+                than logging in directly as root.
+            </p>
+
+            <p>Execute a command with elevated privileges:</p>
+
+            <pre><code>sudo command</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>sudo apt update</code></pre>
+
+            <h3>Verify sudo Access</h3>
+
+            <pre><code>sudo -l</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>User admin may run the following commands:
+ (ALL : ALL) ALL</code></pre>
+
+        </div>
+
+        <!-- USER ADMINISTRATION -->
+        <div class="step-section">
+
+            <h2>User Account Administration</h2>
+
+            <h3>Display User Information</h3>
+
+            <p>View current identity:</p>
+
+            <pre><code>id</code></pre>
+
+            <p>View logged-in users:</p>
+
+            <pre><code>who</code></pre>
+
+            <p>Display recent logins:</p>
+
+            <pre><code>last</code></pre>
+
+            <h3>Create a User</h3>
+
+            <pre><code>sudo useradd analyst1</code></pre>
+
+            <p>Set password:</p>
+
+            <pre><code>sudo passwd analyst1</code></pre>
+
+            <h3>Create User with Home Directory</h3>
+
+            <pre><code>sudo useradd -m analyst2</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>ls /home</code></pre>
+
+            <h3>Modify User Account</h3>
+
+            <p>Change username:</p>
+
+            <pre><code>sudo usermod -l analyst analyst1</code></pre>
+
+            <p>Lock account:</p>
+
+            <pre><code>sudo usermod -L analyst</code></pre>
+
+            <p>Unlock account:</p>
+
+            <pre><code>sudo usermod -U analyst</code></pre>
+
+            <h3>Delete User</h3>
+
+            <p>Remove account:</p>
+
+            <pre><code>sudo userdel analyst</code></pre>
+
+            <p>Remove account and home directory:</p>
+
+            <pre><code>sudo userdel -r analyst</code></pre>
+
+        </div>
+
+        <!-- GROUP ADMINISTRATION -->
+        <div class="step-section">
+
+            <h2>Group Administration</h2>
+
+            <h3>View Groups</h3>
+
+            <pre><code>cat /etc/group</code></pre>
+
+            <p>Current user groups:</p>
+
+            <pre><code>groups</code></pre>
+
+            <h3>Create Group</h3>
+
+            <pre><code>sudo groupadd sysadmins</code></pre>
+
+            <h3>Add User to Group</h3>
+
+            <pre><code>sudo usermod -aG sysadmins analyst2</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>id analyst2</code></pre>
+
+        </div>
+
+        <!-- PASSWORD MANAGEMENT -->
+        <div class="step-section">
+
+            <h2>Password Management</h2>
+
+            <h3>Password Aging Information</h3>
+
+            <p>Display password policy:</p>
+
+            <pre><code>sudo chage -l analyst2</code></pre>
+
+            <h3>Set Password Expiration</h3>
+
+            <p>Force password change every 90 days:</p>
+
+            <pre><code>sudo chage -M 90 analyst2</code></pre>
+
+            <p>Set warning period:</p>
+
+            <pre><code>sudo chage -W 7 analyst2</code></pre>
+
+            <h3>Force Password Reset</h3>
+
+            <pre><code>sudo passwd -e analyst2</code></pre>
+
+            <p>
+                User will be required to change password at next login.
+            </p>
+
+        </div>
+
+        <!-- SYSTEM IDENTIFICATION -->
+        <div class="step-section">
+
+            <h2>System Identification</h2>
+
+            <h3>Hostname Configuration</h3>
+
+            <p>Display hostname:</p>
+
+            <pre><code>hostname</code></pre>
+
+            <p>Display detailed hostname information:</p>
+
+            <pre><code>hostnamectl</code></pre>
+
+            <h3>Change Hostname</h3>
+
+            <pre><code>sudo hostnamectl set-hostname srv-web01</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>hostnamectl</code></pre>
+
+        </div>
+
+        <!-- TIME MANAGEMENT -->
+        <div class="step-section">
+
+            <h2>Time and Date Management</h2>
+
+            <h3>Display Time Information</h3>
+
+            <pre><code>timedatectl</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>Local time: Sun 2026-06-21
+ Time zone: America/New_York
+ NTP service: active</code></pre>
+
+            <h3>Configure Time Zone</h3>
+
+            <p>List available zones:</p>
+
+            <pre><code>timedatectl list-timezones</code></pre>
+
+            <p>Set timezone:</p>
+
+            <pre><code>sudo timedatectl set-timezone America/New_York</code></pre>
+
+            <h3>Verify NTP Synchronization</h3>
+
+            <pre><code>timedatectl status</code></pre>
+
+        </div>
+
+        <!-- PACKAGE MANAGEMENT -->
+        <div class="step-section">
+
+            <h2>Package Management</h2>
+
+            <p>
+                Package managers vary by Linux distribution.
+            </p>
+
+            <table>
+                <tr>
+                    <th>Distribution</th>
+                    <th>Package Manager</th>
+                </tr>
+                <tr>
+                    <td>Ubuntu</td>
+                    <td>apt</td>
+                </tr>
+                <tr>
+                    <td>Debian</td>
+                    <td>apt</td>
+                </tr>
+                <tr>
+                    <td>Rocky Linux</td>
+                    <td>dnf</td>
+                </tr>
+                <tr>
+                    <td>AlmaLinux</td>
+                    <td>dnf</td>
+                </tr>
+                <tr>
+                    <td>CentOS Stream</td>
+                    <td>dnf</td>
+                </tr>
+            </table>
+
+            <h3>Package Management (APT)</h3>
+
+            <p>Update Repository Information:</p>
+
+            <pre><code>sudo apt update</code></pre>
+
+            <p>Upgrade Installed Packages:</p>
+
+            <pre><code>sudo apt upgrade</code></pre>
+
+            <p>Install Software:</p>
+
+            <pre><code>sudo apt install nginx</code></pre>
+
+            <p>Remove Software:</p>
+
+            <pre><code>sudo apt remove nginx</code></pre>
+
+            <p>Search Packages:</p>
+
+            <pre><code>apt search apache</code></pre>
+
+            <p>Display Package Information:</p>
+
+            <pre><code>apt show nginx</code></pre>
+
+            <h3>Package Management (DNF)</h3>
+
+            <p>Update Repositories:</p>
+
+            <pre><code>sudo dnf check-update</code></pre>
+
+            <p>Install Software:</p>
+
+            <pre><code>sudo dnf install httpd</code></pre>
+
+            <p>Remove Software:</p>
+
+            <pre><code>sudo dnf remove httpd</code></pre>
+
+            <p>Search Packages:</p>
+
+            <pre><code>dnf search apache</code></pre>
+
+        </div>
+
+        <!-- SERVICE MANAGEMENT -->
+        <div class="step-section">
+
+            <h2>Service Management</h2>
+
+            <p>
+                Linux services are managed through systemd.
+            </p>
+
+            <h3>View Service Status</h3>
+
+            <pre><code>systemctl status ssh</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>Active: active (running)</code></pre>
+
+            <h3>Start Service</h3>
+
+            <pre><code>sudo systemctl start nginx</code></pre>
+
+            <h3>Stop Service</h3>
+
+            <pre><code>sudo systemctl stop nginx</code></pre>
+
+            <h3>Restart Service</h3>
+
+            <pre><code>sudo systemctl restart nginx</code></pre>
+
+            <h3>Reload Configuration</h3>
+
+            <pre><code>sudo systemctl reload nginx</code></pre>
+
+            <h3>Enable Service at Boot</h3>
+
+            <pre><code>sudo systemctl enable nginx</code></pre>
+
+            <h3>Disable Service</h3>
+
+            <pre><code>sudo systemctl disable nginx</code></pre>
+
+            <h3>List Running Services</h3>
+
+            <pre><code>systemctl list-units --type=service</code></pre>
+
+        </div>
+        <!-- SYSTEM LOGS -->
+        <div class="step-section">
+
+            <h2>System Logs</h2>
+
+            <p>
+                systemd uses journald for centralized logging.
+            </p>
+
+            <h3>View Recent Logs</h3>
+
+            <pre><code>journalctl</code></pre>
+
+            <h3>Follow Logs in Real Time</h3>
+
+            <pre><code>journalctl -f</code></pre>
+
+            <h3>View Service Logs</h3>
+
+            <pre><code>journalctl -u nginx</code></pre>
+
+        </div>
+
+        <!-- PROCESS MONITORING -->
+        <div class="step-section">
+
+            <h2>Process Monitoring</h2>
+
+            <h3>Display Running Processes</h3>
+
+            <pre><code>ps aux</code></pre>
+
+            <h3>Interactive Process Viewer</h3>
+
+            <pre><code>top</code></pre>
+
+            <p>Alternative:</p>
+
+            <pre><code>htop</code></pre>
+
+            <p>Install:</p>
+
+            <pre><code>sudo apt install htop</code></pre>
+
+            <h3>Find Specific Process</h3>
+
+            <pre><code>ps aux | grep nginx</code></pre>
+
+            <h3>Kill Process</h3>
+
+            <p>Terminate by PID:</p>
+
+            <pre><code>kill PID</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>kill 2245</code></pre>
+
+            <p>Force termination:</p>
+
+            <pre><code>kill -9 2245</code></pre>
+
+        </div>
+
+        <!-- RESOURCE MONITORING -->
+        <div class="step-section">
+
+            <h2>Resource Monitoring</h2>
+
+            <h3>Memory Usage</h3>
+
+            <pre><code>free -h</code></pre>
+
+            <p>Example Output:</p>
+
+            <pre><code>Mem: 8Gi 3Gi 4Gi</code></pre>
+
+            <h3>CPU Information</h3>
+
+            <pre><code>lscpu</code></pre>
+
+            <h3>Disk Usage</h3>
+
+            <pre><code>df -h</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>Filesystem      Size  Used Avail Use%
+/dev/sda2       100G   40G   55G  43%</code></pre>
+
+            <h3>Directory Usage</h3>
+
+            <pre><code>du -sh /var/log</code></pre>
+
+        </div>
+
+        <!-- SCHEDULED TASKS -->
+        <div class="step-section">
+
+            <h2>Scheduled Tasks</h2>
+
+            <p>
+                Linux uses cron for recurring jobs.
+            </p>
+
+            <h3>View Current Cron Jobs</h3>
+
+            <pre><code>crontab -l</code></pre>
+
+            <h3>Edit Cron Jobs</h3>
+
+            <pre><code>crontab -e</code></pre>
+
+            <h3>Cron Schedule Format</h3>
+
+            <pre><code>* * * * * command
+
+│ │ │ │ │
+│ │ │ │ └─ Day of Week
+│ │ │ └── Month
+│ │ └──── Day of Month
+│ └────── Hour
+└──────── Minute</code></pre>
+
+            <h3>Example Cron Jobs</h3>
+
+            <p>Run every day at 2:00 AM:</p>
+
+            <pre><code>0 2 * * * /usr/local/bin/backup.sh</code></pre>
+
+            <p>Run every hour:</p>
+
+            <pre><code>0 * * * * /usr/local/bin/check_disk.sh</code></pre>
+
+        </div>
+
+        <!-- SYSTEM STARTUP -->
+        <div class="step-section">
+
+            <h2>System Startup and Boot</h2>
+
+            <h3>View Boot Time</h3>
+
+            <pre><code>uptime</code></pre>
+
+            <h3>View Boot Performance</h3>
+
+            <pre><code>systemd-analyze</code></pre>
+
+            <h3>Display Startup Services</h3>
+
+            <pre><code>systemctl list-unit-files --type=service</code></pre>
+
+        </div>
+
+        <!-- BASIC SECURITY HARDENING -->
+        <div class="step-section">
+
+            <h2>Basic Security Hardening</h2>
+
+            <h3>Verify Listening Ports</h3>
+
+            <pre><code>ss -tulpn</code></pre>
+
+            <p>Alternative:</p>
+
+            <pre><code>netstat -tulpn</code></pre>
+
+            <h3>Review User Accounts</h3>
+
+            <pre><code>cat /etc/passwd</code></pre>
+
+            <h3>Review Privileged Accounts</h3>
+
+            <pre><code>sudo grep sudo /etc/group</code></pre>
+
+            <h3>Verify Failed Login Attempts</h3>
+
+            <pre><code>sudo lastb</code></pre>
+
+            <div class="note">
+                NOTE: Depending on distribution and logging configuration,
+                lastb may not return results.
+            </div>
+
+            <h3>Update System</h3>
+
+            <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+
+        </div>
+
+        <!-- SYSTEM INFORMATION -->
+        <div class="step-section">
+
+            <h2>System Information Collection</h2>
+
+            <h3>Operating System Information</h3>
+
+            <pre><code>cat /etc/os-release</code></pre>
+
+            <h3>Kernel Version</h3>
+
+            <pre><code>uname -r</code></pre>
+
+            <h3>Hardware Information</h3>
+
+            <pre><code>hostnamectl</code></pre>
+
+            <h3>Network Information</h3>
+
+            <pre><code>ip addr</code></pre>
+
+            <p>Routing Table:</p>
+
+            <pre><code>ip route</code></pre>
+
+        </div>
+
+        <!-- PRACTICAL EXERCISES -->
+        <div class="step-section">
+
+            <h2>Practical Exercises</h2>
+
+            <h3>Exercise 1 — User Administration</h3>
+
+            <p>Create a user:</p>
+
+            <pre><code>sudo useradd -m helpdesk1
+sudo passwd helpdesk1</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>id helpdesk1</code></pre>
+
+            <img src="../../assets/images/linux/module2/1.jpg" alt="">
+
+        </div>
+
+        <div class="step-section">
+
+            <h3>Exercise 2 — Service Administration</h3>
+
+            <p>Install NGINX:</p>
+
+            <pre><code>sudo apt update
+sudo apt install nginx -y</code></pre>
+
+            <p>Check service:</p>
+
+            <pre><code>sudo systemctl status nginx</code></pre>
+
+            <p>Enable at boot:</p>
+
+            <pre><code>sudo systemctl enable nginx</code></pre>
+
+            <img src="../../assets/images/linux/module2/2.jpg" alt="">
+
+        </div>
+
+        <div class="step-section">
+
+            <h3>Exercise 3 — Log Investigation</h3>
+
+            <p>View SSH logs:</p>
+
+            <pre><code>journalctl -u ssh</code></pre>
+
+            <p>View last boot:</p>
+
+            <pre><code>journalctl -b</code></pre>
+
+            <p>Search for errors:</p>
+
+            <pre><code>journalctl -p err</code></pre>
+
+            <img src="../../assets/images/linux/module2/3.jpg" alt="Filesystem Navigation Exercise">
+
+        </div>
+
+        <div class="step-section">
+
+            <h3>Exercise 4 — Resource Monitoring</h3>
+
+            <p>Check CPU:</p>
+
+            <pre><code>lscpu</code></pre>
+
+            <p>Check memory:</p>
+
+            <pre><code>free -h</code></pre>
+
+            <p>Check largest directories:</p>
+
+            <pre><code>du -sh /*</code></pre>
+
+            <img src="../../assets/images/linux/module2/4.jpg" alt="">
+
+        </div>
+
+        <!-- TROUBLESHOOTING CHECKLIST -->
+        <div class="step-section">
+
+            <h2>Administrative Troubleshooting Checklist</h2>
+
+            <table>
+                <tr>
+                    <th>Issue</th>
+                    <th>Command</th>
+                </tr>
+
+                <tr>
+                    <td>User cannot login</td>
+                    <td><code>id username</code></td>
+                </tr>
+
+                <tr>
+                    <td>Password expired</td>
+                    <td><code>chage -l username</code></td>
+                </tr>
+
+                <tr>
+                    <td>Service failed</td>
+                    <td><code>systemctl status service</code></td>
+                </tr>
+
+                <tr>
+                    <td>Check service logs</td>
+                    <td><code>journalctl -u service</code></td>
+                </tr>
+
+                <tr>
+                    <td>High CPU usage</td>
+                    <td><code>top</code></td>
+                </tr>
+
+                <tr>
+                    <td>High memory usage</td>
+                    <td><code>free -h</code></td>
+                </tr>
+
+                <tr>
+                    <td>Disk full</td>
+                    <td><code>df -h</code></td>
+                </tr>
+
+                <tr>
+                    <td>Startup issues</td>
+                    <td><code>systemd-analyze</code></td>
+                </tr>
+
+                <tr>
+                    <td>Network issue</td>
+                    <td><code>ip addr</code></td>
+                </tr>
+
+                <tr>
+                    <td>Package issue</td>
+                    <td><code>apt update</code></td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+                <li>Linux administration revolves around users, groups, packages, services, logs, and system resources.
+                </li>
+                <li>sudo provides controlled administrative access.</li>
+                <li>User and group management is performed through useradd, usermod, and groupadd.</li>
+                <li>Software installation and updates are managed through package managers such as apt and dnf.</li>
+                <li>Services are managed using systemctl.</li>
+                <li>System logs are centralized through journalctl.</li>
+                <li>Resource monitoring tools such as top, free, df, and ps are critical for troubleshooting.</li>
+                <li>Scheduled tasks are automated through cron.</li>
+                <li>Basic hardening includes regular patching, service auditing, account review, and port monitoring.
+                </li>
+                <li>These administrative skills form the operational foundation for Linux server support, infrastructure
+                    administration, SOC operations, and enterprise systems management.</li>
+            </ul>
+
+        </div>
+
+        <!-- MODULE COMPLETION -->
+        <div class="step-section">
+
+            <h2>Module Completion Outcome</h2>
+
+            <div class="note">
+
+                <p>
+                    At the completion of Module 2, you should be capable of administering
+                    a Linux server, managing users and services, monitoring system health,
+                    maintaining software packages, reviewing logs, scheduling tasks, and
+                    performing common operational and troubleshooting activities encountered
+                    in enterprise environments.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- PAGE NAVIGATION -->
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Return to Linux Modules
+            </a>
+            <a class="btn btn-primary" href="../../projects/linux/module3.html">
+                Proceed to Module 3 →
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

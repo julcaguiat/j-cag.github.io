@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Linux Storage & Filesystem Management | JCAG-LAB</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <style>
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 35px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #30363d;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #161b22;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .note {
+            margin-top: 15px;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                LINUX ADMINISTRATION
+            </div>
+
+            <h1 class="hero-title">
+                Module 3: Linux Storage & Filesystem Management
+
+            </h1>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                Storage management is a critical responsibility for Linux administrators. Enterprise servers
+                rely on properly configured disks, partitions, filesystems, logical volumes, mount points,
+                and permissions to ensure data availability, performance, and recoverability.
+            </p>
+
+            <p>
+                This module covers Linux storage architecture, disk management, partitioning, filesystem
+                creation, mounting, Logical Volume Manager (LVM), swap management, storage monitoring,
+                and troubleshooting procedures commonly performed in production environments.
+            </p>
+
+        </div>
+
+        <!-- LEARNING OBJECTIVES -->
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+                <li>Identify storage devices and partitions.</li>
+                <li>Understand Linux filesystem architecture.</li>
+                <li>Create and manage partitions.</li>
+                <li>Format disks with Linux filesystems.</li>
+                <li>Mount and unmount filesystems.</li>
+                <li>Configure persistent mounts.</li>
+                <li>Manage Logical Volume Manager (LVM).</li>
+                <li>Monitor storage utilization.</li>
+                <li>Configure and manage swap space.</li>
+                <li>Troubleshoot filesystem and storage issues.</li>
+                <li>Perform filesystem integrity checks.</li>
+            </ul>
+
+        </div>
+
+        <!-- STORAGE ARCHITECTURE -->
+        <div class="step-section">
+
+            <h2>Linux Storage Architecture</h2>
+
+            <p>
+                Linux storage is organized into several layers:
+            </p>
+
+            <pre><code>Physical Disk
+      │
+      ▼
+Partition Table
+      │
+      ▼
+Partitions
+      │
+      ▼
+Filesystem
+      │
+      ▼
+Mount Point
+      │
+      ▼
+Accessible Data</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>Disk: /dev/sda
+Partition: /dev/sda1
+Filesystem: ext4
+Mount Point: /data</code></pre>
+
+        </div>
+
+        <!-- DEVICE NAMING -->
+        <div class="step-section">
+
+            <h2>Understanding Device Naming</h2>
+
+            <p>
+                Linux identifies storage devices under <code>/dev</code>.
+            </p>
+
+            <table>
+                <tr>
+                    <th>Device</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>/dev/sda</td>
+                    <td>First SATA/SCSI disk</td>
+                </tr>
+                <tr>
+                    <td>/dev/sdb</td>
+                    <td>Second SATA/SCSI disk</td>
+                </tr>
+                <tr>
+                    <td>/dev/nvme0n1</td>
+                    <td>First NVMe disk</td>
+                </tr>
+                <tr>
+                    <td>/dev/sda1</td>
+                    <td>First partition on sda</td>
+                </tr>
+                <tr>
+                    <td>/dev/sda2</td>
+                    <td>Second partition on sda</td>
+                </tr>
+                <tr>
+                    <td>/dev/mapper</td>
+                    <td>Logical volume mappings</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- VIEW STORAGE DEVICES -->
+        <div class="step-section">
+
+            <h2>Viewing Storage Devices</h2>
+
+            <h3>List Block Devices</h3>
+
+            <pre><code>lsblk</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>NAME    SIZE TYPE MOUNTPOINT
+sda     250G disk
+├─sda1    1G part /boot
+├─sda2    8G part [SWAP]
+└─sda3  241G part /</code></pre>
+
+            <h3>Display Filesystem Information</h3>
+
+            <pre><code>lsblk -f</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>NAME    FSTYPE LABEL UUID
+sda1    ext4
+sda2    swap
+sda3    ext4</code></pre>
+
+            <h3>View Partition Tables</h3>
+
+            <pre><code>sudo fdisk -l</code></pre>
+
+        </div>
+
+        <!-- FILESYSTEMS -->
+        <div class="step-section">
+
+            <h2>Understanding Filesystems</h2>
+
+            <p>
+                A filesystem organizes and stores data on storage devices.
+            </p>
+
+            <table>
+                <tr>
+                    <th>Filesystem</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>ext4</td>
+                    <td>Default Linux filesystem</td>
+                </tr>
+                <tr>
+                    <td>XFS</td>
+                    <td>Enterprise filesystem</td>
+                </tr>
+                <tr>
+                    <td>Btrfs</td>
+                    <td>Advanced copy-on-write filesystem</td>
+                </tr>
+                <tr>
+                    <td>FAT32</td>
+                    <td>Cross-platform compatibility</td>
+                </tr>
+                <tr>
+                    <td>NTFS</td>
+                    <td>Windows filesystem</td>
+                </tr>
+                <tr>
+                    <td>swap</td>
+                    <td>Virtual memory partition</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- MOUNTED FILESYSTEMS -->
+        <div class="step-section">
+
+            <h2>Viewing Mounted Filesystems</h2>
+
+            <h3>Display Mounted Filesystems</h3>
+
+            <pre><code>mount</code></pre>
+
+            <h3>Display Human-Readable Usage</h3>
+
+            <pre><code>df -h</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>Filesystem      Size Used Avail Use%
+/dev/sda3       240G 120G 110G 53%</code></pre>
+
+        </div>
+
+        <!-- PARTITIONS -->
+        <div class="step-section">
+
+            <h2>Creating Partitions</h2>
+
+            <h3>Launch fdisk</h3>
+
+            <p>Example using a secondary disk:</p>
+
+            <pre><code>sudo fdisk /dev/sdb</code></pre>
+
+            <h3>Common fdisk Commands</h3>
+
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Function</th>
+                </tr>
+                <tr>
+                    <td>p</td>
+                    <td>Print partition table</td>
+                </tr>
+                <tr>
+                    <td>n</td>
+                    <td>New partition</td>
+                </tr>
+                <tr>
+                    <td>d</td>
+                    <td>Delete partition</td>
+                </tr>
+                <tr>
+                    <td>w</td>
+                    <td>Write changes</td>
+                </tr>
+                <tr>
+                    <td>q</td>
+                    <td>Quit without saving</td>
+                </tr>
+            </table>
+
+            <h3>Verify New Partition</h3>
+
+            <pre><code>lsblk</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>sdb
+└─sdb1 100G part</code></pre>
+
+        </div>
+
+        <!-- FILESYSTEM CREATION -->
+        <div class="step-section">
+
+            <h2>Creating Filesystems</h2>
+
+            <h3>Format as ext4</h3>
+
+            <pre><code>sudo mkfs.ext4 /dev/sdb1</code></pre>
+
+            <h3>Format as XFS</h3>
+
+            <pre><code>sudo mkfs.xfs /dev/sdb1</code></pre>
+
+            <h3>Format as FAT32</h3>
+
+            <pre><code>sudo mkfs.vfat /dev/sdb1</code></pre>
+
+            <h3>Verify Filesystem</h3>
+
+            <pre><code>sudo blkid</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>/dev/sdb1: UUID="1234-abcd" TYPE="ext4"</code></pre>
+
+        </div>
+
+        <!-- MOUNTING -->
+        <div class="step-section">
+
+            <h2>Mounting Filesystems</h2>
+
+            <p>
+                A filesystem must be mounted before it can be used.
+            </p>
+
+            <h3>Create Mount Point</h3>
+
+            <pre><code>sudo mkdir /data</code></pre>
+
+            <h3>Mount Filesystem</h3>
+
+            <pre><code>sudo mount /dev/sdb1 /data</code></pre>
+
+            <h3>Verify Mount</h3>
+
+            <pre><code>df -h</code></pre>
+
+            <p>or</p>
+
+            <pre><code>mount | grep sdb1</code></pre>
+
+            <h3>Unmount Filesystem</h3>
+
+            <pre><code>sudo umount /data</code></pre>
+
+            <p>or</p>
+
+            <pre><code>sudo umount /dev/sdb1</code></pre>
+
+        </div>
+
+        <!-- FSTAB -->
+        <div class="step-section">
+
+            <h2>Persistent Mounting with fstab</h2>
+
+            <p>
+                Temporary mounts disappear after reboot.
+            </p>
+
+            <p>
+                Persistent mounts are configured in:
+            </p>
+
+            <pre><code>/etc/fstab</code></pre>
+
+            <h3>View Current fstab</h3>
+
+            <pre><code>cat /etc/fstab</code></pre>
+
+            <h3>Obtain UUID</h3>
+
+            <pre><code>sudo blkid</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>UUID="1234-abcd"</code></pre>
+
+            <h3>Add Persistent Mount</h3>
+
+            <p>Example entry:</p>
+
+            <pre><code>UUID=1234-abcd /data ext4 defaults 0 2</code></pre>
+
+            <h3>Validate Configuration</h3>
+
+            <p>Before rebooting:</p>
+
+            <pre><code>sudo mount -a</code></pre>
+
+            <p>
+                No output indicates success.
+            </p>
+
+        </div>
+
+        <!-- LVM -->
+        <div class="step-section">
+
+            <h2>Understanding Logical Volume Manager (LVM)</h2>
+
+            <p>
+                LVM provides flexible storage management.
+            </p>
+
+            <h3>Benefits</h3>
+
+            <ul>
+                <li>Online volume expansion</li>
+                <li>Multiple disk aggregation</li>
+                <li>Simplified storage administration</li>
+                <li>Snapshot support</li>
+            </ul>
+
+            <h3>LVM Architecture</h3>
+
+            <pre><code>Physical Volume (PV)
+         │
+         ▼
+Volume Group (VG)
+         │
+         ▼
+Logical Volume (LV)
+         │
+         ▼
+Filesystem</code></pre>
+
+        </div>
+
+        <!-- PHYSICAL VOLUMES -->
+        <div class="step-section">
+
+            <h2>Creating Physical Volumes</h2>
+
+            <p>Initialize a disk:</p>
+
+            <pre><code>sudo pvcreate /dev/sdb1</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>sudo pvs</code></pre>
+
+        </div>
+
+        <!-- VOLUME GROUPS -->
+        <div class="step-section">
+
+            <h2>Creating Volume Groups</h2>
+
+            <p>Create VG:</p>
+
+            <pre><code>sudo vgcreate vg_data /dev/sdb1</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>sudo vgs</code></pre>
+
+        </div>
+
+        <!-- LOGICAL VOLUMES -->
+        <div class="step-section">
+
+            <h2>Creating Logical Volumes</h2>
+
+            <p>Create a 50GB logical volume:</p>
+
+            <pre><code>sudo lvcreate -L 50G -n lv_backup vg_data</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>sudo lvs</code></pre>
+
+        </div>
+
+        <!-- FORMAT LV -->
+        <div class="step-section">
+
+            <h2>Format Logical Volume</h2>
+
+            <pre><code>sudo mkfs.ext4 /dev/vg_data/lv_backup</code></pre>
+
+        </div>
+
+        <!-- MOUNT LV -->
+        <div class="step-section">
+
+            <h2>Mount Logical Volume</h2>
+
+            <pre><code>sudo mkdir /backup
+sudo mount /dev/vg_data/lv_backup /backup</code></pre>
+
+        </div>
+
+        <!-- EXTEND LV -->
+        <div class="step-section">
+
+            <h2>Extending Logical Volumes</h2>
+
+            <p>Increase volume by 20GB:</p>
+
+            <pre><code>sudo lvextend -L +20G /dev/vg_data/lv_backup</code></pre>
+
+            <p>Extend filesystem:</p>
+
+            <pre><code>sudo resize2fs /dev/vg_data/lv_backup</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>df -h</code></pre>
+
+        </div>
+
+        <!-- SWAP -->
+        <div class="step-section">
+
+            <h2>Swap Space Management</h2>
+
+            <p>
+                Swap provides virtual memory when physical RAM is exhausted.
+            </p>
+
+            <h3>View Swap Usage</h3>
+
+            <pre><code>swapon --show</code></pre>
+
+            <p>or</p>
+
+            <pre><code>free -h</code></pre>
+
+        </div>
+
+        <!-- CREATE SWAP -->
+        <div class="step-section">
+
+            <h2>Create Swap File</h2>
+
+            <p>Create a 4GB swap file:</p>
+
+            <pre><code>sudo fallocate -l 4G /swapfile</code></pre>
+
+            <h3>Secure Permissions</h3>
+
+            <pre><code>sudo chmod 600 /swapfile</code></pre>
+
+            <h3>Format Swap</h3>
+
+            <pre><code>sudo mkswap /swapfile</code></pre>
+
+            <h3>Enable Swap</h3>
+
+            <pre><code>sudo swapon /swapfile</code></pre>
+
+            <p>Verify:</p>
+
+            <pre><code>swapon --show</code></pre>
+
+        </div>
+
+        <!-- PERSIST SWAP -->
+        <div class="step-section">
+
+            <h2>Persist Swap</h2>
+
+            <p>Add to <code>/etc/fstab</code>:</p>
+
+            <pre><code>/swapfile none swap sw 0 0</code></pre>
+
+        </div>
+
+        <!-- DISK USAGE -->
+        <div class="step-section">
+
+            <h2>Disk Usage Monitoring</h2>
+
+            <h3>Display Filesystem Utilization</h3>
+
+            <pre><code>df -h</code></pre>
+
+            <h3>Analyze Directory Consumption</h3>
+
+            <pre><code>du -sh /var/log</code></pre>
+
+            <h3>Largest Directories</h3>
+
+            <pre><code>sudo du -h / | sort -rh | head -20</code></pre>
+
+        </div>
+
+        <!-- INODES -->
+        <div class="step-section">
+
+            <h2>File Inode Management</h2>
+
+            <p>
+                Filesystems contain a limited number of inodes.
+            </p>
+
+            <p>Check inode usage:</p>
+
+            <pre><code>df -i</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>Filesystem Inodes IUsed IFree IUse%
+/dev/sda3 1600000 300000 1300000 19%</code></pre>
+
+        </div>
+
+        <!-- FSCK -->
+        <div class="step-section">
+
+            <h2>Filesystem Integrity Checks</h2>
+
+            <p>
+                Filesystem corruption can occur due to:
+            </p>
+
+            <ul>
+                <li>Power loss</li>
+                <li>Hardware failure</li>
+                <li>Improper shutdown</li>
+                <li>Storage controller issues</li>
+            </ul>
+
+            <h3>Check Filesystem</h3>
+
+            <p>Unmount first:</p>
+
+            <pre><code>sudo umount /dev/sdb1</code></pre>
+
+            <p>Run check:</p>
+
+            <pre><code>sudo fsck /dev/sdb1</code></pre>
+
+            <h3>Force Filesystem Check</h3>
+
+            <pre><code>sudo fsck -f /dev/sdb1</code></pre>
+
+        </div>
+
+        <!-- XFS REPAIR -->
+        <div class="step-section">
+
+            <h2>XFS Integrity Checks</h2>
+
+            <p>Repair XFS filesystem:</p>
+
+            <pre><code>sudo xfs_repair /dev/sdb1</code></pre>
+
+        </div>
+
+        <!-- PERMISSIONS -->
+        <div class="step-section">
+
+            <h2>File Permissions Overview</h2>
+
+            <p>
+                Storage management includes access control.
+            </p>
+
+            <p>Display permissions:</p>
+
+            <pre><code>ls -l</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>-rw-r--r-- 1 admin admin 1024 Jun 22 report.txt</code></pre>
+
+        </div>
+
+        <!-- OWNERSHIP -->
+        <div class="step-section">
+
+            <h2>Ownership Management</h2>
+
+            <p>Change owner:</p>
+
+            <pre><code>sudo chown admin file.txt</code></pre>
+
+            <p>Change owner and group:</p>
+
+            <pre><code>sudo chown admin:sysadmins file.txt</code></pre>
+
+        </div>
+
+        <!-- CHMOD -->
+        <div class="step-section">
+
+            <h2>Permission Management</h2>
+
+            <p>Modify permissions:</p>
+
+            <pre><code>chmod 644 file.txt</code></pre>
+
+            <table>
+                <tr>
+                    <th>Permission</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td>777</td>
+                    <td>Full access</td>
+                </tr>
+                <tr>
+                    <td>755</td>
+                    <td>Typical directory</td>
+                </tr>
+                <tr>
+                    <td>644</td>
+                    <td>Standard file</td>
+                </tr>
+                <tr>
+                    <td>600</td>
+                    <td>Sensitive file</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- TROUBLESHOOTING -->
+        <div class="step-section">
+
+            <h2>Storage Troubleshooting</h2>
+
+            <h3>Disk Not Detected</h3>
+
+            <p>Verify devices:</p>
+
+            <pre><code>lsblk</code></pre>
+
+            <p>Check kernel detection:</p>
+
+            <pre><code>dmesg | grep sd</code></pre>
+
+            <h3>Filesystem Not Mounting</h3>
+
+            <p>Check UUID:</p>
+
+            <pre><code>blkid</code></pre>
+
+            <p>Verify fstab:</p>
+
+            <pre><code>cat /etc/fstab</code></pre>
+
+            <p>Test configuration:</p>
+
+            <pre><code>mount -a</code></pre>
+
+            <h3>Disk Full</h3>
+
+            <pre><code>df -h</code></pre>
+
+            <p>Locate large directories:</p>
+
+            <pre><code>du -sh /*</code></pre>
+
+            <h3>Excessive Log Growth</h3>
+
+            <pre><code>du -sh /var/log/*</code></pre>
+
+            <h3>Inode Exhaustion</h3>
+
+            <p>Verify:</p>
+
+            <pre><code>df -i</code></pre>
+
+            <p>Locate excessive small files:</p>
+
+            <pre><code>find / -type f | wc -l</code></pre>
+
+        </div>
+
+        <!-- PRACTICAL EXERCISES -->
+        <div class="step-section">
+
+            <h2>Practical Exercises (Note: For reference only. 'sdb' contains important data!)</h2>
+
+            <h3>Exercise 1 – Create and Mount a Filesystem</h3>
+
+            <pre><code>sudo fdisk /dev/sdb
+
+sudo mkfs.ext4 /dev/sdb1
+
+sudo mkdir /data
+sudo mount /dev/sdb1 /data
+
+df -h</code></pre>
+
+            <h3>Exercise 2 – Configure Persistent Storage</h3>
+
+            <pre><code>sudo blkid
+
+sudo nano /etc/fstab
+
+UUID=&lt;uuid&gt; /data ext4 defaults 0 2
+
+sudo mount -a</code></pre>
+
+            <h3>Exercise 3 – Create LVM Storage</h3>
+
+            <pre><code>sudo pvcreate /dev/sdb1
+
+sudo vgcreate vg_data /dev/sdb1
+
+sudo lvcreate -L 20G -n lv_files vg_data
+
+sudo mkfs.ext4 /dev/vg_data/lv_files
+
+sudo mount /dev/vg_data/lv_files /data</code></pre>
+
+            <h3>Exercise 4 – Configure Swap</h3>
+
+            <pre><code>sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+free -h</code></pre>
+
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="step-section">
+
+            <h2>Storage Administration Checklist</h2>
+
+            <table>
+                <tr>
+                    <th>Task</th>
+                    <th>Command</th>
+                </tr>
+                <tr>
+                    <td>View disks</td>
+                    <td>lsblk</td>
+                </tr>
+                <tr>
+                    <td>View partitions</td>
+                    <td>fdisk -l</td>
+                </tr>
+                <tr>
+                    <td>View filesystem usage</td>
+                    <td>df -h</td>
+                </tr>
+                <tr>
+                    <td>View inode usage</td>
+                    <td>df -i</td>
+                </tr>
+                <tr>
+                    <td>View UUIDs</td>
+                    <td>blkid</td>
+                </tr>
+                <tr>
+                    <td>Mount filesystem</td>
+                    <td>mount</td>
+                </tr>
+                <tr>
+                    <td>Unmount filesystem</td>
+                    <td>umount</td>
+                </tr>
+                <tr>
+                    <td>Validate fstab</td>
+                    <td>mount -a</td>
+                </tr>
+                <tr>
+                    <td>Check filesystem</td>
+                    <td>fsck</td>
+                </tr>
+                <tr>
+                    <td>View LVM</td>
+                    <td>pvs, vgs, lvs</td>
+                </tr>
+                <tr>
+                    <td>View swap</td>
+                    <td>swapon --show</td>
+                </tr>
+                <tr>
+                    <td>Directory usage</td>
+                    <td>du -sh</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+                <li>Linux storage management involves disks, partitions, filesystems, mount points, and permissions.
+                </li>
+                <li>lsblk, fdisk, and blkid are primary disk management tools.</li>
+                <li>Filesystems must be formatted and mounted before use.</li>
+                <li>Persistent mounts are configured through <code>/etc/fstab</code>.</li>
+                <li>LVM provides flexible, enterprise-grade storage management.</li>
+                <li>Swap space supplements physical memory.</li>
+                <li>df, du, and df -i are essential monitoring tools.</li>
+                <li>fsck and xfs_repair help recover damaged filesystems.</li>
+                <li>Storage troubleshooting is a core Linux administration skill frequently encountered in enterprise
+                    operations.</li>
+            </ul>
+
+        </div>
+
+        <!-- MODULE COMPLETION -->
+        <div class="step-section">
+
+            <h2>Module Completion Outcome</h2>
+
+            <p>
+                At the completion of Module 3, you should be capable of provisioning storage devices,
+                creating and managing filesystems, configuring persistent mounts, implementing LVM storage,
+                managing swap space, monitoring disk utilization, and troubleshooting common Linux storage
+                and filesystem issues encountered in enterprise server environments.
+            </p>
+
+        </div>
+
+        <!-- PAGE NAVIGATION -->
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Return to Linux Modules
+            </a>
+            <a class="btn btn-primary" href="../../projects/linux/module4.html">
+                Proceed to Module 4 →
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

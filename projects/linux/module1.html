@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cisco IOS Device Recovery (ROMMON) | SOC Lab</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                LINUX ADMINISTRATION
+            </div>
+
+            <h1 class="hero-title">
+                Module 1: Linux Command Line Fundamentals
+            </h1>
+
+            <p>
+                Learn the foundational Linux command-line skills required for enterprise administration,
+                cybersecurity operations, server management, troubleshooting, and automation.
+
+            </p>
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                The Linux Command Line Interface (CLI) is the primary method for administering Linux systems in
+                enterprise, server, cloud, and cybersecurity environments. Unlike graphical interfaces,
+                the CLI provides direct access to system resources, automation capabilities, troubleshooting
+                tools, and administrative functions.
+
+            </p>
+
+            <p>
+                This module introduces the foundational Linux commands required for system navigation,
+                file management, user interaction, permissions inspection, and basic administrative operations.
+            </p>
+
+        </div>
+
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+                <li>Understand the Linux shell environment.</li>
+                <li>Navigate the Linux filesystem hierarchy.</li>
+                <li>Manage files and directories from the command line.</li>
+                <li>View and manipulate file contents.</li>
+                <li>Use command-line help systems.</li>
+                <li>Redirect command output and input.</li>
+                <li>Search for files and text within a system.</li>
+                <li>Understand command syntax and common conventions.</li>
+                <li>Execute basic administrative tasks.</li>
+            </ul>
+
+        </div>
+
+        <!-- SHELL -->
+
+        <div class="step-section">
+
+            <h2>Linux Shell Fundamentals</h2>
+
+            <h3>What is a Shell?</h3>
+
+            <p>
+                A shell is a command interpreter that provides a user interface for interacting with the operating
+                system.
+            </p>
+
+            <p>Common Linux shells include:</p>
+
+            <table>
+                <tr>
+                    <th>Shell</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Bash</td>
+                    <td>Bourne Again Shell (default on many distributions)</td>
+                </tr>
+                <tr>
+                    <td>Zsh</td>
+                    <td>Extended shell with advanced features</td>
+                </tr>
+                <tr>
+                    <td>Sh</td>
+                    <td>Original Bourne Shell</td>
+                </tr>
+                <tr>
+                    <td>Fish</td>
+                    <td>User-friendly interactive shell</td>
+                </tr>
+                <tr>
+                    <td>Ksh</td>
+                    <td>Korn Shell</td>
+                </tr>
+            </table>
+
+            <p>Verify the current shell:</p>
+
+            <pre><code>echo $SHELL</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>/bin/bash</code></pre>
+
+        </div>
+
+        <!-- COMMON SYNTAX -->
+
+        <div class="step-section">
+
+            <h2>Understanding Command Syntax</h2>
+
+            <p>
+                Linux commands generally follow the structure:
+            </p>
+
+            <pre><code>command [options] [arguments]</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>ls -l /home</code></pre>
+
+            <p>Breakdown:</p>
+
+            <table>
+
+                <tr>
+                    <th>Component</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>ls</td>
+                    <td>Command</td>
+                </tr>
+                <tr>
+                    <td>-l</td>
+                    <td>Option</td>
+                </tr>
+                <tr>
+                    <td>/home</td>
+                    <td>Argument</td>
+                </tr>
+            </table>
+
+        </div>
+
+
+        <!-- HELP -->
+
+        <div class="step-section">
+
+            <h2>Accessing Help</h2>
+
+            <h3>Manual Pages</h3>
+
+            <p>Display command documentation:</p>
+
+            <pre><code>man ls</code></pre>
+
+            <p>Navigation keys:</p>
+
+            <table>
+                <tr>
+                    <th>Key</th>
+                    <th>Function</th>
+                </tr>
+                <tr>
+                    <td>Space</td>
+                    <td>Next page</td>
+                </tr>
+                <tr>
+                    <td>b</td>
+                    <td>Previous page</td>
+                </tr>
+                <tr>
+                    <td>/</td>
+                    <td>Search</td>
+                </tr>
+                <tr>
+                    <td>q</td>
+                    <td>Quit</td>
+                </tr>
+            </table>
+
+            <h3>Command Help</h3>
+
+            <p>Many commands provide built-in help:</p>
+
+            <pre><code>ls --help</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>cp --help</code></pre>
+
+        </div>
+
+        <!-- COMMAND PURPOSE -->
+        <div class="step-section">
+
+            <h2>Determine Command Purpose</h2>
+
+            <pre><code>whatis ls</code></pre>
+
+            <p>Output:</p>
+
+            <pre><code>ls (1) - list directory contents</code></pre>
+
+        </div>
+
+        <!-- FILE SYSTEM NAVIGATION -->
+
+        <div class="step-section">
+
+            <h2>Filesystem Navigation</h2>
+
+            <h3>Current Working Directory</h3>
+
+            <p>Display current location:</p>
+
+            <pre><code>pwd</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>/home/admin</code></pre>
+
+        </div>
+
+
+        <!-- LIST DIRECTORY CONTENTS -->
+
+        <div class="step-section">
+
+            <h2>List Directory Contents</h2>
+
+            <p>Basic listing:</p>
+
+            <pre><code>ls</code></pre>
+
+            <p>Detailed listing:</p>
+
+            <pre><code>ls -l</code></pre>
+
+            <p>Show hidden files:</p>
+
+            <pre><code>ls -la</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>drwxr-xr-x 2 admin admin 4096 Jun 15 Documents
+
+ -rw-r--r-- 1 admin admin 124 notes.txt</code></pre>
+
+        </div>
+
+        <!-- CHANGE DIRECTORY -->
+
+        <div class="step-section">
+
+            <h2>Change Directory</h2>
+
+            <p>Move into a directory:</p>
+
+            <pre><code>cd Documents</code></pre>
+
+            <p>Move up one level:</p>
+
+            <pre><code>cd ..</code></pre>
+
+            <p>Return to home directory:</p>
+
+            <pre><code>cd ~</code></pre>
+
+            <p>Return to previous directory:</p>
+
+            <pre><code>cd -</code></pre>
+
+        </div>
+
+
+
+
+
+        <!-- FILE SYSTEM STRUCTURE -->
+        <div class="step-section">
+
+            <h2>Linux Filesystem Structure</h2>
+
+            <p>
+
+                Linux follows a standardized filesystem hierarchy.
+
+            </p>
+
+            <table>
+
+                <tr>
+
+                    <th>Directory</th>
+
+                    <th>Purpose</th>
+
+                </tr>
+
+                <tr>
+
+                    <td>/</td>
+
+                    <td>Root directory</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/home</td>
+
+                    <td>User home directories</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/root</td>
+
+                    <td>Root user home directory</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/etc</td>
+
+                    <td>Configuration files</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/var</td>
+
+                    <td>Variable system data</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/tmp</td>
+
+                    <td>Temporary files</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/usr</td>
+
+                    <td>User programs and libraries</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/bin</td>
+
+                    <td>Essential commands</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/sbin</td>
+
+                    <td>Administrative commands</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/dev</td>
+
+                    <td>Device files</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/proc</td>
+
+                    <td>Process information</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>/boot</td>
+
+                    <td>Bootloader files</td>
+
+                </tr>
+
+            </table>
+
+            <p>View top-level directories:</p>
+
+            <pre><code>ls /</code></pre>
+
+        </div>
+
+
+
+
+
+
+        <!-- FILE AND DIRECTORY MANAGEMENT -->
+
+        <div class="step-section">
+
+            <h2>File and Directory Management</h2>
+
+            <h3>Create Files</h3>
+
+            <p>Using touch:</p>
+
+            <pre><code>touch file1.txt</code></pre>
+
+            <h3>Create Directories</h3>
+
+            <pre><code>mkdir projects</code></pre>
+
+            <h3>Create Nested Directories</h3>
+
+            <pre><code>mkdir -p projects/linux/module1</code></pre>
+
+            <h3>Copy Files</h3>
+
+            <p>Copy a file:</p>
+
+            <pre><code>cp file1.txt backup.txt</code></pre>
+
+            <p>Copy a directory recursively:</p>
+
+            <pre><code>cp -r source_dir destination_dir</code></pre>
+
+            <h3>Move and Rename Files</h3>
+
+            <pre><code>mv oldname.txt newname.txt</code></pre>
+
+            <h3>Delete Files</h3>
+
+            <p>Remove file:</p>
+
+            <pre><code>rm file.txt</code></pre>
+
+            <p>Remove directory recursively:</p>
+
+            <pre><code>rm -r directory</code></pre>
+
+            <p>Force deletion:</p>
+
+            <pre><code>rm -rf directory</code></pre>
+
+        </div>
+
+
+
+
+        <!-- VIEWING FILE CONTENTS -->
+
+        <div class="step-section">
+
+            <h2>Viewing File Contents</h2>
+
+            <h3>Display Entire File</h3>
+
+            <pre><code>cat file.txt</code></pre>
+
+            <h3>View Large Files</h3>
+
+            <pre><code>less logfile.log</code></pre>
+
+            <p>Navigation:</p>
+
+            <table>
+
+                <tr>
+
+                    <th>Key</th>
+
+                    <th>Function</th>
+
+                </tr>
+
+                <tr>
+
+                    <td>Space</td>
+
+                    <td>Next page</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>b</td>
+
+                    <td>Previous page</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>q</td>
+
+                    <td>Quit</td>
+
+                </tr>
+
+            </table>
+
+            <h3>Display Beginning of File</h3>
+
+            <pre><code>head file.txt</code></pre>
+
+            <p>Show first 20 lines:</p>
+
+            <pre><code>head -20 file.txt</code></pre>
+
+            <h3>Display End of File</h3>
+
+            <pre><code>tail file.txt</code></pre>
+
+            <p>Monitor live updates:</p>
+
+            <pre><code>tail -f logfile.log</code></pre>
+
+        </div>
+
+
+
+
+
+
+
+
+        <!-- SEARCHING TEXT WITHIN FILES -->
+
+
+        <div class="step-section">
+
+            <h2>Searching for Files</h2>
+
+            <h3>Find Command</h3>
+
+            <p>Locate files by name:</p>
+
+            <pre><code>find /home -name "*.txt"</code></pre>
+
+            <p>Locate directories:</p>
+
+            <pre><code>find /var -type d</code></pre>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+
+        <!-- INPUT AND OUTPUT REDIRECTION -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Input and Output Redirection</h2>
+
+            <p>Linux treats everything as a stream.</p>
+
+            <table>
+
+                <tr>
+
+                    <th>Operator</th>
+
+                    <th>Purpose</th>
+
+                </tr>
+
+                <tr>
+
+                    <td>&gt;</td>
+
+                    <td>Overwrite file</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>&gt;&gt;</td>
+
+                    <td>Append to file</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>&lt;</td>
+
+                    <td>Input redirection</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>|</td>
+
+                    <td>Pipe output</td>
+
+                </tr>
+
+            </table>
+
+            <h3>Redirect Output</h3>
+
+            <pre><code>ls > files.txt</code></pre>
+
+            <p>Append:</p>
+
+            <pre><code>date >> audit.log</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <!-- PIPE COMMANDS -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Pipe Commands</h2>
+
+            <p>Example:</p>
+
+            <pre><code>ls -l | less</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>cat logfile.log | grep ERROR</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <!-- WILDCARDS -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Working with Wildcards</h2>
+
+            <h3>Asterisk (*)</h3>
+
+            <p>Matches multiple characters.</p>
+
+            <pre><code>ls *.txt</code></pre>
+
+            <h3>Question Mark (?)</h3>
+
+            <p>Matches one character.</p>
+
+            <pre><code>ls file?.txt</code></pre>
+
+            <p>Matches:</p>
+
+            <pre><code>file1.txt
+
+file2.txt</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <!-- COMMAND HISTORY -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Command History</h2>
+
+            <p>View history:</p>
+
+            <pre><code>history</code></pre>
+
+            <p>Execute previous command:</p>
+
+            <pre><code>!!</code></pre>
+
+            <p>Execute command number:</p>
+
+            <pre><code>!150</code></pre>
+
+            <p>Search history:</p>
+
+            <pre><code>Ctrl + R</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <!-- USER IDENTITY -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>User Identity Commands</h2>
+
+            <p>Display current user:</p>
+
+            <pre><code>whoami</code></pre>
+
+            <p>Display user information:</p>
+
+            <pre><code>id</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>uid=1000(admin) gid=1000(admin)</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <!-- HOST INFORMATION -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Host Information</h2>
+
+            <p>Display hostname:</p>
+
+            <pre><code>hostname</code></pre>
+
+            <p>Kernel information:</p>
+
+            <pre><code>uname -r</code></pre>
+
+            <p>Detailed system information:</p>
+
+            <pre><code>uname -a</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <!-- ENVIRONMENT VARIABLES -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Environment Variables</h2>
+
+            <p>View all variables:</p>
+
+            <pre><code>env</code></pre>
+
+            <p>Display a specific variable:</p>
+
+            <pre><code>echo $PATH</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>/usr/local/bin:/usr/bin:/bin</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <!-- BASIC ADMINISTRATION -->
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Basic Administrative Commands</h2>
+
+            <h3>Switch User</h3>
+
+            <pre><code>su -</code></pre>
+
+            <h3>Execute as Root</h3>
+
+            <pre><code>sudo command</code></pre>
+
+            <p>Example:</p>
+
+            <pre><code>sudo apt update</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- COMMAND SUBSTITUTION -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Command Substitution</h2>
+
+            <p>Execute a command inside another command.</p>
+
+            <pre><code>echo "Today is $(date)"</code></pre>
+
+            <p>Output:</p>
+
+            <pre><code>Today is Sun Jun 14 12:00:00 UTC 2026</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- COMMON KEYBOARD SHORTCUTS -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Common Keyboard Shortcuts</h2>
+
+            <table>
+                <tr>
+                    <th>Shortcut</th>
+                    <th>Function</th>
+                </tr>
+                <tr>
+                    <td>Ctrl + C</td>
+                    <td>Stop running process</td>
+                </tr>
+                <tr>
+                    <td>Ctrl + Z</td>
+                    <td>Suspend process</td>
+                </tr>
+                <tr>
+                    <td>Ctrl + D</td>
+                    <td>Logout / End input</td>
+                </tr>
+                <tr>
+                    <td>Ctrl + L</td>
+                    <td>Clear screen</td>
+                </tr>
+                <tr>
+                    <td>Ctrl + R</td>
+                    <td>Search command history</td>
+                </tr>
+                <tr>
+                    <td>Tab</td>
+                    <td>Auto-complete command</td>
+                </tr>
+                <tr>
+                    <td>Up Arrow</td>
+                    <td>Previous command</td>
+                </tr>
+                <tr>
+                    <td>Down Arrow</td>
+                    <td>Next command</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PRACTICAL EXERCISES -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercises</h2>
+
+            <h3>Exercise 1 – Filesystem Navigation</h3>
+
+            <ol>
+                <li>Display current directory.</li>
+                <li>Navigate to <code>/tmp</code>.</li>
+                <li>Create a directory named <code>linux-lab</code>.</li>
+                <li>Enter the directory.</li>
+                <li>Verify your location.</li>
+            </ol>
+
+            <p>Commands:</p>
+
+            <pre><code>pwd
+ cd /tmp
+ mkdir linux-lab
+ cd linux-lab
+ pwd</code></pre>
+
+            <img src="../../assets/images/linux/module1/1.jpg" alt="Filesystem Navigation Exercise">
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- EXERCISE 2 -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h3>Exercise 2 – File Management</h3>
+
+            <p>Create three files:</p>
+
+            <pre><code>touch user1.txt user2.txt user3.txt</code></pre>
+
+            <p>List files:</p>
+
+            <pre><code>ls -l</code></pre>
+
+            <p>Rename a file:</p>
+
+            <pre><code>mv user1.txt admin.txt</code></pre>
+
+            <p>Copy a file:</p>
+
+            <pre><code>cp admin.txt backup-admin.txt</code></pre>
+
+            <p>Delete a file:</p>
+
+            <pre><code>rm user3.txt</code></pre>
+
+            <img src="../../assets/images/linux/module-1/2.jpg" alt=" Check previous image">
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- EXERCISE 3 -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h3>Exercise 3 – Text Searching</h3>
+
+            <p>Create a file:</p>
+
+            <pre><code>cat > logs.txt</code></pre>
+
+            <p>Enter the following content:</p>
+
+            <pre><code>INFO User login
+ERROR Authentication failed
+INFO Service started
+ERROR DNS lookup failed</code></pre>
+
+            <p>Save the file:</p>
+
+            <pre><code>Ctrl + D</code></pre>
+
+            <p>Search for ERROR entries:</p>
+
+            <pre><code>grep ERROR logs.txt</code></pre>
+
+            <img src="../../assets/images/linux/module1/2.jpg" alt="Text Searching Exercise">
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- EXERCISE 4 -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h3>Exercise 4 – Redirection and Pipes</h3>
+
+            <p>Save running processes:</p>
+
+            <pre><code>ps aux > processes.txt</code></pre>
+
+            <p>Search for root-owned processes:</p>
+
+            <pre><code>cat processes.txt | grep root</code></pre>
+
+            <img src="../../assets/images/linux/module-1/4.jpg" alt=" Check previous image">
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- TROUBLESHOOTING CHECKLIST -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Troubleshooting Checklist</h2>
+
+            <table>
+                <tr>
+                    <th>Issue</th>
+                    <th>Verification Command</th>
+                </tr>
+
+                <tr>
+                    <td>Current location unknown</td>
+                    <td><code>pwd</code></td>
+                </tr>
+
+                <tr>
+                    <td>Cannot find file</td>
+                    <td><code>find</code></td>
+                </tr>
+
+                <tr>
+                    <td>Command not found</td>
+                    <td><code>which command</code></td>
+                </tr>
+
+                <tr>
+                    <td>Need help</td>
+                    <td><code>man command</code></td>
+                </tr>
+
+                <tr>
+                    <td>Verify user</td>
+                    <td><code>whoami</code></td>
+                </tr>
+
+                <tr>
+                    <td>Verify permissions</td>
+                    <td><code>ls -l</code></td>
+                </tr>
+
+                <tr>
+                    <td>Verify environment</td>
+                    <td><code>env</code></td>
+                </tr>
+
+                <tr>
+                    <td>Review history</td>
+                    <td><code>history</code></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- KEY TAKEAWAYS -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+                <li>The Linux CLI is the primary interface for system administration.</li>
+                <li>Linux commands follow a structured syntax consisting of commands, options, and arguments.</li>
+                <li>Filesystem navigation relies heavily on <code>pwd</code>, <code>ls</code>, and <code>cd</code>.</li>
+                <li>File management is performed using <code>touch</code>, <code>mkdir</code>, <code>cp</code>,
+                    <code>mv</code>, and <code>rm</code>.
+                </li>
+                <li>Content inspection uses <code>cat</code>, <code>less</code>, <code>head</code>, and
+                    <code>tail</code>.
+                </li>
+                <li>Searching is performed using <code>find</code> and <code>grep</code>.</li>
+                <li>Redirection and pipes are foundational tools for automation and troubleshooting.</li>
+                <li>Administrative tasks often require <code>sudo</code>.</li>
+                <li>Command history and keyboard shortcuts significantly improve productivity.</li>
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- MODULE COMPLETION -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Module Completion Outcome</h2>
+
+            <div class="note">
+
+                Upon completion of <strong>Module 1: Linux Command Line Fundamentals</strong>,
+                you should be capable of confidently navigating Linux systems, managing files and
+                directories, inspecting system information, searching data, and utilizing shell
+                features required for intermediate Linux administration tasks.
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PAGE NAVIGATION -->
+        <!-- ===================================================== -->
+
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="../../index.html">
+                ← Back to Knowledge Base
+            </a>
+            <a class="btn btn-primary" href="../../projects/linux/module2.html">
+                Proceed to Module 2 →
+            </a>
+
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>
