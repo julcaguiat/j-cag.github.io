@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Infrastructure Recovery & Troubleshooting | Enterprise Operations Playbooks</title>
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+
+    <style>
+        :root {
+            --hero-bg-image: url("../../assets/images/backgrounds/datacenter-operations-bg.png");
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .playbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 22px;
+            margin-top: 30px;
+        }
+
+        .playbook-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .playbook-number {
+            color: #7cc7ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: .78rem;
+            margin-bottom: 10px;
+        }
+
+        .playbook-card h3 {
+            margin-top: 0;
+            margin-bottom: 14px;
+        }
+
+        .playbook-card p {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        .workflow-box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 24px;
+        }
+
+        .workflow-box pre {
+            margin: 0;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .audience-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .technology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .technology-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .structure-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 20px;
+        }
+    </style>
+
+</head>
+
+<body id="top">
+
+    <!-- ===========================
+     NAVBAR
+=========================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="logo">
+                JULFRI CAGUIAT
+            </div>
+
+            <div class="nav-links">
+
+                <a href="../../index.html">Home</a>
+
+                <a href="#overview">Overview</a>
+
+                <a href="#methodology">Methodology</a>
+
+                <a href="#playbooks">Playbooks</a>
+
+                <a href="#technologies">Technologies</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="kb-layout">
+
+        <!-- ===========================
+     SIDEBAR
+=========================== -->
+
+        <aside class="kb-sidebar">
+
+            <div class="kb-title">
+                Navigation
+            </div>
+
+            <nav class="kb-nav">
+
+                <a href="#overview">Overview</a>
+
+                <a href="#methodology">Operational Methodology</a>
+
+                <a href="#structure">Scenario Structure</a>
+
+                <a href="#playbooks">Operational Playbooks</a>
+
+                <a href="../recovey-troubleshooting/playbook0.html">Playbook 0 — Pre-Maintenance</a>
+
+                <a href="#playbook1">Playbook 1 — Server & Storage</a>
+
+                <a href="#playbook2">Playbook 2 — Rack & Cabling</a>
+
+                <a href="#playbook3">Playbook 3 — Network Infrastructure</a>
+
+                <a href="#playbook4">Playbook 4 — Operating Systems</a>
+
+                <a href="#playbook5">Playbook 5 — Monitoring & Logging</a>
+
+                <a href="#playbook6">Playbook 6 — Power & Environmental</a>
+
+                <a href="#playbook7">Playbook 7 — Incident Management</a>
+
+                <a href="#playbook8">Playbook 8 — Configuration Integrity</a>
+
+                <a href="#validation">Lab Validation Philosophy</a>
+
+                <a href="#technologies">Enterprise Technologies</a>
+                <!--
+                <a href="#audience">Intended Audience</a>
+-->
+            </nav>
+
+        </aside>
+
+        <!-- ===========================
+     MAIN CONTENT
+=========================== -->
+
+        <main class="kb-content">
+
+            <!-- ===========================
+     HERO
+=========================== -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div class="hero-subtitle">
+
+                        Enterprise Infrastructure • Recovery • Troubleshooting • Operations
+
+                    </div>
+
+                    <h1 class="hero-title">
+
+                        Infrastructure Recovery & Troubleshooting
+
+                    </h1>
+
+                    <p>
+
+                        A collection of enterprise operations playbooks documenting structured
+                        troubleshooting methodologies, incident response procedures,
+                        service restoration workflows, and infrastructure recovery techniques
+                        implemented throughout the JCAG-LAB enterprise environment.
+                        Rather than focusing on initial deployment, these playbooks
+                        demonstrate the operational processes used to diagnose failures,
+                        restore services, validate recovery, and maintain business continuity
+                        within production-style infrastructure.
+
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="#overview" class="btn btn-primary">
+                            Overview
+                        </a>
+
+                        <a href="#methodology" class="btn">
+                            Methodology
+                        </a>
+
+                        <a href="#playbooks" class="btn">
+                            Playbooks
+                        </a>
+
+                        <a href="#technologies" class="btn">
+                            Technologies
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================================
+     OVERVIEW
+====================================================== -->
+
+            <section id="overview" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Project Overview
+                    </div>
+
+                    <h2 class="portal-title">
+                        Enterprise Infrastructure Operations Playbooks
+                    </h2>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    This project documents the operational procedures, troubleshooting
+                    methodologies, recovery workflows, and service restoration practices
+                    used throughout the JCAG-LAB enterprise environment.
+
+                    Unlike deployment guides that focus on installing technologies,
+                    these playbooks concentrate on maintaining service availability
+                    after infrastructure components experience failures.
+
+                </p>
+
+                <p class="section-subtitle">
+
+                    Every playbook follows a standardized operational methodology
+                    designed to simulate real-world break/fix operations,
+                    infrastructure support, incident response, root cause analysis,
+                    and service restoration commonly performed by enterprise
+                    infrastructure teams, data center technicians,
+                    systems administrators, and Network Operations Center (NOC)
+                    personnel.
+
+                </p>
+
+                <p class="section-subtitle">
+
+                    Wherever practical and safe, failures are intentionally reproduced
+                    inside the isolated JCAG-LAB environment before being diagnosed,
+                    recovered, validated, and documented. This demonstrates not only
+                    knowledge of enterprise technologies but also the operational
+                    thinking required to safely restore production services.
+
+                </p>
+
+            </section>
+
+            <!-- =====================================================
+     OPERATIONAL METHODOLOGY
+====================================================== -->
+
+            <section id="methodology" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Operational Workflow
+                    </div>
+
+                    <h2 class="portal-title">
+                        Standard Enterprise Troubleshooting Methodology
+                    </h2>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    Every recovery procedure throughout this project follows a structured
+                    workflow intended to minimize downtime, reduce operational risk,
+                    improve troubleshooting consistency, and ensure complete service
+                    restoration before an incident is closed.
+
+                </p>
+
+                <div class="workflow-box">
+
+                    <pre>
+Alert / User Report
+        │
+        ▼
+Identify Symptoms
+        │
+        ▼
+Determine Scope
+        │
+        ▼
+Business Impact Assessment
+        │
+        ▼
+Lab Validation Procedure
+        │
+        ▼
+Collect Diagnostic Information
+        │
+        ▼
+Identify Root Cause
+        │
+        ▼
+Implement Recovery
+        │
+        ▼
+Validate Service Restoration
+        │
+        ▼
+Document Incident
+        │
+        ▼
+Prevent Future Occurrence
+</pre>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    This methodology mirrors operational processes commonly followed by
+                    enterprise infrastructure support teams, data center operations,
+                    systems administration teams, and Network Operations Centers during
+                    incident response and service restoration.
+
+                </p>
+
+            </section>
+
+            <!-- =====================================================
+     STANDARD SCENARIO STRUCTURE
+====================================================== -->
+
+            <section id="structure" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Documentation Standard
+                    </div>
+
+                    <h2 class="portal-title">
+                        Standard Scenario Structure
+                    </h2>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    Every troubleshooting scenario within this project follows the same
+                    documentation format to promote consistency, repeatability,
+                    operational discipline, and standardized incident reporting.
+
+                </p>
+
+                <div class="structure-grid">
+
+                    <div class="structure-card">
+                        <h3>1. Scenario Overview</h3>
+                        <p>High-level description of the incident and affected infrastructure.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>2. Business Impact</h3>
+                        <p>Operational impact to users, services, and business processes.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>3. Symptoms</h3>
+                        <p>Observable indicators reported by users or monitoring systems.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>4. Initial Assessment</h3>
+                        <p>Immediate verification and scope determination before troubleshooting.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>5. Lab Validation Procedure</h3>
+                        <p>Controlled failure simulation performed safely within JCAG-LAB when appropriate.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>6. Diagnostic Procedure</h3>
+                        <p>Systematic collection of evidence to isolate the fault.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>7. Root Cause Analysis</h3>
+                        <p>Identification of the underlying cause responsible for the failure.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>8. Recovery Procedure</h3>
+                        <p>Step-by-step process used to restore the affected service.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>9. Validation Checklist</h3>
+                        <p>Verification that all services have returned to normal operation.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>10. Prevention & Best Practices</h3>
+                        <p>Recommendations intended to reduce recurrence and improve resiliency.</p>
+                    </div>
+
+                    <div class="structure-card">
+                        <h3>11. Incident Documentation</h3>
+                        <p>Operational records summarizing diagnostics, recovery actions, and lessons learned.</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- OPERATIONAL PLAYBOOKS -->
+            <section id="playbooks" class="section">
+
+                <div class="portal-header">
+                    <div class="portal-label">
+                        Enterprise Recovery Library
+                    </div>
+
+                    <h2 class="portal-title">
+                        Operational Playbooks
+                    </h2>
+
+                    <p class="portal-description">
+                        Each playbook documents a specific area of enterprise infrastructure
+                        operations. Every troubleshooting scenario follows the same operational
+                        methodology while focusing on different infrastructure domains within the
+                        JCAG-LAB enterprise environment.
+                    </p>
+                </div>
+
+                <div class="labs-grid">
+
+                    <!-- PLAYBOOK 0 -->
+                    <div class="card">
+
+                        <h3>Playbook 0</h3>
+
+                        <div class="tags">
+                            <span class="tag">Planning</span>
+                            <span class="tag">Snapshots</span>
+                            <span class="tag">Backups</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Pre-maintenance safeguards, recovery checkpoints, snapshot management,
+                            backup verification, rollback planning, maintenance windows, and
+                            post-maintenance validation.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="pre-maintenance-controls.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 1 -->
+                    <div class="card">
+
+                        <h3>Playbook 1</h3>
+
+                        <div class="tags">
+                            <span class="tag">Servers</span>
+                            <span class="tag">Storage</span>
+                            <span class="tag">Recovery</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Windows Server recovery, Active Directory failures, DNS, DHCP,
+                            SMB services, Proxmox virtual machines, storage utilization,
+                            backup restoration, and application service recovery.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-1.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 2 -->
+                    <div class="card">
+
+                        <h3>Playbook 2</h3>
+
+                        <div class="tags">
+                            <span class="tag">Rack</span>
+                            <span class="tag">Cabling</span>
+                            <span class="tag">Physical</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Rack infrastructure, structured cabling, patch panels,
+                            switch uplinks, cable validation, equipment replacement,
+                            and physical connectivity troubleshooting.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-2.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 3 -->
+                    <div class="card">
+
+                        <h3>Playbook 3</h3>
+
+                        <div class="tags">
+                            <span class="tag">Networking</span>
+                            <span class="tag">Routing</span>
+                            <span class="tag">Connectivity</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Layer 1 through Layer 3 troubleshooting including VLANs,
+                            inter-VLAN routing, trunk links, DHCP relay,
+                            ACL validation, NAT, and management connectivity.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-3.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 4 -->
+                    <div class="card">
+
+                        <h3>Playbook 4</h3>
+
+                        <div class="tags">
+                            <span class="tag">Windows</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">Recovery</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Operating system deployment, boot failures,
+                            domain trust issues, filesystem recovery,
+                            rollback procedures, service restoration,
+                            and virtual machine recovery.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-4.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 5 -->
+                    <div class="card">
+
+                        <h3>Playbook 5</h3>
+
+                        <div class="tags">
+                            <span class="tag">Monitoring</span>
+                            <span class="tag">Logging</span>
+                            <span class="tag">SIEM</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Wazuh SIEM operations, Sysmon telemetry,
+                            Splunk ingestion, log forwarding,
+                            alert validation, dashboard verification,
+                            and monitoring restoration.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-5.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 6 -->
+                    <div class="card">
+
+                        <h3>Playbook 6</h3>
+
+                        <div class="tags">
+                            <span class="tag">Power</span>
+                            <span class="tag">Cooling</span>
+                            <span class="tag">Environment</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Power failures, UPS operations,
+                            graceful shutdown procedures,
+                            startup sequencing,
+                            thermal monitoring,
+                            and environmental validation.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-6.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 7 -->
+                    <div class="card">
+
+                        <h3>Playbook 7</h3>
+
+                        <div class="tags">
+                            <span class="tag">Incident</span>
+                            <span class="tag">ITSM</span>
+                            <span class="tag">Automation</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Incident response lifecycle using
+                            Wazuh, n8n automation,
+                            Peppermint ticketing,
+                            service restoration,
+                            escalation,
+                            and post-incident review.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-7.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 8 -->
+                    <div class="card">
+
+                        <h3>Playbook 8</h3>
+
+                        <div class="tags">
+                            <span class="tag">Configuration</span>
+                            <span class="tag">Audit</span>
+                            <span class="tag">Validation</span>
+                        </div>
+
+                        <p class="lab-description">
+                            Configuration integrity, asset inventory,
+                            CMDB validation, VLAN audits,
+                            IP addressing verification,
+                            infrastructure documentation,
+                            and baseline comparison.
+                        </p>
+
+                        <div class="lab-links">
+                            <a href="module-8.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- LAB VALIDATION PHILOSOPHY -->
+            <section id="validation" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Operational Standards
+                    </div>
+
+                    <h2 class="portal-title">
+                        Lab Validation Philosophy
+                    </h2>
+
+                    <p class="portal-description">
+                        Whenever practical and safe, failures are intentionally reproduced within
+                        the isolated JCAG-LAB enterprise environment. Each troubleshooting exercise
+                        emphasizes operational methodology over simply fixing the issue by documenting
+                        the complete lifecycle from failure simulation through recovery validation.
+                        Potentially destructive scenarios that could permanently damage the
+                        environment are documented as production-reference procedures rather than
+                        intentionally reproduced.
+                    </p>
+
+                </div>
+
+                <div class="overview-grid">
+
+                    <div class="card">
+
+                        <h3>Controlled Failure Simulation</h3>
+
+                        <p>
+                            Safe failures are deliberately introduced into isolated virtual
+                            machines, enterprise services, and network infrastructure to
+                            reproduce operational incidents without affecting the underlying
+                            production-style lab environment.
+                        </p>
+
+                        <ul>
+                            <li>Controlled service interruption</li>
+                            <li>Observable failure symptoms</li>
+                            <li>Structured diagnostic methodology</li>
+                            <li>Repeatable recovery procedures</li>
+                            <li>Post-recovery validation</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="card">
+
+                        <h3>Production Reference Scenarios</h3>
+
+                        <p>
+                            High-risk failures that may result in irreversible data loss,
+                            extensive rebuilding, or hardware damage are documented using
+                            enterprise operational procedures rather than intentionally
+                            reproduced inside the lab.
+                        </p>
+
+                        <ul>
+                            <li>Hardware failure documentation</li>
+                            <li>Disaster recovery procedures</li>
+                            <li>Enterprise best practices</li>
+                            <li>Operational runbooks</li>
+                            <li>Service restoration planning</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ENTERPRISE TECHNOLOGY STACK -->
+
+            <section id="technology" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Enterprise Environment
+                    </div>
+
+                    <h2 class="portal-title">
+                        Technologies Referenced Throughout
+                    </h2>
+
+                    <p class="portal-description">
+                        The recovery playbooks are based on the production-style infrastructure
+                        deployed throughout the JCAG-LAB enterprise environment. Procedures are
+                        written using actual technologies configured within the lab whenever
+                        possible.
+                    </p>
+
+                </div>
+
+                <table class="tech-stack-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Technology</th>
+                            <th>Operational Role</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>pfSense Firewall</td>
+                            <td>Perimeter security, routing, NAT, firewall policies</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cisco ISR 1941</td>
+                            <td>Router-on-a-Stick, WAN routing, inter-VLAN routing</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cisco Catalyst 2960G</td>
+                            <td>Layer 2 switching, VLAN segmentation, trunking</td>
+                        </tr>
+
+                        <tr>
+                            <td>Windows Server 2019</td>
+                            <td>Active Directory, DNS, DHCP, SMB File Services</td>
+                        </tr>
+
+                        <tr>
+                            <td>Proxmox Virtual Environment</td>
+                            <td>Virtualization platform and VM management</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cisco Modeling Labs (CML)</td>
+                            <td>Enterprise network simulation</td>
+                        </tr>
+
+                        <tr>
+                            <td>Wazuh SIEM</td>
+                            <td>Security monitoring, detection engineering, log analysis</td>
+                        </tr>
+
+                        <tr>
+                            <td>Splunk Enterprise</td>
+                            <td>Log aggregation and operational visibility</td>
+                        </tr>
+
+                        <tr>
+                            <td>n8n Automation Platform</td>
+                            <td>Incident response automation workflows</td>
+                        </tr>
+
+                        <tr>
+                            <td>Peppermint ITSM</td>
+                            <td>Incident and ticket lifecycle management</td>
+                        </tr>
+
+                        <tr>
+                            <td>Docker Services</td>
+                            <td>Containerized enterprise applications</td>
+                        </tr>
+
+                        <tr>
+                            <td>Windows & Linux Endpoints</td>
+                            <td>Client systems used for operational validation and testing</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <!-- INTENDED AUDIENCE -->
+            <!--
+    <section id="audience" class="section">
+
+      <div class="portal-header">
+
+        <div class="portal-label">
+          Professional Focus
+        </div>
+
+        <h2 class="portal-title">
+          Intended Audience
+        </h2>
+
+        <p class="portal-description">
+          These operational playbooks are designed to demonstrate structured
+          troubleshooting, recovery procedures, and operational documentation
+          expected within enterprise infrastructure and data center environments.
+        </p>
+
+      </div>
+
+      <div class="overview-grid">
+
+        <div class="card">
+
+          <h3>Primary Audience</h3>
+
+          <ul>
+            <li>Infrastructure Support Technicians</li>
+            <li>Data Center Technicians</li>
+            <li>Network Operations Center (NOC) Personnel</li>
+            <li>Systems Administrators</li>
+            <li>Junior Infrastructure Engineers</li>
+            <li>IT Operations Professionals</li>
+          </ul>
+
+        </div>
+
+        <div class="card">
+
+          <h3>Portfolio Objectives</h3>
+
+          <p>
+            This project demonstrates a disciplined operational methodology
+            rather than isolated technical fixes. Every playbook is intended
+            to showcase the ability to assess business impact, diagnose
+            infrastructure failures, restore enterprise services, validate
+            recovery, and document operational activities using production-style
+            procedures.
+          </p>
+
+          <ul>
+            <li>Structured troubleshooting methodology</li>
+            <li>Enterprise recovery procedures</li>
+            <li>Break/Fix operational workflow</li>
+            <li>Incident documentation</li>
+            <li>Infrastructure validation</li>
+            <li>Operational best practices</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+-->
+
+            <!-- PAGE NAVIGATION -->
+
+            <div class="page-nav">
+
+                <a href="../../index.html" class="btn btn-primary">
+                    ← Portfolio Home
+                </a>
+
+                <a href="#top" class="btn">
+                    ↑ Back to Top
+                </a>
+
+            </div>
+
+
+
+
+
+            <footer>
+                © 2026 Julfri Caguiat — Enterprise Infrastructure Recovery & Troubleshooting
+            </footer>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

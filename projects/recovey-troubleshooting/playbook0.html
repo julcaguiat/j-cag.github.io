@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Module 0: Pre-Maintenance Safeguards & Recovery Procedures</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                Infrastructure Recovery & Troubleshooting
+            </div>
+
+            <h1 class="hero-title">
+                Playbook 0: Pre-Maintenance Safeguards & Recovery Procedures
+            </h1>
+
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 0 - PART 1 -->
+        <!-- Pre-Maintenance Safeguards & Recovery Procedures -->
+        <!-- ========================================================= -->
+
+        <!-- OVERVIEW -->
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                Playbook 0 establishes the mandatory pre-maintenance procedures that must be completed before performing
+                any maintenance activity, configuration change, software upgrade, operating system recovery, storage
+                modification, failure simulation, or break/fix exercise within the JCAG-LAB enterprise environment.
+            </p>
+
+            <p>
+                Unlike deployment documentation, this playbook focuses on protecting existing services before work
+                begins. The objective is to ensure every maintenance activity has an identified recovery path, validated
+                backups, rollback capability, and documented baseline so infrastructure can be restored quickly if an
+                unexpected failure occurs.
+            </p>
+
+            <p>
+                This playbook serves as the prerequisite for every recovery scenario contained within the Infrastructure
+                Recovery &amp; Troubleshooting project. Every subsequent playbook assumes these safeguards have already
+                been completed before troubleshooting or maintenance activities begin.
+            </p>
+
+        </div>
+
+        <!-- SCOPE -->
+        <div class="step-section">
+
+            <h2>Scope</h2>
+
+            <p>
+                This procedure applies to all enterprise systems deployed within the JCAG-LAB environment, including
+                physical infrastructure, virtual infrastructure, storage resources, enterprise services, and monitoring
+                platforms.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Infrastructure Component</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Proxmox Virtual Environment</td>
+                        <td>Virtualization platform hosting enterprise services</td>
+                    </tr>
+
+                    <tr>
+                        <td>Windows Server 2019</td>
+                        <td>Active Directory, DNS, DHCP, SMB File Services</td>
+                    </tr>
+
+                    <tr>
+                        <td>pfSense Firewall</td>
+                        <td>Perimeter security and network routing</td>
+                    </tr>
+
+                    <tr>
+                        <td>Cisco ISR 1941</td>
+                        <td>Router-on-a-Stick and inter-VLAN routing</td>
+                    </tr>
+
+                    <tr>
+                        <td>Cisco Catalyst 2960G</td>
+                        <td>Layer 2 switching infrastructure</td>
+                    </tr>
+
+                    <tr>
+                        <td>Wazuh SIEM</td>
+                        <td>Security monitoring and centralized logging</td>
+                    </tr>
+
+                    <tr>
+                        <td>n8n Automation</td>
+                        <td>Incident automation workflows</td>
+                    </tr>
+
+                    <tr>
+                        <td>Peppermint Ticketing</td>
+                        <td>IT service management platform</td>
+                    </tr>
+
+                    <tr>
+                        <td>Cisco Modeling Labs (CML)</td>
+                        <td>Enterprise network simulation environment</td>
+                    </tr>
+
+                    <tr>
+                        <td>Docker Services</td>
+                        <td>Containerized enterprise applications</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- LEARNING OBJECTIVES -->
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+
+                <li>Verify enterprise infrastructure readiness before maintenance activities.</li>
+
+                <li>Validate the health of virtual machines and enterprise services.</li>
+
+                <li>Differentiate between snapshots and full virtual machine backups.</li>
+
+                <li>Create standardized recovery checkpoints prior to maintenance.</li>
+
+                <li>Verify backup availability before performing break/fix procedures.</li>
+
+                <li>Apply structured change management principles within a production-style environment.</li>
+
+                <li>Establish documented rollback procedures for service restoration.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ENTERPRISE MAINTENANCE PHILOSOPHY -->
+        <div class="step-section">
+
+            <h2>Enterprise Maintenance Philosophy</h2>
+
+            <p>
+                Enterprise maintenance is not simply making configuration changes. Every change introduces operational
+                risk that must be controlled before work begins. A disciplined maintenance process reduces downtime,
+                protects production services, and provides a repeatable recovery strategy if changes do not produce the
+                expected result.
+            </p>
+
+            <p>
+                Throughout this project, every maintenance activity follows the same operational sequence.
+            </p>
+
+            <pre><code>
+Identify Planned Change
+          │
+          ▼
+Assess Business Impact
+          │
+          ▼
+Verify System Health
+          │
+          ▼
+Validate Existing Backups
+          │
+          ▼
+Create Recovery Snapshot
+          │
+          ▼
+Document Baseline
+          │
+          ▼
+Perform Maintenance
+          │
+          ▼
+Validate Services
+          │
+          ▼
+Close Maintenance Activity
+</code></pre>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    In enterprise environments, unexpected failures are rarely caused by the maintenance activity
+                    itself—they are often the result of inadequate preparation. Verifying backups, documenting the
+                    current state, and creating rollback points significantly reduces operational risk and shortens
+                    recovery time when problems occur.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ENVIRONMENT VERIFICATION -->
+        <div class="step-section">
+
+            <h2>Environment Verification</h2>
+
+            <p>
+                Before introducing any change, verify that the management interfaces required to perform maintenance are
+                operational and accessible.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Verification</th>
+                        <th>Expected Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Proxmox Web Interface</td>
+                        <td>HTTPS Login</td>
+                        <td>Administrative dashboard loads successfully</td>
+                    </tr>
+
+                    <tr>
+                        <td>Proxmox Shell</td>
+                        <td>SSH or Local Console</td>
+                        <td>Root administrative access available</td>
+                    </tr>
+
+                    <tr>
+                        <td>Windows Server</td>
+                        <td>RDP Login</td>
+                        <td>Administrative session established</td>
+                    </tr>
+
+                    <tr>
+                        <td>Wazuh Dashboard</td>
+                        <td>HTTPS Login</td>
+                        <td>Dashboard accessible</td>
+                    </tr>
+
+                    <tr>
+                        <td>Peppermint</td>
+                        <td>Web Interface</td>
+                        <td>Ticketing system operational</td>
+                    </tr>
+
+                    <tr>
+                        <td>n8n</td>
+                        <td>Web Interface</td>
+                        <td>Automation workflows accessible</td>
+                    </tr>
+
+                    <tr>
+                        <td>CML</td>
+                        <td>Web Interface</td>
+                        <td>Lab environment available</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Verify Administrative Access</h3>
+
+            <p>
+                Confirm administrative access to the Proxmox host before beginning maintenance.
+            </p>
+
+            <pre><code>
+ssh root@10.10.100.10
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Linux proxmox 6.x.x
+
+Last login: Sat Jun 27
+
+root@proxmox:~#
+</code></pre>
+
+            <h3>Verify Virtual Machine Inventory</h3>
+
+            <p>
+                Display all registered virtual machines to confirm that the target workload exists and is currently
+                available.
+            </p>
+
+            <pre><code>
+qm list
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+VMID NAME               STATUS
+100  WIN-SVR2019        running
+101  PEPPERMINT         running
+102  CML                running
+103  WAZUH-SVR          running
+104  N8N-SVR            running
+105  WEB-SVR            running
+</code></pre>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    Maintenance activities should always begin by confirming that the correct virtual machine has been
+                    identified. Accidentally modifying or shutting down the wrong workload is a common operational error
+                    that can unnecessarily interrupt unrelated services.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- PRE-MAINTENANCE CHECKPOINT -->
+        <div class="step-section">
+
+            <h2>Pre-Maintenance Verification Checklist</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Verification Item</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Administrative access confirmed</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Target virtual machine identified</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Enterprise services operational</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Maintenance window approved</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Proceed to Storage Validation (Part 2)</td>
+                        <td>Pending</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 0 - PART 2 -->
+        <!-- Storage Validation, VM Health Verification & Backup Readiness -->
+        <!-- ========================================================= -->
+
+        <!-- STORAGE ARCHITECTURE -->
+        <div class="step-section">
+
+            <h2>Enterprise Storage Architecture Verification</h2>
+
+            <p>
+                Before creating snapshots or performing maintenance, verify the storage architecture hosting the target
+                virtual machine. Understanding where a workload resides determines which recovery methods are available
+                and ensures backups are written to the appropriate storage tier.
+            </p>
+
+            <p>
+                The JCAG-LAB environment separates storage into three functional tiers to isolate production workloads,
+                general-purpose virtual machines, and recovery data.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Storage Tier</th>
+                        <th>Storage Name</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Tier 0</td>
+                        <td>local-lvm (SSD)</td>
+                        <td>Performance-critical virtual machines</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 1</td>
+                        <td>local-lvm-hdd-01</td>
+                        <td>General-purpose virtual machine storage</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2</td>
+                        <td>HDD-02 Directory Storage</td>
+                        <td>VZDump backups and recovery archives</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    One of the most common misconceptions in virtualization environments is treating snapshots as
+                    backups. Snapshots provide a short-term rollback point but remain dependent on the original virtual
+                    disk. A hardware failure affecting the storage device can destroy both the virtual machine and its
+                    snapshots. Recovery backups must therefore reside on an independent storage tier.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- STORAGE DESIGN RULES -->
+        <div class="step-section">
+
+            <h2>Enterprise Storage Design Rules</h2>
+
+            <p>
+                The following operational standards apply throughout every recovery playbook within this project.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Rule</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Snapshots are not backups</td>
+                        <td>Snapshots provide rollback capability only.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2 stores backups</td>
+                        <td>All VZDump backup archives must reside on the dedicated backup repository.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 0 priority</td>
+                        <td>Reserved for performance-sensitive enterprise services.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 1 capacity</td>
+                        <td>Supports general-purpose workloads and thin provisioning.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Separate recovery storage</td>
+                        <td>Backup repositories must remain isolated from production VM storage.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup verification required</td>
+                        <td>Every maintenance activity requires verification of a recoverable backup.</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- VERIFY STORAGE -->
+        <div class="step-section">
+
+            <h2>Verify Storage Configuration</h2>
+
+            <h3>Step 1 — Display Available Storage</h3>
+
+            <p>
+                Display all configured storage resources on the Proxmox host.
+            </p>
+
+            <pre><code>
+pvesm status
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Name                 Type     Status     Total      Used      Available
+
+local                dir      active
+local-lvm            lvmthin  active
+local-lvm-hdd-01     lvmthin  active
+backup-hdd02         dir      active
+</code></pre>
+
+            <h3>Step 2 — Verify Target VM Storage Location</h3>
+
+            <p>
+                Display the virtual machine configuration to determine where its virtual disks reside.
+            </p>
+
+            <pre><code>
+qm config 100
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+boot: order=scsi0
+cores: 2
+memory: 4096
+
+scsi0: local-lvm:vm-100-disk-0,size=80G
+
+net0: virtio=BC:24:11:22:33:44,bridge=vmbr0
+</code></pre>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    Identifying the storage tier before maintenance confirms whether the workload resides on Tier 0 or
+                    Tier 1 and helps determine available recovery options should migration or restoration become
+                    necessary.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- VM HEALTH -->
+        <div class="step-section">
+
+            <h2>Verify Virtual Machine Health</h2>
+
+            <h3>Step 1 — Verify Runtime Status</h3>
+
+            <pre><code>
+qm status 100
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+status: running
+</code></pre>
+
+            <h3>Step 2 — Review Virtual Machine Configuration</h3>
+
+            <pre><code>
+qm config 100
+</code></pre>
+
+            <p>
+                Review the following configuration items:
+            </p>
+
+            <ul>
+
+                <li>Allocated memory</li>
+
+                <li>Assigned CPU cores</li>
+
+                <li>Virtual disk assignments</li>
+
+                <li>Network adapters</li>
+
+                <li>Boot order</li>
+
+                <li>Storage location</li>
+
+            </ul>
+
+            <h3>Step 3 — Validate Guest Operating System</h3>
+
+            <p>
+                For Windows Server, verify network configuration and Active Directory services.
+            </p>
+
+            <pre><code>
+ipconfig /all
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Ethernet adapter Ethernet0
+
+IPv4 Address . . . . . . : 10.10.100.11
+
+DNS Server . . . . . . . : 10.10.100.11
+
+Domain . . . . . . . . . : jcag-lab.local
+</code></pre>
+
+            <p>
+                For Linux virtual machines:
+            </p>
+
+            <pre><code>
+hostname
+
+ip a
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+wazuh-svr
+
+ens18
+inet 10.10.100.15/24
+</code></pre>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    Maintenance should never begin on an already degraded system. Establishing a healthy operational
+                    baseline simplifies troubleshooting later because any issues observed after maintenance are more
+                    likely related to the recent change.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- BACKUP VERIFICATION -->
+        <div class="step-section">
+
+            <h2>Backup Verification</h2>
+
+            <p>
+                Snapshots provide short-term rollback capability but do not replace full virtual machine backups. Before
+                beginning maintenance, verify that a recent VZDump backup exists on the dedicated Tier 2 backup
+                repository.
+            </p>
+
+            <h3>Step 1 — Verify Backup Repository</h3>
+
+            <pre><code>
+ls -lh /var/lib/vz/dump/
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+vzdump-qemu-100-2026_06_20-18_00_00.vma.zst
+vzdump-qemu-101-2026_06_20-18_10_00.vma.zst
+vzdump-qemu-102-2026_06_20-18_20_00.vma.zst
+</code></pre>
+
+            <h3>Step 2 — Verify Backup Age</h3>
+
+            <p>
+                Review the backup creation date and confirm that it falls within the organization's maintenance policy.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Validation Item</th>
+                        <th>Expected Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Backup Exists</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Readable</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Repository</td>
+                        <td>Tier 2</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Age</td>
+                        <td>Less than 7 days</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recovery Path Identified</td>
+                        <td>Yes</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="warning">
+
+                <strong>Important</strong>
+
+                <p>
+                    If a recent backup cannot be verified, maintenance activities should be postponed until a new backup
+                    is successfully created. Proceeding without a recoverable backup unnecessarily increases operational
+                    risk and may result in permanent data loss.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- BACKUP DECISION -->
+        <div class="step-section">
+
+            <h2>Backup Readiness Assessment</h2>
+
+            <p>
+                Before proceeding to snapshot creation, verify that the following conditions have been satisfied.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Requirement</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Storage tier verified</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Virtual machine healthy</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup repository accessible</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recent VZDump backup located</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recovery path confirmed</td>
+                        <td>Pending</td>
+                    </tr>
+
+                    <tr>
+                        <td>Proceed to Snapshot Management (Part 3)</td>
+                        <td>Pending</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 0 - PART 3 -->
+        <!-- Snapshot Management & Recovery Point Validation -->
+        <!-- ========================================================= -->
+
+        <!-- SNAPSHOT MANAGEMENT -->
+        <div class="step-section">
+
+            <h2>Create Recovery Snapshot</h2>
+
+            <p>
+                Once a verified backup exists on the Tier 2 backup repository, create a recovery snapshot of the target
+                virtual machine. The snapshot captures the current VM state and provides a rapid rollback point if the
+                maintenance activity introduces an unexpected issue.
+            </p>
+
+            <p>
+                Snapshots should be treated as temporary maintenance checkpoints rather than long-term backup solutions.
+                They should be retained only for the duration of the maintenance activity unless organizational policy
+                specifies otherwise.
+            </p>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    Creating a snapshot immediately before maintenance minimizes rollback time. If a configuration
+                    change fails, the virtual machine can often be restored within minutes instead of performing a
+                    complete VZDump restoration.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CREATE SNAPSHOT -->
+        <div class="step-section">
+
+            <h2>Snapshot Creation Procedure</h2>
+
+            <h3>Step 1 — Identify the Target Virtual Machine</h3>
+
+            <pre><code>
+qm list
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+VMID NAME               STATUS
+
+100  WIN-SVR2019        running
+101  PEPPERMINT         running
+102  CML                running
+103  WAZUH-SVR          running
+104  N8N-SVR            running
+105  WEB-SVR            running
+</code></pre>
+
+            <h3>Step 2 — Create Maintenance Snapshot</h3>
+
+            <p>
+                Create a snapshot immediately before beginning maintenance.
+            </p>
+
+            <pre><code>
+qm snapshot 100 pre-maintenance
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Creating snapshot...
+Snapshot successfully created.
+</code></pre>
+
+            <h3>Step 3 — Record Snapshot Information</h3>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>VMID</td>
+                        <td>100</td>
+                    </tr>
+
+                    <tr>
+                        <td>Virtual Machine</td>
+                        <td>WIN-SVR2019</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot Name</td>
+                        <td>pre-maintenance</td>
+                    </tr>
+
+                    <tr>
+                        <td>Date</td>
+                        <td>2026-06-27</td>
+                    </tr>
+
+                    <tr>
+                        <td>Administrator</td>
+                        <td>JCAG-LAB</td>
+                    </tr>
+
+                    <tr>
+                        <td>Purpose</td>
+                        <td>Recovery checkpoint before maintenance</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- SNAPSHOT NAMING -->
+        <div class="step-section">
+
+            <h2>Enterprise Snapshot Naming Standards</h2>
+
+            <p>
+                Consistent snapshot naming simplifies recovery operations and makes it easier to identify the purpose of
+                each recovery point during incident response.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Maintenance Activity</th>
+                        <th>Recommended Snapshot Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Initial Baseline</td>
+                        <td>baseline-state</td>
+                    </tr>
+
+                    <tr>
+                        <td>Before Maintenance</td>
+                        <td>pre-maintenance</td>
+                    </tr>
+
+                    <tr>
+                        <td>Before OS Upgrade</td>
+                        <td>pre-upgrade</td>
+                    </tr>
+
+                    <tr>
+                        <td>Before Patch Installation</td>
+                        <td>pre-patch</td>
+                    </tr>
+
+                    <tr>
+                        <td>Before Break/Fix Exercise</td>
+                        <td>pre-breakfix</td>
+                    </tr>
+
+                    <tr>
+                        <td>Before Failure Simulation</td>
+                        <td>pre-failure-test</td>
+                    </tr>
+
+                    <tr>
+                        <td>Clean Installation</td>
+                        <td>clean-install</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    Generic names such as "snapshot1" or "test" become difficult to interpret during emergency recovery.
+                    Standardized naming conventions improve documentation quality and reduce recovery time.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- VERIFY SNAPSHOT -->
+        <div class="step-section">
+
+            <h2>Verify Snapshot Integrity</h2>
+
+            <h3>Step 1 — Display Available Snapshots</h3>
+
+            <pre><code>
+qm listsnapshot 100
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+`-> pre-maintenance
+|
+`-> current
+</code></pre>
+
+            <h3>Step 2 — Verify Snapshot Details</h3>
+
+            <p>
+                Confirm the following:
+            </p>
+
+            <ul>
+
+                <li>The snapshot exists.</li>
+
+                <li>The snapshot name follows organizational naming standards.</li>
+
+                <li>The snapshot timestamp corresponds to the approved maintenance window.</li>
+
+                <li>The snapshot was created on the correct virtual machine.</li>
+
+            </ul>
+
+            <h3>Step 3 — Document Snapshot Inventory</h3>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Snapshot</th>
+                        <th>VM</th>
+                        <th>Date</th>
+                        <th>Purpose</th>
+                        <th>Retention</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>baseline-state</td>
+                        <td>WIN-SVR2019</td>
+                        <td>2026-06-20</td>
+                        <td>Initial deployment baseline</td>
+                        <td>Long-term</td>
+                    </tr>
+
+                    <tr>
+                        <td>pre-maintenance</td>
+                        <td>WIN-SVR2019</td>
+                        <td>2026-06-27</td>
+                        <td>Before maintenance activity</td>
+                        <td>Delete after validation</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- BACKUP CURRENCY -->
+        <div class="step-section">
+
+            <h2>Validate Backup Currency</h2>
+
+            <p>
+                Before maintenance proceeds, verify that a recent VZDump backup is available on the Tier 2 backup
+                repository. The snapshot provides short-term rollback capability, while the backup protects against
+                storage failure or virtual machine corruption.
+            </p>
+
+            <h3>Step 1 — Verify Backup Repository</h3>
+
+            <pre><code>
+ls -lh /var/lib/vz/dump/
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+vzdump-qemu-100-2026_06_25-1800.vma.zst
+vzdump-qemu-101-2026_06_25-1810.vma.zst
+vzdump-qemu-103-2026_06_25-1830.vma.zst
+</code></pre>
+
+            <h3>Step 2 — Validate Backup Information</h3>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Expected Value</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Backup Type</td>
+                        <td>VZDump</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage Tier</td>
+                        <td>Tier 2</td>
+                    </tr>
+
+                    <tr>
+                        <td>Repository</td>
+                        <td>backup-hdd02</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Age</td>
+                        <td>Less than seven days</td>
+                    </tr>
+
+                    <tr>
+                        <td>Readable Archive</td>
+                        <td>Verified</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="warning">
+
+                <strong>Important</strong>
+
+                <p>
+                    Maintenance should not proceed if the most recent backup is outdated, incomplete, or stored on the
+                    same storage device as the production virtual machine.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CREATE BACKUP -->
+        <div class="step-section">
+
+            <h2>Create a New Backup (If Required)</h2>
+
+            <p>
+                If no recent backup exists, create a new VZDump archive before performing maintenance.
+            </p>
+
+            <h3>Store the Backup on the Tier 2 Repository</h3>
+
+            <pre><code>
+vzdump 100 \
+  --mode snapshot \
+  --compress zstd \
+  --storage backup-hdd02
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+INFO: Starting Backup
+
+INFO: Creating archive
+
+INFO: Backup finished successfully
+
+INFO: vzdump-qemu-100-2026_06_27-1800.vma.zst
+</code></pre>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    A VZDump archive contains the complete virtual machine, including configuration, virtual disks, and
+                    metadata. Unlike snapshots, these archives remain recoverable even if the original virtual machine
+                    or storage pool is lost.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- BACKUP DOCUMENTATION -->
+        <div class="step-section">
+
+            <h2>Backup Documentation Register</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Record</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>VMID</td>
+                        <td>100</td>
+                    </tr>
+
+                    <tr>
+                        <td>Virtual Machine</td>
+                        <td>WIN-SVR2019</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Date</td>
+                        <td>2026-06-27</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Storage</td>
+                        <td>Tier 2 (backup-hdd02)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Type</td>
+                        <td>VZDump</td>
+                    </tr>
+
+                    <tr>
+                        <td>Verification Status</td>
+                        <td>Verified</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recovery Tested</td>
+                        <td>Pending</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- PART 3 CHECKPOINT -->
+        <div class="step-section">
+
+            <h2>Pre-Maintenance Progress Check</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Validation Item</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Recovery snapshot created</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot integrity verified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot documented</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recent backup verified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup repository validated</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Proceed to Risk Assessment and Go / No-Go Decision (Part 4)</td>
+                        <td>Ready</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 0 - PART 4 -->
+        <!-- Risk Assessment, Go/No-Go Decision & Rollback Procedures -->
+        <!-- ========================================================= -->
+
+        <!-- RISK ASSESSMENT -->
+        <div class="step-section">
+
+            <h2>Maintenance Risk Assessment</h2>
+
+            <p>
+                Before implementing any maintenance activity, evaluate the potential impact on infrastructure services.
+                Risk assessment determines whether the planned change can proceed safely, whether additional safeguards
+                are required, or whether the maintenance window should be postponed.
+            </p>
+
+            <p>
+                The objective is not to eliminate all risk, but to understand the potential consequences and ensure an
+                appropriate recovery strategy has been established before changes are introduced.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Risk Category</th>
+                        <th>Examples</th>
+                        <th>Potential Impact</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Configuration Changes</td>
+                        <td>Network settings, Active Directory, DNS, DHCP</td>
+                        <td>Authentication or connectivity failures</td>
+                    </tr>
+
+                    <tr>
+                        <td>Operating System Updates</td>
+                        <td>Windows Updates, Linux package upgrades</td>
+                        <td>Boot failures or service startup issues</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage Operations</td>
+                        <td>Disk expansion, VM migration, storage relocation</td>
+                        <td>VM corruption or storage exhaustion</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Maintenance</td>
+                        <td>Docker services, Peppermint, n8n, Wazuh</td>
+                        <td>Application outage</td>
+                    </tr>
+
+                    <tr>
+                        <td>Network Maintenance</td>
+                        <td>Firewall, VLAN, routing changes</td>
+                        <td>Loss of management or production connectivity</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    Most enterprise outages are not caused by hardware failures—they are introduced during planned
+                    maintenance. A structured risk assessment minimizes unexpected downtime and ensures recovery
+                    procedures have already been planned before implementation begins.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CHANGE CLASSIFICATION -->
+        <div class="step-section">
+
+            <h2>Maintenance Classification</h2>
+
+            <p>
+                Every maintenance activity should be categorized according to its operational risk. This classification
+                determines the level of validation and recovery preparation required.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Classification</th>
+                        <th>Description</th>
+                        <th>Examples</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Low Risk</td>
+                        <td>Minimal service impact</td>
+                        <td>Documentation updates, log review, configuration backup</td>
+                    </tr>
+
+                    <tr>
+                        <td>Moderate Risk</td>
+                        <td>Limited interruption possible</td>
+                        <td>Software updates, service restart, VM configuration changes</td>
+                    </tr>
+
+                    <tr>
+                        <td>High Risk</td>
+                        <td>Potential service interruption</td>
+                        <td>Storage migration, firewall changes, Active Directory modifications</td>
+                    </tr>
+
+                    <tr>
+                        <td>Critical Risk</td>
+                        <td>Infrastructure-wide impact</td>
+                        <td>Hypervisor maintenance, storage replacement, network core modifications</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- PRE-MAINTENANCE QUESTIONS -->
+        <div class="step-section">
+
+            <h2>Pre-Maintenance Validation Questions</h2>
+
+            <p>
+                The administrator should answer the following questions before approving the maintenance activity.
+            </p>
+
+            <ul>
+
+                <li>Has the correct maintenance window been scheduled?</li>
+
+                <li>Has the affected infrastructure been identified?</li>
+
+                <li>Are current backups available on Tier 2 storage?</li>
+
+                <li>Has a recovery snapshot been created?</li>
+
+                <li>Can the maintenance be reversed if necessary?</li>
+
+                <li>Has the expected business impact been documented?</li>
+
+                <li>Have dependent services been identified?</li>
+
+                <li>Is sufficient storage capacity available?</li>
+
+                <li>Have stakeholders been notified if required?</li>
+
+                <li>Has the rollback procedure been verified?</li>
+
+            </ul>
+
+        </div>
+
+        <!-- GO NO-GO -->
+        <div class="step-section">
+
+            <h2>Go / No-Go Decision Matrix</h2>
+
+            <p>
+                Maintenance activities should only proceed after all required validation criteria have been successfully
+                completed.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Validation Item</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Administrative access verified</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Target VM identified</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Infrastructure healthy</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage tier verified</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot created</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot verified</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2 backup verified</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recovery procedure documented</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Maintenance risk assessed</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Proceed with maintenance</td>
+                        <td>GO</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="warning">
+
+                <strong>No-Go Conditions</strong>
+
+                <p>
+                    Maintenance should be postponed immediately if any of the following conditions exist:
+                </p>
+
+                <ul>
+
+                    <li>No verified Tier 2 backup is available.</li>
+
+                    <li>The virtual machine is already experiencing operational issues.</li>
+
+                    <li>Recovery procedures have not been documented.</li>
+
+                    <li>Storage capacity is critically low.</li>
+
+                    <li>The maintenance scope has changed significantly.</li>
+
+                    <li>The administrator cannot verify the expected recovery path.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- ROLLBACK -->
+        <div class="step-section">
+
+            <h2>Emergency Rollback Procedure</h2>
+
+            <p>
+                If the maintenance activity introduces instability, restore the virtual machine to its pre-maintenance
+                snapshot before attempting additional troubleshooting.
+            </p>
+
+            <h3>Step 1 — Stop the Virtual Machine</h3>
+
+            <pre><code>
+qm stop 100
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+stopping VM 100...
+status: stopped
+</code></pre>
+
+            <h3>Step 2 — Restore the Recovery Snapshot</h3>
+
+            <pre><code>
+qm rollback 100 pre-maintenance
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Restoring snapshot...
+
+Rollback completed successfully.
+</code></pre>
+
+            <h3>Step 3 — Start the Virtual Machine</h3>
+
+            <pre><code>
+qm start 100
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+starting VM 100...
+
+status: running
+</code></pre>
+
+            <div class="note">
+
+                <strong>Why this matters</strong>
+
+                <p>
+                    Snapshot rollback provides the fastest method for recovering from unsuccessful maintenance. Because
+                    the snapshot was created immediately before the change, the virtual machine returns to its
+                    previously validated operational state with minimal downtime.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- POST RECOVERY -->
+        <div class="step-section">
+
+            <h2>Post-Rollback Validation</h2>
+
+            <p>
+                Recovery is not complete until enterprise services have been validated. Confirm that the operating
+                system has booted successfully and that all critical services are functioning normally.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Validation</th>
+                        <th>Expected Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Virtual Machine Running</td>
+                        <td>Running</td>
+                    </tr>
+
+                    <tr>
+                        <td>Operating System Boot</td>
+                        <td>Successful</td>
+                    </tr>
+
+                    <tr>
+                        <td>Network Connectivity</td>
+                        <td>Operational</td>
+                    </tr>
+
+                    <tr>
+                        <td>DNS Resolution</td>
+                        <td>Successful</td>
+                    </tr>
+
+                    <tr>
+                        <td>Domain Services</td>
+                        <td>Available</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Services</td>
+                        <td>Running</td>
+                    </tr>
+
+                    <tr>
+                        <td>Monitoring Agents</td>
+                        <td>Connected</td>
+                    </tr>
+
+                    <tr>
+                        <td>Event Logs</td>
+                        <td>No critical errors</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- INCIDENT DOCUMENTATION -->
+        <div class="step-section">
+
+            <h2>Maintenance Documentation</h2>
+
+            <p>
+                Every maintenance activity should be documented regardless of whether issues were encountered. Accurate
+                documentation supports future troubleshooting, change management, and operational audits.
+            </p>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Documentation Item</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Maintenance Date</td>
+                        <td>2026-06-27</td>
+                    </tr>
+
+                    <tr>
+                        <td>Administrator</td>
+                        <td>JCAG-LAB</td>
+                    </tr>
+
+                    <tr>
+                        <td>Target System</td>
+                        <td>WIN-SVR2019</td>
+                    </tr>
+
+                    <tr>
+                        <td>Maintenance Activity</td>
+                        <td>Windows Updates</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot Name</td>
+                        <td>pre-maintenance</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup Verified</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>Rollback Required</td>
+                        <td>No</td>
+                    </tr>
+
+                    <tr>
+                        <td>Outcome</td>
+                        <td>Maintenance completed successfully</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- PART 4 CHECKPOINT -->
+        <div class="step-section">
+
+            <h2>Playbook Progress Check</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Completed Activity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Environment verification</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage validation</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>VM health verification</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup verification</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot creation</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Risk assessment</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Go / No-Go decision</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Rollback procedure documented</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Proceed to Practical Exercise & Module Completion (Part 5)</td>
+                        <td>Ready</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PRACTICAL EXERCISES -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercises</h2>
+
+            <p>
+                The following exercises validate the pre-maintenance safeguards discussed
+                throughout this playbook. These procedures are safe to perform within the
+                JCAG-LAB environment and establish repeatable operational habits before
+                conducting future break/fix scenarios.
+            </p>
+
+            <div class="note">
+                None of these exercises intentionally damage infrastructure. Their purpose
+                is to verify that recovery mechanisms are functioning before any failure
+                simulation begins.
+            </div>
+
+            <h3>Exercise 1 — Create a Baseline Snapshot</h3>
+
+            <p>Create a recovery snapshot for the Windows Server 2019 virtual machine.</p>
+
+            <pre><code>qm list
+
+ qm snapshot 101 baseline-state
+</code></pre>
+
+            <p>Verify the snapshot.</p>
+
+            <pre><code>qm listsnapshot 101
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+                <li>VMID</li>
+                <li>Snapshot name</li>
+                <li>Date created</li>
+                <li>Purpose</li>
+            </ul>
+
+            <hr>
+
+            <h3>Exercise 2 — Verify Backup Availability</h3>
+
+            <p>Confirm that a recent VZDump backup exists on the Tier 2 backup repository.</p>
+
+            <pre><code>ls -lh /mnt/pve/backup-storage/
+</code></pre>
+
+            <p>If your backup storage uses a different mount point, adjust the command accordingly.</p>
+
+            <p>Document:</p>
+
+            <ul>
+                <li>Backup filename</li>
+                <li>Backup date</li>
+                <li>Storage location</li>
+                <li>Backup size</li>
+            </ul>
+
+            <hr>
+
+            <h3>Exercise 3 — Validate Storage Tiers</h3>
+
+            <p>Confirm the three storage tiers configured within the Proxmox environment.</p>
+
+            <pre><code>pvesm status
+</code></pre>
+
+            <p>Expected storage layout:</p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Tier</th>
+                        <th>Storage</th>
+                        <th>Purpose</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Tier 0</td>
+                        <td>local-lvm (SSD)</td>
+                        <td>Performance virtual machines</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 1</td>
+                        <td>local-lvm-hdd-01</td>
+                        <td>General VM storage</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2</td>
+                        <td>backup directory storage (HDD-02)</td>
+                        <td>Recovery backups</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>Document:</p>
+
+            <ul>
+                <li>Storage status</li>
+                <li>Available capacity</li>
+                <li>Storage health</li>
+            </ul>
+
+            <hr>
+
+            <h3>Exercise 4 — Verify Virtual Machine Health</h3>
+
+            <p>Select one production VM and verify that it is operational.</p>
+
+            <pre><code>qm status 101
+
+ qm config 101
+</code></pre>
+
+            <p>From inside Windows:</p>
+
+            <pre><code>ipconfig /all
+</code></pre>
+
+            <p>From Linux systems:</p>
+
+            <pre><code>hostname
+
+ ip a
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+                <li>Running state</li>
+                <li>IP configuration</li>
+                <li>Hostname</li>
+                <li>Any abnormalities observed</li>
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PRE-MAINTENANCE CHECKLIST -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Pre-Maintenance Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Verification Item</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Maintenance scope defined</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Business impact assessed</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Maintenance window approved</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Target VM identified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Virtual machine healthy</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot created</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Snapshot verified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2 backup verified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Rollback procedure documented</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Maintenance authorized</td>
+                        <td>GO</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- KEY TAKEAWAYS -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Every maintenance activity begins with risk reduction rather than technical changes.</li>
+
+                <li>Snapshots provide rapid rollback capability but must never replace proper backups.</li>
+
+                <li>Tier 2 backup storage is the authoritative recovery source for catastrophic VM failures.</li>
+
+                <li>Verifying VM health before maintenance prevents troubleshooting unrelated pre-existing issues.</li>
+
+                <li>Recovery planning is part of every maintenance activity, not something performed only after failures
+                    occur.</li>
+
+                <li>Documentation, change tracking, and validation are fundamental operational disciplines in enterprise
+                    infrastructure.</li>
+
+                <li>Following a standardized pre-maintenance procedure greatly reduces recovery time during future
+                    break/fix scenarios.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- MODULE COMPLETION OUTCOME -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                Upon completion of this playbook: Capable of preparing the
+                JCAG-LAB enterprise infrastructure for maintenance activities using standardized
+                enterprise operational procedures. Recovery checkpoints, snapshot validation,
+                backup verification, storage tier awareness, rollback planning, and maintenance
+                authorization have all been completed before any break/fix exercise is introduced.
+                This playbook establishes the operational baseline that every subsequent recovery
+                playbook in this project will follow.
+            </p>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- PAGE NAVIGATION -->
+        <!-- ===================================================== -->
+
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="1landing-page.html">
+                ← Back to Landing Page
+            </a>
+            <a class="btn btn-primary" href="../../index.html">
+                Home
+            </a>
+            <a class="btn btn-primary" href="../../projects/linux/module2.html">
+                Proceed to Playbook 1 →
+            </a>
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>
