@@ -1,0 +1,3062 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Playbook 1: Server & Storage</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                Infrastructure Recovery & Troubleshooting
+            </div>
+
+            <h1 class="hero-title">
+                Playbook 1: Server & Storage
+            </h1>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+        <!-- ===================================================== -->
+        <!-- PLAYBOOK 1 : SERVER & STORAGE FAILURE RECOVERY -->
+        <!-- PART 1 : OVERVIEW & METHODOLOGY -->
+        <!-- ===================================================== -->
+
+        <!-- OVERVIEW -->
+
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                Playbook 1 focuses on recovering failures affecting enterprise servers, virtual
+                machines, storage resources, and critical infrastructure services deployed within
+                the JCAG-LAB environment. Unlike deployment documentation, this playbook begins
+                after a service interruption has occurred and guides the administrator through a
+                structured recovery process to restore normal operations.
+            </p>
+
+            <p>
+                The procedures throughout this playbook simulate responsibilities commonly
+                performed by Infrastructure Support Technicians, Data Center Technicians,
+                Systems Administrators, and Network Operations Center (NOC) personnel. Each
+                scenario emphasizes structured troubleshooting, operational discipline,
+                service restoration, validation, and documentation rather than simply fixing
+                individual technical problems.
+            </p>
+
+            <p>
+                Whenever practical, failures are intentionally reproduced within the isolated
+                JCAG-LAB environment using controlled and reversible methods. Potentially
+                destructive failures that could result in permanent data loss are documented as
+                production reference procedures and are not intentionally induced.
+            </p>
+
+        </div>
+
+        <!-- LEARNING OBJECTIVES -->
+
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+
+                <li>Apply a structured troubleshooting methodology to enterprise server failures.</li>
+
+                <li>Diagnose operating system, virtualization, storage, and application service failures.</li>
+
+                <li>Recover Windows Server and Linux virtual machines using snapshots and backups.</li>
+
+                <li>Restore enterprise services while minimizing operational downtime.</li>
+
+                <li>Validate infrastructure health following service restoration.</li>
+
+                <li>Document recovery activities using repeatable operational procedures.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ENVIRONMENT -->
+
+        <div class="step-section">
+
+            <h2>JCAG-LAB Environment</h2>
+
+            <p>
+                The recovery procedures in this playbook reference the production-style
+                enterprise infrastructure deployed throughout the JCAG-LAB environment.
+                Understanding the relationships between virtualization, storage, and enterprise
+                services is essential before attempting any recovery activity.
+            </p>
+
+            <pre><code>
+                     Internet
+                         │
+                         │
+                  ISP Router
+                         │
+                         │
+                   pfSense Firewall
+                         │
+                         │
+               Cisco ISR 1941 Router
+                         │
+                         │
+             Cisco Catalyst 2960G Switch
+                         │
+        ┌────────────────┴────────────────┐
+        │                                 │
+   User VLANs                     Server VLAN
+                                         │
+                                 Proxmox VE Host
+                                         │
+     ┌──────────────────────────────────────────────────┐
+     │                                                  │
+     │ Windows Server 2019                              │
+     │ Wazuh Manager                                    │
+     │ Cisco Modeling Labs                              │
+     │ Peppermint ITSM                                  │
+     │ n8n Automation                                   │
+     │ Web Server                                       │
+     └──────────────────────────────────────────────────┘
+</code></pre>
+
+            <p>
+                Most recovery procedures begin by determining whether the issue affects an
+                individual service, an entire virtual machine, the underlying storage layer,
+                or the Proxmox virtualization platform itself.
+            </p>
+
+        </div>
+
+        <!-- STORAGE ARCHITECTURE -->
+
+        <div class="step-section">
+
+            <h2>Enterprise Storage Architecture</h2>
+
+            <p>
+                The JCAG-LAB environment separates workloads into three independent storage
+                tiers. Understanding which tier hosts a workload is critical because the
+                appropriate recovery procedure depends on where the virtual machine and backup
+                data reside.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Tier</th>
+                        <th>Storage</th>
+                        <th>Purpose</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Tier 0</td>
+                        <td>local-lvm (SSD)</td>
+                        <td>Performance-critical virtual machines and enterprise services</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 1</td>
+                        <td>local-lvm-hdd-01</td>
+                        <td>General-purpose virtual machines and lab workloads</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2</td>
+                        <td>HDD-02 Backup Directory Storage</td>
+                        <td>VZDump backup repository used for disaster recovery</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="note">
+
+                <strong>Important:</strong>
+
+                <ul>
+
+                    <li>Snapshots are recovery checkpoints only.</li>
+
+                    <li>Snapshots are <strong>not</strong> backups.</li>
+
+                    <li>Tier 2 storage contains the authoritative recovery copies.</li>
+
+                    <li>Catastrophic VM failures require restoration from Tier 2 backups.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- PLAYBOOK SCOPE -->
+
+        <div class="step-section">
+
+            <h2>Playbook Scope</h2>
+
+            <p>
+                This playbook covers failures affecting the following enterprise components
+                currently deployed within the JCAG-LAB environment.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Infrastructure Component</th>
+                        <th>Representative Recovery Topics</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Windows Server 2019</td>
+                        <td>Boot failures, Active Directory, DNS, DHCP, SMB services</td>
+                    </tr>
+
+                    <tr>
+                        <td>Proxmox VE</td>
+                        <td>VM startup failures, storage attachment, virtualization recovery</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage</td>
+                        <td>Capacity management, virtual disks, backup restoration</td>
+                    </tr>
+
+                    <tr>
+                        <td>Peppermint ITSM</td>
+                        <td>Container availability and service restoration</td>
+                    </tr>
+
+                    <tr>
+                        <td>n8n Automation</td>
+                        <td>Workflow service recovery</td>
+                    </tr>
+
+                    <tr>
+                        <td>Wazuh Manager</td>
+                        <td>Service availability and VM recovery</td>
+                    </tr>
+
+                    <tr>
+                        <td>Web Server</td>
+                        <td>Application availability and web service troubleshooting</td>
+                    </tr>
+
+                    <tr>
+                        <td>Cisco Modeling Labs</td>
+                        <td>Virtual appliance recovery</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- FAILURE CLASSIFICATION -->
+
+        <div class="step-section">
+
+            <h2>Failure Classification</h2>
+
+            <p>
+                Every scenario within this playbook is categorized according to whether it is
+                safe to reproduce within the lab environment.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Classification</th>
+                        <th>Description</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Safe Lab Validation</td>
+                        <td>Failure can be intentionally reproduced and safely recovered using snapshots or backups.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Production Reference</td>
+                        <td>Failure is documented for operational knowledge but should not be intentionally induced due
+                            to risk of permanent data loss.</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>
+                Whenever a scenario supports safe validation, the playbook includes procedures
+                for deliberately inducing the failure, observing the resulting symptoms,
+                recovering the affected service, and validating successful restoration.
+            </p>
+
+        </div>
+
+        <!-- TROUBLESHOOTING METHODOLOGY -->
+
+        <div class="step-section">
+
+            <h2>Standard Recovery Methodology</h2>
+
+            <p>
+                Every recovery scenario follows the same structured operational workflow used
+                throughout this project.
+            </p>
+
+            <pre><code>
+Alert / User Report
+        │
+        ▼
+Identify Symptoms
+        │
+        ▼
+Determine Scope
+        │
+        ▼
+Assess Business Impact
+        │
+        ▼
+Collect Diagnostic Information
+        │
+        ▼
+Identify Root Cause
+        │
+        ▼
+Implement Recovery
+        │
+        ▼
+Validate Service Restoration
+        │
+        ▼
+Document Incident
+        │
+        ▼
+Prevent Recurrence
+</code></pre>
+
+            <p>
+                Following a standardized methodology reduces troubleshooting time, improves
+                documentation quality, and provides repeatable operational procedures for
+                future incidents.
+            </p>
+
+        </div>
+
+        <!-- PLAYBOOK SCENARIOS -->
+
+        <div class="step-section">
+
+            <h2>Recovery Scenarios Covered</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Scenario ID</th>
+                        <th>Recovery Scenario</th>
+                        <th>Validation Type</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>PB1-S01</td>
+                        <td>Windows Server 2019 Fails to Boot</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S02</td>
+                        <td>Active Directory Services Unavailable</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S03</td>
+                        <td>DNS Service Failure</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S04</td>
+                        <td>DHCP Service Failure</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S05</td>
+                        <td>SMB File Services Unavailable</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S06</td>
+                        <td>Web Server Service Failure</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S07</td>
+                        <td>Proxmox Virtual Machine Will Not Start</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S08</td>
+                        <td>Storage Pool Capacity Reached</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S09</td>
+                        <td>Virtual Disk Corruption</td>
+                        <td>Production Reference</td>
+                    </tr>
+
+                    <tr>
+                        <td>PB1-S10</td>
+                        <td>Restore Virtual Machine from Tier 2 Backup</td>
+                        <td>Safe Lab Validation</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>
+                Each scenario builds upon the operational safeguards established in Playbook 0.
+                Before beginning any recovery exercise, ensure snapshots and backups have been
+                verified in accordance with the Pre-Maintenance Safeguards & Recovery Procedures
+                playbook.
+            </p>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PB1-S01 : WINDOWS SERVER 2019 FAILS TO BOOT -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>PB1-S01 — Windows Server 2019 Fails to Boot</h2>
+
+            <h3>Scenario Overview</h3>
+
+            <p>
+                The Windows Server 2019 virtual machine hosts several core enterprise services
+                within the JCAG-LAB environment, including Active Directory Domain Services
+                (AD DS), DNS, DHCP, and SMB file sharing. A failure to boot renders these
+                services unavailable, affecting authentication, name resolution, address
+                assignment, and file access across the environment.
+            </p>
+
+            <p>
+                This scenario demonstrates a structured recovery process beginning with basic
+                virtualization checks before progressing to guest operating system recovery.
+                Because boot failures may result from virtualization issues, storage problems,
+                or operating system corruption, troubleshooting must proceed methodically.
+            </p>
+
+            <div class="note">
+                This scenario is classified as <strong>Safe Lab Validation</strong>. The failure
+                can be intentionally reproduced using non-destructive methods and safely
+                recovered using snapshots created during Playbook 0.
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Business Impact</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Affected Service</th>
+                        <th>Operational Impact</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Active Directory</td>
+                        <td>Domain authentication unavailable</td>
+                    </tr>
+
+                    <tr>
+                        <td>DNS</td>
+                        <td>Name resolution fails</td>
+                    </tr>
+
+                    <tr>
+                        <td>DHCP</td>
+                        <td>Clients cannot obtain new leases</td>
+                    </tr>
+
+                    <tr>
+                        <td>SMB</td>
+                        <td>Network shares unavailable</td>
+                    </tr>
+
+                    <tr>
+                        <td>Group Policy</td>
+                        <td>Policy processing fails</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>
+                Although existing client sessions may continue operating temporarily, new
+                logins, DHCP renewals, and domain-dependent applications will begin to fail as
+                services become unavailable.
+            </p>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Observable Symptoms</h2>
+
+            <ul>
+
+                <li>Virtual machine remains powered off.</li>
+
+                <li>Virtual machine immediately powers off after startup.</li>
+
+                <li>Windows enters Automatic Repair.</li>
+
+                <li>Black screen displayed after BIOS.</li>
+
+                <li>Blue Screen of Death (BSOD).</li>
+
+                <li>Proxmox reports the VM is running but no console is displayed.</li>
+
+                <li>Users cannot authenticate to the domain.</li>
+
+                <li>DNS and DHCP services become unavailable.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Safe Lab Validation Procedure</h2>
+
+            <h3>Objective</h3>
+
+            <p>
+                Safely simulate a boot failure without permanently damaging the operating
+                system or virtual disk.
+            </p>
+
+            <h3>Method 1 — Stop the Virtual Machine</h3>
+
+            <pre><code>qm stop 101
+</code></pre>
+
+            <p>
+                Attempt to access Active Directory resources from a workstation.
+            </p>
+
+            <p>Expected observations:</p>
+
+            <ul>
+
+                <li>VM reports as stopped.</li>
+
+                <li>Remote Desktop unavailable.</li>
+
+                <li>Authentication eventually fails.</li>
+
+                <li>DNS queries begin failing.</li>
+
+            </ul>
+
+            <hr>
+
+            <h3>Method 2 — Disconnect the Boot Disk (Safe)</h3>
+
+            <p>
+                Shutdown the VM before making hardware changes.
+            </p>
+
+            <pre><code>qm stop 101
+</code></pre>
+
+            <p>
+                Within the Proxmox web interface:</p>
+
+            <ul>
+
+                <li>Select VM 101.</li>
+
+                <li>Open <strong>Hardware</strong>.</li>
+
+                <li>Detach the primary boot disk (do not delete).</li>
+
+                <li>Start the VM.</li>
+
+            </ul>
+
+            <p>
+                The virtual machine will fail to locate a boot device.
+            </p>
+
+            <div class="warning">
+                Never delete the virtual disk. Only detach it temporarily for this validation.
+                Reconnect the disk before completing the exercise.
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Initial Assessment</h2>
+
+            <p>
+                Begin troubleshooting at the virtualization layer before assuming an operating
+                system problem.
+            </p>
+
+            <h3>Step 1 — Verify VM Status</h3>
+
+            <pre><code>qm status 101
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>status: running
+</code></pre>
+
+            <p>Questions:</p>
+
+            <ul>
+
+                <li>Is the VM running?</li>
+
+                <li>Is the VM stopped?</li>
+
+                <li>Did it unexpectedly shut down?</li>
+
+            </ul>
+
+            <hr>
+
+            <h3>Step 2 — Verify VM Configuration</h3>
+
+            <pre><code>qm config 101
+</code></pre>
+
+            <p>Verify:</p>
+
+            <ul>
+
+                <li>Boot order</li>
+
+                <li>CPU allocation</li>
+
+                <li>Memory allocation</li>
+
+                <li>Primary disk attachment</li>
+
+                <li>Network adapter</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Diagnostic Procedure</h2>
+
+            <h3>Step 1 — Review Recent Tasks</h3>
+
+            <pre><code>journalctl -xe
+
+pvesh get /nodes/proxmox/tasks
+</code></pre>
+
+            <p>Look for:</p>
+
+            <ul>
+
+                <li>Failed startups</li>
+
+                <li>Storage errors</li>
+
+                <li>Lock errors</li>
+
+                <li>Snapshot failures</li>
+
+            </ul>
+
+            <hr>
+
+            <h3>Step 2 — Verify Storage Availability</h3>
+
+            <pre><code>pvesm status
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>Name                 Type      Status
+local-lvm            lvmthin   active
+local-lvm-hdd-01     lvmthin   active
+backup-storage       dir       active
+</code></pre>
+
+            <p>Questions:</p>
+
+            <ul>
+
+                <li>Is Tier 0 available?</li>
+
+                <li>Is the VM disk visible?</li>
+
+                <li>Has storage become read-only?</li>
+
+            </ul>
+
+            <hr>
+
+            <h3>Step 3 — Verify Disk Attachment</h3>
+
+            <pre><code>qm config 101 | grep scsi
+</code></pre>
+
+            <p>Expected output:</p>
+
+            <pre><code>scsi0: local-lvm:vm-101-disk-0
+</code></pre>
+
+            <p>
+                If no disk is listed, the VM cannot boot because no boot device is attached.
+            </p>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Root Cause Analysis</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Possible Cause</th>
+                        <th>Description</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>VM powered off</td>
+                        <td>Virtual machine intentionally or accidentally stopped.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Boot disk detached</td>
+                        <td>No operating system available to boot.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Incorrect boot order</td>
+                        <td>VM attempting to boot from the wrong device.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage unavailable</td>
+                        <td>Underlying storage pool inaccessible.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Guest operating system corruption</td>
+                        <td>Windows boot files damaged.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recent configuration changes</td>
+                        <td>Hardware configuration modified before failure.</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Recovery Procedure</h2>
+
+            <h3>Recovery Option 1 — Start the Virtual Machine</h3>
+
+            <pre><code>qm start 101
+</code></pre>
+
+            <p>
+                If the server boots successfully, continue with validation procedures.
+            </p>
+
+            <hr>
+
+            <h3>Recovery Option 2 — Reattach Boot Disk</h3>
+
+            <p>
+                If the disk was intentionally detached for testing:
+            </p>
+
+            <ul>
+
+                <li>Open VM Hardware.</li>
+
+                <li>Reconnect the original virtual disk.</li>
+
+                <li>Verify the boot order.</li>
+
+                <li>Restart the virtual machine.</li>
+
+            </ul>
+
+            <hr>
+
+            <h3>Recovery Option 3 — Restore Previous Snapshot</h3>
+
+            <pre><code>qm rollback 101 baseline-state
+
+qm start 101
+</code></pre>
+
+            <p>
+                This restores the virtual machine to the baseline recovery point created during
+                Playbook 0.
+            </p>
+
+            <hr>
+
+            <h3>Recovery Option 4 — Restore from Tier 2 Backup</h3>
+
+            <p>
+                If the virtual machine cannot be recovered through snapshot restoration,
+                proceed to PB1-S10 and restore the VM from the Tier 2 VZDump backup.
+            </p>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Validation Procedure</h2>
+
+            <h3>Verify Virtual Machine</h3>
+
+            <pre><code>qm status 101
+</code></pre>
+
+            <p>Expected output:</p>
+
+            <pre><code>status: running
+</code></pre>
+
+            <hr>
+
+            <h3>Verify Windows Network Configuration</h3>
+
+            <pre><code>ipconfig /all
+</code></pre>
+
+            <hr>
+
+            <h3>Verify Active Directory</h3>
+
+            <pre><code>dcdiag
+</code></pre>
+
+            <hr>
+
+            <h3>Verify DNS</h3>
+
+            <pre><code>nslookup jcag-lab.local
+</code></pre>
+
+            <hr>
+
+            <h3>Verify DHCP</h3>
+
+            <p>
+                Renew a client lease and confirm successful IP assignment from the Windows
+                Server DHCP service.
+            </p>
+
+            <pre><code>ipconfig /release
+
+ipconfig /renew
+</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PB1-S01 : PREVENTION, INCIDENT DOCUMENTATION & EXERCISE -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Prevention & Best Practices</h2>
+
+            <ul>
+
+                <li>Always complete Playbook 0 before making infrastructure changes.</li>
+
+                <li>Create a snapshot before Windows updates, driver installations, or major configuration changes.</li>
+
+                <li>Maintain current Tier 2 VZDump backups for all production virtual machines.</li>
+
+                <li>Avoid making multiple configuration changes simultaneously.</li>
+
+                <li>Monitor storage utilization to prevent unexpected VM failures.</li>
+
+                <li>Verify VM health after every maintenance activity.</li>
+
+                <li>Document all infrastructure modifications through change records.</li>
+
+                <li>Review Proxmox task logs after maintenance to identify failed operations.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Incident Documentation Example</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Item</th>
+                        <th>Example</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Incident ID</td>
+                        <td>PB1-S01-2026-001</td>
+                    </tr>
+
+                    <tr>
+                        <td>Affected System</td>
+                        <td>Windows Server 2019 (VMID 101)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Severity</td>
+                        <td>High</td>
+                    </tr>
+
+                    <tr>
+                        <td>Business Impact</td>
+                        <td>Domain authentication unavailable</td>
+                    </tr>
+
+                    <tr>
+                        <td>Root Cause</td>
+                        <td>Primary boot disk intentionally detached during validation exercise</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recovery Action</td>
+                        <td>Boot disk reattached and virtual machine restarted</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recovery Time</td>
+                        <td>12 Minutes</td>
+                    </tr>
+
+                    <tr>
+                        <td>Validation</td>
+                        <td>AD DS, DNS, DHCP and SMB services operational</td>
+                    </tr>
+
+                    <tr>
+                        <td>Preventive Action</td>
+                        <td>Hardware verification checklist added before VM startup</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercise</h2>
+
+            <h3>Exercise 1 — Recover a Non-Booting Windows Server Virtual Machine</h3>
+
+            <p>
+                This exercise demonstrates a complete operational recovery using the procedures
+                covered in this scenario.
+            </p>
+
+            <h3>Preparation</h3>
+
+            <ul>
+
+                <li>Verify Playbook 0 has been completed.</li>
+
+                <li>Confirm a baseline snapshot exists.</li>
+
+                <li>Confirm a Tier 2 VZDump backup is available.</li>
+
+            </ul>
+
+            <hr>
+
+            <h3>Failure Simulation</h3>
+
+            <p>
+                Safely reproduce a boot failure by stopping the VM and temporarily disconnecting
+                the primary boot disk.
+            </p>
+
+            <pre><code>qm stop 101
+
+qm config 101
+</code></pre>
+
+            <p>
+                Disconnect the primary disk from the Proxmox Hardware menu and attempt to boot
+                the VM.
+            </p>
+
+            <p>Expected Result:</p>
+
+            <ul>
+
+                <li>Operating system fails to load.</li>
+
+                <li>No boot device detected.</li>
+
+                <li>Windows Server unavailable.</li>
+
+            </ul>
+
+            <hr>
+
+            <h3>Recovery</h3>
+
+            <p>
+                Reconnect the virtual disk and start the VM.
+            </p>
+
+            <pre><code>qm start 101
+
+qm status 101
+</code></pre>
+
+            <p>
+                If recovery is unsuccessful, restore the snapshot.
+            </p>
+
+            <pre><code>qm rollback 101 baseline-state
+
+qm start 101
+</code></pre>
+
+            <hr>
+
+            <h3>Validation</h3>
+
+            <pre><code>dcdiag
+
+ipconfig /all
+
+nslookup jcag-lab.local
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Symptoms observed</li>
+
+                <li>Root cause identified</li>
+
+                <li>Recovery method used</li>
+
+                <li>Total recovery time</li>
+
+                <li>Validation results</li>
+
+                <li>Lessons learned</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Scenario Completion Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Task</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Business impact assessed</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>VM status verified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage verified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Boot disk verified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Root cause identified</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Recovery completed</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>AD DS validated</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>DNS validated</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>DHCP validated</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Incident documented</td>
+                        <td>Completed</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PB1-S02 : ACTIVE DIRECTORY SERVICES UNAVAILABLE -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>PB1-S02 — Active Directory Services Unavailable</h2>
+
+            <h3>Scenario Overview</h3>
+
+            <p>
+                Active Directory Domain Services (AD DS) provides centralized authentication,
+                authorization, directory services, and Group Policy management throughout the
+                JCAG-LAB environment. If AD DS becomes unavailable, domain users, computers,
+                and integrated services may no longer authenticate, resulting in widespread
+                service disruption.
+            </p>
+
+            <p>
+                This scenario demonstrates how to determine whether the issue originates from
+                the Active Directory service itself, DNS, networking, or the underlying
+                virtual machine.
+            </p>
+
+            <div class="note">
+                This scenario is classified as <strong>Safe Lab Validation</strong>. The failure
+                can be reproduced safely by stopping the Active Directory Domain Services
+                service rather than damaging the operating system.
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Business Impact</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Affected Function</th>
+                        <th>Operational Impact</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>User Authentication</td>
+                        <td>Domain logins fail</td>
+                    </tr>
+
+                    <tr>
+                        <td>Computer Authentication</td>
+                        <td>Workstations cannot authenticate</td>
+                    </tr>
+
+                    <tr>
+                        <td>Group Policy</td>
+                        <td>Policies are not applied</td>
+                    </tr>
+
+                    <tr>
+                        <td>Domain Services</td>
+                        <td>Directory queries fail</td>
+                    </tr>
+
+                    <tr>
+                        <td>Administrative Tasks</td>
+                        <td>Domain management unavailable</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Observable Symptoms</h2>
+
+            <ul>
+
+                <li>Users receive authentication errors.</li>
+
+                <li>"The domain is unavailable" messages appear.</li>
+
+                <li>Group Policy processing fails.</li>
+
+                <li>Domain computers cannot join the domain.</li>
+
+                <li>Applications depending on LDAP fail.</li>
+
+                <li>Administrative tools cannot connect to the domain controller.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Safe Lab Validation Procedure</h2>
+
+            <h3>Objective</h3>
+
+            <p>
+                Simulate an Active Directory outage without damaging the operating system or
+                directory database.
+            </p>
+
+            <h3>Method — Stop Active Directory Domain Services</h3>
+
+            <p>
+                Open an elevated PowerShell session on the domain controller.
+            </p>
+
+            <pre><code>Stop-Service NTDS
+</code></pre>
+
+            <p>
+                Attempt to authenticate from a domain workstation.
+            </p>
+
+            <p>Expected observations:</p>
+
+            <ul>
+
+                <li>Authentication fails.</li>
+
+                <li>Domain resources become unavailable.</li>
+
+                <li>LDAP queries fail.</li>
+
+            </ul>
+
+            <div class="warning">
+                Do not modify or delete the Active Directory database (NTDS.DIT). This playbook
+                focuses on service-level recovery only.
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PLAYBOOK 1 – PART 3 -->
+        <!-- ENTERPRISE SERVICE FAILURES -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Scenario 4 — DNS Service Failure</h2>
+
+            <p>
+                Domain Name System (DNS) is a critical dependency for Active Directory,
+                authentication, name resolution, Group Policy processing, and numerous
+                enterprise applications. Failure of the DNS service can affect nearly every
+                system within the environment.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+                <li>Users cannot locate domain resources.</li>
+                <li>Active Directory logons may fail.</li>
+                <li>Servers cannot resolve hostnames.</li>
+                <li>Applications experience connection failures.</li>
+                <li>Group Policy processing becomes unreliable.</li>
+            </ul>
+
+            <h3>Typical Symptoms</h3>
+
+            <ul>
+                <li>Ping by hostname fails.</li>
+                <li>Ping by IP address succeeds.</li>
+                <li>Domain controller cannot be located.</li>
+                <li>Windows login delays.</li>
+                <li>Applications report DNS lookup failures.</li>
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                This failure can be safely reproduced within the isolated lab.
+            </p>
+
+            <pre><code>Stop-Service DNS
+
+or
+
+services.msc
+
+DNS Server
+→ Stop
+</code></pre>
+
+            <p>
+                To restore service:
+            </p>
+
+            <pre><code>Start-Service DNS
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>Get-Service DNS
+
+Resolve-DnsName google.com
+
+Resolve-DnsName jcag-lab.local
+
+ipconfig /all
+
+dcdiag /test:dns
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>Status   Name
+------   ----
+Stopped  DNS
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <ol>
+
+                <li>Verify DNS service state.</li>
+
+                <li>Start DNS service.</li>
+
+                <li>Review Event Viewer.</li>
+
+                <li>Verify forward lookup zones.</li>
+
+                <li>Verify reverse lookup zones.</li>
+
+                <li>Confirm DNS forwarders.</li>
+
+                <li>Flush client DNS cache.</li>
+
+                <li>Validate name resolution.</li>
+
+            </ol>
+
+            <pre><code>ipconfig /flushdns
+
+ipconfig /registerdns
+
+Resolve-DnsName jcag-lab.local
+</code></pre>
+
+            <h3>Validation Checklist</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>DNS Service Running</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Hostname Resolution</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Forward Lookup Operational</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Reverse Lookup Operational</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Client Resolution Successful</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Scenario 5 — DHCP Service Failure</h2>
+
+            <p>
+                When the DHCP service becomes unavailable, newly connected devices are unable
+                to obtain valid IP addressing information. Existing clients continue operating
+                until their leases expire.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Clients receive APIPA addresses.</li>
+
+                <li>New systems cannot join the network.</li>
+
+                <li>Voice devices may fail to register.</li>
+
+                <li>Operational downtime increases.</li>
+
+            </ul>
+
+            <h3>Typical Symptoms</h3>
+
+            <ul>
+
+                <li>169.254.x.x addresses.</li>
+
+                <li>Unable to contact default gateway.</li>
+
+                <li>No DNS servers assigned.</li>
+
+                <li>Network connectivity unavailable.</li>
+
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <pre><code>Stop-Service DHCPServer
+</code></pre>
+
+            <p>
+                On a Windows client:
+            </p>
+
+            <pre><code>ipconfig /release
+
+ipconfig /renew
+</code></pre>
+
+            <p>Expected output:</p>
+
+            <pre><code>An error occurred while renewing interface Ethernet.
+
+Unable to contact DHCP Server.
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>Get-Service DHCPServer
+
+Get-DhcpServerv4Scope
+
+Get-DhcpServerv4Lease
+
+ipconfig /all
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>Start-Service DHCPServer
+</code></pre>
+
+            <p>
+                Verify:
+            </p>
+
+            <ul>
+
+                <li>DHCP scopes are active.</li>
+
+                <li>Address pool available.</li>
+
+                <li>Clients successfully renew leases.</li>
+
+                <li>DNS options distributed correctly.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <pre><code>ipconfig /renew
+
+ipconfig /all
+</code></pre>
+
+            <p>Expected output:</p>
+
+            <pre><code>IPv4 Address . . . . . . . : 10.10.10.35
+
+Default Gateway . . . . . : 10.10.10.1
+</code></pre>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Scenario 6 — SMB File Service Failure</h2>
+
+            <p>
+                Windows file sharing supports administrative shares, user home folders, shared
+                project directories, and application data. Loss of SMB services affects user
+                productivity and application availability.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Shared folders unavailable.</li>
+
+                <li>Login scripts fail.</li>
+
+                <li>User profile issues.</li>
+
+                <li>Applications cannot access shared storage.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>"Network path not found"</li>
+
+                <li>"Access denied"</li>
+
+                <li>Mapped drives disconnected</li>
+
+                <li>File Explorer timeouts</li>
+
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <pre><code>Stop-Service LanmanServer
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>Get-Service LanmanServer
+
+net share
+
+Get-SmbShare
+</code></pre>
+
+            <p>Verify connectivity:</p>
+
+            <pre><code>\\WIN-SVR2019
+
+Test-NetConnection WIN-SVR2019 -Port 445
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>Remote Port : 445
+
+TcpTestSucceeded : False
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>Start-Service LanmanServer
+</code></pre>
+
+            <p>
+                Verify:
+            </p>
+
+            <ul>
+
+                <li>SMB service operational.</li>
+
+                <li>Shares visible.</li>
+
+                <li>Permissions intact.</li>
+
+                <li>Clients reconnect successfully.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <pre><code>Test-NetConnection WIN-SVR2019 -Port 445
+</code></pre>
+
+            <p>Expected output:</p>
+
+            <pre><code>TcpTestSucceeded : True
+</code></pre>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PLAYBOOK 1 – PART 4 -->
+        <!-- PROXMOX HOST, STORAGE & BACKUP RECOVERY -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Scenario 7 — Proxmox Host Unavailable</h2>
+
+            <p>
+                The Proxmox Virtual Environment host provides the virtualization platform for
+                all enterprise infrastructure within the JCAG-LAB. If the host becomes
+                unavailable, every virtual machine hosted on the platform is affected,
+                including Active Directory, Wazuh SIEM, Peppermint, Cisco Modeling Labs,
+                and supporting services.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+                <li>All hosted virtual machines become unavailable.</li>
+                <li>Authentication services are interrupted.</li>
+                <li>Monitoring and alerting stop.</li>
+                <li>Automation workflows fail.</li>
+                <li>Administrative access to hosted services is lost.</li>
+            </ul>
+
+            <h3>Typical Symptoms</h3>
+
+            <ul>
+                <li>Unable to access the Proxmox Web UI.</li>
+                <li>SSH connection to the host fails.</li>
+                <li>Virtual machines become unreachable.</li>
+                <li>Monitoring alerts indicate multiple systems offline.</li>
+                <li>Hosted services become unavailable simultaneously.</li>
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                Do <strong>NOT</strong> intentionally power off the Proxmox host during normal
+                lab operation. Instead, safely simulate management access failure by stopping
+                the web proxy service.
+            </p>
+
+            <pre><code>systemctl stop pveproxy
+</code></pre>
+
+            <p>
+                This affects only the web management interface while virtual machines continue
+                running.
+            </p>
+
+            <p>Restore management access:</p>
+
+            <pre><code>systemctl start pveproxy
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>systemctl status pveproxy
+
+ systemctl status pvedaemon
+
+ systemctl status pve-cluster
+
+ hostnamectl
+
+ df -h
+
+ free -h
+
+ uptime
+
+ journalctl -xe
+</code></pre>
+
+            <p>Verify node status:</p>
+
+            <pre><code>pvesh get /nodes
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <ol>
+
+                <li>Verify physical power.</li>
+
+                <li>Confirm management network connectivity.</li>
+
+                <li>Restart failed management services.</li>
+
+                <li>Review system logs.</li>
+
+                <li>Verify storage availability.</li>
+
+                <li>Confirm all virtual machines are operational.</li>
+
+            </ol>
+
+            <h3>Validation Checklist</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Web UI Accessible</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>SSH Accessible</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cluster Services Running</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>VM Inventory Visible</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Hosted Services Reachable</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Scenario 8 — Storage Pool Capacity Exhaustion</h2>
+
+            <p>
+                Storage exhaustion is one of the most common causes of virtual infrastructure
+                instability. This scenario validates storage monitoring across the three-tier
+                storage architecture deployed within JCAG-LAB.
+            </p>
+
+            <h3>Applicable Storage Design</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Tier</th>
+
+                        <th>Storage</th>
+
+                        <th>Purpose</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Tier 0</td>
+
+                        <td>local-lvm (SSD)</td>
+
+                        <td>Performance-critical virtual machines</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 1</td>
+
+                        <td>local-lvm-hdd-01</td>
+
+                        <td>General-purpose VM storage</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 2</td>
+
+                        <td>HDD-02 Directory Storage</td>
+
+                        <td>VZDump backup repository</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>VM creation fails.</li>
+
+                <li>Snapshots fail.</li>
+
+                <li>Backups fail.</li>
+
+                <li>Disk expansion unavailable.</li>
+
+                <li>Virtual machines may pause unexpectedly.</li>
+
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                Do not intentionally fill storage to 100%.
+                Instead, create a temporary file that can be safely removed afterward.
+            </p>
+
+            <pre><code>fallocate -l 5G /tmp/storage-test.img
+</code></pre>
+
+            <p>Remove after testing:</p>
+
+            <pre><code>rm /tmp/storage-test.img
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>df -h
+
+ lvs
+
+ vgs
+
+ pvs
+
+ pvesm status
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>Name                 Type     Status
+
+ local-lvm            lvmthin  active
+
+ local-lvm-hdd-01     lvmthin  active
+
+ backup-storage       dir      active
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Remove unnecessary snapshots.</li>
+
+                <li>Delete temporary files.</li>
+
+                <li>Move non-critical VMs to Tier 1 storage.</li>
+
+                <li>Ensure backups remain on Tier 2.</li>
+
+                <li>Expand storage if additional capacity is available.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <pre><code>pvesm status
+</code></pre>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Scenario 9 — Virtual Disk Corruption</h2>
+
+            <p>
+                Virtual disk corruption may occur following unexpected host shutdowns,
+                hardware failures, storage faults, or interrupted disk operations.
+                Although uncommon within a lab environment, administrators should understand
+                the recovery workflow.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Guest operating system fails to boot.</li>
+
+                <li>Filesystem corruption detected.</li>
+
+                <li>Application data unavailable.</li>
+
+                <li>Potential data loss.</li>
+
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                This scenario should <strong>not</strong> be intentionally reproduced because it
+                can permanently damage virtual machine data.
+                Instead, document the operational recovery procedure.
+            </p>
+
+            <div class="warning">
+
+                Strong Recommendation:
+
+                Never intentionally corrupt virtual disks in the production lab.
+                Use snapshots and backup restoration exercises instead.
+
+            </div>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>qm config 101
+
+ lsblk
+
+ journalctl -xe
+
+ dmesg | grep -i error
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <ol>
+
+                <li>Power off the affected virtual machine.</li>
+
+                <li>Verify storage pool health.</li>
+
+                <li>Restore from snapshot if available.</li>
+
+                <li>If snapshots are unavailable, restore from VZDump backup.</li>
+
+                <li>Validate application functionality.</li>
+
+            </ol>
+
+            <h3>Validation Checklist</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Operating System Boots</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Filesystem Healthy</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Applications Functional</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Network Connectivity Restored</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Scenario 10 — Virtual Machine Backup Restoration</h2>
+
+            <p>
+                Recovery from backup is the final recovery mechanism after snapshots are no
+                longer available or the virtual machine has been permanently lost.
+                The JCAG-LAB stores all VZDump backups on Tier 2 backup storage.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Service interruption during restore.</li>
+
+                <li>Temporary loss of application availability.</li>
+
+                <li>Recovery Time Objective (RTO) depends on VM size.</li>
+
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                This is a recommended exercise.
+                Restore a backup to a temporary VM ID without overwriting the production VM.
+            </p>
+
+            <pre><code>qmrestore \
+ /mnt/pve/backup-storage/dump/vzdump-qemu-101.vma.zst \
+ 201
+</code></pre>
+
+            <p>
+                Use a temporary VM ID such as 201 for validation.
+            </p>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>ls /mnt/pve/backup-storage/dump/
+
+ qm list
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <ol>
+
+                <li>Locate the required backup archive.</li>
+
+                <li>Select a temporary VM ID.</li>
+
+                <li>Restore the virtual machine.</li>
+
+                <li>Start the restored VM.</li>
+
+                <li>Verify operating system functionality.</li>
+
+                <li>Validate Active Directory, DNS, DHCP, or application services.</li>
+
+            </ol>
+
+            <h3>Validation</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Restore Completed</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>VM Boot Successful</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Applications Operational</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Recovery Documented</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PLAYBOOK 1 – PART 5 -->
+        <!-- WEB SERVICES, RECOVERY CHECKLISTS & COMPLETION -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Scenario 11 — Web Application Service Outage</h2>
+
+            <p>
+                Several administrative applications within the JCAG-LAB are delivered through
+                web interfaces, including Peppermint ITSM, Wazuh Dashboard, n8n, and future
+                internal web services. A web application outage may result from failed
+                application services, Docker container failures, reverse proxy issues, or
+                network connectivity problems. This scenario focuses on systematically
+                identifying the failure domain and restoring service availability.
+            </p>
+
+            <h3>Applicable Environment</h3>
+
+            <ul>
+                <li>Peppermint ITSM (Docker)</li>
+                <li>n8n Automation Platform</li>
+                <li>Wazuh Dashboard</li>
+                <li>Future internal web applications</li>
+            </ul>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+                <li>Incident management unavailable.</li>
+                <li>Automation workflows cannot be managed.</li>
+                <li>Security dashboards inaccessible.</li>
+                <li>Administrative web portals unavailable.</li>
+                <li>Operational visibility reduced.</li>
+            </ul>
+
+            <h3>Typical Symptoms</h3>
+
+            <ul>
+                <li>Browser displays "Unable to connect."</li>
+                <li>HTTP 502 or 503 errors.</li>
+                <li>Application login page unavailable.</li>
+                <li>TCP connection refused.</li>
+                <li>Container reports unhealthy status.</li>
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                This scenario can be safely reproduced by stopping the application container
+                instead of modifying configuration files.
+            </p>
+
+            <p><strong>Example (Peppermint):</strong></p>
+
+            <pre><code>docker stop peppermint
+</code></pre>
+
+            <p><strong>Example (n8n):</strong></p>
+
+            <pre><code>docker stop n8n
+</code></pre>
+
+            <p>Restore service:</p>
+
+            <pre><code>docker start peppermint
+
+ docker start n8n
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>docker ps -a
+
+ docker logs peppermint
+
+ docker logs n8n
+
+ docker inspect peppermint
+
+ docker stats
+</code></pre>
+
+            <p>Verify network connectivity:</p>
+
+            <pre><code>ping 10.10.100.12
+
+ curl http://10.10.100.12
+
+ ss -tulpn
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>CONTAINER ID   IMAGE        STATUS
+
+ peppermint     Exited (137)
+
+ n8n            Up 4 hours
+</code></pre>
+
+            <h3>Recovery Procedure</h3>
+
+            <ol>
+
+                <li>Verify the virtual machine is operational.</li>
+
+                <li>Verify Docker service is running.</li>
+
+                <li>Restart the affected container.</li>
+
+                <li>Review application logs.</li>
+
+                <li>Confirm required ports are listening.</li>
+
+                <li>Verify browser connectivity.</li>
+
+                <li>Validate application functionality.</li>
+
+            </ol>
+
+            <pre><code>systemctl status docker
+
+ docker start peppermint
+
+ docker logs peppermint --tail 50
+</code></pre>
+
+            <h3>Validation Checklist</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation Item</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>VM Reachable</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Docker Running</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Container Healthy</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Web Interface Accessible</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>User Login Successful</td>
+
+                        <td>Pass</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Server & Storage Recovery Decision Matrix</h2>
+
+            <p>
+                The following matrix provides a structured approach for selecting the
+                appropriate recovery action based on the observed failure.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Failure Type</th>
+
+                        <th>Primary Recovery Method</th>
+
+                        <th>Escalation Path</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Windows boot failure</td>
+
+                        <td>Startup Repair / Snapshot</td>
+
+                        <td>Restore from Backup</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Active Directory failure</td>
+
+                        <td>Restart AD DS</td>
+
+                        <td>Authoritative Restore</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>DNS failure</td>
+
+                        <td>Restart DNS Service</td>
+
+                        <td>Restore Configuration</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>DHCP failure</td>
+
+                        <td>Restart DHCP Service</td>
+
+                        <td>Restore DHCP Database</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>SMB failure</td>
+
+                        <td>Restart LanmanServer</td>
+
+                        <td>Restore Server Snapshot</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Proxmox management failure</td>
+
+                        <td>Restart Management Services</td>
+
+                        <td>Host Recovery</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Storage capacity issue</td>
+
+                        <td>Free Capacity</td>
+
+                        <td>Expand Storage</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Virtual disk corruption</td>
+
+                        <td>Snapshot Rollback</td>
+
+                        <td>Restore Backup</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Backup recovery</td>
+
+                        <td>Restore VZDump Archive</td>
+
+                        <td>Disaster Recovery</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Web application outage</td>
+
+                        <td>Restart Container</td>
+
+                        <td>Restore VM</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Operational Troubleshooting Workflow</h2>
+
+            <h3>Step 1 — Assess Business Impact</h3>
+
+            <p>
+                Determine which infrastructure services are affected and identify the scope of
+                the outage.
+            </p>
+
+            <ul>
+
+                <li>Single virtual machine</li>
+
+                <li>Multiple services</li>
+
+                <li>Entire virtualization host</li>
+
+                <li>Authentication outage</li>
+
+                <li>Storage failure</li>
+
+            </ul>
+
+            <h3>Step 2 — Collect Diagnostic Information</h3>
+
+            <pre><code>hostnamectl
+
+ uptime
+
+ df -h
+
+ free -h
+
+ journalctl -xe
+
+ systemctl --failed
+
+ qm list
+</code></pre>
+
+            <h3>Step 3 — Determine Root Cause</h3>
+
+            <p>
+                Identify whether the incident originated from:
+            </p>
+
+            <ul>
+
+                <li>Operating system</li>
+
+                <li>Application service</li>
+
+                <li>Storage subsystem</li>
+
+                <li>Virtualization platform</li>
+
+                <li>Network connectivity</li>
+
+                <li>Configuration error</li>
+
+            </ul>
+
+            <h3>Step 4 — Recover Service</h3>
+
+            <p>
+                Implement the least disruptive recovery method.
+            </p>
+
+            <ol>
+
+                <li>Restart service</li>
+
+                <li>Restart application</li>
+
+                <li>Restart VM</li>
+
+                <li>Rollback snapshot</li>
+
+                <li>Restore backup</li>
+
+            </ol>
+
+            <h3>Step 5 — Validate Recovery</h3>
+
+            <ul>
+
+                <li>Users can authenticate.</li>
+
+                <li>Applications respond normally.</li>
+
+                <li>Monitoring returns to normal.</li>
+
+                <li>No critical events remain.</li>
+
+                <li>Business service restored.</li>
+
+            </ul>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Playbook 1 Completion Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recovery Capability</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Windows Boot Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Active Directory Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>DNS Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>DHCP Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>SMB Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Proxmox Host Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Storage Troubleshooting</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Virtual Disk Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Backup Restoration</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Web Application Recovery</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Server failures should be approached using a structured troubleshooting methodology rather than
+                    assumptions.</li>
+
+                <li>Enterprise services such as Active Directory, DNS, DHCP, and SMB have dependencies that should
+                    always be validated before implementing recovery actions.</li>
+
+                <li>Snapshots provide rapid rollback capability but are not a replacement for VZDump backups stored on
+                    the dedicated Tier 2 backup storage.</li>
+
+                <li>The three-tier storage architecture (Tier 0 SSD, Tier 1 HDD VM Storage, Tier 2 Backup Storage)
+                    supports both operational performance and disaster recovery objectives.</li>
+
+                <li>Safe failure simulations within the JCAG-LAB provide practical experience while protecting the
+                    integrity of the production lab environment.</li>
+
+                <li>Recovery procedures should always conclude with service validation and documentation to ensure the
+                    environment has returned to a known-good operational state.</li>
+
+            </ul>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                Upon completion of this playbook: Capable of diagnosing,
+                recovering, and validating failures affecting enterprise servers, virtualization
+                hosts, storage resources, Active Directory services, DNS, DHCP, SMB file
+                services, Docker-hosted applications, and virtual machine backups within the
+                JCAG-LAB enterprise environment. The procedures documented throughout this
+                playbook establish a repeatable operational methodology aligned with common
+                break/fix practices used by infrastructure support teams, systems
+                administrators, and data center operations personnel.
+            </p>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ===================================================== -->
+        <!-- PAGE NAVIGATION -->
+        <!-- ===================================================== -->
+
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="1landing-page.html">
+                ← Back to Landing Page
+            </a>
+            <a class="btn btn-primary" href="../../index.html">
+                Home
+            </a>
+            <a class="btn btn-primary" href="../recovey-troubleshooting/playbook2.htmll">
+                Proceed to Playbook 2 →
+            </a>
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>
