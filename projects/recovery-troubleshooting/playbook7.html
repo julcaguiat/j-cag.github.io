@@ -132,17 +132,2235 @@
     <!-- CONTENT -->
     <main class="kb-content">
 
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 7 – PART 1 -->
+        <!-- Security Operations & Incident Response -->
+        <!-- ========================================================= -->
 
+        <div class="step-section">
 
+            <h2>Overview</h2>
 
+            <p>
+                Enterprise security operations extend beyond detecting malicious activity. They
+                require a structured process for collecting telemetry, identifying abnormal
+                behavior, validating security events, containing affected systems, restoring
+                services, documenting incidents, and implementing improvements to reduce future
+                risk.
+            </p>
 
+            <p>
+                Within the JCAG-LAB environment, security operations are performed using an
+                integrated monitoring and automation platform consisting of Windows endpoints,
+                Sysmon telemetry, Wazuh SIEM, n8n workflow automation, Peppermint IT Service
+                Management, Windows Server 2019 infrastructure services, and Proxmox Virtual
+                Environment. Together, these components simulate the operational workflow found
+                within enterprise Security Operations Centers (SOC) and Infrastructure
+                Operations teams.
+            </p>
 
+            <p>
+                This playbook documents the operational procedures used to investigate,
+                validate, contain, recover, and document security incidents affecting the
+                JCAG-LAB environment. Each scenario emphasizes repeatable operational
+                methodology rather than isolated tool usage, reinforcing the importance of
+                consistent incident response procedures and cross-platform troubleshooting.
+            </p>
 
+        </div>
 
+        <!-- ========================================================= -->
 
+        <div class="step-section">
 
+            <h2>Learning Objectives</h2>
 
+            <ul>
 
+                <li>Understand the security operations architecture deployed within the JCAG-LAB environment.</li>
+
+                <li>Follow a structured incident response process from detection through recovery.</li>
+
+                <li>Investigate security events using Wazuh, Sysmon, Windows Event Logs, and supporting infrastructure.
+                </li>
+
+                <li>Correlate security telemetry with enterprise services to determine operational impact.</li>
+
+                <li>Document security incidents using repeatable operational procedures consistent with enterprise SOC
+                    practices.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Security Operations Architecture within JCAG-LAB</h2>
+
+            <p>
+                Security monitoring within the JCAG-LAB environment follows a layered
+                architecture that combines endpoint telemetry, centralized log collection,
+                detection engineering, workflow automation, and incident management. Each
+                component contributes to a complete operational pipeline capable of detecting,
+                analyzing, and responding to infrastructure events.
+            </p>
+
+            <pre><code>
+Windows 11 Endpoint
+(Sysmon + Windows Event Logs)
+             │
+             ▼
+      Wazuh Agent
+             │
+             ▼
+     Wazuh Manager (SIEM)
+             │
+             ▼
+ Detection Rules & Correlation
+             │
+             ▼
+      n8n Automation
+             │
+             ▼
+ Peppermint Ticket Creation
+             │
+             ▼
+ Infrastructure Investigation
+             │
+             ▼
+ Recovery Validation
+             │
+             ▼
+ Incident Documentation
+</code></pre>
+
+            <p>
+                The primary security components deployed within the JCAG-LAB environment
+                include:
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Component</th>
+
+                        <th>Operational Purpose</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Windows 11 Endpoint</td>
+
+                        <td>Generates endpoint activity and security events.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Sysmon</td>
+
+                        <td>Provides enhanced process, network, and system telemetry.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Windows Event Logs</td>
+
+                        <td>Records authentication, system, and application events.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Wazuh Agent</td>
+
+                        <td>Collects endpoint telemetry and forwards security events.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Wazuh Manager</td>
+
+                        <td>Centralized monitoring, correlation, alert generation, and detection engineering.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>n8n Automation</td>
+
+                        <td>Automates post-detection workflows and orchestration.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Peppermint ITSM</td>
+
+                        <td>Creates and tracks incident tickets throughout the response lifecycle.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Windows Server 2019</td>
+
+                        <td>Provides Active Directory, DNS, DHCP, authentication, and infrastructure services.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Proxmox VE</td>
+
+                        <td>Hosts the enterprise security infrastructure.</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>
+                This layered architecture enables administrators to trace an event from the
+                originating endpoint through centralized monitoring, automated workflow
+                execution, operational investigation, service restoration, and final incident
+                documentation.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Incident Response Lifecycle</h2>
+
+            <p>
+                Every security incident within the JCAG-LAB environment follows a standardized
+                operational lifecycle. Adhering to a consistent workflow reduces investigation
+                time, improves documentation quality, and ensures recovery activities are
+                performed in a repeatable manner.
+            </p>
+
+            <pre><code>
+Security Event Detected
+           │
+           ▼
+Alert Validation
+           │
+           ▼
+Determine Scope
+           │
+           ▼
+Assess Business Impact
+           │
+           ▼
+Collect Evidence
+           │
+           ▼
+Identify Root Cause
+           │
+           ▼
+Contain Threat
+           │
+           ▼
+Recover Services
+           │
+           ▼
+Validate Environment
+           │
+           ▼
+Document Incident
+           │
+           ▼
+Implement Preventive Measures
+</code></pre>
+
+            <p>
+                Each investigation should answer the following operational questions:
+            </p>
+
+            <ul>
+
+                <li>What triggered the alert?</li>
+
+                <li>Which systems were affected?</li>
+
+                <li>Is the event legitimate or a false positive?</li>
+
+                <li>What infrastructure services are impacted?</li>
+
+                <li>What actions are required to safely restore operations?</li>
+
+                <li>How can similar incidents be prevented in the future?</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Detection Engineering Philosophy</h2>
+
+            <p>
+                Detection engineering is the process of developing, validating, and maintaining
+                security detections that identify malicious activity while minimizing false
+                positives. Within the JCAG-LAB environment, detection engineering focuses on
+                building reliable operational visibility using Windows Event Logs, Sysmon
+                telemetry, and Wazuh correlation rules.
+            </p>
+
+            <p>
+                Rather than relying solely on default signatures, detections should be
+                continuously reviewed, validated, and refined based on observed system
+                behavior. Each detection should produce actionable information that supports
+                rapid investigation and informed decision-making.
+            </p>
+
+            <p>
+                Effective detection engineering within the JCAG-LAB environment follows several
+                core principles:
+            </p>
+
+            <ul>
+
+                <li>Collect high-quality endpoint telemetry.</li>
+
+                <li>Normalize and centralize security events.</li>
+
+                <li>Reduce unnecessary alert noise.</li>
+
+                <li>Prioritize actionable detections.</li>
+
+                <li>Validate every detection through controlled laboratory testing whenever practical.</li>
+
+                <li>Document detection logic and expected response procedures.</li>
+
+            </ul>
+
+            <p>
+                Safe failure simulations performed throughout this playbook provide opportunities
+                to validate existing detections, tune alert thresholds, and improve incident
+                response workflows without affecting production systems.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Methodology</h2>
+
+            <p>
+                Recovering from a security incident requires balancing containment with service
+                availability. Administrators should avoid restoring affected systems until the
+                underlying cause has been identified and the environment has been validated as
+                stable.
+            </p>
+
+            <pre><code>
+Security Alert
+      │
+      ▼
+Validate Alert
+      │
+      ▼
+Collect Security Evidence
+      │
+      ▼
+Determine Scope
+      │
+      ▼
+Contain Affected Systems
+      │
+      ▼
+Identify Root Cause
+      │
+      ▼
+Implement Corrective Action
+      │
+      ▼
+Restore Enterprise Services
+      │
+      ▼
+Validate Monitoring Pipeline
+      │
+      ▼
+Close Incident
+      │
+      ▼
+Update Documentation
+</code></pre>
+
+            <p>
+                Throughout this playbook, each scenario applies this methodology to security
+                events affecting the JCAG-LAB environment. Recovery is considered complete only
+                after infrastructure services, monitoring systems, automation workflows, and
+                incident documentation have all been verified, ensuring the environment has
+                returned to a known-good operational state.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 7 – PART 2 -->
+        <!-- Scenarios 1–3 -->
+        <!-- Authentication & Endpoint Security -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 1 – Multiple Failed Logon Attempts (Windows Event ID 4625)</h2>
+
+            <p>
+                Windows Security Event ID 4625 indicates that an account failed to authenticate.
+                Although individual failures are common during normal operations, repeated or
+                high-volume authentication failures may indicate password guessing, brute-force
+                activity, misconfigured services, or user credential issues.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, Windows Event Logs generated by the Windows 11
+                endpoint and Windows Server 2019 domain controller are collected by the Wazuh
+                Agent, correlated by the Wazuh Manager, and may trigger automated workflows
+                through n8n and Peppermint ITSM.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Potential brute-force attack against enterprise accounts.</li>
+
+                <li>Increased authentication failures.</li>
+
+                <li>Possible account lockouts.</li>
+
+                <li>Unauthorized access attempts.</li>
+
+                <li>Security monitoring alerts generated.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Repeated Wazuh authentication alerts.</li>
+
+                <li>Windows Security Event ID 4625 entries.</li>
+
+                <li>Multiple failed login attempts.</li>
+
+                <li>User reports inability to authenticate.</li>
+
+                <li>Peppermint incident automatically created.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Confirm that Wazuh generated the authentication alert and identify the affected
+                endpoint or domain controller.
+            </p>
+
+            <p>
+                Review Windows Security Event Logs.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-FilterHashtable @{
+LogName='Security'
+Id=4625
+} -MaxEvents 20
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Event ID : 4625
+
+An account failed to log on.
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Identify the affected account, source workstation, logon type, and originating
+                IP address.
+            </p>
+
+            <p>
+                Verify that Wazuh received the event and generated the corresponding alert.
+            </p>
+
+            <p>
+                Review recent authentication activity on Windows Server 2019.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-FilterHashtable @{
+LogName='Security'
+Id=4625
+}
+</code></pre>
+
+            <p>
+                Determine whether the failures originated from a legitimate user, scheduled
+                task, mapped drive, service account, or external source.
+            </p>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>User entered an incorrect password.</li>
+
+                <li>Password recently changed.</li>
+
+                <li>Scheduled task using outdated credentials.</li>
+
+                <li>Mapped drive using cached credentials.</li>
+
+                <li>Brute-force attack.</li>
+
+                <li>Unauthorized authentication attempt.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Confirm user identity.</li>
+
+                <li>Reset credentials if necessary.</li>
+
+                <li>Correct scheduled task or service account credentials.</li>
+
+                <li>Investigate repeated authentication failures.</li>
+
+                <li>Document the incident.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>No additional Event ID 4625 entries observed.</li>
+
+                <li>User successfully authenticates.</li>
+
+                <li>Wazuh alert resolved.</li>
+
+                <li>Infrastructure services operational.</li>
+
+                <li>Incident documentation completed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 2 – Privileged Account Lockout</h2>
+
+            <p>
+                Administrative account lockouts have a greater operational impact than standard
+                user accounts because they may prevent administrators from managing Active
+                Directory, virtualization infrastructure, network services, or monitoring
+                platforms. Rapid investigation is required to determine whether the lockout was
+                caused by normal administrative activity or malicious authentication attempts.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Administrative management interrupted.</li>
+
+                <li>Critical infrastructure unavailable for maintenance.</li>
+
+                <li>Potential security compromise.</li>
+
+                <li>Delayed incident response.</li>
+
+                <li>Operational risk increased.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Administrator account locked.</li>
+
+                <li>Repeated failed authentication attempts.</li>
+
+                <li>Domain administrator unable to log in.</li>
+
+                <li>Authentication alerts generated.</li>
+
+                <li>Help desk reports administrative access issues.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Identify the affected account and determine when the lockout occurred.
+            </p>
+
+            <p>
+                Review account lockout events.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-FilterHashtable @{
+LogName='Security'
+Id=4740
+}
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+A user account was locked out.
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review authentication failures immediately preceding the lockout.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-FilterHashtable @{
+LogName='Security'
+Id=4625
+}
+</code></pre>
+
+            <p>
+                Determine whether the account is being used by:
+            </p>
+
+            <ul>
+
+                <li>Scheduled tasks.</li>
+
+                <li>Windows services.</li>
+
+                <li>Mapped network drives.</li>
+
+                <li>Remote Desktop sessions.</li>
+
+                <li>Administrative scripts.</li>
+
+            </ul>
+
+            <p>
+                Review the Wazuh alert timeline to identify the originating system.
+            </p>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Incorrect administrator password.</li>
+
+                <li>Cached credentials.</li>
+
+                <li>Expired password.</li>
+
+                <li>Scheduled task using old credentials.</li>
+
+                <li>Malicious authentication attempts.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Unlock the affected account.</li>
+
+                <li>Reset credentials if required.</li>
+
+                <li>Update scheduled tasks and services.</li>
+
+                <li>Validate administrative access.</li>
+
+                <li>Continue monitoring for additional failures.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Administrative login successful.</li>
+
+                <li>No additional lockouts observed.</li>
+
+                <li>Infrastructure administration restored.</li>
+
+                <li>Authentication alerts resolved.</li>
+
+                <li>Incident documentation completed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 3 – Suspicious PowerShell Execution</h2>
+
+            <p>
+                PowerShell is an essential administrative tool but is also frequently abused by
+                attackers because of its ability to execute scripts, access system resources,
+                and interact with Windows management interfaces. Suspicious PowerShell activity
+                should always be investigated to determine whether execution was authorized,
+                expected, or potentially malicious.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, Sysmon process creation events and Windows
+                PowerShell logs are collected by the Wazuh Agent and analyzed by the Wazuh
+                Manager for detection engineering and alert generation.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Potential malicious code execution.</li>
+
+                <li>Credential theft attempts.</li>
+
+                <li>Unauthorized system modification.</li>
+
+                <li>Persistence mechanisms installed.</li>
+
+                <li>Security incident initiated.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Wazuh PowerShell alert generated.</li>
+
+                <li>Sysmon Process Creation events recorded.</li>
+
+                <li>Unexpected PowerShell windows.</li>
+
+                <li>Encoded PowerShell commands detected.</li>
+
+                <li>Automation workflow initiated.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Review the PowerShell command line captured by Sysmon.
+            </p>
+
+            <p>
+                Review recent Sysmon process creation events.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-LogName "Microsoft-Windows-Sysmon/Operational" `
+-MaxEvents 20
+</code></pre>
+
+            <p>
+                Review Windows PowerShell Operational logs.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-LogName "Microsoft-Windows-PowerShell/Operational" `
+-MaxEvents 20
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Identify:
+            </p>
+
+            <ul>
+
+                <li>Executing user account.</li>
+
+                <li>Parent process.</li>
+
+                <li>Complete command line.</li>
+
+                <li>Execution time.</li>
+
+                <li>Affected endpoint.</li>
+
+            </ul>
+
+            <p>
+                Correlate Sysmon telemetry with the corresponding Wazuh alert and determine
+                whether the execution originated from legitimate administrative activity or an
+                unexpected source.
+            </p>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Authorized administrative script.</li>
+
+                <li>Software installation.</li>
+
+                <li>Scheduled automation.</li>
+
+                <li>Encoded PowerShell execution.</li>
+
+                <li>Potential malware activity.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Terminate unauthorized PowerShell sessions if required.</li>
+
+                <li>Collect forensic evidence before making changes.</li>
+
+                <li>Isolate the affected endpoint if compromise is suspected.</li>
+
+                <li>Review persistence mechanisms.</li>
+
+                <li>Document investigative findings.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Unauthorized PowerShell execution stopped.</li>
+
+                <li>Endpoint operating normally.</li>
+
+                <li>No additional suspicious activity detected.</li>
+
+                <li>Monitoring platform continues collecting telemetry.</li>
+
+                <li>Incident documentation completed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 7 – PART 3 -->
+        <!-- Scenarios 4–6 -->
+        <!-- Endpoint Hardening & Detection Engineering -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 4 – Unauthorized Local Administrator Creation</h2>
+
+            <p>
+                The unauthorized creation of a local administrator account is a high-severity
+                security event because it may provide persistent privileged access to an
+                endpoint outside of Active Directory control. Whether the account was created
+                through malicious activity, misconfiguration, or legitimate administration, the
+                event must be investigated immediately.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, account creation events generated by Windows
+                11 endpoints are collected by the Wazuh Agent, correlated by the Wazuh Manager,
+                and can trigger automated incident workflows through n8n and Peppermint ITSM.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Unauthorized privileged access established.</li>
+
+                <li>Administrative accountability reduced.</li>
+
+                <li>Potential persistence mechanism created.</li>
+
+                <li>Endpoint security compromised.</li>
+
+                <li>Incident response required.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Unexpected administrator account appears.</li>
+
+                <li>Wazuh privilege escalation alert generated.</li>
+
+                <li>Windows Security events indicate account creation.</li>
+
+                <li>New account added to the Administrators group.</li>
+
+                <li>Peppermint incident automatically generated.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Review recent account management events from the Windows Security log.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-FilterHashtable @{
+LogName='Security'
+Id=4720
+} -MaxEvents 20
+</code></pre>
+
+            <p>
+                Review membership changes to the local Administrators group.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-FilterHashtable @{
+LogName='Security'
+Id=4732
+} -MaxEvents 20
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+A user account was created.
+
+A member was added to a security-enabled local group.
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Identify:
+            </p>
+
+            <ul>
+
+                <li>User account that created the administrator account.</li>
+
+                <li>Time of creation.</li>
+
+                <li>Endpoint involved.</li>
+
+                <li>Associated logon session.</li>
+
+                <li>Related Wazuh alerts.</li>
+
+            </ul>
+
+            <p>
+                Review current local administrator membership.
+            </p>
+
+            <pre><code>
+net localgroup administrators
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Authorized administrative maintenance.</li>
+
+                <li>Software installation requiring elevation.</li>
+
+                <li>Configuration error.</li>
+
+                <li>Unauthorized privilege escalation.</li>
+
+                <li>Compromised administrator credentials.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Verify whether account creation was authorized.</li>
+
+                <li>Disable or remove unauthorized accounts.</li>
+
+                <li>Reset privileged credentials if compromise is suspected.</li>
+
+                <li>Review additional administrative changes.</li>
+
+                <li>Document investigative findings.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Unauthorized account removed or disabled.</li>
+
+                <li>Local Administrators group verified.</li>
+
+                <li>No additional privilege escalation detected.</li>
+
+                <li>Endpoint security restored.</li>
+
+                <li>Incident documentation completed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 5 – Windows Firewall Disabled</h2>
+
+            <p>
+                Disabling Windows Defender Firewall significantly reduces endpoint security by
+                allowing unrestricted network communication. Although administrators may
+                temporarily disable the firewall during troubleshooting, unexpected firewall
+                changes should always be treated as a potential security incident until
+                validated.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, configuration changes affecting Windows
+                Defender Firewall should generate Windows Event Logs and corresponding Wazuh
+                alerts for investigation.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Endpoint exposure increases.</li>
+
+                <li>Unauthorized inbound connections become possible.</li>
+
+                <li>Network segmentation effectiveness reduced.</li>
+
+                <li>Detection surface altered.</li>
+
+                <li>Security policy violation.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Firewall reported as disabled.</li>
+
+                <li>Wazuh configuration alert generated.</li>
+
+                <li>Unexpected inbound connectivity.</li>
+
+                <li>Security policy non-compliance.</li>
+
+                <li>Administrative change not documented.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify Windows Defender Firewall status.
+            </p>
+
+            <pre><code>
+Get-NetFirewallProfile
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Domain  : False
+
+Private : False
+
+Public  : False
+</code></pre>
+
+            <p>
+                Review recent security configuration events.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-LogName Security `
+-MaxEvents 50
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Determine:
+            </p>
+
+            <ul>
+
+                <li>Who disabled the firewall.</li>
+
+                <li>When the change occurred.</li>
+
+                <li>Whether change control documentation exists.</li>
+
+                <li>Whether additional security settings were modified.</li>
+
+                <li>Whether suspicious network activity occurred afterward.</li>
+
+            </ul>
+
+            <p>
+                Review Wazuh alerts associated with the endpoint to identify correlated
+                configuration changes.
+            </p>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Authorized maintenance.</li>
+
+                <li>Troubleshooting activity.</li>
+
+                <li>Administrative error.</li>
+
+                <li>Malware attempting to bypass defenses.</li>
+
+                <li>Unauthorized configuration modification.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Re-enable Windows Defender Firewall using administrative PowerShell.
+            </p>
+
+            <pre><code>
+Set-NetFirewallProfile `
+-Profile Domain,Private,Public `
+-Enabled True
+</code></pre>
+
+            <p>
+                Verify firewall status.
+            </p>
+
+            <pre><code>
+Get-NetFirewallProfile
+</code></pre>
+
+            <p>
+                Continue monitoring for additional unauthorized configuration changes.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Firewall enabled on all profiles.</li>
+
+                <li>Security policy restored.</li>
+
+                <li>No additional unauthorized changes detected.</li>
+
+                <li>Endpoint remains reachable through approved services.</li>
+
+                <li>Incident documentation completed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 6 – Sysmon Detects Suspicious Process Activity</h2>
+
+            <p>
+                Sysmon provides enhanced visibility into endpoint activity by recording detailed
+                process creation events, parent-child process relationships, command-line
+                arguments, network connections, and other telemetry not normally available in
+                standard Windows logging. Suspicious process activity should be investigated to
+                determine whether execution represents legitimate administrative activity or
+                potential malicious behavior.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Potential malware execution.</li>
+
+                <li>Unauthorized software launched.</li>
+
+                <li>Privilege escalation attempts.</li>
+
+                <li>Lateral movement activity.</li>
+
+                <li>Security investigation required.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Sysmon Event ID 1 generated.</li>
+
+                <li>Unexpected executable launched.</li>
+
+                <li>Wazuh process creation alert.</li>
+
+                <li>High-risk parent-child relationship detected.</li>
+
+                <li>n8n automation workflow initiated.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Review recent Sysmon Process Creation events.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-LogName "Microsoft-Windows-Sysmon/Operational" `
+-MaxEvents 30
+</code></pre>
+
+            <p>
+                Review Wazuh alerts associated with the endpoint.
+            </p>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Identify:
+            </p>
+
+            <ul>
+
+                <li>Executable name.</li>
+
+                <li>Full command line.</li>
+
+                <li>Parent process.</li>
+
+                <li>User account.</li>
+
+                <li>Process identifier (PID).</li>
+
+                <li>Execution timestamp.</li>
+
+                <li>Endpoint hostname.</li>
+
+            </ul>
+
+            <p>
+                Correlate Sysmon telemetry with:
+            </p>
+
+            <ul>
+
+                <li>Windows Security Events.</li>
+
+                <li>PowerShell Operational Logs.</li>
+
+                <li>Wazuh correlation rules.</li>
+
+                <li>Peppermint incident records.</li>
+
+            </ul>
+
+            <p>
+                Determine whether the observed activity corresponds to legitimate
+                administrative work, scheduled automation, software installation, or potentially
+                malicious execution.
+            </p>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Authorized application installation.</li>
+
+                <li>Administrative PowerShell execution.</li>
+
+                <li>Scheduled maintenance task.</li>
+
+                <li>Suspicious executable launched.</li>
+
+                <li>Potential malware or attacker activity.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Preserve forensic evidence before making system changes.</li>
+
+                <li>Terminate unauthorized processes when appropriate.</li>
+
+                <li>Isolate the endpoint if compromise is suspected.</li>
+
+                <li>Review persistence mechanisms and startup locations.</li>
+
+                <li>Continue monitoring for recurring activity.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Suspicious process no longer executing.</li>
+
+                <li>No recurring Sysmon alerts observed.</li>
+
+                <li>Endpoint operating normally.</li>
+
+                <li>Monitoring pipeline functioning correctly.</li>
+
+                <li>Incident investigation completed and documented.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 7 – PART 4 -->
+        <!-- Scenarios 7–10 -->
+        <!-- Incident Containment, Automation & Validation -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 7 – Malware Containment Procedure</h2>
+
+            <p>
+                Once malicious activity has been confirmed or is strongly suspected, the
+                priority shifts from detection to containment. The primary objective is to
+                prevent lateral movement, preserve forensic evidence, and minimize disruption to
+                the remainder of the JCAG-LAB infrastructure while maintaining the integrity of
+                the investigation.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, containment focuses on the Windows 11 endpoint
+                generating the alert while ensuring that Windows Server 2019, Wazuh Manager,
+                n8n, Peppermint, and the Proxmox virtualization platform remain operational for
+                continued monitoring and incident coordination.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Potential compromise of endpoint systems.</li>
+
+                <li>Risk of credential theft.</li>
+
+                <li>Possible lateral movement toward infrastructure services.</li>
+
+                <li>Loss of endpoint availability during containment.</li>
+
+                <li>Incident response procedures initiated.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>High-severity Wazuh alert.</li>
+
+                <li>Suspicious Sysmon telemetry.</li>
+
+                <li>Unexpected outbound network connections.</li>
+
+                <li>Unauthorized processes executing.</li>
+
+                <li>Peppermint incident created automatically.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Determine whether containment is required immediately or whether additional
+                evidence collection should occur before isolating the endpoint.
+            </p>
+
+            <p>
+                Review active network connections.
+            </p>
+
+            <pre><code>
+netstat -ano
+</code></pre>
+
+            <p>
+                Review active processes.
+            </p>
+
+            <pre><code>
+tasklist
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Identify affected endpoint.</li>
+
+                <li>Determine user currently logged in.</li>
+
+                <li>Identify suspicious processes.</li>
+
+                <li>Review Sysmon process activity.</li>
+
+                <li>Review Wazuh alert timeline.</li>
+
+                <li>Determine whether additional hosts are affected.</li>
+
+            </ul>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Malicious executable.</li>
+
+                <li>PowerShell abuse.</li>
+
+                <li>Credential compromise.</li>
+
+                <li>Malicious scheduled task.</li>
+
+                <li>User executed untrusted software.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                If compromise is confirmed, isolate the endpoint from the production VLAN while
+                preserving forensic evidence. Avoid deleting files or reinstalling the operating
+                system until evidence collection is complete.
+            </p>
+
+            <p>
+                Terminate confirmed malicious processes only after sufficient evidence has been
+                collected.
+            </p>
+
+            <pre><code>
+taskkill /PID &lt;PID&gt; /F
+</code></pre>
+
+            <p>
+                Continue monitoring Wazuh for additional alerts originating from other systems.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Compromised endpoint isolated.</li>
+
+                <li>No additional lateral movement detected.</li>
+
+                <li>Infrastructure services remain operational.</li>
+
+                <li>Evidence preserved.</li>
+
+                <li>Incident documentation updated.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 8 – Incident Escalation through n8n and Peppermint</h2>
+
+            <p>
+                The JCAG-LAB environment integrates Wazuh with n8n workflow automation and
+                Peppermint IT Service Management to demonstrate automated incident handling.
+                Once Wazuh generates a qualifying alert, n8n processes the event and creates an
+                incident ticket for operational tracking.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Delayed incident response if automation fails.</li>
+
+                <li>Loss of operational visibility.</li>
+
+                <li>Incomplete incident documentation.</li>
+
+                <li>Security alerts may not be assigned.</li>
+
+                <li>SOC workflow interrupted.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Wazuh alert generated.</li>
+
+                <li>No n8n workflow execution.</li>
+
+                <li>No Peppermint ticket created.</li>
+
+                <li>Webhook errors observed.</li>
+
+                <li>Automation workflow failures.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify that the Wazuh alert exists.
+            </p>
+
+            <p>
+                Verify n8n workflow execution history.
+            </p>
+
+            <p>
+                Verify whether a Peppermint incident ticket was created.
+            </p>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Review Wazuh alert details.</li>
+
+                <li>Review n8n execution logs.</li>
+
+                <li>Verify webhook connectivity.</li>
+
+                <li>Verify Peppermint API availability.</li>
+
+                <li>Confirm ticket creation status.</li>
+
+            </ul>
+
+            <p>
+                Verify Docker containers supporting automation services.
+            </p>
+
+            <pre><code>
+docker ps
+
+docker compose ps
+</code></pre>
+
+            <p>
+                Review container logs.
+            </p>
+
+            <pre><code>
+docker logs n8n
+
+docker logs peppermint
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Webhook unavailable.</li>
+
+                <li>n8n workflow failure.</li>
+
+                <li>Peppermint API unavailable.</li>
+
+                <li>Docker container failure.</li>
+
+                <li>Authentication failure between services.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Restore Docker services if necessary.</li>
+
+                <li>Restart failed containers.</li>
+
+                <li>Verify API communication.</li>
+
+                <li>Reprocess the security event.</li>
+
+                <li>Confirm incident ticket generation.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>n8n workflow executed successfully.</li>
+
+                <li>Peppermint ticket created.</li>
+
+                <li>Alert successfully correlated.</li>
+
+                <li>Incident assigned for investigation.</li>
+
+                <li>Automation pipeline restored.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 9 – Security Validation After Recovery</h2>
+
+            <p>
+                Following containment and remediation, administrators should validate that
+                enterprise security controls have returned to their expected operational state.
+                Recovery should never conclude immediately after the suspected threat has been
+                removed; monitoring, endpoint protection, authentication services, and
+                automation workflows must also be verified.
+            </p>
+
+            <h3>Security Validation Tasks</h3>
+
+            <ul>
+
+                <li>Verify Windows Defender Firewall status.</li>
+
+                <li>Confirm Wazuh Agent connectivity.</li>
+
+                <li>Verify Sysmon telemetry collection.</li>
+
+                <li>Confirm Active Directory authentication.</li>
+
+                <li>Validate DNS and DHCP services.</li>
+
+                <li>Confirm n8n workflow availability.</li>
+
+                <li>Verify Peppermint accessibility.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify Wazuh Agent service.
+            </p>
+
+            <pre><code>
+Get-Service WazuhSvc
+</code></pre>
+
+            <p>
+                Verify Sysmon service.
+            </p>
+
+            <pre><code>
+Get-Service Sysmon64
+</code></pre>
+
+            <p>
+                Verify Windows Defender Firewall.
+            </p>
+
+            <pre><code>
+Get-NetFirewallProfile
+</code></pre>
+
+            <p>
+                Verify Windows Defender status.
+            </p>
+
+            <pre><code>
+Get-MpComputerStatus
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Endpoint protected.</li>
+
+                <li>Telemetry flowing normally.</li>
+
+                <li>Authentication functioning.</li>
+
+                <li>Monitoring restored.</li>
+
+                <li>Automation operational.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 10 – End-to-End Incident Response Validation</h2>
+
+            <p>
+                The final stage of incident recovery validates the complete security operations
+                pipeline from event generation through incident closure. This exercise confirms
+                that every component of the JCAG-LAB detection and response architecture is
+                operating correctly following remediation.
+            </p>
+
+            <h3>Validation Workflow</h3>
+
+            <pre><code>
+Windows 11 Endpoint
+(Security Event Generated)
+          │
+          ▼
+Sysmon
+(Event Collection)
+          │
+          ▼
+Wazuh Agent
+(Log Forwarding)
+          │
+          ▼
+Wazuh Manager
+(Alert Correlation)
+          │
+          ▼
+n8n Workflow
+(Automation)
+          │
+          ▼
+Peppermint ITSM
+(Ticket Creation)
+          │
+          ▼
+Administrator Investigation
+          │
+          ▼
+Containment
+          │
+          ▼
+Recovery
+          │
+          ▼
+Security Validation
+          │
+          ▼
+Incident Closure
+</code></pre>
+
+            <h3>Operational Validation</h3>
+
+            <ul>
+
+                <li>Generate a controlled security event.</li>
+
+                <li>Verify Wazuh receives the telemetry.</li>
+
+                <li>Confirm alert correlation.</li>
+
+                <li>Confirm n8n workflow execution.</li>
+
+                <li>Verify Peppermint incident creation.</li>
+
+                <li>Complete investigation.</li>
+
+                <li>Validate infrastructure recovery.</li>
+
+                <li>Close the incident.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Entire detection pipeline operational.</li>
+
+                <li>Security alerts generated correctly.</li>
+
+                <li>Automation workflow functioning.</li>
+
+                <li>Incident management platform operational.</li>
+
+                <li>JCAG-LAB Security Operations pipeline fully validated.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 7 – PART 5 -->
+        <!-- Operational Incident Response Workflow -->
+        <!-- Practical Exercise -->
+        <!-- Recovery Checklist -->
+        <!-- Key Takeaways -->
+        <!-- Playbook Completion Outcome -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Operational Incident Response Workflow</h2>
+
+            <p>
+                Security incidents within the JCAG-LAB environment should always follow a
+                structured response methodology. Responding consistently ensures that evidence
+                is preserved, affected systems are properly contained, enterprise services are
+                restored safely, and lessons learned are incorporated into future detection
+                engineering improvements.
+            </p>
+
+            <p>
+                The objective is not simply to remove malicious activity but to restore the
+                entire security operations pipeline—including monitoring, automation, incident
+                management, and infrastructure services—to a known-good operational state.
+            </p>
+
+            <pre><code>
+Security Event Generated
+           │
+           ▼
+Wazuh Correlation Rule Triggered
+           │
+           ▼
+Alert Validation
+           │
+           ▼
+n8n Workflow Execution
+           │
+           ▼
+Peppermint Incident Created
+           │
+           ▼
+Determine Severity
+           │
+           ▼
+Collect Evidence
+           │
+           ▼
+Scope Investigation
+           │
+           ▼
+Contain Threat
+           │
+           ▼
+Recover Affected Systems
+           │
+           ▼
+Validate Enterprise Services
+           │
+           ▼
+Verify Detection Pipeline
+           │
+           ▼
+Close Incident
+           │
+           ▼
+Update Detection Rules
+           │
+           ▼
+Document Lessons Learned
+</code></pre>
+
+            <p>
+                Throughout every incident, administrators should avoid making unnecessary
+                changes until sufficient evidence has been collected. Recovery activities should
+                be performed only after containment has been completed and the scope of the
+                incident has been clearly established.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercise</h2>
+
+            <h3>Exercise 1 – Investigate a Failed Authentication Alert</h3>
+
+            <p>
+                Generate several failed authentication attempts using a test account and verify
+                that the complete detection pipeline functions correctly.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-FilterHashtable @{
+LogName='Security'
+Id=4625
+} -MaxEvents 20
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Time of alert generation.</li>
+
+                <li>Affected endpoint.</li>
+
+                <li>User account involved.</li>
+
+                <li>Wazuh alert severity.</li>
+
+                <li>Peppermint ticket number.</li>
+
+            </ul>
+
+            <h3>Exercise 2 – Validate Sysmon Detection Engineering</h3>
+
+            <p>
+                Generate controlled administrative activity and verify that Sysmon telemetry is
+                received by Wazuh and correctly correlated.
+            </p>
+
+            <pre><code>
+Get-WinEvent `
+-LogName "Microsoft-Windows-Sysmon/Operational" `
+-MaxEvents 20
+
+Get-Service Sysmon64
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Process creation events observed.</li>
+
+                <li>Parent process recorded.</li>
+
+                <li>Command-line information collected.</li>
+
+                <li>Associated Wazuh alerts.</li>
+
+                <li>Detection accuracy.</li>
+
+            </ul>
+
+            <h3>Exercise 3 – Validate the Complete Security Operations Pipeline</h3>
+
+            <p>
+                Verify the complete incident response workflow from event generation through
+                automation and incident management.
+            </p>
+
+            <pre><code>
+Get-Service WazuhSvc
+
+Get-Service Sysmon64
+
+docker ps
+
+docker logs n8n
+
+docker logs peppermint
+</code></pre>
+
+            <p>
+                Confirm that:
+            </p>
+
+            <ul>
+
+                <li>Wazuh receives telemetry.</li>
+
+                <li>Correlation rules generate alerts.</li>
+
+                <li>n8n workflows execute successfully.</li>
+
+                <li>Peppermint creates an incident.</li>
+
+                <li>The administrator can investigate and close the incident.</li>
+
+            </ul>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Alert generation time.</li>
+
+                <li>Automation execution status.</li>
+
+                <li>Incident creation status.</li>
+
+                <li>Recovery actions performed.</li>
+
+                <li>Final operational validation.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recovery Task</th>
+
+                        <th>Verification Command / Tool</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Review Windows Security Events</td>
+
+                        <td><code>Get-WinEvent</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review Sysmon Events</td>
+
+                        <td><code>Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational"</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Wazuh Agent</td>
+
+                        <td><code>Get-Service WazuhSvc</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Sysmon Service</td>
+
+                        <td><code>Get-Service Sysmon64</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review Firewall Status</td>
+
+                        <td><code>Get-NetFirewallProfile</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Microsoft Defender</td>
+
+                        <td><code>Get-MpComputerStatus</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review Active Processes</td>
+
+                        <td><code>tasklist</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review Network Connections</td>
+
+                        <td><code>netstat -ano</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Docker Containers</td>
+
+                        <td><code>docker ps</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review n8n Logs</td>
+
+                        <td><code>docker logs n8n</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review Peppermint Logs</td>
+
+                        <td><code>docker logs peppermint</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Wazuh Alert</td>
+
+                        <td>Wazuh Dashboard</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify n8n Workflow</td>
+
+                        <td>n8n Dashboard</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Peppermint Ticket</td>
+
+                        <td>Peppermint Dashboard</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Complete Incident Documentation</td>
+
+                        <td>Incident Record</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Security operations are most effective when detection, investigation, containment, recovery, and
+                    documentation follow a standardized operational workflow.</li>
+
+                <li>The JCAG-LAB security architecture integrates Windows Event Logs, Sysmon telemetry, Wazuh SIEM, n8n
+                    automation, and Peppermint ITSM into a complete enterprise-inspired incident response pipeline.</li>
+
+                <li>Detection engineering requires continuous validation and refinement to reduce false positives while
+                    maintaining high-quality security visibility.</li>
+
+                <li>Recovery is not complete until endpoint protection, infrastructure services, monitoring, automation
+                    workflows, and incident management systems have all been verified as operational.</li>
+
+                <li>Every completed incident should improve future response capability through documentation, detection
+                    tuning, and operational lessons learned.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                Upon completion of this playbook: Capable of investigating
+                authentication anomalies, privileged account misuse, suspicious PowerShell
+                activity, endpoint security events, and potential malware incidents within the
+                JCAG-LAB environment. The administrator can perform structured evidence
+                collection, coordinate incident response using Wazuh, Sysmon, n8n, and
+                Peppermint, validate enterprise security controls after recovery, confirm the
+                end-to-end detection and automation pipeline is functioning correctly, and
+                restore the security operations environment to a fully operational state using
+                repeatable enterprise incident response procedures.
+            </p>
+
+        </div>
 
         <!-- ===================================================== -->
         <!-- PAGE NAVIGATION -->
@@ -156,7 +2374,7 @@
             <a class="btn btn-primary" href="../../index.html">
                 Home
             </a>
-            <a class="btn btn-primary" href="../recovery-troubleshooting/playbook8.html">
+            <a class="btn btn-primary" href="playbook8.html">
                 Playbook 8 →
             </a>
 

@@ -1834,12 +1834,341 @@ show vlan brief
 
         </div>
 
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 3 – PART 5 -->
+        <!-- Operational Recovery Workflow -->
+        <!-- Practical Exercise -->
+        <!-- Recovery Checklist -->
+        <!-- Key Takeaways -->
+        <!-- Playbook Completion Outcome -->
+        <!-- ========================================================= -->
 
+        <!-- ========================================================= -->
 
+        <div class="step-section">
 
+            <h2>Operational Recovery Workflow</h2>
 
+            <p>
+                The following workflow should be used whenever a network connectivity incident
+                is reported within the JCAG-LAB enterprise environment. Following a consistent
+                workflow ensures that troubleshooting remains structured, repeatable, and
+                minimizes unnecessary configuration changes while isolating the root cause.
+            </p>
 
+            <pre><code>
+User Reports Network Problem
+            │
+            ▼
+Verify Physical Connectivity
+            │
+            ▼
+Identify Affected VLAN(s)
+            │
+            ▼
+Verify Switch Port Status
+            │
+            ▼
+Verify VLAN Assignment
+            │
+            ▼
+Verify Trunk Connectivity
+            │
+            ▼
+Verify Router-on-a-Stick Interfaces
+            │
+            ▼
+Verify DHCP Services
+            │
+            ▼
+Verify DNS Resolution
+            │
+            ▼
+Verify pfSense WAN Connectivity
+            │
+            ▼
+Validate Enterprise Services
+            │
+            ▼
+Document Incident & Recovery
+</code></pre>
 
+            <p>
+                During every recovery activity, configuration changes should be documented and
+                validated before proceeding to the next troubleshooting stage. If a change does
+                not resolve the issue, revert to the previous known-good configuration before
+                continuing the investigation.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercise</h2>
+
+            <h3>Exercise 1 – Complete Enterprise Network Recovery Validation</h3>
+
+            <p>
+                This exercise validates the operational readiness of the deployed JCAG-LAB
+                enterprise network after completing maintenance, troubleshooting, or simulated
+                failure recovery.
+            </p>
+
+            <pre><code>
+Windows Client
+
+ipconfig /all
+
+ping 10.10.10.1
+
+ping 10.10.100.11
+
+ping 8.8.8.8
+
+nslookup jcag-lab.local
+</code></pre>
+
+            <pre><code>
+Cisco Catalyst 2960G
+
+show vlan brief
+
+show interfaces trunk
+
+show spanning-tree
+
+show mac address-table
+</code></pre>
+
+            <pre><code>
+Cisco ISR 1941
+
+show ip interface brief
+
+show ip route
+
+show running-config
+
+show arp
+</code></pre>
+
+            <pre><code>
+Windows Server 2019
+
+Get-Service DNS
+
+Get-Service DHCPServer
+
+dcdiag
+
+ipconfig /all
+</code></pre>
+
+            <pre><code>
+pfSense
+
+Verify WAN Interface
+
+Verify LAN Interface
+
+Verify Default Gateway
+
+Verify Firewall Rules
+
+Ping External Address
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Identify every device successfully validated.</li>
+
+                <li>Record any failed validation steps.</li>
+
+                <li>Document corrective actions performed.</li>
+
+                <li>Record the final operational status of every enterprise service.</li>
+
+                <li>Update the infrastructure documentation after successful recovery.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recovery Task</th>
+
+                        <th>Validation Method</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Verify switch physical connectivity</td>
+
+                        <td><code>show interfaces status</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify VLAN assignments</td>
+
+                        <td><code>show vlan brief</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify trunk operation</td>
+
+                        <td><code>show interfaces trunk</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Router-on-a-Stick interfaces</td>
+
+                        <td><code>show ip interface brief</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify routing table</td>
+
+                        <td><code>show ip route</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify DHCP operation</td>
+
+                        <td><code>ipconfig /renew</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify DNS resolution</td>
+
+                        <td><code>nslookup jcag-lab.local</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Windows Server connectivity</td>
+
+                        <td><code>ping 10.10.100.11</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Management VLAN access</td>
+
+                        <td><code>SSH to infrastructure devices</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Internet connectivity</td>
+
+                        <td><code>ping 8.8.8.8</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify pfSense WAN status</td>
+
+                        <td><code>Status → Interfaces</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Update operational documentation</td>
+
+                        <td>Incident Record</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Network troubleshooting should always begin with the lowest layer of the OSI model before
+                    progressing toward Layer 3 services.</li>
+
+                <li>Structured troubleshooting minimizes unnecessary configuration changes and reduces service
+                    restoration time.</li>
+
+                <li>Verification of VLAN assignments, trunk links, Router-on-a-Stick interfaces, DHCP, DNS, and WAN
+                    connectivity provides a comprehensive assessment of enterprise network health.</li>
+
+                <li>The Management VLAN should remain isolated and continuously available to ensure administrative
+                    access during operational incidents.</li>
+
+                <li>Every recovery activity should conclude with validation testing and documentation to maintain an
+                    accurate operational baseline for the JCAG-LAB environment.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                Upon completion of this playbook: Capable of diagnosing,
+                isolating, and recovering Layer 2 and Layer 3 connectivity failures within the
+                JCAG-LAB enterprise environment. This includes restoring VLAN connectivity,
+                Router-on-a-Stick operation on the Cisco ISR 1941, trunk links on the Cisco
+                Catalyst 2960G, Windows Server 2019 network services (DHCP and DNS),
+                Management VLAN accessibility, and pfSense WAN connectivity. The administrator
+                is also able to perform structured post-recovery validation, verify that all
+                enterprise infrastructure components are functioning as expected, and document
+                the incident using repeatable operational procedures consistent with enterprise
+                Network Operations Center (NOC) practices.
+            </p>
+
+        </div>
 
         <!-- ===================================================== -->
         <!-- PAGE NAVIGATION -->
@@ -1853,7 +2182,7 @@ show vlan brief
             <a class="btn btn-primary" href="../../index.html">
                 Home
             </a>
-            <a class="btn btn-primary" href="../recovery-troubleshooting/playbook4.html">
+            <a class="btn btn-primary" href="playbook4.html">
                 Playbook 4 →
             </a>
 

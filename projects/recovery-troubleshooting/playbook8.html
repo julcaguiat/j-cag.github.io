@@ -132,6 +132,2335 @@
     <!-- CONTENT -->
     <main class="kb-content">
 
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 8 – PART 1 -->
+        <!-- Disaster Recovery & Business Continuity -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                Disaster recovery is the coordinated process of restoring critical
+                infrastructure, enterprise services, and operational capabilities following a
+                major disruption. Unlike the previous playbooks, which focus on recovering
+                individual components or service domains, this playbook addresses recovery of
+                the entire JCAG-LAB environment using documented procedures, validated backups,
+                and structured restoration workflows.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, disaster recovery encompasses the restoration
+                of the Proxmox virtualization platform, three-tier storage architecture,
+                Windows Server 2019 infrastructure services, Windows endpoints, Cisco network
+                infrastructure, Wazuh SIEM, Sysmon telemetry, n8n automation, Peppermint IT
+                Service Management, and supporting enterprise applications. The objective is to
+                return the environment to a known-good operational state while preserving data
+                integrity and minimizing recovery time.
+            </p>
+
+            <p>
+                This playbook consolidates the recovery methodologies developed throughout the
+                previous playbooks into a unified disaster recovery strategy. Administrators
+                will follow a structured sequence that prioritizes infrastructure dependencies,
+                validates backup integrity, restores enterprise services, and confirms that the
+                entire operational environment has returned to normal operation.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+
+                <li>Understand the disaster recovery architecture implemented within the JCAG-LAB environment.</li>
+
+                <li>Prioritize infrastructure recovery based on service dependencies and business impact.</li>
+
+                <li>Restore enterprise services using validated backups and documented recovery procedures.</li>
+
+                <li>Verify operational integrity following complete infrastructure restoration.</li>
+
+                <li>Apply structured disaster recovery practices consistent with enterprise data center operations.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Disaster Recovery Architecture within JCAG-LAB</h2>
+
+            <p>
+                The JCAG-LAB disaster recovery architecture is designed around layered
+                dependencies. Recovery begins with physical infrastructure and storage before
+                progressing to virtualization, core infrastructure services, monitoring,
+                automation, and client systems. Restoring services in the proper sequence
+                reduces recovery complexity and ensures dependent applications initialize
+                correctly.
+            </p>
+
+            <pre><code>
+Physical Infrastructure
+(Rack, Power, Cooling)
+             │
+             ▼
+Tier 0 SSD
+Tier 1 HDD
+Tier 2 Backup Storage
+             │
+             ▼
+Proxmox VE Host
+             │
+             ▼
+Windows Server 2019
+(AD DS / DNS / DHCP)
+             │
+             ▼
+Wazuh Manager
+             │
+             ▼
+n8n Automation
+             │
+             ▼
+Peppermint ITSM
+             │
+             ▼
+Cisco Modeling Labs
+             │
+             ▼
+Windows 11 Endpoints
+             │
+             ▼
+Operational Validation
+</code></pre>
+
+            <p>
+                The disaster recovery design incorporates three functional storage tiers:
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Storage Tier</th>
+
+                        <th>Purpose</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Tier 0 – SSD (local-lvm)</td>
+
+                        <td>Performance-critical virtual machines including Windows Server 2019, Wazuh, and automation
+                            services.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 1 – HDD (local-lvm-hdd-01)</td>
+
+                        <td>General-purpose virtual machines, laboratory workloads, and non-critical services.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 2 – HDD Backup Directory Storage</td>
+
+                        <td>VZDump backups, restore images, and disaster recovery data.</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>
+                Recovery operations assume that Tier 2 remains isolated from production virtual
+                machine storage and serves as the authoritative source for backup restoration.
+                Snapshots may accelerate operational recovery but are not considered a
+                replacement for validated backups.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Business Continuity Philosophy</h2>
+
+            <p>
+                Business continuity focuses on maintaining or restoring essential operational
+                capabilities following a disruptive event. Within the JCAG-LAB environment,
+                business continuity emphasizes restoring core infrastructure services first so
+                that dependent systems can be recovered in an orderly and predictable manner.
+            </p>
+
+            <p>
+                Recovery priorities are driven by service dependencies rather than convenience.
+                Infrastructure services such as Active Directory, DNS, DHCP, storage, and
+                virtualization provide the foundation required by monitoring, automation, and
+                incident management platforms.
+            </p>
+
+            <p>
+                The business continuity philosophy adopted throughout the JCAG-LAB environment
+                is based on the following principles:
+            </p>
+
+            <ul>
+
+                <li>Protect personnel before recovering equipment.</li>
+
+                <li>Preserve data integrity before restoring services.</li>
+
+                <li>Restore foundational infrastructure before dependent applications.</li>
+
+                <li>Validate every recovered service before proceeding to the next recovery stage.</li>
+
+                <li>Document every recovery action to support future operational improvement.</li>
+
+                <li>Regularly validate backups through controlled restore testing.</li>
+
+            </ul>
+
+            <p>
+                This approach ensures that disaster recovery activities remain repeatable,
+                measurable, and consistent with enterprise operational practices.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Priorities</h2>
+
+            <p>
+                Not every system should be restored simultaneously. Administrators should
+                restore services according to operational dependency and overall impact to the
+                environment. The following recovery priorities define the recommended order for
+                restoring the JCAG-LAB infrastructure.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Priority</th>
+
+                        <th>Infrastructure Component</th>
+
+                        <th>Reason for Priority</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>1</td>
+
+                        <td>Physical Infrastructure</td>
+
+                        <td>Provides stable power, cooling, and hardware readiness.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>2</td>
+
+                        <td>Tier 0, Tier 1, and Tier 2 Storage</td>
+
+                        <td>Required before virtualization services can be restored.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>3</td>
+
+                        <td>Proxmox Virtual Environment</td>
+
+                        <td>Hosts all enterprise virtual machines.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>4</td>
+
+                        <td>Windows Server 2019 (AD DS, DNS, DHCP)</td>
+
+                        <td>Provides authentication, name resolution, and IP address management.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>5</td>
+
+                        <td>Wazuh Manager</td>
+
+                        <td>Restores centralized monitoring and security visibility.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>6</td>
+
+                        <td>n8n Automation</td>
+
+                        <td>Restores automated operational workflows.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>7</td>
+
+                        <td>Peppermint ITSM</td>
+
+                        <td>Restores incident tracking and operational management.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>8</td>
+
+                        <td>Cisco Modeling Labs</td>
+
+                        <td>Restores network simulation services.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>9</td>
+
+                        <td>Windows 11 Endpoints</td>
+
+                        <td>Reconnects client systems after core infrastructure is available.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>10</td>
+
+                        <td>Operational Validation</td>
+
+                        <td>Confirms complete restoration of enterprise services.</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>
+                Following this sequence minimizes cascading failures and reduces the likelihood
+                of recovering dependent services before prerequisite infrastructure has been
+                validated.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Disaster Recovery Methodology</h2>
+
+            <p>
+                The JCAG-LAB disaster recovery methodology follows a structured process that
+                emphasizes assessment, restoration, validation, and documentation. Every
+                recovery activity should proceed in clearly defined stages, allowing
+                administrators to verify each dependency before advancing to the next phase.
+            </p>
+
+            <pre><code>
+Disaster Declared
+        │
+        ▼
+Ensure Personnel Safety
+        │
+        ▼
+Assess Infrastructure Damage
+        │
+        ▼
+Validate Physical Hardware
+        │
+        ▼
+Verify Tier 0 / Tier 1 / Tier 2 Storage
+        │
+        ▼
+Restore Proxmox VE
+        │
+        ▼
+Restore Core Infrastructure Services
+(AD DS / DNS / DHCP)
+        │
+        ▼
+Restore Monitoring
+(Wazuh)
+        │
+        ▼
+Restore Automation
+(n8n)
+        │
+        ▼
+Restore Incident Management
+(Peppermint)
+        │
+        ▼
+Restore Remaining Virtual Machines
+        │
+        ▼
+Validate Enterprise Services
+        │
+        ▼
+Verify Security Monitoring
+        │
+        ▼
+Perform Functional Testing
+        │
+        ▼
+Document Recovery Activities
+        │
+        ▼
+Return JCAG-LAB to Production
+</code></pre>
+
+            <p>
+                Recovery is considered complete only after every infrastructure layer has been
+                validated, enterprise services are fully operational, monitoring and automation
+                platforms are functioning correctly, backup integrity has been confirmed, and
+                all recovery activities have been documented. This methodology provides a
+                repeatable framework for restoring the JCAG-LAB environment following major
+                infrastructure failures while reinforcing enterprise disaster recovery best
+                practices.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 8 – PART 2 -->
+        <!-- Scenarios 1–3 -->
+        <!-- Disaster Recovery Scenarios -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 1 – Complete Proxmox Host Failure</h2>
+
+            <p>
+                A complete Proxmox host failure represents one of the highest-impact disaster
+                recovery events within the JCAG-LAB environment. Since the Proxmox host
+                supports Windows Server 2019, Wazuh Manager, n8n, Peppermint ITSM, Cisco
+                Modeling Labs (CML), and other enterprise workloads, failure of the
+                virtualization platform results in the loss of multiple critical services.
+            </p>
+
+            <p>
+                Recovery focuses on restoring the Proxmox host, validating storage integrity,
+                and recovering virtual machines from the three-tier storage architecture or
+                Tier 2 backup repository.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>All hosted virtual machines become unavailable.</li>
+
+                <li>Authentication, DNS, DHCP, monitoring, automation, and ticketing services are interrupted.</li>
+
+                <li>Enterprise administration cannot be performed.</li>
+
+                <li>Security visibility is lost until monitoring services are restored.</li>
+
+                <li>Complete infrastructure outage.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Proxmox web interface unavailable.</li>
+
+                <li>Virtual machines inaccessible.</li>
+
+                <li>No response from management IP (10.10.100.10).</li>
+
+                <li>Storage pools unavailable.</li>
+
+                <li>Enterprise services unreachable.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify that the failure is isolated to the Proxmox host rather than the
+                surrounding network infrastructure.
+            </p>
+
+            <pre><code>
+ping 10.10.100.10
+</code></pre>
+
+            <p>
+                If the host is accessible through the console, verify the current system
+                status.
+            </p>
+
+            <pre><code>
+hostnamectl
+
+uptime
+
+systemctl status pvedaemon
+
+systemctl status pveproxy
+
+systemctl status pve-cluster
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Inspect server hardware for POST errors.</li>
+
+                <li>Verify BIOS detects all storage devices.</li>
+
+                <li>Confirm Tier 0 SSD and Tier 1 HDD are visible.</li>
+
+                <li>Validate Tier 2 backup storage availability.</li>
+
+                <li>Review Proxmox service status.</li>
+
+                <li>Determine whether restoration from backup is required.</li>
+
+            </ul>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Hardware failure.</li>
+
+                <li>Operating system corruption.</li>
+
+                <li>Storage subsystem failure.</li>
+
+                <li>Bootloader corruption.</li>
+
+                <li>Power interruption.</li>
+
+                <li>Administrative configuration error.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                If the Proxmox operating system cannot be recovered, reinstall Proxmox VE on
+                replacement hardware or repaired storage, reconnect the existing storage pools,
+                and restore virtual machines from Tier 2 VZDump backups when necessary.
+            </p>
+
+            <pre><code>
+pvesm status
+
+qmrestore /mnt/pve/backup/vzdump-qemu-101.vma.zst 101
+
+qm list
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Proxmox web interface available.</li>
+
+                <li>Storage pools online.</li>
+
+                <li>Virtual machines restored.</li>
+
+                <li>Enterprise services operational.</li>
+
+                <li>Recovery documentation completed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 2 – Tier 0 SSD Failure</h2>
+
+            <p>
+                Tier 0 (local-lvm) provides high-performance storage for the most critical
+                virtual machines within the JCAG-LAB environment, including Windows Server
+                2019, Wazuh Manager, and automation services. Failure of this storage tier
+                directly affects enterprise authentication, monitoring, and infrastructure
+                management.
+            </p>
+
+            <p>
+                Recovery should prioritize preserving available data, validating backup
+                integrity, and restoring affected virtual machines to replacement SSD storage
+                using Tier 2 backup media.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Critical virtual machines unavailable.</li>
+
+                <li>Authentication services interrupted.</li>
+
+                <li>Security monitoring unavailable.</li>
+
+                <li>Automation workflows halted.</li>
+
+                <li>Potential data loss if backups are unavailable.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Tier 0 storage missing from Proxmox.</li>
+
+                <li>Virtual machines fail to start.</li>
+
+                <li>I/O errors reported.</li>
+
+                <li>SMART failures detected.</li>
+
+                <li>Storage health alerts generated.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify storage visibility.
+            </p>
+
+            <pre><code>
+pvesm status
+
+lsblk
+
+df -h
+</code></pre>
+
+            <p>
+                Review SMART diagnostics.
+            </p>
+
+            <pre><code>
+smartctl -a /dev/sda
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Determine whether the SSD is detected by the operating system.</li>
+
+                <li>Review SMART health indicators.</li>
+
+                <li>Identify affected virtual machines.</li>
+
+                <li>Verify Tier 2 backup availability.</li>
+
+                <li>Confirm replacement storage availability.</li>
+
+            </ul>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>SSD wear-out.</li>
+
+                <li>Controller failure.</li>
+
+                <li>Power-related corruption.</li>
+
+                <li>Filesystem corruption.</li>
+
+                <li>Hardware failure.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Replace the failed SSD, recreate the Tier 0 storage pool, and restore critical
+                virtual machines from Tier 2 VZDump backups.
+            </p>
+
+            <pre><code>
+pvesm add lvmthin local-lvm
+
+qmrestore /mnt/pve/backup/vzdump-qemu-101.vma.zst 101
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Tier 0 storage restored.</li>
+
+                <li>Critical virtual machines operational.</li>
+
+                <li>Windows Server functioning normally.</li>
+
+                <li>Wazuh monitoring restored.</li>
+
+                <li>Backups remain available.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 3 – Active Directory Disaster Recovery</h2>
+
+            <p>
+                Active Directory provides centralized authentication, authorization, DNS, and
+                directory services throughout the JCAG-LAB environment. Loss of the domain
+                controller affects nearly every enterprise workload because user
+                authentication, Group Policy processing, DNS resolution, and DHCP services
+                depend on Windows Server 2019.
+            </p>
+
+            <p>
+                Disaster recovery focuses on restoring the domain controller from validated
+                backups while preserving directory integrity and ensuring enterprise services
+                become available in the proper sequence.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Domain authentication unavailable.</li>
+
+                <li>DNS services interrupted.</li>
+
+                <li>DHCP services unavailable.</li>
+
+                <li>Group Policy processing fails.</li>
+
+                <li>Domain-joined endpoints unable to authenticate.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Users cannot log in to the domain.</li>
+
+                <li>DNS name resolution fails.</li>
+
+                <li>DHCP leases unavailable.</li>
+
+                <li>Domain controller offline.</li>
+
+                <li>Enterprise applications cannot authenticate.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify that the domain controller virtual machine is running.
+            </p>
+
+            <pre><code>
+qm list
+</code></pre>
+
+            <p>
+                Verify Windows Server availability.
+            </p>
+
+            <pre><code>
+ping 10.10.100.11
+</code></pre>
+
+            <p>
+                Review Active Directory services.
+            </p>
+
+            <pre><code>
+Get-Service NTDS
+
+Get-Service DNS
+
+Get-Service DHCPServer
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Determine whether the virtual machine boots successfully.</li>
+
+                <li>Review Windows Event Logs.</li>
+
+                <li>Verify Active Directory database integrity.</li>
+
+                <li>Validate DNS functionality.</li>
+
+                <li>Verify DHCP service availability.</li>
+
+                <li>Confirm client authentication.</li>
+
+            </ul>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Operating system corruption.</li>
+
+                <li>Active Directory database corruption.</li>
+
+                <li>Storage failure.</li>
+
+                <li>Administrative error.</li>
+
+                <li>Virtual machine corruption.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restore the Windows Server 2019 virtual machine from the most recent validated
+                Tier 2 VZDump backup if service recovery is unsuccessful. After restoration,
+                verify Active Directory, DNS, DHCP, and domain authentication before restoring
+                dependent services such as Wazuh, n8n, and Peppermint.
+            </p>
+
+            <pre><code>
+dcdiag
+
+repadmin /replsummary
+
+ipconfig /registerdns
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Domain controller operational.</li>
+
+                <li>Active Directory healthy.</li>
+
+                <li>DNS resolution functioning.</li>
+
+                <li>DHCP leasing operational.</li>
+
+                <li>Domain authentication restored.</li>
+
+                <li>Dependent enterprise services functioning normally.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 8 – PART 3 -->
+        <!-- Scenarios 4–6 -->
+        <!-- Enterprise Service Disaster Recovery -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 4 – Wazuh SIEM Complete Recovery</h2>
+
+            <p>
+                The Wazuh Manager provides centralized security monitoring, log correlation,
+                detection engineering, and alert generation for the JCAG-LAB environment.
+                Failure of the Wazuh virtual machine eliminates centralized visibility into
+                endpoint activity and prevents administrators from monitoring the security
+                posture of the infrastructure.
+            </p>
+
+            <p>
+                Recovery procedures focus on restoring the Wazuh virtual machine, validating
+                the integrity of the Wazuh Manager services, confirming agent connectivity, and
+                ensuring that telemetry from Windows endpoints is once again collected,
+                correlated, and presented within the Wazuh Dashboard.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Centralized security monitoring unavailable.</li>
+
+                <li>Endpoint telemetry no longer collected.</li>
+
+                <li>Detection engineering disabled.</li>
+
+                <li>Security alert generation interrupted.</li>
+
+                <li>Reduced incident response capability.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Wazuh Dashboard unavailable.</li>
+
+                <li>Agents reported offline.</li>
+
+                <li>No new alerts generated.</li>
+
+                <li>API unavailable.</li>
+
+                <li>Security monitoring interrupted.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify that the Wazuh virtual machine is running within Proxmox.
+            </p>
+
+            <pre><code>
+qm list
+</code></pre>
+
+            <p>
+                Verify network connectivity.
+            </p>
+
+            <pre><code>
+ping 10.10.100.15
+</code></pre>
+
+            <p>
+                Review Wazuh service status.
+            </p>
+
+            <pre><code>
+systemctl status wazuh-manager
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Verify virtual machine availability.</li>
+
+                <li>Confirm storage availability.</li>
+
+                <li>Review Wazuh service logs.</li>
+
+                <li>Verify agent registration.</li>
+
+                <li>Confirm Dashboard accessibility.</li>
+
+                <li>Validate alert generation.</li>
+
+            </ul>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Virtual machine corruption.</li>
+
+                <li>Operating system failure.</li>
+
+                <li>Storage failure.</li>
+
+                <li>Configuration corruption.</li>
+
+                <li>Administrative error.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restore the Wazuh virtual machine from the latest validated Tier 2 VZDump
+                backup if recovery of the existing virtual machine is unsuccessful.
+            </p>
+
+            <pre><code>
+qmrestore /mnt/pve/backup/vzdump-qemu-105.vma.zst 105
+
+systemctl restart wazuh-manager
+</code></pre>
+
+            <p>
+                Confirm that Windows endpoints reconnect automatically after the manager is
+                restored.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Wazuh Dashboard operational.</li>
+
+                <li>Agents connected.</li>
+
+                <li>Alerts generated successfully.</li>
+
+                <li>Detection rules functioning.</li>
+
+                <li>Security monitoring restored.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 5 – n8n &amp; Peppermint Recovery from Backup</h2>
+
+            <p>
+                The JCAG-LAB environment uses n8n workflow automation and Peppermint IT Service
+                Management to automate security incident handling following alert generation by
+                the Wazuh Manager. Recovery of these services ensures that automated workflows,
+                API integrations, and incident tracking resume normal operation after a
+                disaster event.
+            </p>
+
+            <p>
+                Both services are deployed as Docker-based workloads and should be restored only
+                after the Proxmox host, storage infrastructure, Windows Server 2019, and Wazuh
+                Manager have been successfully recovered.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Security automation unavailable.</li>
+
+                <li>Incident tickets not generated.</li>
+
+                <li>Workflow orchestration interrupted.</li>
+
+                <li>Reduced operational efficiency.</li>
+
+                <li>Manual incident handling required.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>n8n web interface unavailable.</li>
+
+                <li>Peppermint inaccessible.</li>
+
+                <li>Docker containers stopped.</li>
+
+                <li>Webhook failures observed.</li>
+
+                <li>No incident tickets created.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify Docker service status.
+            </p>
+
+            <pre><code>
+systemctl status docker
+</code></pre>
+
+            <p>
+                Review running containers.
+            </p>
+
+            <pre><code>
+docker ps
+
+docker compose ps
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Verify Docker daemon.</li>
+
+                <li>Confirm virtual machine health.</li>
+
+                <li>Inspect container logs.</li>
+
+                <li>Validate API connectivity.</li>
+
+                <li>Verify persistent storage availability.</li>
+
+                <li>Confirm backup integrity.</li>
+
+            </ul>
+
+            <p>
+                Review service logs.
+            </p>
+
+            <pre><code>
+docker logs n8n
+
+docker logs peppermint
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Virtual machine corruption.</li>
+
+                <li>Docker service failure.</li>
+
+                <li>Persistent volume corruption.</li>
+
+                <li>Configuration error.</li>
+
+                <li>Database corruption.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restore the virtual machine or container data from the latest validated Tier 2
+                backup. Verify Docker functionality before starting application services.
+            </p>
+
+            <pre><code>
+docker compose up -d
+
+docker ps
+</code></pre>
+
+            <p>
+                Confirm successful communication between Wazuh, n8n, and Peppermint following
+                service restoration.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Docker operational.</li>
+
+                <li>n8n workflows executing.</li>
+
+                <li>Peppermint accessible.</li>
+
+                <li>Incident tickets generated.</li>
+
+                <li>Automation pipeline restored.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 6 – Network Infrastructure Recovery Following Major Failure</h2>
+
+            <p>
+                Recovery of enterprise services depends upon restoration of the underlying
+                network infrastructure. Following a major outage affecting routing, switching,
+                or firewall services, administrators must restore the physical network before
+                attempting to recover virtual machines and enterprise applications.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, network recovery includes restoration of the
+                Cisco ISR 1941 router, Cisco Catalyst 2960G switch, pfSense firewall, VLAN
+                segmentation, Router-on-a-Stick configuration, management connectivity, and
+                inter-VLAN routing.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Complete loss of network connectivity.</li>
+
+                <li>Virtual machines unreachable.</li>
+
+                <li>Authentication services inaccessible.</li>
+
+                <li>Monitoring platform disconnected.</li>
+
+                <li>Infrastructure administration interrupted.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Gateway unreachable.</li>
+
+                <li>Inter-VLAN routing unavailable.</li>
+
+                <li>DHCP clients fail to obtain addresses.</li>
+
+                <li>DNS resolution unavailable.</li>
+
+                <li>Management interfaces inaccessible.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify physical infrastructure.
+            </p>
+
+            <ul>
+
+                <li>Power supplied to network devices.</li>
+
+                <li>Switch uplinks connected.</li>
+
+                <li>Router operational.</li>
+
+                <li>pfSense online.</li>
+
+                <li>Management workstation connected.</li>
+
+            </ul>
+
+            <p>
+                Verify network connectivity.
+            </p>
+
+            <pre><code>
+ping 10.10.255.1
+
+ping 10.10.255.2
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Validate the Cisco router configuration.
+            </p>
+
+            <pre><code>
+show ip interface brief
+
+show ip route
+
+show running-config
+</code></pre>
+
+            <p>
+                Validate switch operation.
+            </p>
+
+            <pre><code>
+show vlan brief
+
+show interfaces trunk
+
+show spanning-tree
+</code></pre>
+
+            <p>
+                Validate pfSense connectivity and routing between the WAN segment
+                (10.10.255.0/24) and internal VLANs before restoring enterprise applications.
+            </p>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Router failure.</li>
+
+                <li>Switch hardware failure.</li>
+
+                <li>Incorrect VLAN configuration.</li>
+
+                <li>Trunk failure.</li>
+
+                <li>Firewall configuration error.</li>
+
+                <li>Physical cabling issue.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Restore pfSense connectivity.</li>
+
+                <li>Recover Cisco router configuration.</li>
+
+                <li>Restore VLANs.</li>
+
+                <li>Verify Router-on-a-Stick operation.</li>
+
+                <li>Validate inter-VLAN routing.</li>
+
+                <li>Restore management connectivity.</li>
+
+                <li>Reconnect Proxmox and enterprise virtual machines.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>All VLANs operational.</li>
+
+                <li>Gateway reachable.</li>
+
+                <li>Inter-VLAN routing restored.</li>
+
+                <li>pfSense functioning normally.</li>
+
+                <li>Windows Server accessible.</li>
+
+                <li>Wazuh reachable.</li>
+
+                <li>Automation services operational.</li>
+
+                <li>Complete network infrastructure restored.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 8 – PART 4 -->
+        <!-- Scenarios 7–10 -->
+        <!-- Complete Infrastructure Restoration & Validation -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 7 – Complete JCAG-LAB Infrastructure Restoration</h2>
+
+            <p>
+                Following a catastrophic infrastructure failure, the objective is to restore
+                the entire JCAG-LAB environment using documented recovery procedures developed
+                throughout this guide. Recovery should always proceed according to dependency,
+                ensuring foundational infrastructure is operational before dependent enterprise
+                services are restored.
+            </p>
+
+            <p>
+                This scenario combines the recovery procedures presented in Playbooks 1 through
+                7 into a single coordinated disaster recovery operation.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Complete loss of enterprise infrastructure.</li>
+
+                <li>Authentication unavailable.</li>
+
+                <li>Virtualization platform offline.</li>
+
+                <li>Security monitoring unavailable.</li>
+
+                <li>Automation and incident management interrupted.</li>
+
+            </ul>
+
+            <h3>Recovery Sequence</h3>
+
+            <pre><code>
+1. Validate Physical Infrastructure
+        │
+        ▼
+2. Verify Power & Cooling
+        │
+        ▼
+3. Validate Tier 0 SSD
+        │
+        ▼
+4. Validate Tier 1 HDD
+        │
+        ▼
+5. Verify Tier 2 Backup Storage
+        │
+        ▼
+6. Restore Proxmox VE
+        │
+        ▼
+7. Restore Windows Server 2019
+(AD DS / DNS / DHCP)
+        │
+        ▼
+8. Restore Wazuh Manager
+        │
+        ▼
+9. Restore n8n
+        │
+        ▼
+10. Restore Peppermint
+        │
+        ▼
+11. Restore Cisco Modeling Labs
+        │
+        ▼
+12. Restore Windows 11 Endpoints
+        │
+        ▼
+13. Validate Network Services
+        │
+        ▼
+14. Validate Security Operations
+        │
+        ▼
+15. Return JCAG-LAB to Production
+</code></pre>
+
+            <h3>Operational Validation</h3>
+
+            <ul>
+
+                <li>All virtual machines powered on.</li>
+
+                <li>Windows Server responding normally.</li>
+
+                <li>Authentication functioning.</li>
+
+                <li>DNS and DHCP operational.</li>
+
+                <li>Wazuh collecting telemetry.</li>
+
+                <li>Automation workflows operational.</li>
+
+                <li>Peppermint receiving incidents.</li>
+
+                <li>Network connectivity restored.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Entire JCAG-LAB infrastructure restored.</li>
+
+                <li>Enterprise services operational.</li>
+
+                <li>Monitoring restored.</li>
+
+                <li>Automation restored.</li>
+
+                <li>Recovery documentation completed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 8 – Backup Validation &amp; Restore Testing</h2>
+
+            <p>
+                Backups are valuable only if they can be successfully restored. Routine backup
+                validation confirms that recovery points stored on Tier 2 Backup Storage remain
+                usable and that recovery procedures can be executed within acceptable recovery
+                objectives.
+            </p>
+
+            <p>
+                The JCAG-LAB storage architecture separates production virtual machine storage
+                from backup storage to protect recovery data from failures affecting Tier 0 SSD
+                or Tier 1 HDD storage.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Undetected backup corruption.</li>
+
+                <li>Failed disaster recovery operations.</li>
+
+                <li>Extended recovery time.</li>
+
+                <li>Potential data loss.</li>
+
+                <li>Reduced confidence in recovery procedures.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify Tier 2 backup storage availability.
+            </p>
+
+            <pre><code>
+pvesm status
+
+df -h
+</code></pre>
+
+            <p>
+                List available virtual machine backups.
+            </p>
+
+            <pre><code>
+ls -lh /mnt/pve/backup
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <ul>
+
+                <li>Verify backup timestamps.</li>
+
+                <li>Confirm backup file integrity.</li>
+
+                <li>Select a representative virtual machine for testing.</li>
+
+                <li>Perform a controlled restore into an isolated environment.</li>
+
+                <li>Validate application functionality after restoration.</li>
+
+            </ul>
+
+            <p>
+                Restore a virtual machine from a VZDump backup.
+            </p>
+
+            <pre><code>
+qmrestore \
+/mnt/pve/backup/vzdump-qemu-101.vma.zst \
+201
+</code></pre>
+
+            <p>
+                After validation, remove the temporary recovery virtual machine if it is no
+                longer required.
+            </p>
+
+            <pre><code>
+qm stop 201
+
+qm destroy 201
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Backup corruption.</li>
+
+                <li>Storage media failure.</li>
+
+                <li>Incomplete backup job.</li>
+
+                <li>Human error.</li>
+
+                <li>Improper backup configuration.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Backup restored successfully.</li>
+
+                <li>Virtual machine booted normally.</li>
+
+                <li>Enterprise services operational.</li>
+
+                <li>Recovery documentation updated.</li>
+
+                <li>Backup integrity confirmed.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 9 – Disaster Recovery Validation Exercise</h2>
+
+            <p>
+                Disaster recovery plans should be exercised regularly to ensure administrators
+                remain familiar with recovery procedures and to identify documentation gaps
+                before an actual disaster occurs. Validation exercises should simulate realistic
+                failure scenarios while minimizing operational risk.
+            </p>
+
+            <h3>Exercise Objectives</h3>
+
+            <ul>
+
+                <li>Validate documented recovery procedures.</li>
+
+                <li>Measure recovery time.</li>
+
+                <li>Verify backup usability.</li>
+
+                <li>Confirm infrastructure dependencies.</li>
+
+                <li>Improve disaster recovery documentation.</li>
+
+            </ul>
+
+            <h3>Exercise Procedure</h3>
+
+            <ol>
+
+                <li>Declare a simulated disaster scenario.</li>
+
+                <li>Review recovery documentation.</li>
+
+                <li>Restore infrastructure according to dependency order.</li>
+
+                <li>Validate enterprise services.</li>
+
+                <li>Record recovery observations.</li>
+
+                <li>Document improvement opportunities.</li>
+
+            </ol>
+
+            <h3>Measurements to Record</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Measurement</th>
+
+                        <th>Observation</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Recovery Start Time</td>
+
+                        <td>Record actual time.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Recovery Completion Time</td>
+
+                        <td>Record actual time.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Services Restored</td>
+
+                        <td>Document restored services.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Problems Encountered</td>
+
+                        <td>Document operational issues.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Documentation Improvements</td>
+
+                        <td>Identify updates required.</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Recovery objectives achieved.</li>
+
+                <li>Documentation validated.</li>
+
+                <li>Recovery procedures repeatable.</li>
+
+                <li>Recovery team familiar with workflow.</li>
+
+                <li>Improvement opportunities documented.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 10 – Business Continuity Validation</h2>
+
+            <p>
+                Business continuity validation confirms that the JCAG-LAB environment has
+                returned to a stable operational state after disaster recovery activities are
+                complete. Validation extends beyond simply powering on systems—it confirms that
+                enterprise services, security monitoring, automation, and administrative
+                workflows function together as an integrated infrastructure.
+            </p>
+
+            <h3>Operational Validation Tasks</h3>
+
+            <ul>
+
+                <li>Verify Proxmox management access.</li>
+
+                <li>Verify Tier 0, Tier 1, and Tier 2 storage.</li>
+
+                <li>Validate Windows Server 2019 services.</li>
+
+                <li>Confirm Active Directory authentication.</li>
+
+                <li>Verify DNS resolution.</li>
+
+                <li>Validate DHCP lease assignment.</li>
+
+                <li>Confirm pfSense connectivity.</li>
+
+                <li>Validate Cisco VLAN routing.</li>
+
+                <li>Confirm Wazuh telemetry collection.</li>
+
+                <li>Verify Sysmon event collection.</li>
+
+                <li>Validate n8n workflow execution.</li>
+
+                <li>Confirm Peppermint incident creation.</li>
+
+                <li>Verify Windows 11 endpoint authentication.</li>
+
+            </ul>
+
+            <h3>Infrastructure Health Verification</h3>
+
+            <pre><code>
+Proxmox VE          ✓
+
+Tier 0 SSD          ✓
+
+Tier 1 HDD          ✓
+
+Tier 2 Backup       ✓
+
+Windows Server      ✓
+
+Active Directory    ✓
+
+DNS                 ✓
+
+DHCP                ✓
+
+Cisco Network       ✓
+
+pfSense             ✓
+
+Wazuh               ✓
+
+Sysmon              ✓
+
+n8n                 ✓
+
+Peppermint          ✓
+
+Windows Endpoints   ✓
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Enterprise infrastructure fully operational.</li>
+
+                <li>Business services restored.</li>
+
+                <li>Security monitoring operational.</li>
+
+                <li>Automation workflows functioning.</li>
+
+                <li>Business continuity objectives achieved.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 8 – PART 5 -->
+        <!-- Operational Disaster Recovery Workflow -->
+        <!-- Practical Exercise -->
+        <!-- Recovery Checklist -->
+        <!-- Key Takeaways -->
+        <!-- Playbook Completion Outcome -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Operational Disaster Recovery Workflow</h2>
+
+            <p>
+                Disaster recovery within the JCAG-LAB environment follows a structured,
+                dependency-based methodology that restores infrastructure from the physical
+                layer upward. Each recovery phase builds upon the successful completion of the
+                previous phase, ensuring that enterprise services are restored in a stable,
+                repeatable, and fully validated manner.
+            </p>
+
+            <p>
+                The workflow presented below integrates the recovery procedures documented
+                throughout Playbooks 0 through 8 into a single operational process suitable for
+                major infrastructure failures.
+            </p>
+
+            <pre><code>
+Disaster Declared
+        │
+        ▼
+Ensure Personnel Safety
+        │
+        ▼
+Assess Hardware Condition
+        │
+        ▼
+Validate Rack, Cabling & Power
+        │
+        ▼
+Verify Tier 0 SSD
+(local-lvm)
+        │
+        ▼
+Verify Tier 1 HDD
+(local-lvm-hdd-01)
+        │
+        ▼
+Verify Tier 2 Backup Storage
+(Directory Storage)
+        │
+        ▼
+Restore Proxmox VE Host
+        │
+        ▼
+Restore Windows Server 2019
+AD DS / DNS / DHCP
+        │
+        ▼
+Restore Wazuh Manager
+        │
+        ▼
+Restore n8n Automation
+        │
+        ▼
+Restore Peppermint ITSM
+        │
+        ▼
+Restore Cisco Modeling Labs
+        │
+        ▼
+Restore Remaining Virtual Machines
+        │
+        ▼
+Validate Cisco ISR 1941
+Router-on-a-Stick
+        │
+        ▼
+Validate Cisco Catalyst 2960G
+VLAN Connectivity
+        │
+        ▼
+Validate pfSense WAN & Firewall
+        │
+        ▼
+Reconnect Windows 11 Endpoints
+        │
+        ▼
+Validate Sysmon Telemetry
+        │
+        ▼
+Validate Wazuh Detection
+        │
+        ▼
+Validate Automation Pipeline
+        │
+        ▼
+Perform Functional Testing
+        │
+        ▼
+Document Recovery Activities
+        │
+        ▼
+Return JCAG-LAB to Production
+</code></pre>
+
+            <p>
+                Administrators should not advance to the next recovery phase until the current
+                phase has been successfully validated. This minimizes cascading failures,
+                reduces troubleshooting complexity, and ensures that dependent services are
+                restored only after prerequisite infrastructure has been confirmed operational.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercise</h2>
+
+            <h3>Exercise 1 – Simulated Full Infrastructure Recovery</h3>
+
+            <p>
+                Perform a structured walkthrough of the complete disaster recovery workflow
+                using the documentation developed throughout this guide. The exercise may be
+                performed as a tabletop validation or as a controlled laboratory recovery using
+                non-production virtual machines.
+            </p>
+
+            <pre><code>
+pvesm status
+
+qm list
+
+hostnamectl
+
+uptime
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Infrastructure components inspected.</li>
+
+                <li>Storage tier status.</li>
+
+                <li>Virtual machines restored.</li>
+
+                <li>Recovery sequence followed.</li>
+
+                <li>Total recovery time.</li>
+
+            </ul>
+
+            <h3>Exercise 2 – Tier 2 Backup Restoration Validation</h3>
+
+            <p>
+                Restore a representative virtual machine from Tier 2 Backup Storage into an
+                isolated test environment and validate that the restored workload functions as
+                expected.
+            </p>
+
+            <pre><code>
+ls -lh /mnt/pve/backup
+
+qmrestore \
+/mnt/pve/backup/vzdump-qemu-101.vma.zst \
+201
+
+qm list
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Backup selected.</li>
+
+                <li>Restore duration.</li>
+
+                <li>Virtual machine boot status.</li>
+
+                <li>Service validation results.</li>
+
+                <li>Backup integrity confirmation.</li>
+
+            </ul>
+
+            <h3>Exercise 3 – Complete Operational Validation</h3>
+
+            <p>
+                Following restoration, verify that the entire JCAG-LAB infrastructure is
+                operating normally and that all enterprise services have been restored
+                according to documented recovery priorities.
+            </p>
+
+            <pre><code>
+Get-Service WazuhSvc
+
+Get-Service Sysmon64
+
+docker ps
+
+show ip interface brief
+
+show vlan brief
+
+dcdiag
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Authentication validation.</li>
+
+                <li>Network connectivity verification.</li>
+
+                <li>Storage validation.</li>
+
+                <li>Monitoring status.</li>
+
+                <li>Automation workflow verification.</li>
+
+                <li>Incident management verification.</li>
+
+                <li>Final infrastructure health assessment.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recovery Task</th>
+
+                        <th>Verification Command / Tool</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Verify Rack &amp; Physical Hardware</td>
+
+                        <td>Visual Inspection</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Power &amp; Cooling</td>
+
+                        <td>Environmental Inspection</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Tier 0 SSD</td>
+
+                        <td><code>lsblk</code>, <code>pvesm status</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Tier 1 HDD</td>
+
+                        <td><code>lsblk</code>, <code>pvesm status</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Tier 2 Backup Storage</td>
+
+                        <td><code>df -h</code>, <code>ls -lh /mnt/pve/backup</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Proxmox Services</td>
+
+                        <td><code>systemctl status pvedaemon</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Virtual Machines</td>
+
+                        <td><code>qm list</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Windows Server 2019</td>
+
+                        <td><code>dcdiag</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify DNS</td>
+
+                        <td><code>nslookup</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify DHCP</td>
+
+                        <td>DHCP Console / Client Lease Test</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Cisco Router</td>
+
+                        <td><code>show ip interface brief</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Cisco Switch</td>
+
+                        <td><code>show vlan brief</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate pfSense Connectivity</td>
+
+                        <td>WebGUI / Ping Tests</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Wazuh Manager</td>
+
+                        <td><code>systemctl status wazuh-manager</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Wazuh Agent</td>
+
+                        <td><code>Get-Service WazuhSvc</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Sysmon</td>
+
+                        <td><code>Get-Service Sysmon64</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Docker Services</td>
+
+                        <td><code>docker ps</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate n8n</td>
+
+                        <td>n8n Dashboard</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Peppermint</td>
+
+                        <td>Peppermint Dashboard</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Detection Pipeline</td>
+
+                        <td>Generate Controlled Security Event</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review Backup Integrity</td>
+
+                        <td>Tier 2 Restore Test</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Complete Recovery Documentation</td>
+
+                        <td>Recovery Log</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Successful disaster recovery depends on restoring infrastructure according to documented service
+                    dependencies rather than recovering systems in an arbitrary order.</li>
+
+                <li>The JCAG-LAB three-tier storage architecture separates production workloads from recovery data,
+                    ensuring Tier 2 backup storage remains the authoritative recovery source.</li>
+
+                <li>Snapshots improve operational flexibility but are not substitutes for validated backups stored on
+                    isolated backup media.</li>
+
+                <li>Enterprise recovery is complete only after virtualization, networking, storage, authentication,
+                    monitoring, automation, and endpoint services have all been functionally validated.</li>
+
+                <li>Regular disaster recovery exercises, backup validation, and documentation reviews improve
+                    operational readiness and reduce recovery time during real-world incidents.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                Upon completion of this playbook: Capable of performing a
+                complete disaster recovery of the JCAG-LAB environment using structured,
+                enterprise-style operational procedures. This includes restoring the Proxmox VE
+                host, recovering virtual machines from the three-tier storage architecture,
+                re-establishing Windows Server 2019 infrastructure services, rebuilding network
+                connectivity across the Cisco ISR 1941, Cisco Catalyst 2960G, and pfSense
+                firewall, restoring Wazuh SIEM, Sysmon telemetry, n8n automation, Peppermint
+                ITSM, and validating end-to-end operational functionality. By integrating the
+                procedures developed throughout Playbooks 0 through 8, the administrator can
+                recover the complete infrastructure following a major outage, verify business
+                continuity objectives, document recovery activities, and confidently return the
+                JCAG-LAB environment to a fully operational production state using repeatable
+                enterprise disaster recovery practices.
+            </p>
+
+        </div>
+
         <!-- ===================================================== -->
         <!-- PAGE NAVIGATION -->
         <!-- ===================================================== -->

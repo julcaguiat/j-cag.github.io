@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Playbook 4: Operating Systems</title>
+    <title>Playbook 4: Operating System Deployment & Recovery</title>
 
     <link rel="stylesheet" href="../../../assets/css/style.css" />
 
@@ -122,7 +122,7 @@
             </div>
 
             <h1 class="hero-title">
-                Playbook 4: Operating Systems
+                Playbook 4: Operating System Deployment & Recovery
             </h1>
 
         </div>
@@ -133,15 +133,2264 @@
     <main class="kb-content">
 
 
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 4 – PART 1 -->
+        <!-- Overview, Recovery Philosophy & Operating System Architecture -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                Operating systems form the foundation of every enterprise service deployed within
+                the JCAG-LAB environment. Network infrastructure may be fully operational, but
+                business services remain unavailable if critical operating systems fail to boot,
+                lose configuration integrity, or experience service failures.
+            </p>
+
+            <p>
+                This playbook documents the operational procedures used to recover Windows and
+                Linux operating systems following planned maintenance, configuration errors,
+                software failures, storage issues, or virtual machine corruption. The objective
+                is to restore service availability while preserving data integrity and following
+                structured enterprise recovery procedures.
+            </p>
+
+            <p>
+                Unlike deployment documentation, this playbook focuses on incident response and
+                service restoration. Each recovery procedure follows a repeatable methodology
+                designed to minimize downtime, validate system integrity, and safely return
+                systems to production within the JCAG-LAB enterprise environment.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+
+                <li>Identify operating system failures affecting enterprise infrastructure.</li>
+
+                <li>Perform structured recovery of Windows and Linux virtual machines.</li>
+
+                <li>Restore enterprise services while minimizing operational downtime.</li>
+
+                <li>Validate operating system health following recovery activities.</li>
+
+                <li>Document recovery procedures using repeatable enterprise operational practices.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Operating System Architecture Within JCAG-LAB</h2>
+
+            <p>
+                The JCAG-LAB enterprise environment consists of multiple operating systems
+                performing dedicated infrastructure roles. Each operating system supports one or
+                more business-critical services and must be recovered using procedures
+                appropriate to its operational function.
+            </p>
+
+            <pre><code>
+                     Proxmox VE Host
+                            │
+        ┌───────────────────┼────────────────────┐
+        │                   │                    │
+        ▼                   ▼                    ▼
+ Windows Server 2019     Ubuntu Server      Windows 11 Clients
+ Active Directory         Wazuh SIEM         Domain Workstations
+ DNS                      n8n Automation
+ DHCP                     Docker Services
+ SMB File Services
+</code></pre>
+
+            <p>
+                Operating system recovery should always consider service dependencies. For
+                example, Windows clients rely on Active Directory, DNS, and DHCP services
+                provided by Windows Server 2019, while monitoring and automation functions rely
+                on Ubuntu-based Wazuh and n8n virtual machines.
+            </p>
+
+            <h3>Primary Operating Systems</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Operating System</th>
+
+                        <th>Primary Function</th>
+
+                        <th>Recovery Priority</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Windows Server 2019</td>
+
+                        <td>Active Directory, DNS, DHCP, SMB</td>
+
+                        <td>Critical</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Ubuntu Server (Wazuh)</td>
+
+                        <td>Security Monitoring</td>
+
+                        <td>High</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Ubuntu Server (n8n)</td>
+
+                        <td>Automation Workflows</td>
+
+                        <td>High</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Docker Services</td>
+
+                        <td>Application Hosting</td>
+
+                        <td>Medium</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Windows 11 Clients</td>
+
+                        <td>User Endpoints</td>
+
+                        <td>Medium</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Windows Server 2019 Recovery Philosophy</h2>
+
+            <p>
+                Windows Server 2019 is the most critical operating system within the JCAG-LAB
+                environment. It hosts Active Directory Domain Services (AD DS), DNS, DHCP, and
+                SMB file services that support authentication, name resolution, IP address
+                allocation, and shared resources throughout the enterprise network.
+            </p>
+
+            <p>
+                Recovery activities should prioritize preserving Active Directory integrity and
+                restoring infrastructure services before addressing secondary application
+                issues. Whenever possible, recovery should begin with service validation before
+                considering snapshot rollback or full virtual machine restoration.
+            </p>
+
+            <h3>Recovery Priority</h3>
+
+            <ol>
+
+                <li>Verify virtual machine health.</li>
+
+                <li>Confirm operating system boot status.</li>
+
+                <li>Validate Active Directory functionality.</li>
+
+                <li>Verify DNS services.</li>
+
+                <li>Verify DHCP services.</li>
+
+                <li>Verify SMB file sharing.</li>
+
+                <li>Validate client authentication.</li>
+
+            </ol>
+
+            <h3>Primary Validation Commands</h3>
+
+            <pre><code>
+ipconfig /all
+
+dcdiag
+
+Get-Service DNS
+
+Get-Service DHCPServer
+
+Get-Service LanmanServer
+
+Get-EventLog -LogName System -Newest 20
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Windows 11 Client Recovery Philosophy</h2>
+
+            <p>
+                Windows 11 systems represent enterprise endpoints used to access infrastructure
+                services hosted within the JCAG-LAB environment. Recovery procedures focus on
+                restoring workstation functionality while confirming successful communication
+                with domain services and network resources.
+            </p>
+
+            <p>
+                Because workstation failures often originate from infrastructure dependencies,
+                client recovery should always begin by validating network connectivity,
+                authentication, DNS resolution, and Group Policy processing before modifying
+                the local operating system.
+            </p>
+
+            <h3>Recovery Priorities</h3>
+
+            <ul>
+
+                <li>Verify IP addressing.</li>
+
+                <li>Verify DNS resolution.</li>
+
+                <li>Confirm Active Directory communication.</li>
+
+                <li>Validate user authentication.</li>
+
+                <li>Verify mapped network resources.</li>
+
+                <li>Restore workstation functionality.</li>
+
+            </ul>
+
+            <h3>Primary Validation Commands</h3>
+
+            <pre><code>
+ipconfig /all
+
+ping 10.10.100.11
+
+nslookup jcag-lab.local
+
+gpupdate /force
+
+whoami
+
+hostname
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Ubuntu Server Recovery Philosophy</h2>
+
+            <p>
+                Ubuntu Server virtual machines provide monitoring, automation, and containerized
+                application services throughout the JCAG-LAB environment. These systems host
+                Wazuh SIEM, n8n automation workflows, and Docker-based services that support
+                security monitoring and operational automation.
+            </p>
+
+            <p>
+                Recovery procedures should emphasize restoring operating system availability,
+                verifying container services, confirming application health, and validating
+                connectivity to dependent infrastructure components before returning systems to
+                production.
+            </p>
+
+            <h3>Primary Recovery Targets</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>System</th>
+
+                        <th>Primary Service</th>
+
+                        <th>Validation</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Ubuntu Server</td>
+
+                        <td>Operating System</td>
+
+                        <td>SSH Login</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Wazuh Manager</td>
+
+                        <td>Security Monitoring</td>
+
+                        <td>Dashboard & Agent Connectivity</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>n8n</td>
+
+                        <td>Automation Platform</td>
+
+                        <td>Workflow Execution</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Docker</td>
+
+                        <td>Container Runtime</td>
+
+                        <td>Container Status</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Primary Validation Commands</h3>
+
+            <pre><code>
+hostnamectl
+
+ip a
+
+systemctl status wazuh-manager
+
+systemctl status docker
+
+docker ps
+
+df -h
+
+journalctl -xe
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Methodology</h2>
+
+            <p>
+                Every operating system recovery within the JCAG-LAB environment follows a
+                structured operational workflow designed to reduce downtime, protect data, and
+                maintain configuration integrity. This methodology builds upon the snapshot and
+                backup procedures established in Playbook 0 and the network validation
+                procedures documented in Playbook 3.
+            </p>
+
+            <pre><code>
+Alert / User Report
+          │
+          ▼
+Verify VM Availability
+          │
+          ▼
+Verify Operating System Boot
+          │
+          ▼
+Assess Business Impact
+          │
+          ▼
+Collect Diagnostic Information
+          │
+          ▼
+Identify Root Cause
+          │
+          ▼
+Recover Operating System
+          │
+          ▼
+Restore Enterprise Services
+          │
+          ▼
+Validate System Health
+          │
+          ▼
+Document Recovery
+</code></pre>
+
+            <p>
+                Throughout every recovery activity, administrators should prioritize the least
+                disruptive corrective action. Service-level troubleshooting should be performed
+                before operating system rollback, snapshot restoration, or full virtual machine
+                recovery. If recovery requires reverting to a previous state, the procedures
+                defined in Playbook 0 should be followed to ensure recovery remains controlled,
+                repeatable, and fully documented.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 4 – PART 2 -->
+        <!-- Scenarios 1–3 -->
+        <!-- Windows Server Boot, Active Directory & Windows Update -->
+        <!-- ========================================================= -->
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 1 – Windows Server 2019 Fails to Boot</h2>
+
+            <p>
+                Windows Server 2019 hosts the core enterprise services within the JCAG-LAB
+                environment, including Active Directory Domain Services (AD DS), DNS, DHCP,
+                and SMB file sharing. If the operating system fails to boot, all dependent
+                enterprise services become unavailable, resulting in widespread authentication,
+                name resolution, and network service failures.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Active Directory authentication unavailable.</li>
+
+                <li>DNS and DHCP services offline.</li>
+
+                <li>SMB file shares inaccessible.</li>
+
+                <li>Enterprise users unable to authenticate.</li>
+
+                <li>Monitoring and automation platforms may lose connectivity to domain resources.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Virtual machine displays Windows Recovery Environment.</li>
+
+                <li>Continuous reboot cycle.</li>
+
+                <li>Blue Screen of Death (BSOD).</li>
+
+                <li>Operating system freezes during startup.</li>
+
+                <li>VM powers on but never reaches the logon screen.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Before attempting operating system recovery, verify that the problem is not
+                caused by the virtualization platform or storage subsystem.
+            </p>
+
+            <pre><code>
+qm status 101
+
+qm config 101
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+status: running
+memory: 4096
+cores: 2
+boot: order=scsi0
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review the virtual machine console within Proxmox.
+            </p>
+
+            <p>
+                Verify storage availability.
+            </p>
+
+            <pre><code>
+lsblk
+
+pvesm status
+</code></pre>
+
+            <p>
+                Review Windows recovery options from the VM console.
+            </p>
+
+            <ul>
+
+                <li>Startup Repair</li>
+
+                <li>Safe Mode</li>
+
+                <li>Command Prompt</li>
+
+                <li>System Restore</li>
+
+            </ul>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Operating system corruption.</li>
+
+                <li>Boot Configuration Data (BCD) corruption.</li>
+
+                <li>Storage interruption.</li>
+
+                <li>Failed Windows Update.</li>
+
+                <li>Filesystem corruption.</li>
+
+                <li>Unexpected shutdown.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Attempt Startup Repair from the Windows Recovery Environment.
+            </p>
+
+            <p>
+                If Startup Repair is unsuccessful, repair the boot configuration.
+            </p>
+
+            <pre><code>
+bootrec /fixmbr
+
+bootrec /fixboot
+
+bootrec /scanos
+
+bootrec /rebuildbcd
+</code></pre>
+
+            <p>
+                If recovery remains unsuccessful, restore the most recent snapshot created
+                during Playbook 0.
+            </p>
+
+            <pre><code>
+qm rollback 101 pre-maintenance
+</code></pre>
+
+            <p>
+                If no valid snapshot exists, restore the latest VZDump backup stored on Tier 2
+                backup storage.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Windows boots successfully.</li>
+
+                <li>Administrator logon available.</li>
+
+                <li>Network connectivity restored.</li>
+
+                <li>No critical errors recorded after startup.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 2 – Active Directory Services Fail to Start</h2>
+
+            <p>
+                Following a successful operating system boot, Active Directory Domain Services
+                may fail to initialize due to service corruption, dependency failures, database
+                issues, or DNS problems. Since Active Directory is the identity provider for
+                the JCAG-LAB environment, failure prevents user authentication and domain-based
+                resource access.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Users unable to log into the domain.</li>
+
+                <li>Group Policy processing fails.</li>
+
+                <li>DNS integration unavailable.</li>
+
+                <li>Authentication requests rejected.</li>
+
+                <li>Enterprise services relying on Kerberos become unavailable.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Domain logon unavailable.</li>
+
+                <li>Authentication errors.</li>
+
+                <li>Netlogon service failures.</li>
+
+                <li>Domain controller unavailable.</li>
+
+                <li>Directory Services errors in Event Viewer.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify Active Directory services.
+            </p>
+
+            <pre><code>
+Get-Service NTDS
+
+Get-Service Netlogon
+
+Get-Service DNS
+</code></pre>
+
+            <p>
+                Run Domain Controller diagnostics.
+            </p>
+
+            <pre><code>
+dcdiag
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Starting test: Connectivity
+
+Passed Test Connectivity
+
+Starting test: Advertising
+
+Passed Test Advertising
+</code></pre>
+
+            <p>
+                Review Directory Services event logs.
+            </p>
+
+            <pre><code>
+Get-EventLog -LogName "Directory Service" -Newest 20
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>NTDS service stopped.</li>
+
+                <li>Database corruption.</li>
+
+                <li>DNS dependency failure.</li>
+
+                <li>SYSVOL unavailable.</li>
+
+                <li>Unexpected shutdown.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restart Active Directory services.
+            </p>
+
+            <pre><code>
+Restart-Service NTDS
+
+Restart-Service Netlogon
+
+Restart-Service DNS
+</code></pre>
+
+            <p>
+                Verify Active Directory health.
+            </p>
+
+            <pre><code>
+dcdiag
+
+repadmin /replsummary
+</code></pre>
+
+            <p>
+                Confirm client authentication using a domain workstation.
+            </p>
+
+            <pre><code>
+whoami
+
+gpupdate /force
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Domain logon successful.</li>
+
+                <li>DNS operational.</li>
+
+                <li>Kerberos authentication restored.</li>
+
+                <li>Group Policy applied successfully.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 3 – Windows Update Causes Service Failure</h2>
+
+            <p>
+                Windows Updates improve security and reliability but occasionally introduce
+                unexpected service interruptions or configuration changes. Within the JCAG-LAB
+                environment, failed updates may affect Active Directory, DNS, DHCP, file
+                sharing, or application compatibility.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Critical infrastructure services unavailable.</li>
+
+                <li>Unexpected server reboot.</li>
+
+                <li>Application incompatibility.</li>
+
+                <li>Authentication delays.</li>
+
+                <li>Operational downtime.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Services fail immediately after reboot.</li>
+
+                <li>Windows Update reports installation failure.</li>
+
+                <li>Missing or disabled services.</li>
+
+                <li>Performance degradation.</li>
+
+                <li>Event Viewer records update-related errors.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review installed updates.
+            </p>
+
+            <pre><code>
+Get-HotFix
+</code></pre>
+
+            <p>
+                Review Windows Update history.
+            </p>
+
+            <pre><code>
+Get-WindowsUpdateLog
+</code></pre>
+
+            <p>
+                Review recent System events.
+            </p>
+
+            <pre><code>
+Get-EventLog -LogName System -Newest 50
+</code></pre>
+
+            <p>
+                Verify infrastructure services.
+            </p>
+
+            <pre><code>
+Get-Service DNS
+
+Get-Service DHCPServer
+
+Get-Service NTDS
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Incomplete Windows Update installation.</li>
+
+                <li>Driver incompatibility.</li>
+
+                <li>Service dependency modification.</li>
+
+                <li>Unexpected reboot during update.</li>
+
+                <li>Corrupted system files.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restart affected services.
+            </p>
+
+            <pre><code>
+Restart-Service DNS
+
+Restart-Service DHCPServer
+
+Restart-Service NTDS
+</code></pre>
+
+            <p>
+                If the issue persists, uninstall the most recent update.
+            </p>
+
+            <pre><code>
+wusa /uninstall /kb:&lt;KB_Number&gt;
+</code></pre>
+
+            <p>
+                If operating system stability cannot be restored, roll back to the approved
+                pre-maintenance snapshot created before patching.
+            </p>
+
+            <pre><code>
+qm rollback 101 pre-maintenance
+</code></pre>
+
+            <p>
+                If snapshot recovery is unavailable or unsuitable, restore the latest verified
+                Tier 2 VZDump backup following the procedures established in Playbook 0.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Windows boots normally.</li>
+
+                <li>All enterprise services operational.</li>
+
+                <li>No critical update-related errors remain.</li>
+
+                <li>Domain clients authenticate successfully.</li>
+
+                <li>System ready for production operation.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 4 – PART 3 -->
+        <!-- Scenarios 4–6 -->
+        <!-- Domain Trust, Windows Services & Endpoint Recovery -->
+        <!-- ========================================================= -->
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 4 – Domain Trust Relationship Failure</h2>
+
+            <p>
+                A secure trust relationship exists between every domain-joined workstation and
+                the Active Directory domain. If this relationship becomes invalid, users may be
+                unable to authenticate using domain credentials even though the workstation,
+                network connectivity, and domain controller remain operational.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, this scenario primarily affects Windows 11
+                enterprise endpoints located in VLAN 10 while the Windows Server 2019 Domain
+                Controller continues providing Active Directory, DNS, and DHCP services.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Domain users cannot log on.</li>
+
+                <li>Group Policy processing fails.</li>
+
+                <li>Mapped network drives become unavailable.</li>
+
+                <li>Kerberos authentication fails.</li>
+
+                <li>User productivity is interrupted.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>"The trust relationship between this workstation and the primary domain failed."</li>
+
+                <li>Domain logon rejected.</li>
+
+                <li>Computer account authentication errors.</li>
+
+                <li>Group Policy failures.</li>
+
+                <li>Access to shared resources denied.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify network connectivity.
+            </p>
+
+            <pre><code>
+ipconfig /all
+
+ping 10.10.100.11
+
+nslookup jcag-lab.local
+</code></pre>
+
+            <p>
+                Verify the secure channel.
+            </p>
+
+            <pre><code>
+Test-ComputerSecureChannel
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+False
+</code></pre>
+
+            <p>
+                Verify computer account information.
+            </p>
+
+            <pre><code>
+nltest /sc_verify:jcag-lab.local
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Computer account password mismatch.</li>
+
+                <li>Snapshot restored without resetting trust.</li>
+
+                <li>Active Directory computer object corruption.</li>
+
+                <li>Duplicate computer account.</li>
+
+                <li>Manual domain configuration changes.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Attempt secure channel repair.
+            </p>
+
+            <pre><code>
+Test-ComputerSecureChannel -Repair -Credential jcag-lab\Administrator
+</code></pre>
+
+            <p>
+                If repair is unsuccessful, remove the workstation from the domain, reboot, and
+                rejoin the domain.
+            </p>
+
+            <p>
+                Verify successful authentication after rejoining.
+            </p>
+
+            <pre><code>
+whoami
+
+gpupdate /force
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Domain authentication successful.</li>
+
+                <li>Secure channel restored.</li>
+
+                <li>Group Policy updated successfully.</li>
+
+                <li>Network resources accessible.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 5 – Windows Service Startup Failure (DNS, DHCP & File Services)</h2>
+
+            <p>
+                Enterprise services hosted by Windows Server 2019 depend on individual Windows
+                services starting successfully during system initialization. Failure of DNS,
+                DHCP, or SMB services may occur following configuration changes, software
+                updates, dependency failures, or unexpected shutdowns.
+            </p>
+
+            <p>
+                The objective is to restore the affected services while minimizing disruption
+                to the remaining infrastructure.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Name resolution unavailable.</li>
+
+                <li>DHCP clients unable to obtain IP addresses.</li>
+
+                <li>File shares inaccessible.</li>
+
+                <li>Authentication delays.</li>
+
+                <li>Enterprise applications may fail to communicate.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>DNS queries fail.</li>
+
+                <li>DHCP lease requests time out.</li>
+
+                <li>Shared folders unavailable.</li>
+
+                <li>Service status shows "Stopped."</li>
+
+                <li>Service startup failures recorded in Event Viewer.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify service status.
+            </p>
+
+            <pre><code>
+Get-Service DNS
+
+Get-Service DHCPServer
+
+Get-Service LanmanServer
+</code></pre>
+
+            <p>
+                Review service dependencies.
+            </p>
+
+            <pre><code>
+sc qc DNS
+
+sc qc DHCPServer
+</code></pre>
+
+            <p>
+                Review recent system events.
+            </p>
+
+            <pre><code>
+Get-EventLog -LogName System -Newest 30
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Service Control Manager
+
+The DNS Server service terminated unexpectedly.
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Service dependency failure.</li>
+
+                <li>Configuration corruption.</li>
+
+                <li>Port conflicts.</li>
+
+                <li>Windows Update side effects.</li>
+
+                <li>Unexpected shutdown.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restart affected services.
+            </p>
+
+            <pre><code>
+Restart-Service DNS
+
+Restart-Service DHCPServer
+
+Restart-Service LanmanServer
+</code></pre>
+
+            <p>
+                If services continue to fail, review Event Viewer and restore configuration
+                from the most recent known-good backup or snapshot following Playbook 0.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>DNS resolves internal hosts.</li>
+
+                <li>DHCP leases issued successfully.</li>
+
+                <li>SMB shares accessible.</li>
+
+                <li>Services remain running after reboot.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 6 – Windows Endpoint Profile & Login Failure</h2>
+
+            <p>
+                Windows user profiles occasionally become corrupted following unexpected
+                shutdowns, failed updates, storage issues, or synchronization problems. Users
+                may be unable to log in or may receive temporary profiles that prevent access
+                to their normal desktop environment.
+            </p>
+
+            <p>
+                Within JCAG-LAB, this scenario applies to Windows 11 domain workstations used
+                for enterprise administration and security monitoring activities.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>User unable to access workstation.</li>
+
+                <li>Temporary profile loaded.</li>
+
+                <li>User settings unavailable.</li>
+
+                <li>Administrative tasks interrupted.</li>
+
+                <li>Reduced operational productivity.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>"User Profile Service failed the sign-in."</li>
+
+                <li>Temporary desktop loaded.</li>
+
+                <li>Missing desktop files.</li>
+
+                <li>Group Policy processing errors.</li>
+
+                <li>Application settings reset.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify Event Viewer.
+            </p>
+
+            <pre><code>
+eventvwr.msc
+</code></pre>
+
+            <p>
+                Verify user profile directories.
+            </p>
+
+            <pre><code>
+C:\Users\
+</code></pre>
+
+            <p>
+                Verify Group Policy processing.
+            </p>
+
+            <pre><code>
+gpresult /r
+
+gpupdate /force
+</code></pre>
+
+            <p>
+                Verify domain communication.
+            </p>
+
+            <pre><code>
+whoami
+
+hostname
+
+ping 10.10.100.11
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Corrupted user profile.</li>
+
+                <li>Failed Group Policy processing.</li>
+
+                <li>Insufficient disk space.</li>
+
+                <li>Domain authentication issues.</li>
+
+                <li>Windows Update interruption.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Attempt profile repair by verifying profile integrity and correcting registry
+                profile mappings if necessary.
+            </p>
+
+            <p>
+                If the profile remains unusable, create a new user profile and migrate user
+                data after confirming successful domain authentication.
+            </p>
+
+            <p>
+                Reboot the workstation and verify normal logon behavior.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>User successfully logs into the domain.</li>
+
+                <li>Correct desktop profile loaded.</li>
+
+                <li>Group Policy applied successfully.</li>
+
+                <li>User files accessible.</li>
+
+                <li>Applications function normally.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 4 – PART 4 -->
+        <!-- Scenarios 7–10 -->
+        <!-- Ubuntu Recovery, Filesystem Recovery, VM Recovery & OS Validation -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 7 – Ubuntu Server Boot Failure (Wazuh / n8n / Docker Host)</h2>
+
+            <p>
+                Several critical infrastructure services within the JCAG-LAB environment are
+                hosted on Ubuntu Server virtual machines, including the Wazuh Manager, n8n
+                automation platform, and Docker-based applications. A boot failure affecting
+                these systems can interrupt security monitoring, workflow automation, and
+                containerized services.
+            </p>
+
+            <p>
+                Recovery should begin by determining whether the failure originates from the
+                virtualization layer, operating system, storage subsystem, or application
+                services before considering snapshot rollback or full virtual machine
+                restoration.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Wazuh Manager unavailable.</li>
+
+                <li>n8n automation workflows stop executing.</li>
+
+                <li>Docker containers unavailable.</li>
+
+                <li>Security event collection interrupted.</li>
+
+                <li>Incident response automation disabled.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Ubuntu fails to reach the login prompt.</li>
+
+                <li>Kernel panic displayed during boot.</li>
+
+                <li>Emergency Mode prompt appears.</li>
+
+                <li>Repeated boot loop.</li>
+
+                <li>VM remains unresponsive after startup.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify the virtual machine is running and that the underlying storage is
+                healthy.
+            </p>
+
+            <pre><code>
+qm status 105
+
+qm config 105
+
+pvesm status
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+status: running
+boot: order=scsi0
+memory: 4096
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review the VM console from the Proxmox Web UI and determine whether the system
+                reaches the GRUB menu or Emergency Mode.
+            </p>
+
+            <p>
+                If shell access is available, collect system logs.
+            </p>
+
+            <pre><code>
+journalctl -xb
+
+systemctl --failed
+
+dmesg | less
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Filesystem corruption.</li>
+
+                <li>Kernel update failure.</li>
+
+                <li>Incorrect GRUB configuration.</li>
+
+                <li>Storage interruption.</li>
+
+                <li>Unexpected power loss.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Repair the operating system where possible before restoring from snapshot.
+            </p>
+
+            <pre><code>
+fsck -f /dev/sda2
+
+update-grub
+
+reboot
+</code></pre>
+
+            <p>
+                If recovery is unsuccessful, restore the virtual machine using the approved
+                snapshot or Tier 2 VZDump backup created during Playbook 0.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Ubuntu boots normally.</li>
+
+                <li>SSH access restored.</li>
+
+                <li>Network connectivity verified.</li>
+
+                <li>Application services operational.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 8 – Linux Filesystem & Disk Space Recovery</h2>
+
+            <p>
+                Disk utilization problems are a common cause of Linux service failures.
+                Container logs, package caches, application data, and security event logs may
+                consume available storage, preventing services from starting correctly.
+            </p>
+
+            <p>
+                Within JCAG-LAB this scenario is particularly applicable to the Wazuh Manager,
+                which continuously ingests security telemetry, and Docker hosts that maintain
+                container images and log files.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Applications fail to start.</li>
+
+                <li>Docker containers stop unexpectedly.</li>
+
+                <li>Wazuh indexing interrupted.</li>
+
+                <li>Log collection halted.</li>
+
+                <li>Automation services unavailable.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>"No space left on device."</li>
+
+                <li>Filesystem mounted read-only.</li>
+
+                <li>High disk utilization.</li>
+
+                <li>System performance degradation.</li>
+
+                <li>Repeated service failures.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <pre><code>
+df -h
+
+lsblk
+
+mount
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Filesystem      Size Used Avail Use%
+/dev/sda2        80G 79G  1G   99%
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Identify directories consuming excessive storage.
+            </p>
+
+            <pre><code>
+du -sh /*
+
+du -sh /var/*
+
+journalctl --disk-usage
+</code></pre>
+
+            <p>
+                Review Docker storage.
+            </p>
+
+            <pre><code>
+docker system df
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Oversized log files.</li>
+
+                <li>Unreleased Docker images.</li>
+
+                <li>Large security event databases.</li>
+
+                <li>Package cache accumulation.</li>
+
+                <li>Filesystem corruption.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>
+journalctl --vacuum-time=7d
+
+apt clean
+
+docker system prune -a
+
+reboot
+</code></pre>
+
+            <p>
+                If filesystem corruption is detected, boot into maintenance mode and perform a
+                filesystem consistency check before returning the server to production.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Disk utilization reduced.</li>
+
+                <li>Filesystem mounted read-write.</li>
+
+                <li>Application services restored.</li>
+
+                <li>No storage-related alerts remain.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 9 – Virtual Machine Recovery Using Proxmox Snapshots & Backups</h2>
+
+            <p>
+                When operating system recovery is unsuccessful, the virtual machine should be
+                restored using the recovery mechanisms established in Playbook 0. Recovery
+                should always follow the least disruptive method, beginning with snapshots
+                before proceeding to full backup restoration.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Enterprise services unavailable.</li>
+
+                <li>Extended maintenance window.</li>
+
+                <li>Potential configuration loss.</li>
+
+                <li>Temporary service interruption.</li>
+
+            </ul>
+
+            <h3>Recovery Strategy</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recovery Method</th>
+
+                        <th>Use Case</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Snapshot Rollback</td>
+
+                        <td>Recent configuration changes or failed maintenance.</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>VZDump Restore</td>
+
+                        <td>VM corruption or complete operating system failure.</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Snapshot Recovery</h3>
+
+            <pre><code>
+qm listsnapshot 105
+
+qm rollback 105 pre-maintenance
+
+qm start 105
+</code></pre>
+
+            <h3>Backup Recovery</h3>
+
+            <pre><code>
+qmrestore \
+/mnt/pve/HDD-02/dump/vzdump-qemu-105.vma.zst \
+105
+</code></pre>
+
+            <p>
+                Backups must be restored from the dedicated Tier 2 backup storage repository,
+                never from Tier 0 or Tier 1 production storage.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>VM starts successfully.</li>
+
+                <li>Correct snapshot restored.</li>
+
+                <li>Applications operational.</li>
+
+                <li>No configuration inconsistencies detected.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 10 – Operating System Health Validation</h2>
+
+            <p>
+                Following any operating system recovery, administrators should perform a
+                comprehensive validation to confirm that infrastructure services, networking,
+                security monitoring, and application functionality have been fully restored.
+            </p>
+
+            <p>
+                This final validation ensures that the recovered system is suitable for return
+                to production within the JCAG-LAB environment.
+            </p>
+
+            <h3>Validation Procedure</h3>
+
+            <h3>Step 1 – Verify Operating System Status</h3>
+
+            <pre><code>
+hostnamectl
+
+uptime
+
+systemctl --failed
+</code></pre>
+
+            <h3>Step 2 – Verify Network Connectivity</h3>
+
+            <pre><code>
+ip a
+
+ping 10.10.100.11
+
+ping 10.10.255.1
+</code></pre>
+
+            <h3>Step 3 – Verify Enterprise Services</h3>
+
+            <pre><code>
+systemctl status wazuh-manager
+
+systemctl status docker
+
+docker ps
+</code></pre>
+
+            <h3>Step 4 – Verify Resource Utilization</h3>
+
+            <pre><code>
+top
+
+free -h
+
+df -h
+</code></pre>
+
+            <h3>Step 5 – Verify Logs</h3>
+
+            <pre><code>
+journalctl -p err -b
+
+journalctl -xe
+</code></pre>
+
+            <h3>Validation Checklist</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation Item</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Operating System Boot Successful</td>
+
+                        <td>Verified</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Network Connectivity Restored</td>
+
+                        <td>Verified</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Enterprise Services Running</td>
+
+                        <td>Verified</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Filesystem Healthy</td>
+
+                        <td>Verified</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>No Critical Log Errors</td>
+
+                        <td>Verified</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Monitoring & Automation Functional</td>
+
+                        <td>Verified</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <p>
+                Only after all validation steps have been completed should the recovered
+                operating system be considered ready for production use. Any remaining issues
+                must be documented and resolved before closing the incident.
+            </p>
+
+        </div>
 
 
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 4 – PART 5 -->
+        <!-- Operational Recovery Workflow -->
+        <!-- Practical Exercise -->
+        <!-- Recovery Checklist -->
+        <!-- Key Takeaways -->
+        <!-- Playbook Completion Outcome -->
+        <!-- ========================================================= -->
 
+        <div class="step-section">
 
+            <h2>Operational Recovery Workflow</h2>
 
+            <p>
+                Every operating system recovery performed within the JCAG-LAB environment should
+                follow a standardized operational workflow. This methodology minimizes risk,
+                reduces unnecessary recovery actions, and ensures infrastructure services are
+                validated before systems are returned to production.
+            </p>
 
+            <pre><code>
+User Report / Monitoring Alert
+              │
+              ▼
+Identify Affected Operating System
+              │
+              ▼
+Determine Business Impact
+              │
+              ▼
+Verify Proxmox VM Health
+              │
+              ▼
+Collect Diagnostic Information
+              │
+              ▼
+Identify Root Cause
+              │
+              ▼
+Attempt Operating System Repair
+              │
+              ▼
+Validate Enterprise Services
+              │
+              ▼
+Snapshot Rollback (If Required)
+              │
+              ▼
+Restore Tier 2 Backup (If Required)
+              │
+              ▼
+Perform Post-Recovery Validation
+              │
+              ▼
+Document Incident
+              │
+              ▼
+Close Recovery Activity
+</code></pre>
 
+            <p>
+                Throughout the workflow, administrators should always select the least
+                disruptive recovery option. Correcting a failed service or repairing a damaged
+                configuration is preferable to reverting an entire virtual machine unless system
+                integrity cannot be restored safely.
+            </p>
 
+        </div>
 
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercise</h2>
+
+            <h3>Exercise 1 – Recover a Failed Windows Server Virtual Machine</h3>
+
+            <p>
+                This exercise validates the administrator's ability to recover a Windows Server
+                2019 virtual machine hosting Active Directory, DNS, DHCP, and SMB services.
+            </p>
+
+            <pre><code>
+qm status 101
+
+qm config 101
+
+qm rollback 101 pre-maintenance
+
+qm start 101
+</code></pre>
+
+            <p>
+                After the operating system starts, verify infrastructure services.
+            </p>
+
+            <pre><code>
+Get-Service NTDS
+
+Get-Service DNS
+
+Get-Service DHCPServer
+
+dcdiag
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Root cause identified.</li>
+
+                <li>Recovery method used.</li>
+
+                <li>Snapshot or backup restored (if applicable).</li>
+
+                <li>Enterprise services validated.</li>
+
+                <li>Incident documentation completed.</li>
+
+            </ul>
+
+            <h3>Exercise 2 – Recover an Ubuntu Infrastructure Server</h3>
+
+            <p>
+                Simulate recovery of the Ubuntu Server hosting Wazuh Manager or n8n after a boot
+                failure or filesystem issue.
+            </p>
+
+            <pre><code>
+systemctl --failed
+
+journalctl -xb
+
+df -h
+
+systemctl status wazuh-manager
+
+systemctl status docker
+
+docker ps
+</code></pre>
+
+            <p>
+                If operating system recovery cannot be completed successfully, restore the
+                approved snapshot or the latest verified Tier 2 VZDump backup.
+            </p>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Boot issue identified.</li>
+
+                <li>Filesystem status verified.</li>
+
+                <li>Application services restored.</li>
+
+                <li>Monitoring functionality confirmed.</li>
+
+                <li>Recovery time recorded.</li>
+
+            </ul>
+
+            <h3>Exercise 3 – Post-Recovery Infrastructure Validation</h3>
+
+            <p>
+                After completing either recovery exercise, validate that the recovered server
+                integrates correctly with the remainder of the JCAG-LAB infrastructure.
+            </p>
+
+            <pre><code>
+ping 10.10.255.1
+
+ping 10.10.100.10
+
+nslookup jcag-lab.local
+
+hostname
+
+ip a
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Network connectivity confirmed.</li>
+
+                <li>DNS resolution operational.</li>
+
+                <li>Operating system healthy.</li>
+
+                <li>Infrastructure services restored.</li>
+
+                <li>System returned to production.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recovery Task</th>
+
+                        <th>Verification Command / Tool</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Verify virtual machine status</td>
+
+                        <td><code>qm status &lt;VMID&gt;</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify VM configuration</td>
+
+                        <td><code>qm config &lt;VMID&gt;</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review operating system logs</td>
+
+                        <td><code>journalctl -xb</code> / Event Viewer</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Check failed Linux services</td>
+
+                        <td><code>systemctl --failed</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Windows services</td>
+
+                        <td><code>Get-Service</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Active Directory health</td>
+
+                        <td><code>dcdiag</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify network configuration</td>
+
+                        <td><code>ipconfig /all</code> / <code>ip a</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify storage utilization</td>
+
+                        <td><code>df -h</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Restore Proxmox snapshot</td>
+
+                        <td><code>qm rollback &lt;VMID&gt; &lt;snapshot&gt;</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Restore VZDump backup</td>
+
+                        <td><code>qmrestore</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate enterprise applications</td>
+
+                        <td>Service-specific validation</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Complete incident documentation</td>
+
+                        <td>Operational records</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Operating system failures should always be approached using a structured diagnostic methodology
+                    before initiating recovery.</li>
+
+                <li>Windows Server 2019 hosts multiple critical enterprise services; service-level recovery should be
+                    attempted before restoring the entire virtual machine.</li>
+
+                <li>Ubuntu infrastructure servers supporting Wazuh, n8n, and Docker require verification of operating
+                    system health before application troubleshooting begins.</li>
+
+                <li>Snapshots provide rapid rollback capability, while Tier 2 VZDump backups remain the authoritative
+                    recovery mechanism following severe virtual machine corruption or data loss.</li>
+
+                <li>Every recovery operation must conclude with comprehensive validation of operating system
+                    functionality, enterprise services, network connectivity, monitoring, and documentation.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                Upon completion of this playbook: Capable of diagnosing
+                and recovering Windows Server 2019, Windows 11, and Ubuntu Server operating
+                system failures within the JCAG-LAB environment. This includes repairing boot
+                issues, restoring Active Directory services, recovering Windows service
+                failures, resolving Linux filesystem problems, performing Proxmox snapshot and
+                Tier 2 VZDump backup restorations, validating enterprise application
+                functionality, and returning infrastructure systems to operational status using
+                a structured enterprise recovery methodology.
+            </p>
+
+        </div>
 
 
         <!-- ===================================================== -->
@@ -156,7 +2405,7 @@
             <a class="btn btn-primary" href="../../index.html">
                 Home
             </a>
-            <a class="btn btn-primary" href="../recovery-troubleshooting/playbook5.html">
+            <a class="btn btn-primary" href="playbook5.html">
                 Playbook 5 →
             </a>
 

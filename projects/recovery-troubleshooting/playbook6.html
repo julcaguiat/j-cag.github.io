@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Playbook 6: Power & Environment</title>
+    <title>Playbook 6: Power, Cooling & Environmental Operations</title>
 
     <link rel="stylesheet" href="../../../assets/css/style.css" />
 
@@ -122,7 +122,7 @@
             </div>
 
             <h1 class="hero-title">
-                Playbook 6: Power & Environment
+                Playbook 6: Power, Cooling & Environmental Operations
             </h1>
 
         </div>
@@ -133,16 +133,2308 @@
     <main class="kb-content">
 
 
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 6 – PART 1 -->
+        <!-- Overview, Architecture & Recovery Methodology -->
+        <!-- ========================================================= -->
 
+        <div class="step-section">
 
+            <h2>Overview</h2>
 
+            <p>
+                Enterprise infrastructure availability depends not only on network services and
+                operating systems, but also on reliable power delivery, proper environmental
+                conditions, and healthy storage devices. Unexpected power interruptions,
+                improper shutdowns, overheating, or storage degradation can affect multiple
+                services simultaneously and may result in virtual machine corruption, data loss,
+                or extended recovery operations.
+            </p>
 
+            <p>
+                This playbook documents the operational procedures used within the JCAG-LAB
+                environment to recover from power-related incidents, validate hardware health,
+                protect virtual machine storage, and safely restore enterprise services after an
+                unexpected infrastructure event.
+            </p>
 
+            <p>
+                Unlike previous playbooks that focused primarily on software and network
+                components, this playbook concentrates on the physical infrastructure supporting
+                the virtual environment, including the Proxmox host, pfSense appliance, Cisco
+                network equipment, storage tiers, and environmental operating conditions.
+                Whenever possible, procedures are based on the deployed JCAG-LAB environment
+                rather than generic enterprise examples.
+            </p>
 
+        </div>
 
+        <!-- ========================================================= -->
 
+        <div class="step-section">
 
+            <h2>Learning Objectives</h2>
 
+            <ul>
+
+                <li>Understand the physical power and environmental architecture of the JCAG-LAB environment.</li>
+
+                <li>Identify infrastructure risks associated with unexpected power loss and improper shutdowns.</li>
+
+                <li>Validate the health of storage devices supporting virtual machine workloads.</li>
+
+                <li>Perform structured recovery of infrastructure following environmental or power-related incidents.
+                </li>
+
+                <li>Verify hardware health before returning enterprise services to production.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Power &amp; Environmental Architecture within JCAG-LAB</h2>
+
+            <p>
+                The JCAG-LAB environment operates as a small enterprise-style infrastructure
+                designed to simulate production operational practices while using commodity
+                hardware. Critical services are distributed across dedicated physical systems
+                that support routing, firewall services, virtualization, monitoring, and
+                automation.
+            </p>
+
+            <pre><code>
+                     Home ISP
+                        │
+                        ▼
+              HP All-in-One (pfSense)
+                        │
+                        ▼
+               Cisco ISR 1941 Router
+                        │
+                        ▼
+             Cisco Catalyst 2960G Switch
+                        │
+       ┌────────────────┴────────────────┐
+       │                                 │
+       ▼                                 ▼
+Dell Inspiron 3650               Windows 11 Endpoint
+Proxmox Host                     Sysmon / Wazuh Agent
+       │
+       ▼
+Virtual Infrastructure
+• Windows Server 2019
+• Wazuh Manager
+• n8n Automation
+• Peppermint ITSM
+• Cisco Modeling Labs
+• Additional Lab Services
+</code></pre>
+
+            <p>
+                Because multiple enterprise services are consolidated onto the Proxmox host, the
+                availability of this system directly affects authentication, monitoring,
+                automation, virtualization, and management services throughout the lab.
+            </p>
+
+            <h3>Power Considerations</h3>
+
+            <ul>
+
+                <li>Unexpected power loss may interrupt multiple virtual machines simultaneously.</li>
+
+                <li>Improper shutdowns increase the risk of filesystem corruption.</li>
+
+                <li>Storage devices should be monitored following any abnormal shutdown.</li>
+
+                <li>Services should be restored using a documented startup sequence.</li>
+
+            </ul>
+
+            <h3>Environmental Considerations</h3>
+
+            <ul>
+
+                <li>Maintain unobstructed airflow around physical systems.</li>
+
+                <li>Prevent dust accumulation within rack-mounted equipment.</li>
+
+                <li>Monitor operating temperatures during sustained workloads.</li>
+
+                <li>Inspect cooling fans for proper operation during routine maintenance.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Storage Protection Strategy</h2>
+
+            <p>
+                The JCAG-LAB virtualization platform separates storage into three functional
+                tiers to balance performance, capacity, and recoverability. Understanding these
+                tiers is essential when performing recovery operations after hardware failures,
+                unexpected shutdowns, or storage-related incidents.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Storage Tier</th>
+
+                        <th>Purpose</th>
+
+                        <th>Primary Workloads</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Tier 0 – SSD (local-lvm)</td>
+
+                        <td>High-performance VM storage</td>
+
+                        <td>Windows Server 2019, Wazuh, n8n, Automation Services</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 1 – HDD-01 (local-lvm-hdd-01)</td>
+
+                        <td>General-purpose virtual machine storage</td>
+
+                        <td>Lab workloads and non-critical virtual machines</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 2 – HDD-02 (Directory Storage)</td>
+
+                        <td>Backup repository</td>
+
+                        <td>VZDump backups and recovery images</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Storage Design Rules</h3>
+
+            <ul>
+
+                <li>Tier 0 provides high-performance storage for latency-sensitive virtual machines.</li>
+
+                <li>Tier 1 provides additional capacity using thin provisioning where appropriate.</li>
+
+                <li>Tier 2 stores recovery data and must remain isolated from production VM storage.</li>
+
+                <li>Snapshots provide rollback capability but do not replace backups.</li>
+
+                <li>Virtual machine backups should always be written to Tier 2 storage.</li>
+
+            </ul>
+
+            <p>
+                Following storage-related incidents, administrators should validate filesystem
+                integrity, confirm virtual disk accessibility, and verify backup availability
+                before attempting service restoration.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Hardware Health Monitoring</h2>
+
+            <p>
+                Preventive monitoring allows administrators to identify degrading hardware
+                before failures affect production services. Routine health verification should
+                be incorporated into regular maintenance activities and after every unexpected
+                power event.
+            </p>
+
+            <h3>Storage Health</h3>
+
+            <p>
+                Review SMART information for physical storage devices supporting the Proxmox
+                host.
+            </p>
+
+            <pre><code>
+smartctl -a /dev/sda
+
+smartctl -a /dev/sdb
+
+smartctl -a /dev/sdc
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+SMART overall-health self-assessment test result:
+PASSED
+</code></pre>
+
+            <h3>Filesystem Capacity</h3>
+
+            <pre><code>
+df -h
+
+lsblk
+</code></pre>
+
+            <p>
+                Verify sufficient free capacity remains available on Tier 0, Tier 1, and Tier 2
+                storage before performing maintenance or backup operations.
+            </p>
+
+            <h3>Memory Utilization</h3>
+
+            <pre><code>
+free -h
+</code></pre>
+
+            <h3>Processor Utilization</h3>
+
+            <pre><code>
+top
+
+htop
+</code></pre>
+
+            <h3>Virtual Machine Status</h3>
+
+            <pre><code>
+qm list
+</code></pre>
+
+            <p>
+                Routine health monitoring helps identify abnormal resource consumption,
+                degrading storage performance, and infrastructure conditions that could lead to
+                service interruptions.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Methodology</h2>
+
+            <p>
+                Power and environmental incidents should be handled using a structured recovery
+                process that minimizes the risk of data loss while restoring enterprise services
+                in a controlled manner.
+            </p>
+
+            <pre><code>
+Power or Environmental Event
+            │
+            ▼
+Ensure Personnel Safety
+            │
+            ▼
+Assess Physical Infrastructure
+            │
+            ▼
+Verify Power Stability
+            │
+            ▼
+Inspect Hardware Components
+            │
+            ▼
+Validate Storage Health
+            │
+            ▼
+Start Proxmox Host
+            │
+            ▼
+Validate Storage Availability
+            │
+            ▼
+Start Critical Virtual Machines
+            │
+            ▼
+Verify Enterprise Services
+            │
+            ▼
+Validate Monitoring Platform
+            │
+            ▼
+Document Recovery
+            │
+            ▼
+Return Infrastructure to Production
+</code></pre>
+
+            <p>
+                Recovery activities should always begin with physical infrastructure validation
+                before restoring virtual machines. Hardware faults, unstable power, or degraded
+                storage devices should be corrected before restarting enterprise workloads to
+                prevent additional failures or data corruption.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 6 – PART 2 -->
+        <!-- Scenarios 1–3 -->
+        <!-- Unexpected Power Loss, Improper Shutdown & Proxmox Startup -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 1 – Unexpected Power Loss</h2>
+
+            <p>
+                An unexpected power outage is one of the highest-impact events that can affect
+                the JCAG-LAB infrastructure. Because multiple enterprise services are hosted on
+                a single Proxmox server, loss of power may simultaneously interrupt Active
+                Directory, DNS, DHCP, Wazuh SIEM, n8n automation, Peppermint ITSM, Cisco
+                Modeling Labs, and other virtualized services.
+            </p>
+
+            <p>
+                The objective of this scenario is to safely recover the infrastructure while
+                minimizing the risk of filesystem corruption and virtual machine damage.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>All virtual machines become unavailable.</li>
+
+                <li>Authentication services stop responding.</li>
+
+                <li>Network services become unavailable.</li>
+
+                <li>Monitoring and automation cease functioning.</li>
+
+                <li>Lab management access is lost.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Proxmox host powered off unexpectedly.</li>
+
+                <li>Virtual machines unavailable.</li>
+
+                <li>Users cannot access enterprise services.</li>
+
+                <li>Network monitoring stops receiving telemetry.</li>
+
+                <li>Management interfaces become unreachable.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Before restoring power, perform a physical inspection of the environment.
+            </p>
+
+            <ul>
+
+                <li>Verify commercial power has stabilized.</li>
+
+                <li>Inspect power cables.</li>
+
+                <li>Inspect storage devices for abnormal indicators.</li>
+
+                <li>Inspect switch and router status LEDs.</li>
+
+                <li>Confirm no burning smell or hardware damage.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Once the Proxmox host boots successfully, verify storage availability.
+            </p>
+
+            <pre><code>
+lsblk
+
+df -h
+
+pvesm status
+</code></pre>
+
+            <p>
+                Review recent system boot events.
+            </p>
+
+            <pre><code>
+journalctl -b
+
+journalctl -p err
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Commercial power interruption.</li>
+
+                <li>Accidental power removal.</li>
+
+                <li>Power strip or UPS failure.</li>
+
+                <li>Improper shutdown sequence.</li>
+
+                <li>Electrical circuit interruption.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>
+qm list
+
+systemctl status pve-cluster
+
+systemctl status pvedaemon
+
+systemctl status pveproxy
+</code></pre>
+
+            <p>
+                After confirming the Proxmox platform is healthy, restore virtual machines using
+                the documented startup sequence described later in this playbook rather than
+                starting all virtual machines simultaneously.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Proxmox host operational.</li>
+
+                <li>Storage pools available.</li>
+
+                <li>Critical virtual machines restored.</li>
+
+                <li>Network connectivity verified.</li>
+
+                <li>No storage errors detected.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 2 – Improper Shutdown Recovery</h2>
+
+            <p>
+                An improper shutdown occurs when the Proxmox host loses power before virtual
+                machines complete a graceful shutdown. Although modern filesystems reduce the
+                risk of corruption, administrators should always verify storage integrity before
+                returning services to production.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Filesystem inconsistency.</li>
+
+                <li>Virtual machine corruption.</li>
+
+                <li>Database recovery required.</li>
+
+                <li>Container services fail to start.</li>
+
+                <li>Application instability.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Unexpected filesystem repair.</li>
+
+                <li>Virtual machines fail to start.</li>
+
+                <li>Docker services unavailable.</li>
+
+                <li>Database recovery messages.</li>
+
+                <li>Application startup failures.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Review the previous boot log for abnormal shutdown events.
+            </p>
+
+            <pre><code>
+journalctl -b -1
+
+last -x
+</code></pre>
+
+            <p>
+                Verify storage utilization.
+            </p>
+
+            <pre><code>
+df -h
+
+lsblk
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review kernel messages for storage-related errors.
+            </p>
+
+            <pre><code>
+dmesg | grep -i error
+
+dmesg | grep -i ext4
+
+dmesg | grep -i xfs
+</code></pre>
+
+            <p>
+                Verify Proxmox storage status.
+            </p>
+
+            <pre><code>
+pvesm status
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Unexpected electrical outage.</li>
+
+                <li>Forced system shutdown.</li>
+
+                <li>Filesystem recovery after reboot.</li>
+
+                <li>Storage controller interruption.</li>
+
+                <li>Hardware instability.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Start critical virtual machines individually while monitoring system logs for
+                errors.
+            </p>
+
+            <pre><code>
+qm start 101
+
+qm start 105
+
+qm start 106
+
+qm start 102
+</code></pre>
+
+            <p>
+                After each virtual machine starts, verify that the guest operating system
+                completes its normal startup sequence before proceeding to the next system.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>No filesystem errors remain.</li>
+
+                <li>Virtual machines start normally.</li>
+
+                <li>Applications recover successfully.</li>
+
+                <li>Storage operates normally.</li>
+
+                <li>System logs contain no critical errors.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 3 – Proxmox Host Startup Validation</h2>
+
+            <p>
+                Following any planned maintenance or unexpected outage, the Proxmox host should
+                be validated before dependent services are restored. Verifying the
+                virtualization platform first prevents administrators from troubleshooting
+                application failures that are actually caused by underlying host problems.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Multiple enterprise services remain unavailable.</li>
+
+                <li>Virtual machines cannot be started.</li>
+
+                <li>Management access is interrupted.</li>
+
+                <li>Recovery operations delayed.</li>
+
+                <li>Infrastructure instability.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Proxmox services unavailable.</li>
+
+                <li>Web interface inaccessible.</li>
+
+                <li>Storage unavailable.</li>
+
+                <li>VM startup failures.</li>
+
+                <li>Cluster services not running.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify basic host functionality.
+            </p>
+
+            <pre><code>
+hostnamectl
+
+ip a
+
+uptime
+</code></pre>
+
+            <p>
+                Confirm Proxmox management services.
+            </p>
+
+            <pre><code>
+systemctl status pvedaemon
+
+systemctl status pveproxy
+
+systemctl status pve-cluster
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify storage availability.
+            </p>
+
+            <pre><code>
+pvesm status
+</code></pre>
+
+            <p>
+                Review virtual machine inventory.
+            </p>
+
+            <pre><code>
+qm list
+</code></pre>
+
+            <p>
+                Verify network bridge configuration.
+            </p>
+
+            <pre><code>
+ip addr
+
+bridge link
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+vmbr0
+ UP
+ 10.10.100.10/24
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Incomplete host startup.</li>
+
+                <li>Storage initialization failure.</li>
+
+                <li>Network bridge unavailable.</li>
+
+                <li>Management service failure.</li>
+
+                <li>Configuration corruption.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>
+systemctl restart pvedaemon
+
+systemctl restart pveproxy
+
+systemctl restart pve-cluster
+
+qm list
+</code></pre>
+
+            <p>
+                Once the virtualization platform has been validated, restore enterprise services
+                using the following recommended startup order:
+            </p>
+
+            <ol>
+
+                <li>Windows Server 2019 (AD DS, DNS, DHCP)</li>
+
+                <li>Wazuh Manager</li>
+
+                <li>n8n Automation Server</li>
+
+                <li>Peppermint ITSM</li>
+
+                <li>Cisco Modeling Labs</li>
+
+                <li>Remaining infrastructure services</li>
+
+            </ol>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Proxmox services operational.</li>
+
+                <li>Storage pools online.</li>
+
+                <li>Network bridges functioning.</li>
+
+                <li>Virtual machines started successfully.</li>
+
+                <li>Enterprise infrastructure restored.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 6 – PART 3 -->
+        <!-- Scenarios 4–6 -->
+        <!-- Storage Tier Recovery -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 4 – SSD Tier 0 Health Degradation</h2>
+
+            <p>
+                Tier 0 (<strong>local-lvm</strong>) provides high-performance storage for the
+                most critical virtual machines within the JCAG-LAB environment, including
+                Windows Server 2019, Wazuh SIEM, and n8n Automation. Because these workloads are
+                latency-sensitive, degradation of the SSD storage pool can directly impact
+                authentication, monitoring, and automation services.
+            </p>
+
+            <p>
+                Unlike sudden disk failures, SSD degradation typically presents as increasing
+                I/O latency, SMART warnings, or media wear indicators before complete failure.
+                Routine monitoring allows administrators to replace storage before production
+                services are affected.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Critical virtual machines experience degraded performance.</li>
+
+                <li>Authentication services become slower.</li>
+
+                <li>Monitoring latency increases.</li>
+
+                <li>Automation workflows are delayed.</li>
+
+                <li>Potential virtual machine storage corruption.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>High disk latency.</li>
+
+                <li>SMART health warnings.</li>
+
+                <li>Slow virtual machine response.</li>
+
+                <li>I/O timeout messages.</li>
+
+                <li>Storage-related kernel errors.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify the current status of all Proxmox storage pools.
+            </p>
+
+            <pre><code>
+pvesm status
+</code></pre>
+
+            <p>
+                Review filesystem utilization.
+            </p>
+
+            <pre><code>
+df -h
+
+lsblk
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review SMART health information for the SSD device.
+            </p>
+
+            <pre><code>
+smartctl -a /dev/sda
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+SMART overall-health self-assessment test result:
+PASSED
+</code></pre>
+
+            <p>
+                Review kernel messages for storage-related errors.
+            </p>
+
+            <pre><code>
+dmesg | grep -i nvme
+
+dmesg | grep -i sata
+
+dmesg | grep -i error
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>SSD wear approaching end-of-life.</li>
+
+                <li>I/O errors.</li>
+
+                <li>Controller communication problems.</li>
+
+                <li>Insufficient available storage.</li>
+
+                <li>Hardware degradation.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                If SMART indicates hardware degradation, immediately verify the availability of
+                Tier 2 backups before scheduling storage replacement. Avoid performing
+                additional write-intensive maintenance on a failing SSD.
+            </p>
+
+            <pre><code>
+pvesm status
+
+ls /var/lib/vz/dump/
+
+qm list
+</code></pre>
+
+            <p>
+                Following storage replacement, restore affected virtual machines from validated
+                backups if required.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>SMART health verified.</li>
+
+                <li>No storage errors reported.</li>
+
+                <li>Critical virtual machines operating normally.</li>
+
+                <li>Tier 0 performance restored.</li>
+
+                <li>Backups confirmed current.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 5 – HDD Tier 1 Capacity or Disk Failure</h2>
+
+            <p>
+                Tier 1 (<strong>local-lvm-hdd-01</strong>) provides general-purpose virtual
+                machine storage for non-critical workloads and laboratory systems. Thin
+                provisioning allows efficient utilization of storage capacity, but excessive
+                overcommitment or physical disk failure may prevent additional virtual machine
+                operations.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>General-purpose virtual machines unavailable.</li>
+
+                <li>Storage allocation failures.</li>
+
+                <li>Virtual machine startup failures.</li>
+
+                <li>Reduced laboratory capacity.</li>
+
+                <li>Performance degradation.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Storage pool nearing capacity.</li>
+
+                <li>Virtual machine disk allocation failures.</li>
+
+                <li>I/O performance decreases.</li>
+
+                <li>SMART warnings.</li>
+
+                <li>Storage pool unavailable.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Review storage utilization.
+            </p>
+
+            <pre><code>
+df -h
+
+pvesm status
+
+lvs
+
+vgs
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review logical volume utilization.
+            </p>
+
+            <pre><code>
+lvs
+
+vgs
+
+pvs
+</code></pre>
+
+            <p>
+                Inspect disk health.
+            </p>
+
+            <pre><code>
+smartctl -a /dev/sdb
+</code></pre>
+
+            <p>
+                Review kernel logs.
+            </p>
+
+            <pre><code>
+journalctl -k
+
+dmesg | grep -i error
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Storage pool exhausted.</li>
+
+                <li>Thin provisioning overcommitment.</li>
+
+                <li>Physical disk failure.</li>
+
+                <li>Logical volume corruption.</li>
+
+                <li>Controller communication problems.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Recover available storage by removing unnecessary virtual machine snapshots,
+                archiving obsolete laboratory virtual machines, or expanding the storage pool
+                using additional capacity where appropriate.
+            </p>
+
+            <pre><code>
+qm listsnapshot &lt;VMID&gt;
+
+pvesm status
+
+df -h
+</code></pre>
+
+            <p>
+                If the physical disk has failed, migrate recoverable workloads from validated
+                Tier 2 backups after replacing the storage device.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Storage capacity restored.</li>
+
+                <li>Logical volumes healthy.</li>
+
+                <li>Virtual machines operational.</li>
+
+                <li>No storage allocation errors.</li>
+
+                <li>Storage pool stable.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 6 – Tier 2 Backup Storage Unavailable</h2>
+
+            <p>
+                Tier 2 consists of dedicated directory storage used exclusively for VZDump
+                virtual machine backups and recovery images. Because this storage contains the
+                primary recovery data for the JCAG-LAB environment, its availability must be
+                verified before any maintenance activity or break/fix exercise begins.
+            </p>
+
+            <p>
+                Unlike Tier 0 and Tier 1, Tier 2 should never host running virtual machines.
+                Its sole purpose is to preserve recoverable backup data independent of
+                production storage.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>New backups cannot be created.</li>
+
+                <li>Recovery operations become impossible.</li>
+
+                <li>Maintenance activities should be postponed.</li>
+
+                <li>Disaster recovery readiness reduced.</li>
+
+                <li>Infrastructure risk increases.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Backup jobs fail.</li>
+
+                <li>Directory storage unavailable.</li>
+
+                <li>Backup repository not mounted.</li>
+
+                <li>Missing VZDump archives.</li>
+
+                <li>Storage permission errors.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Verify the backup storage configuration.
+            </p>
+
+            <pre><code>
+pvesm status
+</code></pre>
+
+            <p>
+                Verify backup repository availability.
+            </p>
+
+            <pre><code>
+ls -lh /var/lib/vz/dump/
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+vzdump-qemu-101-2026_06_20.vma.zst
+
+vzdump-qemu-105-2026_06_20.vma.zst
+</code></pre>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review mounted filesystems.
+            </p>
+
+            <pre><code>
+mount
+
+df -h
+</code></pre>
+
+            <p>
+                Review storage configuration.
+            </p>
+
+            <pre><code>
+cat /etc/pve/storage.cfg
+</code></pre>
+
+            <p>
+                Review backup task history.
+            </p>
+
+            <pre><code>
+journalctl | grep vzdump
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Directory storage unavailable.</li>
+
+                <li>Filesystem not mounted.</li>
+
+                <li>Storage permissions incorrect.</li>
+
+                <li>Disk failure.</li>
+
+                <li>Backup repository accidentally deleted.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restore access to the backup repository before performing any additional
+                maintenance. Confirm that recent VZDump archives remain readable and initiate a
+                new backup to validate repository functionality.
+            </p>
+
+            <pre><code>
+ls -lh /var/lib/vz/dump/
+
+vzdump 101 \
+--mode snapshot \
+--compress zstd \
+--storage backup-directory
+</code></pre>
+
+            <p>
+                Replace <strong>backup-directory</strong> with the storage identifier defined in
+                the Proxmox storage configuration for Tier 2.
+            </p>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Tier 2 storage online.</li>
+
+                <li>Backup repository accessible.</li>
+
+                <li>Existing backup archives verified.</li>
+
+                <li>New VZDump backup completed successfully.</li>
+
+                <li>Recovery capability fully restored.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 6 – PART 4 -->
+        <!-- Scenarios 7–10 -->
+        <!-- Cooling, UPS, Hardware Health & Infrastructure Startup -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 7 – High Temperature / Cooling Validation</h2>
+
+            <p>
+                Although the JCAG-LAB environment operates on enterprise-inspired hardware
+                within a home laboratory, thermal management remains critical for maintaining
+                hardware reliability. Elevated operating temperatures may reduce component life,
+                increase storage errors, cause processor throttling, and ultimately result in
+                unexpected service interruptions.
+            </p>
+
+            <p>
+                Administrators should routinely inspect airflow, verify cooling fans, monitor
+                system temperatures, and remove dust accumulation during scheduled maintenance
+                windows.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Reduced hardware lifespan.</li>
+
+                <li>Processor thermal throttling.</li>
+
+                <li>Storage performance degradation.</li>
+
+                <li>Unexpected system shutdown.</li>
+
+                <li>Service instability.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>High CPU temperature.</li>
+
+                <li>Cooling fans operating continuously.</li>
+
+                <li>System performance degradation.</li>
+
+                <li>Unexpected thermal warnings.</li>
+
+                <li>Automatic shutdown due to overheating.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Perform a physical inspection before investigating software.
+            </p>
+
+            <ul>
+
+                <li>Verify unobstructed airflow.</li>
+
+                <li>Inspect intake and exhaust vents.</li>
+
+                <li>Confirm all cooling fans are operational.</li>
+
+                <li>Check for excessive dust accumulation.</li>
+
+                <li>Verify room ventilation.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Review hardware sensor information where available.
+            </p>
+
+            <pre><code>
+sensors
+
+lm-sensors
+</code></pre>
+
+            <p>
+                Review processor utilization.
+            </p>
+
+            <pre><code>
+top
+
+htop
+</code></pre>
+
+            <p>
+                Review kernel logs for thermal events.
+            </p>
+
+            <pre><code>
+journalctl -k
+
+dmesg | grep -i thermal
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Restricted airflow.</li>
+
+                <li>Dust accumulation.</li>
+
+                <li>High ambient temperature.</li>
+
+                <li>Cooling fan failure.</li>
+
+                <li>Sustained processor utilization.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Restore adequate airflow.</li>
+
+                <li>Clean ventilation openings.</li>
+
+                <li>Reduce workload if necessary.</li>
+
+                <li>Verify cooling fans.</li>
+
+                <li>Continue monitoring temperatures.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Temperatures within normal operating range.</li>
+
+                <li>No thermal events reported.</li>
+
+                <li>Processor operating normally.</li>
+
+                <li>Stable infrastructure performance.</li>
+
+                <li>Services fully operational.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 8 – Controlled Shutdown Procedure (Future UPS Integration)</h2>
+
+            <p>
+                The current JCAG-LAB environment does not yet include a dedicated UPS.
+                Consequently, power interruptions require manual recovery. Until a UPS is
+                deployed, administrators should follow a documented controlled shutdown
+                procedure whenever planned maintenance or electrical work is performed.
+            </p>
+
+            <p>
+                When a UPS is implemented in the future, this procedure can be expanded to
+                include automated graceful shutdown of the Proxmox host and virtual machines
+                during extended power outages.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Improper shutdown may corrupt virtual machines.</li>
+
+                <li>Databases may require recovery.</li>
+
+                <li>Filesystem consistency checks increase recovery time.</li>
+
+                <li>Multiple enterprise services become unavailable.</li>
+
+                <li>Recovery operations become more complex.</li>
+
+            </ul>
+
+            <h3>Controlled Shutdown Procedure</h3>
+
+            <p>
+                Gracefully stop critical virtual machines in dependency order.
+            </p>
+
+            <pre><code>
+qm shutdown 102
+
+qm shutdown 106
+
+qm shutdown 105
+
+qm shutdown 101
+</code></pre>
+
+            <p>
+                Verify that all virtual machines have stopped.
+            </p>
+
+            <pre><code>
+qm list
+</code></pre>
+
+            <p>
+                Shutdown the Proxmox host.
+            </p>
+
+            <pre><code>
+shutdown -h now
+</code></pre>
+
+            <h3>Future UPS Workflow</h3>
+
+            <pre><code>
+Commercial Power Lost
+          │
+          ▼
+UPS Battery Activated
+          │
+          ▼
+Battery Runtime Monitored
+          │
+          ▼
+Graceful VM Shutdown
+          │
+          ▼
+Proxmox Shutdown
+          │
+          ▼
+Power Restored
+          │
+          ▼
+Controlled Infrastructure Startup
+</code></pre>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Virtual machines shut down gracefully.</li>
+
+                <li>No forced power-off occurred.</li>
+
+                <li>Storage remained consistent.</li>
+
+                <li>Infrastructure ready for startup.</li>
+
+                <li>No unexpected filesystem recovery required.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 9 – Hardware Health Validation</h2>
+
+            <p>
+                Following recovery from any power or environmental event, administrators should
+                perform a comprehensive hardware health assessment before returning production
+                services to normal operation.
+            </p>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify processor utilization.
+            </p>
+
+            <pre><code>
+top
+</code></pre>
+
+            <p>
+                Verify memory utilization.
+            </p>
+
+            <pre><code>
+free -h
+</code></pre>
+
+            <p>
+                Verify storage capacity.
+            </p>
+
+            <pre><code>
+df -h
+
+lsblk
+</code></pre>
+
+            <p>
+                Verify storage health.
+            </p>
+
+            <pre><code>
+smartctl -a /dev/sda
+
+smartctl -a /dev/sdb
+
+smartctl -a /dev/sdc
+</code></pre>
+
+            <p>
+                Verify virtualization platform status.
+            </p>
+
+            <pre><code>
+pvesm status
+
+qm list
+</code></pre>
+
+            <h3>Hardware Validation Matrix</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Component</th>
+
+                        <th>Validation Method</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>CPU</td>
+
+                        <td>top / htop</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Memory</td>
+
+                        <td>free -h</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 0 SSD</td>
+
+                        <td>SMART Status</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 1 HDD</td>
+
+                        <td>SMART Status</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tier 2 Backup Storage</td>
+
+                        <td>Repository Verification</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Proxmox Storage</td>
+
+                        <td>pvesm status</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Virtual Machines</td>
+
+                        <td>qm list</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>No hardware faults detected.</li>
+
+                <li>SMART reports healthy devices.</li>
+
+                <li>Storage pools online.</li>
+
+                <li>Virtualization platform operational.</li>
+
+                <li>Infrastructure ready for production.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 10 – Complete Infrastructure Startup Sequence</h2>
+
+            <p>
+                Following planned maintenance, unexpected power loss, or environmental recovery,
+                enterprise services should be restored in dependency order. Starting
+                infrastructure sequentially reduces service initialization errors and allows
+                administrators to verify each layer before proceeding.
+            </p>
+
+            <h3>Recommended Startup Sequence</h3>
+
+            <pre><code>
+1.
+Proxmox Host
+
+        │
+        ▼
+
+2.
+Tier 0 / Tier 1 / Tier 2 Storage Validation
+
+        │
+        ▼
+
+3.
+Windows Server 2019
+(AD DS / DNS / DHCP)
+
+        │
+        ▼
+
+4.
+Wazuh Manager
+
+        │
+        ▼
+
+5.
+n8n Automation
+
+        │
+        ▼
+
+6.
+Peppermint ITSM
+
+        │
+        ▼
+
+7.
+Cisco Modeling Labs
+
+        │
+        ▼
+
+8.
+Remaining Virtual Machines
+
+        │
+        ▼
+
+9.
+Windows Endpoints
+
+        │
+        ▼
+
+10.
+Validate Monitoring &
+Enterprise Services
+</code></pre>
+
+            <h3>Operational Verification</h3>
+
+            <pre><code>
+qm list
+
+systemctl status pvedaemon
+
+systemctl status pveproxy
+
+systemctl status pve-cluster
+
+pvesm status
+</code></pre>
+
+            <p>
+                Verify network connectivity.
+            </p>
+
+            <pre><code>
+ping 10.10.100.11
+
+ping 10.10.100.12
+
+ping 10.10.100.15
+
+ping 10.10.100.16
+</code></pre>
+
+            <p>
+                Confirm application availability.
+            </p>
+
+            <ul>
+
+                <li>Active Directory operational.</li>
+
+                <li>DNS resolution functioning.</li>
+
+                <li>DHCP leases issued correctly.</li>
+
+                <li>Wazuh receiving telemetry.</li>
+
+                <li>n8n workflows available.</li>
+
+                <li>Peppermint accessible.</li>
+
+                <li>CML operational.</li>
+
+            </ul>
+
+            <h3>Validation</h3>
+
+            <ul>
+
+                <li>Infrastructure started in dependency order.</li>
+
+                <li>All virtual machines operational.</li>
+
+                <li>Enterprise services validated.</li>
+
+                <li>Monitoring platform healthy.</li>
+
+                <li>JCAG-LAB fully restored to production.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 6 – PART 5 -->
+        <!-- Operational Recovery Workflow -->
+        <!-- Practical Exercise -->
+        <!-- Recovery Checklist -->
+        <!-- Key Takeaways -->
+        <!-- Playbook Completion Outcome -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Operational Recovery Workflow</h2>
+
+            <p>
+                Power, environmental, and storage incidents should be handled using a structured
+                recovery methodology that prioritizes personnel safety, infrastructure
+                stability, and data integrity. Rather than immediately powering systems back on,
+                administrators should first verify physical conditions, inspect storage health,
+                and confirm that the virtualization platform is capable of safely hosting
+                enterprise workloads.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, a single Proxmox host supports multiple
+                enterprise services. Consequently, failures affecting the physical host have a
+                direct impact on Active Directory, DNS, DHCP, monitoring, automation, and
+                incident management services. Following a documented recovery sequence reduces
+                the likelihood of introducing additional failures during restoration.
+            </p>
+
+            <pre><code>
+Power / Environmental Event
+           │
+           ▼
+Ensure Personnel Safety
+           │
+           ▼
+Verify Stable Power Source
+           │
+           ▼
+Inspect Physical Hardware
+           │
+           ▼
+Verify Cooling & Airflow
+           │
+           ▼
+Validate Tier 0 SSD Health
+           │
+           ▼
+Validate Tier 1 HDD Health
+           │
+           ▼
+Verify Tier 2 Backup Availability
+           │
+           ▼
+Start Proxmox Host
+           │
+           ▼
+Validate Storage Pools
+           │
+           ▼
+Start Windows Server 2019
+           │
+           ▼
+Start Wazuh Manager
+           │
+           ▼
+Start n8n Automation
+           │
+           ▼
+Start Peppermint ITSM
+           │
+           ▼
+Start Remaining Virtual Machines
+           │
+           ▼
+Validate Enterprise Services
+           │
+           ▼
+Document Recovery
+           │
+           ▼
+Return JCAG-LAB to Production
+</code></pre>
+
+            <p>
+                Every recovery activity should conclude with complete operational validation to
+                ensure that all physical infrastructure, virtualization services, enterprise
+                applications, and monitoring components are functioning as expected before the
+                environment is considered fully restored.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercise</h2>
+
+            <h3>Exercise 1 – Validate Proxmox Host After an Unexpected Shutdown</h3>
+
+            <p>
+                Simulate recovery following an unexpected shutdown by validating the Proxmox
+                host before starting any virtual machines.
+            </p>
+
+            <pre><code>
+hostnamectl
+
+uptime
+
+pvesm status
+
+qm list
+
+systemctl status pvedaemon
+
+systemctl status pveproxy
+
+systemctl status pve-cluster
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Host uptime after recovery.</li>
+
+                <li>Storage pool status.</li>
+
+                <li>Virtual machine inventory.</li>
+
+                <li>Management service status.</li>
+
+                <li>Overall host readiness.</li>
+
+            </ul>
+
+            <h3>Exercise 2 – Validate the Three-Tier Storage Architecture</h3>
+
+            <p>
+                Verify the operational status of Tier 0, Tier 1, and Tier 2 storage before
+                performing backup or maintenance operations.
+            </p>
+
+            <pre><code>
+pvesm status
+
+df -h
+
+lsblk
+
+smartctl -a /dev/sda
+
+smartctl -a /dev/sdb
+
+smartctl -a /dev/sdc
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Tier 0 SSD health.</li>
+
+                <li>Tier 1 HDD capacity.</li>
+
+                <li>Tier 2 backup repository availability.</li>
+
+                <li>SMART assessment results.</li>
+
+                <li>Recommended maintenance actions.</li>
+
+            </ul>
+
+            <h3>Exercise 3 – Validate Complete Infrastructure Startup</h3>
+
+            <p>
+                Perform the documented startup sequence and verify that dependent services
+                become available in the proper order.
+            </p>
+
+            <pre><code>
+qm start 101
+
+qm start 105
+
+qm start 106
+
+qm start 102
+
+qm list
+</code></pre>
+
+            <p>
+                Validate enterprise services.
+            </p>
+
+            <pre><code>
+ping 10.10.100.11
+
+ping 10.10.100.12
+
+ping 10.10.100.15
+
+ping 10.10.100.16
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Startup sequence followed.</li>
+
+                <li>Virtual machine startup times.</li>
+
+                <li>Enterprise services restored.</li>
+
+                <li>Monitoring platform operational.</li>
+
+                <li>Recovery observations.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recovery Task</th>
+
+                        <th>Verification Command / Tool</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Verify stable power</td>
+
+                        <td>Physical inspection</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Inspect cooling and airflow</td>
+
+                        <td>Visual inspection</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Proxmox host</td>
+
+                        <td><code>hostnamectl</code>, <code>uptime</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify Proxmox services</td>
+
+                        <td><code>systemctl status pvedaemon pveproxy pve-cluster</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify storage pools</td>
+
+                        <td><code>pvesm status</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review filesystem capacity</td>
+
+                        <td><code>df -h</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Review storage devices</td>
+
+                        <td><code>lsblk</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify SMART health</td>
+
+                        <td><code>smartctl -a /dev/sdX</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify virtual machine inventory</td>
+
+                        <td><code>qm list</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Start enterprise services</td>
+
+                        <td><code>qm start &lt;VMID&gt;</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify enterprise connectivity</td>
+
+                        <td><code>ping</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate Wazuh monitoring</td>
+
+                        <td>Wazuh Dashboard</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate automation platform</td>
+
+                        <td>n8n Web Interface</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Validate incident platform</td>
+
+                        <td>Peppermint Dashboard</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Verify backup repository</td>
+
+                        <td><code>ls /var/lib/vz/dump</code></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Complete incident documentation</td>
+
+                        <td>Recovery Log</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Power and environmental incidents should always be addressed by validating physical infrastructure
+                    before restoring virtualized services.</li>
+
+                <li>The three-tier storage architecture supports both performance and recoverability; Tier 0 provides
+                    high-performance VM storage, Tier 1 provides capacity for general workloads, and Tier 2 preserves
+                    VZDump backups required for disaster recovery.</li>
+
+                <li>Routine hardware monitoring using SMART diagnostics, storage utilization reviews, and Proxmox health
+                    checks helps identify potential failures before they affect enterprise services.</li>
+
+                <li>Virtual machines should be restored in dependency order, beginning with Windows Server 2019
+                    infrastructure services, followed by monitoring, automation, and supporting applications.</li>
+
+                <li>Comprehensive post-rerecovery validation ensures that the JCAG-LAB environment is stable,
+                    recoverable, and fully operational before normal operations resume.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                Upon completion of this playbook: Capable of responding to
+                power, environmental, and storage-related incidents affecting the JCAG-LAB
+                environment. This includes recovering from unexpected power loss, validating
+                Proxmox host integrity, monitoring hardware health, protecting the three-tier
+                storage architecture, restoring enterprise services using the documented startup
+                sequence, verifying infrastructure stability, and returning the virtualization
+                platform and supporting enterprise services to full operational status using
+                structured recovery procedures.
+            </p>
+
+        </div>
 
         <!-- ===================================================== -->
         <!-- PAGE NAVIGATION -->
@@ -156,7 +2448,7 @@
             <a class="btn btn-primary" href="../../index.html">
                 Home
             </a>
-            <a class="btn btn-primary" href="../recovery-troubleshooting/playbook7.html">
+            <a class="btn btn-primary" href="playbook7.html">
                 Playbook 7 →
             </a>
 
