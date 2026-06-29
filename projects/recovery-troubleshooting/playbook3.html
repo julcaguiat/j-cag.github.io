@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Playbook 3: Network Infrastructure & Connectivity Recovery</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                Infrastructure Recovery & Troubleshooting
+            </div>
+
+            <h1 class="hero-title">
+                Playbook 3: Network Infrastructure & Connectivity Recovery
+            </h1>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 3 – PART 1 -->
+        <!-- Network Infrastructure & Connectivity Recovery -->
+        <!-- Overview, Objectives, Architecture & Methodology -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                This playbook documents the operational procedures used to diagnose and recover
+                network infrastructure failures within the deployed JCAG-LAB enterprise
+                environment. The procedures focus on Layer 1 through Layer 3 connectivity,
+                providing a structured methodology for identifying network outages, isolating
+                fault domains, restoring services, and validating operational functionality.
+            </p>
+
+            <p>
+                Unlike the previous playbook, which focused on physical infrastructure and
+                structured cabling, this playbook begins once physical connectivity has been
+                verified. The emphasis shifts toward logical network operation including VLAN
+                segmentation, inter-VLAN routing, gateway accessibility, DHCP services, DNS
+                resolution, management connectivity, and WAN access through the pfSense
+                firewall.
+            </p>
+
+            <p>
+                All scenarios are performed against the production-style JCAG-LAB
+                infrastructure whenever practical. Failures are introduced in a controlled
+                manner and are immediately recoverable through documented operational
+                procedures.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Learning Objectives</h2>
+
+            <ul>
+
+                <li>Verify Layer 1 through Layer 3 connectivity using structured troubleshooting procedures.</li>
+
+                <li>Diagnose VLAN, trunk, and inter-VLAN routing failures.</li>
+
+                <li>Validate DHCP, DNS, and default gateway operation across multiple VLANs.</li>
+
+                <li>Restore network connectivity following configuration or infrastructure failures.</li>
+
+                <li>Document recovery activities using standardized operational procedures.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>JCAG-LAB Network Architecture</h2>
+
+            <p>
+                The enterprise network deployed within JCAG-LAB follows a segmented campus
+                design consisting of dedicated user, server, and management networks connected
+                through Router-on-a-Stick routing implemented on a Cisco ISR 1941 router.
+                Internet connectivity is provided by a dedicated pfSense firewall positioned at
+                the network edge.
+            </p>
+
+            <pre><code>
+                    Internet
+                        │
+                        ▼
+                 Home ISP Router
+                        │
+                        ▼
+          pfSense Firewall (10.10.255.1)
+                        │
+                 WAN Transit Network
+                 10.10.255.0/24
+                        │
+                        ▼
+          Cisco ISR1941 (10.10.255.2)
+         Router-on-a-Stick (802.1Q)
+                        │
+                 Trunk Interface
+                        │
+                        ▼
+          Cisco Catalyst 2960G Switch
+      ┌──────────┬──────────┬──────────┬──────────┐
+      │          │          │          │
+      ▼          ▼          ▼          ▼
+ VLAN 10      VLAN 30    VLAN 99    VLAN 100
+ Sales         IT        Management   Servers
+
+                 Windows Server 2019
+                 Proxmox VE
+                 Wazuh Manager
+                 Peppermint
+                 n8n
+                 Windows & Linux Endpoints
+</code></pre>
+
+            <p>
+                This architecture provides logical segmentation between user workstations,
+                administrative systems, and enterprise services while allowing controlled
+                communication through the Cisco ISR 1941 router.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Enterprise Network Inventory</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Component</th>
+
+                        <th>Purpose</th>
+
+                        <th>Primary Network</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>pfSense Firewall</td>
+
+                        <td>Internet gateway and perimeter firewall</td>
+
+                        <td>WAN Transit (10.10.255.1)</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cisco ISR 1941</td>
+
+                        <td>Router-on-a-Stick inter-VLAN routing</td>
+
+                        <td>10.10.255.2</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cisco Catalyst 2960G</td>
+
+                        <td>Enterprise Layer 2 switching</td>
+
+                        <td>Multiple VLANs</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Windows Server 2019</td>
+
+                        <td>Active Directory, DNS, DHCP, SMB</td>
+
+                        <td>VLAN 100</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Proxmox VE</td>
+
+                        <td>Virtualization platform</td>
+
+                        <td>VLAN 100</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Wazuh Manager</td>
+
+                        <td>Security monitoring platform</td>
+
+                        <td>VLAN 100</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Peppermint</td>
+
+                        <td>Incident management platform</td>
+
+                        <td>VLAN 100</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>n8n</td>
+
+                        <td>Automation workflows</td>
+
+                        <td>VLAN 100</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Operational Troubleshooting Methodology</h2>
+
+            <p>
+                Every network incident should be investigated using the same structured
+                workflow. Beginning with the physical layer minimizes unnecessary configuration
+                changes and ensures that each failure domain is validated before progressing to
+                the next layer of the network stack.
+            </p>
+
+            <pre><code>
+User Report / Monitoring Alert
+            │
+            ▼
+Verify Physical Connectivity
+            │
+            ▼
+Verify Switch Interface Status
+            │
+            ▼
+Verify VLAN Assignment
+            │
+            ▼
+Verify Trunk Operation
+            │
+            ▼
+Verify Router Interfaces
+            │
+            ▼
+Verify Gateway Reachability
+            │
+            ▼
+Verify DHCP & DNS Services
+            │
+            ▼
+Restore Network Services
+            │
+            ▼
+Validate Connectivity
+            │
+            ▼
+Document Incident
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Network Verification Baseline</h2>
+
+            <p>
+                Before troubleshooting a reported network failure, establish the current
+                operational baseline of the affected infrastructure. Confirm device status,
+                interface availability, VLAN assignments, routing functionality, and endpoint
+                configuration before implementing corrective actions.
+            </p>
+
+            <h3>Verify Switch Status</h3>
+
+            <pre><code>
+show interfaces status
+
+show vlan brief
+
+show interfaces trunk
+</code></pre>
+
+            <h3>Verify Router Interfaces</h3>
+
+            <pre><code>
+show ip interface brief
+
+show ip route
+
+show running-config
+</code></pre>
+
+            <h3>Verify Endpoint Configuration (Windows)</h3>
+
+            <pre><code>
+ipconfig /all
+
+ping 10.10.10.1
+
+ping 10.10.100.11
+
+nslookup jcag-lab.local
+</code></pre>
+
+            <h3>Verify Endpoint Configuration (Linux)</h3>
+
+            <pre><code>
+ip addr
+
+ip route
+
+ping 10.10.10.1
+
+ping 10.10.100.11
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Switch Ports ............. Operational
+Trunk Interface .......... Forwarding
+Router Subinterfaces ..... Up
+Default Gateway .......... Reachable
+DHCP Lease ............... Valid
+DNS Resolution ........... Successful
+Inter-VLAN Routing ....... Operational
+</code></pre>
+
+            <p>
+                This baseline serves as the reference point for all subsequent recovery
+                procedures documented throughout this playbook.
+            </p>
+
+        </div>
+
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 3 – PART 2 -->
+        <!-- Scenarios 1–3 -->
+        <!-- Default Gateway, VLAN & Inter-VLAN Routing Recovery -->
+        <!-- ========================================================= -->
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 1 – Default Gateway Unreachable</h2>
+
+            <p>
+                A workstation reports that local network resources remain accessible, but
+                devices outside the local subnet cannot be reached. Internet access is
+                unavailable and communication with systems located on other VLANs fails.
+                Within the JCAG-LAB environment, this typically indicates a problem with the
+                configured default gateway, Router-on-a-Stick subinterfaces, switch VLAN
+                assignment, or the physical uplink between the Cisco Catalyst 2960G and the
+                Cisco ISR 1941 router.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Loss of inter-VLAN communication.</li>
+
+                <li>Internet connectivity unavailable.</li>
+
+                <li>Access to enterprise services on VLAN 100 interrupted.</li>
+
+                <li>Remote management functions unavailable.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Local devices respond normally.</li>
+
+                <li>Unable to reach 10.10.100.11 (Windows Server).</li>
+
+                <li>Unable to reach pfSense gateway.</li>
+
+                <li>Internet connectivity unavailable.</li>
+
+            </ul>
+
+            <h3>Initial Assessment</h3>
+
+            <p>
+                Determine whether the issue affects a single endpoint, an entire VLAN, or all
+                network segments. Confirm whether other hosts within VLAN 10 experience the
+                same behavior before proceeding.
+            </p>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify endpoint addressing.
+            </p>
+
+            <pre><code>
+ipconfig /all
+</code></pre>
+
+            <p>
+                Example output:
+            </p>
+
+            <pre><code>
+IPv4 Address . . . . . . : 10.10.10.25
+Subnet Mask . . . . . .  : 255.255.255.0
+Default Gateway . . . .  : 10.10.10.1
+DNS Server . . . . . . . : 10.10.100.11
+</code></pre>
+
+            <p>
+                Test gateway connectivity.
+            </p>
+
+            <pre><code>
+ping 10.10.10.1
+</code></pre>
+
+            <p>
+                Verify router interfaces.
+            </p>
+
+            <pre><code>
+show ip interface brief
+</code></pre>
+
+            <p>
+                Example output:
+            </p>
+
+            <pre><code>
+GigabitEthernet0/1.10    up    up
+GigabitEthernet0/1.30    up    up
+GigabitEthernet0/1.99    up    up
+GigabitEthernet0/1.100   up    up
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Incorrect default gateway configured.</li>
+
+                <li>Router subinterface administratively down.</li>
+
+                <li>Incorrect native VLAN.</li>
+
+                <li>Trunk failure between switch and router.</li>
+
+                <li>Switch access port assigned to incorrect VLAN.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Correct endpoint gateway if necessary.
+            </p>
+
+            <p>
+                Verify router subinterfaces.
+            </p>
+
+            <pre><code>
+show running-config interface g0/1.10
+
+show running-config interface g0/1.30
+
+show running-config interface g0/1.100
+</code></pre>
+
+            <p>
+                Verify switch trunk.
+            </p>
+
+            <pre><code>
+show interfaces trunk
+</code></pre>
+
+            <p>
+                Validate end-to-end connectivity.
+            </p>
+
+            <pre><code>
+ping 10.10.100.11
+
+ping 10.10.255.1
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 2 – VLAN Communication Failure</h2>
+
+            <p>
+                Endpoints connected to the Cisco Catalyst 2960G are unable to communicate with
+                other devices assigned to the same VLAN. The failure is isolated to a specific
+                broadcast domain while other VLANs continue operating normally.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Departmental communications interrupted.</li>
+
+                <li>File services unavailable.</li>
+
+                <li>Authentication requests fail.</li>
+
+                <li>Reduced productivity for affected users.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Hosts receive valid IP addresses.</li>
+
+                <li>Unable to ping neighboring systems on the same VLAN.</li>
+
+                <li>Switch interfaces operational.</li>
+
+                <li>No inter-VLAN failures observed.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify VLAN database.
+            </p>
+
+            <pre><code>
+show vlan brief
+</code></pre>
+
+            <p>
+                Example output:
+            </p>
+
+            <pre><code>
+VLAN Name           Status
+
+10   Sales          active
+
+30   IT             active
+
+99   Management     active
+
+100  Servers        active
+</code></pre>
+
+            <p>
+                Verify switch interface assignment.
+            </p>
+
+            <pre><code>
+show interfaces switchport
+</code></pre>
+
+            <p>
+                Inspect MAC address learning.
+            </p>
+
+            <pre><code>
+show mac address-table dynamic
+</code></pre>
+
+            <p>
+                Verify interface status.
+            </p>
+
+            <pre><code>
+show interfaces status
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Incorrect access VLAN assignment.</li>
+
+                <li>Interface shutdown.</li>
+
+                <li>Duplicate VLAN configuration.</li>
+
+                <li>MAC address learning failure.</li>
+
+                <li>Incorrect patch panel termination.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Assign the correct VLAN.
+            </p>
+
+            <pre><code>
+configure terminal
+
+interface fa0/10
+
+switchport mode access
+
+switchport access vlan 10
+
+no shutdown
+
+end
+</code></pre>
+
+            <p>
+                Verify operation.
+            </p>
+
+            <pre><code>
+show vlan brief
+
+show interfaces status
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 3 – Inter-VLAN Routing Failure</h2>
+
+            <p>
+                Devices communicate successfully within their local VLAN but are unable to
+                reach systems located in other VLANs. In the JCAG-LAB environment this usually
+                indicates a Router-on-a-Stick configuration issue on the Cisco ISR 1941 or an
+                802.1Q trunk failure between the router and the Catalyst 2960G switch.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Users cannot access Windows Server services.</li>
+
+                <li>Administrative systems become unreachable.</li>
+
+                <li>Monitoring platforms cannot collect endpoint telemetry.</li>
+
+                <li>Enterprise applications become unavailable.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Gateway reachable.</li>
+
+                <li>Local VLAN communication functional.</li>
+
+                <li>Cross-VLAN communication fails.</li>
+
+                <li>Windows Server inaccessible from user VLANs.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify routing table.
+            </p>
+
+            <pre><code>
+show ip route
+</code></pre>
+
+            <p>
+                Verify subinterfaces.
+            </p>
+
+            <pre><code>
+show running-config interface g0/1.10
+
+show running-config interface g0/1.30
+
+show running-config interface g0/1.99
+
+show running-config interface g0/1.100
+</code></pre>
+
+            <p>
+                Verify encapsulation.
+            </p>
+
+            <pre><code>
+show running-config | section interface GigabitEthernet0/1
+</code></pre>
+
+            <p>
+                Example output:
+            </p>
+
+            <pre><code>
+interface GigabitEthernet0/1.10
+ encapsulation dot1Q 10
+ ip address 10.10.10.1 255.255.255.0
+
+interface GigabitEthernet0/1.30
+ encapsulation dot1Q 30
+ ip address 10.10.30.1 255.255.255.0
+
+interface GigabitEthernet0/1.99
+ encapsulation dot1Q 99
+ ip address 10.10.99.1 255.255.255.0
+
+interface GigabitEthernet0/1.100
+ encapsulation dot1Q 100
+ ip address 10.10.100.1 255.255.255.0
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Missing router subinterface.</li>
+
+                <li>Incorrect VLAN encapsulation.</li>
+
+                <li>IP addressing mismatch.</li>
+
+                <li>Trunk configuration failure.</li>
+
+                <li>Native VLAN mismatch.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Verify trunk operation.
+            </p>
+
+            <pre><code>
+show interfaces trunk
+</code></pre>
+
+            <p>
+                Verify routing.
+            </p>
+
+            <pre><code>
+show ip route
+</code></pre>
+
+            <p>
+                Validate communication.
+            </p>
+
+            <pre><code>
+ping 10.10.100.11
+
+ping 10.10.30.21
+
+tracert 10.10.100.11
+</code></pre>
+
+            <p>
+                Successful completion confirms that Layer 3 routing between VLAN 10, VLAN 30,
+                VLAN 99, and VLAN 100 has been restored and enterprise services hosted on the
+                server network are once again reachable.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 3 – PART 3 -->
+        <!-- Scenarios 4–6 -->
+        <!-- Trunk Link, Access Port & DHCP Recovery -->
+        <!-- ========================================================= -->
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 4 – Trunk Link Failure</h2>
+
+            <p>
+                A failure of the 802.1Q trunk between the Cisco Catalyst 2960G and Cisco ISR
+                1941 disrupts communication between VLANs by preventing tagged traffic from
+                reaching the Router-on-a-Stick subinterfaces. In the JCAG-LAB environment,
+                this typically affects every user VLAN simultaneously while individual access
+                ports continue to function within their local broadcast domains.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Inter-VLAN communication unavailable.</li>
+
+                <li>Windows Server 2019 services become inaccessible from user VLANs.</li>
+
+                <li>DHCP relay and DNS services may appear unavailable.</li>
+
+                <li>Management access to enterprise systems is interrupted.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Endpoints communicate within their local VLAN.</li>
+
+                <li>Gateway cannot be reached from multiple VLANs.</li>
+
+                <li>Cross-VLAN traffic fails.</li>
+
+                <li>Server network becomes unreachable.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify trunk status on the Catalyst 2960G.
+            </p>
+
+            <pre><code>
+show interfaces trunk
+</code></pre>
+
+            <p>
+                Example output:</p>
+
+            <pre><code>
+Port        Mode         Encapsulation  Status
+
+Gi0/1       on           802.1Q         trunking
+
+Allowed VLANs
+
+10,30,99,100
+</code></pre>
+
+            <p>
+                Verify switch interface configuration.
+            </p>
+
+            <pre><code>
+show running-config interface gigabitEthernet0/1
+</code></pre>
+
+            <p>
+                Verify router subinterfaces.
+            </p>
+
+            <pre><code>
+show ip interface brief
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Trunk port administratively down.</li>
+
+                <li>Incorrect encapsulation.</li>
+
+                <li>Allowed VLAN list modified.</li>
+
+                <li>Native VLAN mismatch.</li>
+
+                <li>Physical uplink failure.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>
+configure terminal
+
+interface gigabitEthernet0/1
+
+switchport mode trunk
+
+switchport trunk allowed vlan 10,30,99,100
+
+no shutdown
+
+end
+</code></pre>
+
+            <p>
+                Validate trunk operation.
+            </p>
+
+            <pre><code>
+show interfaces trunk
+
+show spanning-tree interface gigabitEthernet0/1
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 5 – Access Port VLAN Misconfiguration</h2>
+
+            <p>
+                An endpoint is connected to a functional switch port but is assigned to the
+                incorrect VLAN. Although the physical connection remains operational, the
+                device cannot communicate with its intended network resources because it has
+                been placed into the wrong broadcast domain.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>User cannot access departmental resources.</li>
+
+                <li>Authentication against Active Directory may fail.</li>
+
+                <li>File shares become unavailable.</li>
+
+                <li>Network segmentation policies are violated.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Switch port reports "connected".</li>
+
+                <li>Endpoint receives unexpected IP address.</li>
+
+                <li>Gateway belongs to another VLAN.</li>
+
+                <li>Unable to reach intended services.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify endpoint configuration.
+            </p>
+
+            <pre><code>
+ipconfig /all
+</code></pre>
+
+            <p>
+                Verify switchport configuration.
+            </p>
+
+            <pre><code>
+show interfaces switchport
+</code></pre>
+
+            <p>
+                Verify VLAN membership.
+            </p>
+
+            <pre><code>
+show vlan brief
+</code></pre>
+
+            <p>
+                Example output:</p>
+
+            <pre><code>
+FastEthernet0/12
+
+Administrative Mode : static access
+
+Access Mode VLAN : 30
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Incorrect access VLAN assignment.</li>
+
+                <li>Port reused without updating configuration.</li>
+
+                <li>Documentation mismatch.</li>
+
+                <li>Patch panel connected to the wrong switch port.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>
+configure terminal
+
+interface fastEthernet0/12
+
+switchport mode access
+
+switchport access vlan 10
+
+description SALES-PC-01
+
+no shutdown
+
+end
+</code></pre>
+
+            <p>
+                Verify corrected configuration.
+            </p>
+
+            <pre><code>
+show interfaces switchport
+
+show vlan brief
+</code></pre>
+
+            <p>
+                Renew the client DHCP lease if necessary.
+            </p>
+
+            <pre><code>
+ipconfig /release
+
+ipconfig /renew
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 6 – DHCP Service Failure Across VLANs</h2>
+
+            <p>
+                Endpoints fail to obtain IP addresses automatically from the Windows Server
+                2019 DHCP service. Depending on the failure location, this may affect a single
+                VLAN or the entire enterprise network. In the JCAG-LAB environment, DHCP
+                services are provided by Windows Server 2019 located within VLAN 100.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>New devices cannot join the network.</li>
+
+                <li>Users receive Automatic Private IP Addresses (APIPA).</li>
+
+                <li>Authentication and enterprise services become unavailable.</li>
+
+                <li>Operational productivity is interrupted.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>IP address begins with 169.254.x.x.</li>
+
+                <li>Unable to contact domain services.</li>
+
+                <li>Internet access unavailable.</li>
+
+                <li>Multiple endpoints affected simultaneously.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify current IP configuration.
+            </p>
+
+            <pre><code>
+ipconfig /all
+</code></pre>
+
+            <p>
+                Attempt DHCP renewal.
+            </p>
+
+            <pre><code>
+ipconfig /release
+
+ipconfig /renew
+</code></pre>
+
+            <p>
+                Verify DHCP relay configuration on the router.
+            </p>
+
+            <pre><code>
+show running-config interface g0/1.10
+
+show running-config interface g0/1.30
+</code></pre>
+
+            <p>
+                Example output:</p>
+
+            <pre><code>
+ip helper-address 10.10.100.11
+</code></pre>
+
+            <p>
+                Verify Windows Server DHCP service.
+            </p>
+
+            <pre><code>
+Get-Service DHCPServer
+</code></pre>
+
+            <p>
+                Verify DHCP scope utilization.
+            </p>
+
+            <pre><code>
+Get-DhcpServerv4Scope
+
+Get-DhcpServerv4Lease
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>DHCP service stopped.</li>
+
+                <li>Incorrect IP Helper configuration.</li>
+
+                <li>DHCP scope exhausted.</li>
+
+                <li>Firewall blocking DHCP traffic.</li>
+
+                <li>Network connectivity to Windows Server unavailable.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <p>
+                Restart DHCP service if required.
+            </p>
+
+            <pre><code>
+Restart-Service DHCPServer
+</code></pre>
+
+            <p>
+                Verify IP Helper configuration.
+            </p>
+
+            <pre><code>
+show running-config interface g0/1.10
+
+show running-config interface g0/1.30
+</code></pre>
+
+            <p>
+                Renew client address.
+            </p>
+
+            <pre><code>
+ipconfig /release
+
+ipconfig /renew
+</code></pre>
+
+            <p>
+                Validate successful lease assignment.
+            </p>
+
+            <p>Example output:</p>
+
+            <pre><code>
+IPv4 Address . . . . . . : 10.10.10.26
+
+Default Gateway . . . .  : 10.10.10.1
+
+DHCP Server . . . . . .  : 10.10.100.11
+
+Lease Obtained . . . . . : Successful
+</code></pre>
+
+            <p>
+                Successful completion confirms that DHCP services are functioning correctly,
+                clients receive valid addressing information, and enterprise connectivity has
+                been restored across the affected VLANs.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 3 – PART 4 -->
+        <!-- Scenarios 7–10 -->
+        <!-- DNS, pfSense WAN, Management VLAN & Final Validation -->
+        <!-- ========================================================= -->
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 7 – DNS Resolution Failure</h2>
+
+            <p>
+                The Windows Server 2019 domain controller provides DNS services for the
+                JCAG-LAB environment. When DNS becomes unavailable, endpoints may still have
+                network connectivity but are unable to resolve hostnames, authenticate to the
+                domain, access shared resources, or communicate with internal services using
+                their Fully Qualified Domain Names (FQDNs).
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Users cannot log into the Active Directory domain.</li>
+
+                <li>Network resources cannot be accessed by hostname.</li>
+
+                <li>Applications relying on DNS fail.</li>
+
+                <li>Internet browsing fails despite valid IP connectivity.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Successful ping to IP addresses but failure to resolve hostnames.</li>
+
+                <li>Unable to access <code>jcag-lab.local</code> resources.</li>
+
+                <li>Authentication delays.</li>
+
+                <li>Name resolution timeout errors.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify current DNS configuration.
+            </p>
+
+            <pre><code>
+ipconfig /all
+</code></pre>
+
+            <p>
+                Verify name resolution.
+            </p>
+
+            <pre><code>
+nslookup jcag-lab.local
+
+nslookup dc01.jcag-lab.local
+</code></pre>
+
+            <p>
+                Verify Windows DNS service.
+            </p>
+
+            <pre><code>
+Get-Service DNS
+</code></pre>
+
+            <p>
+                Verify network connectivity to the domain controller.
+            </p>
+
+            <pre><code>
+ping 10.10.100.11
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>DNS service stopped.</li>
+
+                <li>Incorrect DNS server assigned by DHCP.</li>
+
+                <li>Firewall blocking DNS traffic.</li>
+
+                <li>Network path interruption.</li>
+
+                <li>Corrupted DNS zone.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>
+Restart-Service DNS
+</code></pre>
+
+            <p>
+                Verify DNS functionality.
+            </p>
+
+            <pre><code>
+Resolve-DnsName jcag-lab.local
+</code></pre>
+
+            <p>
+                Confirm successful client resolution.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 8 – pfSense WAN Connectivity Failure</h2>
+
+            <p>
+                The pfSense firewall provides WAN connectivity between the JCAG-LAB enterprise
+                network and the home ISP router. Loss of WAN connectivity prevents Internet
+                access while internal VLAN communication continues to function normally.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Internet unavailable.</li>
+
+                <li>Software updates fail.</li>
+
+                <li>External package repositories inaccessible.</li>
+
+                <li>Cloud-based services unavailable.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Internal communication remains operational.</li>
+
+                <li>Unable to reach public Internet addresses.</li>
+
+                <li>Gateway reachable but external destinations fail.</li>
+
+                <li>pfSense dashboard reports WAN down.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <p>
+                Verify pfSense WAN interface status.
+            </p>
+
+            <pre><code>
+Status → Interfaces
+</code></pre>
+
+            <p>
+                Verify WAN IP assignment.
+            </p>
+
+            <pre><code>
+Interfaces → WAN
+</code></pre>
+
+            <p>
+                Verify routing table.
+            </p>
+
+            <pre><code>
+Diagnostics → Routes
+</code></pre>
+
+            <p>
+                Verify Internet connectivity.
+            </p>
+
+            <pre><code>
+ping 8.8.8.8
+
+ping 1.1.1.1
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>WAN interface disconnected.</li>
+
+                <li>ISP gateway unavailable.</li>
+
+                <li>Incorrect default gateway.</li>
+
+                <li>NAT configuration error.</li>
+
+                <li>Firewall rule blocking outbound traffic.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <ul>
+
+                <li>Verify WAN cable connectivity.</li>
+
+                <li>Renew WAN DHCP lease if applicable.</li>
+
+                <li>Confirm default gateway configuration.</li>
+
+                <li>Validate outbound NAT rules.</li>
+
+                <li>Confirm Internet connectivity after recovery.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 9 – Management VLAN Connectivity Failure</h2>
+
+            <p>
+                The Management VLAN (VLAN 99) provides administrative access to the Cisco
+                Catalyst 2960G, Cisco ISR 1941, pfSense firewall, and enterprise infrastructure
+                devices. Loss of management connectivity prevents administrative operations
+                while production traffic may continue to operate normally.
+            </p>
+
+            <h3>Business Impact</h3>
+
+            <ul>
+
+                <li>Unable to manage infrastructure devices.</li>
+
+                <li>SSH sessions unavailable.</li>
+
+                <li>Configuration changes cannot be performed remotely.</li>
+
+                <li>Monitoring systems lose management visibility.</li>
+
+            </ul>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>SSH connection refused.</li>
+
+                <li>Management IP unreachable.</li>
+
+                <li>Switch continues forwarding production traffic.</li>
+
+                <li>Infrastructure services remain operational.</li>
+
+            </ul>
+
+            <h3>Diagnostic Procedure</h3>
+
+            <pre><code>
+show ip interface brief
+</code></pre>
+
+            <pre><code>
+show vlan brief
+</code></pre>
+
+            <pre><code>
+show running-config interface vlan 99
+</code></pre>
+
+            <pre><code>
+show ssh
+</code></pre>
+
+            <h3>Root Cause Analysis</h3>
+
+            <ul>
+
+                <li>Incorrect management VLAN assignment.</li>
+
+                <li>Missing default gateway.</li>
+
+                <li>SSH disabled.</li>
+
+                <li>ACL blocking management access.</li>
+
+                <li>Management interface shutdown.</li>
+
+            </ul>
+
+            <h3>Recovery Procedure</h3>
+
+            <pre><code>
+configure terminal
+
+interface vlan 99
+
+ip address 10.10.99.2 255.255.255.0
+
+no shutdown
+
+exit
+
+ip default-gateway 10.10.99.1
+
+end
+</code></pre>
+
+            <p>
+                Verify administrative connectivity.
+            </p>
+
+            <pre><code>
+show ip interface brief
+
+show ssh
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 10 – Enterprise Network Validation</h2>
+
+            <p>
+                After completing network recovery procedures, perform a complete validation of
+                the JCAG-LAB enterprise infrastructure to ensure all production services,
+                routing functions, and management capabilities have been fully restored.
+            </p>
+
+            <h3>Enterprise Validation Checklist</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation Item</th>
+
+                        <th>Expected Result</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>VLAN Connectivity</td>
+
+                        <td>Operational</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Inter-VLAN Routing</td>
+
+                        <td>Operational</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Default Gateway Reachable</td>
+
+                        <td>Verified</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>DHCP Services</td>
+
+                        <td>Operational</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>DNS Resolution</td>
+
+                        <td>Operational</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Windows Server 2019</td>
+
+                        <td>Accessible</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>pfSense WAN Connectivity</td>
+
+                        <td>Operational</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Management VLAN</td>
+
+                        <td>Accessible</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cisco ISR 1941</td>
+
+                        <td>Reachable</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cisco Catalyst 2960G</td>
+
+                        <td>Reachable</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Operational Validation Commands</h3>
+
+            <pre><code>
+ping 10.10.100.11
+
+ping 10.10.99.2
+
+ping 8.8.8.8
+
+nslookup jcag-lab.local
+
+show ip route
+
+show interfaces trunk
+
+show vlan brief
+</code></pre>
+
+            <p>
+                Successful completion of this validation confirms that routing, switching,
+                enterprise services, WAN connectivity, and infrastructure management have been
+                fully restored throughout the JCAG-LAB environment.
+            </p>
+
+        </div>
+
+
+
+
+
+
+
+
+        <!-- ===================================================== -->
+        <!-- PAGE NAVIGATION -->
+        <!-- ===================================================== -->
+
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="1landing-page.html">
+                ← Main Page
+            </a>
+            <a class="btn btn-primary" href="../../index.html">
+                Home
+            </a>
+            <a class="btn btn-primary" href="../recovery-troubleshooting/playbook4.html">
+                Playbook 4 →
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

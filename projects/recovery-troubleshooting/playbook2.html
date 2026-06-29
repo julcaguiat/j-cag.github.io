@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Playbook 2: RACK & CABLING PHYSICAL INFRASTRUCTURE RECOVERY</title>
+
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+
+    <style>
+        /* =========================
+       PAGE OVERRIDES ONLY
+    ========================= */
+
+        .hero {
+            padding: 40px 20px 10px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0;
+        }
+
+        .kb-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .step-section {
+            margin-bottom: 30px;
+        }
+
+        .step-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .step-section h3 {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            color: #e6edf3;
+        }
+
+        .step-section p,
+        .step-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        figure {
+            margin-top: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        pre {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-top: 10px;
+        }
+
+        code {
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .page-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .note {
+            background: rgba(56, 189, 248, 0.10);
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.10);
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-subtitle">
+                Infrastructure Recovery & Troubleshooting
+            </div>
+
+            <h1 class="hero-title">
+                Playbook 2: RACK & CABLING PHYSICAL INFRASTRUCTURE RECOVERY
+            </h1>
+
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <main class="kb-content">
+
+
+        <!-- ===================================================== -->
+        <!-- PLAYBOOK 2 – PART 1 -->
+        <!-- RACK & CABLING PHYSICAL INFRASTRUCTURE RECOVERY -->
+        <!-- ===================================================== -->
+
+        <div class="step-section">
+
+            <h2>Overview</h2>
+
+            <p>
+                This playbook documents the operational procedures used to troubleshoot,
+                validate, and recover physical infrastructure components within the JCAG-LAB
+                enterprise environment. Unlike previous playbooks that focused on virtual
+                machines and operating systems, this playbook concentrates on the physical
+                layer of the infrastructure, including rack-mounted equipment, structured
+                cabling, patch panels, network switches, routers, and endpoint connectivity.
+            </p>
+
+            <p>
+                Physical infrastructure problems often present themselves as higher-layer
+                network failures. A disconnected patch cable, incorrectly terminated keystone
+                jack, or mislabeled patch panel can produce symptoms similar to VLAN
+                misconfigurations, DHCP failures, or routing issues. Effective infrastructure
+                support requires technicians to eliminate physical-layer issues before
+                investigating higher OSI layers.
+            </p>
+
+            <p>
+                The procedures documented throughout this playbook are based on the physical
+                deployment of the JCAG-LAB enterprise infrastructure and demonstrate
+                methodologies commonly used by Data Center Technicians, Infrastructure Support
+                Engineers, and Network Operations personnel.
+            </p>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Objectives</h2>
+
+            <p>
+                Upon completion of this playbook, the administrator will be able to:
+            </p>
+
+            <ul>
+
+                <li>Perform systematic Layer 1 troubleshooting.</li>
+
+                <li>Verify structured cabling integrity.</li>
+
+                <li>Identify faulty patch cables and physical connections.</li>
+
+                <li>Validate switch uplinks and endpoint connectivity.</li>
+
+                <li>Troubleshoot incorrect VLAN patching.</li>
+
+                <li>Verify rack documentation against deployed infrastructure.</li>
+
+                <li>Perform structured rack maintenance procedures.</li>
+
+                <li>Restore physical connectivity using repeatable operational workflows.</li>
+
+            </ul>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>JCAG-LAB Physical Infrastructure</h2>
+
+            <p>
+                The following physical infrastructure is referenced throughout this playbook.
+                All troubleshooting procedures assume this deployment unless otherwise noted.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Component</th>
+
+                        <th>Purpose</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>HP All-in-One</td>
+
+                        <td>Dedicated pfSense Firewall Appliance</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cisco ISR 1941</td>
+
+                        <td>Router-on-a-Stick Inter-VLAN Routing</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cisco Catalyst 2960G</td>
+
+                        <td>Access Layer Switch</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Dell Inspiron 3650</td>
+
+                        <td>Proxmox Virtual Environment Host</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Patch Panel</td>
+
+                        <td>Structured Cabling Distribution</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>CAT6 Solid Copper Cabling</td>
+
+                        <td>Horizontal Cabling Infrastructure</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>RJ45 Keystone Jacks</td>
+
+                        <td>Endpoint Termination</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Windows Workstations</td>
+
+                        <td>Enterprise Client Systems</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Operational Troubleshooting Methodology</h2>
+
+            <p>
+                Every physical infrastructure incident documented throughout this playbook
+                follows the same structured workflow.
+            </p>
+
+            <pre><code>
+User Reports Connectivity Issue
+            │
+            ▼
+Identify Symptoms
+            │
+            ▼
+Inspect Physical Connections
+            │
+            ▼
+Verify Link Indicators
+            │
+            ▼
+Validate Patch Panel
+            │
+            ▼
+Verify Switch Port
+            │
+            ▼
+Verify VLAN Assignment
+            │
+            ▼
+Verify IP Configuration
+            │
+            ▼
+Restore Physical Connectivity
+            │
+            ▼
+Validate Network Services
+            │
+            ▼
+Update Documentation
+</code></pre>
+
+            <p>
+                Following this methodology minimizes unnecessary configuration changes and
+                helps isolate failures beginning at OSI Layer 1 before progressing to higher
+                layers.
+            </p>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>OSI Layer 1 Troubleshooting Philosophy</h2>
+
+            <p>
+                Network connectivity issues should always begin with verification of the
+                physical layer. A disconnected cable or failed transceiver can generate
+                symptoms that resemble routing, switching, authentication, or application
+                failures.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, technicians should always validate physical
+                connectivity before modifying switch configurations or investigating software
+                issues.
+            </p>
+
+            <pre><code>
+OSI Layer 1
+↓
+
+Cable Connected?
+
+↓
+
+Link LEDs Active?
+
+↓
+
+Patch Panel Correct?
+
+↓
+
+Switch Port Enabled?
+
+↓
+
+Correct VLAN?
+
+↓
+
+DHCP / Static IP?
+
+↓
+
+Application Connectivity
+</code></pre>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Required Administrative Tools</h2>
+
+            <p>
+                The following tools are used throughout the physical infrastructure recovery
+                procedures.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Tool</th>
+
+                        <th>Purpose</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Cable Tester</td>
+
+                        <td>Verify cable continuity and pair mapping</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>RJ45 Crimp Tool</td>
+
+                        <td>Create or repair Ethernet cables</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Punch Down Tool</td>
+
+                        <td>Terminate keystone jacks and patch panels</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Tone Generator / Probe</td>
+
+                        <td>Trace unknown cable runs</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Label Printer</td>
+
+                        <td>Maintain cable identification</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Laptop</td>
+
+                        <td>Network diagnostics</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Console Cable</td>
+
+                        <td>Cisco device administration</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Pre-Troubleshooting Inspection Checklist</h2>
+
+            <p>
+                Before disconnecting equipment or modifying cabling, perform an initial
+                inspection to determine whether the issue is caused by obvious physical
+                conditions.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Inspection Item</th>
+
+                        <th>Verify</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Equipment Power</td>
+
+                        <td>Powered On</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Power Cables</td>
+
+                        <td>Secure</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Patch Cables</td>
+
+                        <td>Fully Inserted</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Patch Panel Labels</td>
+
+                        <td>Match Documentation</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Link LEDs</td>
+
+                        <td>Operational</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cable Management</td>
+
+                        <td>No Excessive Stress</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Rack Environment</td>
+
+                        <td>Clean and Organized</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="note">
+
+                Many physical-layer incidents are resolved during this initial inspection,
+                eliminating unnecessary configuration changes and reducing mean time to
+                recovery (MTTR).
+
+            </div>
+
+        </div>
+
+
+
+        <div class="step-section">
+
+            <h2>Safe Failure Simulation Guidelines</h2>
+
+            <p>
+                Whenever practical, physical-layer failures are intentionally reproduced within
+                the isolated JCAG-LAB environment to demonstrate troubleshooting methodology.
+                Only failures that present minimal operational risk are simulated.
+            </p>
+
+            <p>
+                The following exercises are considered safe for reproduction:
+            </p>
+
+            <ul>
+
+                <li>Disconnecting a patch cable.</li>
+
+                <li>Connecting an endpoint to the wrong access port.</li>
+
+                <li>Disabling a switch interface.</li>
+
+                <li>Stopping at an incorrect patch panel termination for validation.</li>
+
+                <li>Changing cable labels for documentation verification.</li>
+
+                <li>Testing continuity using spare cables.</li>
+
+            </ul>
+
+            <div class="warning">
+
+                The following scenarios are documented for reference only and should not be
+                intentionally reproduced:
+
+                <ul>
+
+                    <li>Physically damaging RJ45 connectors.</li>
+
+                    <li>Breaking switch ports.</li>
+
+                    <li>Damaging patch panels.</li>
+
+                    <li>Cutting horizontal cabling.</li>
+
+                    <li>Applying excessive bend radius to structured cabling.</li>
+
+                    <li>Removing production cable terminations.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 2 – PART 2 -->
+        <!-- Physical Connectivity Diagnostics -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Physical Connectivity Diagnostics</h2>
+
+            <p>
+                Once the affected rack location has been identified, the next objective is to determine
+                whether the failure exists at the physical layer. Physical connectivity problems are
+                responsible for a significant percentage of enterprise network outages and should always
+                be investigated before moving to higher-layer troubleshooting.
+            </p>
+
+            <p>
+                This playbook uses a structured Layer 1 methodology beginning at the endpoint and
+                working upstream toward the access switch. Every cable, connector, patch panel
+                termination, and switch interface should be verified individually rather than assuming
+                multiple components have failed simultaneously.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Enterprise Physical Path Verification</h2>
+
+            <pre><code>
+Windows Endpoint
+       │
+       ▼
+Wall Jack
+       │
+       ▼
+Horizontal Cable
+       │
+       ▼
+Patch Panel
+       │
+       ▼
+Patch Cable
+       │
+       ▼
+Cisco Catalyst 2960G
+       │
+       ▼
+Cisco ISR 1941
+       │
+       ▼
+pfSense Firewall
+</code></pre>
+
+            <p>
+                Each segment should be verified independently. Never skip intermediate devices during
+                troubleshooting.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 3 — Failed Patch Cable</h2>
+
+            <h3>Business Impact</h3>
+
+            <p>
+                A damaged or disconnected patch cable prevents network communication between an
+                endpoint and the access switch. Users immediately lose access to authentication
+                services, DNS, DHCP, shared storage, and internet connectivity.
+            </p>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>No link LEDs on the workstation NIC.</li>
+
+                <li>No switch port activity.</li>
+
+                <li>Unable to obtain an IP address.</li>
+
+                <li>Ping failures to the default gateway.</li>
+
+                <li>Windows displays "Network cable unplugged."</li>
+
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                This scenario can be safely reproduced without affecting the remainder of the lab.
+                Disconnect only the endpoint patch cable from the wall jack or switch port. Do not
+                disconnect switch uplinks or infrastructure links.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Diagnostic Procedure</h2>
+
+            <h3>Step 1 — Verify Link Status</h3>
+
+            <pre><code>
+show interfaces status
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Port      Status
+
+Fa0/10    notconnect
+</code></pre>
+
+            <p>
+                A status of <strong>notconnect</strong> generally indicates a physical connectivity issue rather than
+                a VLAN or configuration problem.
+            </p>
+
+            <h3>Step 2 — Verify Interface Counters</h3>
+
+            <pre><code>
+show interfaces fa0/10
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+FastEthernet0/10 is down, line protocol is down
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Physical Inspection</h2>
+
+            <p>
+                Inspect both ends of the cable using the following checklist.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Inspection Item</th>
+
+                        <th>Verification</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>RJ45 connector seated</td>
+
+                        <td>Verify connector clicks securely into port</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Broken retaining clip</td>
+
+                        <td>Replace cable if damaged</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Visible cable damage</td>
+
+                        <td>Inspect for cuts, kinks or crushed jacket</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Correct cable label</td>
+
+                        <td>Compare against rack documentation</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Link LEDs</td>
+
+                        <td>Verify LEDs illuminate after reconnecting</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Procedure</h2>
+
+            <ol>
+
+                <li>Replace the damaged patch cable with a tested cable.</li>
+
+                <li>Reconnect the endpoint.</li>
+
+                <li>Verify switch interface transitions to an operational state.</li>
+
+                <li>Confirm endpoint receives network connectivity.</li>
+
+                <li>Update maintenance documentation if cable replacement was required.</li>
+
+            </ol>
+
+            <pre><code>
+show interfaces status
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Port      Status
+
+Fa0/10    connected
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 4 — Incorrect Patch Panel Termination</h2>
+
+            <h3>Business Impact</h3>
+
+            <p>
+                Improper termination can connect endpoints to the wrong switch port or prevent
+                connectivity entirely. Documentation becomes inaccurate, increasing troubleshooting
+                time during future incidents.
+            </p>
+
+            <h3>Symptoms</h3>
+
+            <ul>
+
+                <li>Endpoint appears on an unexpected switch interface.</li>
+
+                <li>Wrong VLAN assignment.</li>
+
+                <li>Duplicate workstation location.</li>
+
+                <li>Intermittent connectivity.</li>
+
+                <li>Label mismatch between patch panel and documentation.</li>
+
+            </ul>
+
+            <h3>Safe Lab Validation</h3>
+
+            <p>
+                Move one endpoint patch cable to an adjacent patch-panel port while recording the
+                original location. This simulates an accidental maintenance error and is fully reversible.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Diagnostic Workflow</h2>
+
+            <h3>Step 1 — Verify Interface MAC Address</h3>
+
+            <pre><code>
+show mac address-table dynamic
+</code></pre>
+
+            <p>Questions</p>
+
+            <ul>
+
+                <li>Is the endpoint learned on the expected interface?</li>
+
+                <li>Does the MAC address appear on another switch port?</li>
+
+                <li>Does the patch panel documentation match the switch?</li>
+
+            </ul>
+
+            <h3>Step 2 — Verify Interface Description</h3>
+
+            <pre><code>
+show running-config interface fa0/10
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+interface FastEthernet0/10
+
+description OFFICE-A-Desk03
+switchport access vlan 10
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Procedure</h2>
+
+            <ul>
+
+                <li>Trace the cable from endpoint to patch panel.</li>
+
+                <li>Verify labeling at both ends.</li>
+
+                <li>Reconnect the cable to the documented patch-panel port.</li>
+
+                <li>Confirm MAC learning on the expected switch interface.</li>
+
+                <li>Update rack diagrams if corrections were required.</li>
+
+            </ul>
+
+            <pre><code>
+show mac address-table dynamic
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+Mac Address Table
+
+0011.2233.4455
+Fa0/10
+VLAN 10
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Validation Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Patch cable verified</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Switch interface operational</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Correct VLAN assignment confirmed</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>MAC address learned correctly</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Rack documentation updated</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 2 – PART 3 -->
+        <!-- VLAN Patching, Switch Replacement & Structured Cabling -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 5 — Incorrect VLAN Patching</h2>
+
+            <p>
+                One of the most common physical-layer mistakes during maintenance is reconnecting an endpoint
+                to the wrong switch port. Although the cable is physically connected, the endpoint may be placed
+                into an incorrect VLAN, resulting in authentication failures, incorrect IP addressing, or complete
+                loss of access to required enterprise services.
+            </p>
+
+            <p>
+                Within the JCAG-LAB environment, access ports are statically assigned according to departmental
+                VLANs. An incorrectly patched workstation may receive an IP address from the wrong subnet or
+                fail to obtain one altogether.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Business Impact</h2>
+
+            <ul>
+
+                <li>User receives an incorrect IP address.</li>
+
+                <li>Unable to authenticate to Active Directory.</li>
+
+                <li>Loss of access to shared folders.</li>
+
+                <li>Unable to communicate with required servers.</li>
+
+                <li>Potential security policy violations due to incorrect network segmentation.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Safe Lab Validation Procedure</h2>
+
+            <p>
+                This scenario is safe to reproduce within the lab by temporarily moving a workstation cable
+                between two access ports assigned to different VLANs.
+            </p>
+
+            <p>
+                Example:
+            </p>
+
+            <pre><code>
+Current Connection
+
+PC (VLAN 10)
+      │
+      ▼
+Fa0/10 (Access VLAN 10)
+
+Temporarily Move To
+
+PC
+ │
+ ▼
+Fa0/20 (Access VLAN 30)
+</code></pre>
+
+            <p>
+                Record the original switch port before moving the cable so the environment can be restored after
+                testing.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Diagnostic Procedure</h2>
+
+            <h3>Step 1 — Verify Switch Interface VLAN</h3>
+
+            <pre><code>
+show vlan brief
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+VLAN Name             Status    Ports
+
+10   SALES            active    Fa0/10
+30   IT               active    Fa0/20
+99   MANAGEMENT       active
+100  SERVERS          active
+</code></pre>
+
+            <h3>Step 2 — Verify Interface Configuration</h3>
+
+            <pre><code>
+show running-config interface fa0/20
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+interface FastEthernet0/20
+
+switchport mode access
+switchport access vlan 30
+</code></pre>
+
+            <h3>Step 3 — Verify Client Address</h3>
+
+            Windows Endpoint
+
+            <pre><code>
+ipconfig
+</code></pre>
+
+            <p>Example output:</p>
+
+            <pre><code>
+IPv4 Address . . . . : 10.10.30.35
+</code></pre>
+
+            <p>
+                If the workstation normally belongs to VLAN 10 (10.10.10.0/24), an address within
+                10.10.30.0/24 immediately indicates that the endpoint is connected to the wrong access VLAN.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Procedure</h2>
+
+            <ol>
+
+                <li>Disconnect the workstation from the incorrect switch port.</li>
+
+                <li>Reconnect it to the documented access interface.</li>
+
+                <li>Renew the DHCP lease.</li>
+
+                <li>Verify correct VLAN membership.</li>
+
+                <li>Confirm connectivity to enterprise services.</li>
+
+            </ol>
+
+            <pre><code>
+ipconfig /release
+
+ipconfig /renew
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Scenario 6 — Access Switch Replacement Procedure</h2>
+
+            <p>
+                Enterprise environments occasionally require replacement of failed access switches because of
+                hardware faults, firmware corruption, or planned lifecycle upgrades. A structured replacement
+                procedure minimizes downtime while preserving existing network configuration.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Replacement Planning Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Verification Item</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Current configuration backed up</td>
+
+                        <td>Required</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Port labeling verified</td>
+
+                        <td>Required</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Patch panel documented</td>
+
+                        <td>Required</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Maintenance window approved</td>
+
+                        <td>Required</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Replacement hardware available</td>
+
+                        <td>Required</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Configuration Backup</h2>
+
+            <pre><code>
+show running-config
+
+copy running-config startup-config
+</code></pre>
+
+            <p>
+                If available, export the running configuration to an external TFTP or SCP server before replacing
+                the hardware.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Structured Port Documentation</h2>
+
+            <p>
+                Every switch interface should be documented before disconnecting cables.
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Switch Port</th>
+
+                        <th>Connected Device</th>
+
+                        <th>VLAN</th>
+
+                        <th>Description</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Fa0/1</td>
+
+                        <td>Router Trunk</td>
+
+                        <td>Trunk</td>
+
+                        <td>ISR1941</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Fa0/10</td>
+
+                        <td>Office A PC</td>
+
+                        <td>10</td>
+
+                        <td>Sales</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Fa0/20</td>
+
+                        <td>Office B PC</td>
+
+                        <td>30</td>
+
+                        <td>IT</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Fa0/24</td>
+
+                        <td>Proxmox Host</td>
+
+                        <td>100</td>
+
+                        <td>Server Network</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Replacement Workflow</h2>
+
+            <pre><code>
+Backup Configuration
+        │
+        ▼
+Document Ports
+        │
+        ▼
+Label Cables
+        │
+        ▼
+Power Down Switch
+        │
+        ▼
+Replace Hardware
+        │
+        ▼
+Restore Configuration
+        │
+        ▼
+Reconnect Patch Cables
+        │
+        ▼
+Verify Interface Status
+        │
+        ▼
+Validate User Connectivity
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Post-Replacement Validation</h2>
+
+            <pre><code>
+show interfaces status
+
+show vlan brief
+
+show mac address-table
+
+show cdp neighbors
+
+show spanning-tree
+</code></pre>
+
+            <p>
+                Confirm that every expected endpoint reconnects to its documented switch interface and that no
+                unexpected VLAN assignments have occurred.
+            </p>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 2 – PART 4 -->
+        <!-- SCENARIOS 7–10 -->
+        <!-- Rack, Cabling & Physical Infrastructure Recovery -->
+        <!-- ========================================================= -->
+        <!-- ========================================================= -->
+        <!-- SCENARIO 7 -->
+        <!-- ========================================================= -->
+        <div class="step-section">
+            <h2>Scenario 7 — Structured Cabling Documentation Verification</h2>
+            <p>
+
+                Structured cabling documentation is only valuable if it accurately reflects the deployed infrastructure.
+                This procedure validates that the JCAG-LAB rack elevation, patch panel documentation, cable labels,
+                switch interface descriptions, and endpoint inventory remain synchronized after infrastructure changes
+                or maintenance activities.
+
+            </p>
+            <p>
+
+                This scenario should be performed after rack modifications, cable replacements, switch replacements, or
+                quarterly infrastructure audits.
+
+            </p>
+        </div>
+        <div class="step-section">
+            <h2>Business Impact</h2>
+            <ul>
+                <li>Increased Mean Time to Repair (MTTR).</li>
+                <li>Technicians disconnect incorrect devices during maintenance.</li>
+                <li>Patch panel documentation becomes unreliable.</li>
+                <li>Troubleshooting requires unnecessary cable tracing.</li>
+                <li>Infrastructure documentation loses operational value.</li>
+            </ul>
+        </div>
+        <div class="step-section">
+            <h2>JCAG-LAB Environment Context</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>24-Port Keystone Patch Panel</td>
+                        <td>Structured cabling termination</td>
+                    </tr>
+                    <tr>
+                        <td>Cisco Catalyst 2960G</td>
+                        <td>Enterprise access switch</td>
+                    </tr>
+                    <tr>
+                        <td>Cisco ISR 1941</td>
+                        <td>Router-on-a-Stick</td>
+                    </tr>
+                    <tr>
+                        <td>Windows Server 2019</td>
+                        <td>Domain Services</td>
+                    </tr>
+                    <tr>
+                        <td>Proxmox Host</td>
+                        <td>Virtual infrastructure</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="step-section">
+            <h2>Safe Lab Validation Procedure</h2>
+            <p>
+
+                Do not disconnect any production cables. Instead, intentionally modify one entry within the rack
+                documentation (such as an incorrect patch panel port number or switch interface assignment). Perform a
+                physical audit to identify the documentation discrepancy before restoring the documentation to its
+                correct state.
+
+            </p>
+        </div>
+        <div class="step-section">
+            <h2>Diagnostic Procedure</h2>
+            <ul>
+                <li>Inspect patch panel numbering.</li>
+                <li>Verify cable labels at both endpoints.</li>
+                <li>Compare rack elevation documentation with the physical installation.</li>
+                <li>Verify switch interface descriptions.</li>
+                <li>Confirm VLAN assignments match documentation.</li>
+            </ul>
+        </div>
+        <div class="step-section">
+            <h2>Recovery Procedure</h2>
+            <ul>
+                <li>Correct rack documentation.</li>
+                <li>Update cable labels where necessary.</li>
+                <li>Update switch interface descriptions.</li>
+                <li>Record documentation revision date.</li>
+                <li>Archive previous documentation version.</li>
+            </ul>
+        </div>
+        <!-- ========================================================= -->
+        <!-- SCENARIO 8 -->
+        <!-- ========================================================= -->
+        <div class="step-section">
+            <h2>Scenario 8 — Rack Asset Inventory Reconciliation</h2>
+            <p>
+
+                Infrastructure documentation should accurately represent every installed device within the JCAG-LAB
+                rack. This procedure validates the physical inventory against the documented asset register.
+
+            </p>
+        </div>
+        <div class="step-section">
+            <h2>Business Impact</h2>
+            <ul>
+                <li>Missing hardware records.</li>
+                <li>Incorrect asset inventory.</li>
+                <li>Difficult lifecycle management.</li>
+                <li>Configuration management inconsistencies.</li>
+            </ul>
+        </div>
+        <div class="step-section">
+            <h2>Safe Lab Validation Procedure</h2>
+            <p>
+
+                Temporarily remove one device from the inventory spreadsheet without changing the physical rack. Perform
+                an inventory reconciliation and identify the missing documentation.
+
+            </p>
+        </div>
+        <div class="step-section">
+            <h2>Diagnostic Procedure</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Device</th>
+                        <th>Expected Hostname</th>
+                        <th>Expected IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Proxmox Host</td>
+                        <td>PVE01</td>
+                        <td>10.10.100.10</td>
+                    </tr>
+                    <tr>
+                        <td>Windows Server</td>
+                        <td>WIN-SVR2019</td>
+                        <td>10.10.100.11</td>
+                    </tr>
+                    <tr>
+                        <td>pfSense</td>
+                        <td>PFSENSE</td>
+                        <td>10.10.255.1</td>
+                    </tr>
+                    <tr>
+                        <td>Cisco ISR1941</td>
+                        <td>ISR1941</td>
+                        <td>10.10.255.2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="step-section">
+            <h2>Recovery Procedure</h2>
+            <ul>
+                <li>Update inventory records.</li>
+                <li>Verify rack unit location.</li>
+                <li>Verify management IP addresses.</li>
+                <li>Update serial numbers.</li>
+                <li>Record documentation revision.</li>
+            </ul>
+        </div>
+        <!-- ========================================================= -->
+        <!-- SCENARIO 9 -->
+        <!-- ========================================================= -->
+        <div class="step-section">
+            <h2>Scenario 9 — Patch Panel Port & Switch Interface Verification</h2>
+            <p>
+
+                This procedure validates that each documented patch panel port corresponds to the correct Cisco Catalyst
+                2960G switch interface and endpoint device.
+
+            </p>
+        </div>
+        <div class="step-section">
+            <h2>Business Impact</h2>
+            <ul>
+                <li>Incorrect VLAN assignment assumptions.</li>
+                <li>Longer fault isolation.</li>
+                <li>Endpoint identification errors.</li>
+            </ul>
+        </div>
+        <div class="step-section">
+            <h2>Safe Lab Validation Procedure</h2>
+            <p>
+
+                Disconnect a non-production workstation patch cable for approximately 30 seconds while monitoring the
+                associated switch interface. Immediately reconnect the cable after verifying interface state changes.
+
+            </p>
+        </div>
+        <div class="step-section">
+            <h2>Diagnostic Procedure</h2>
+            <pre><code>
+show interfaces status
+show interfaces description
+show mac address-table dynamic</code></pre>
+            <p>Example output:</p>
+            <pre><code>
+Gi0/12
+Status: connected
+VLAN: 10
+Description: OFFICE_A-LENOVO</code></pre>
+        </div>
+        <div class="step-section">
+            <h2>Recovery Procedure</h2>
+            <ul>
+                <li>Reconnect the patch cable.</li>
+                <li>Verify interface returns to Connected.</li>
+                <li>Confirm MAC address learning.</li>
+                <li>Validate endpoint network connectivity.</li>
+                <li>Update documentation if interface assignments changed.</li>
+            </ul>
+        </div>
+        <!-- ========================================================= -->
+        <!-- SCENARIO 10 -->
+        <!-- ========================================================= -->
+        <div class="step-section">
+            <h2>Scenario 10 — Preventive Rack Maintenance & Post-Maintenance Validation</h2>
+            <p>
+
+                Following any maintenance activity, the rack should undergo a standardized operational inspection before
+                returning to normal service. This validation confirms that no physical connectivity issues or
+                documentation discrepancies were introduced during maintenance.
+
+            </p>
+        </div>
+        <div class="step-section">
+            <h2>Maintenance Validation Checklist</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Validation Item</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rack hardware secured</td>
+                        <td>Pass / Fail</td>
+                    </tr>
+                    <tr>
+                        <td>Patch panel labels verified</td>
+                        <td>Pass / Fail</td>
+                    </tr>
+                    <tr>
+                        <td>Cable management restored</td>
+                        <td>Pass / Fail</td>
+                    </tr>
+                    <tr>
+                        <td>Switch uplinks operational</td>
+                        <td>Pass / Fail</td>
+                    </tr>
+                    <tr>
+                        <td>Windows Server reachable</td>
+                        <td>Pass / Fail</td>
+                    </tr>
+                    <tr>
+                        <td>Proxmox Host reachable</td>
+                        <td>Pass / Fail</td>
+                    </tr>
+                    <tr>
+                        <td>Documentation updated</td>
+                        <td>Pass / Fail</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="step-section">
+            <h2>Operational Validation Commands</h2>
+            <pre><code>
+ping 10.10.100.10
+ping 10.10.100.11
+ping 10.10.255.1
+ping 10.10.255.2</code></pre>
+            <p>Example output:</p>
+            <pre><code>
+Reply from 10.10.100.10:
+bytes=32 time&lt;1ms TTL=64
+Reply from 10.10.100.11:
+bytes=32 time&lt;1ms TTL=128</code></pre>
+        </div>
+        <div class="step-section">
+            <h2>Documentation Updates</h2>
+            <ul>
+                <li>Update rack elevation diagram.</li>
+                <li>Update patch panel documentation.</li>
+                <li>Update cable labeling register.</li>
+                <li>Update switch interface descriptions.</li>
+                <li>Record maintenance completion date.</li>
+                <li>Record technician performing maintenance.</li>
+                <li>Archive previous documentation revision.</li>
+            </ul>
+        </div>
+
+
+        <!-- ========================================================= -->
+        <!-- PLAYBOOK 2 – PART 5 -->
+        <!-- Operational Workflow, Practical Exercise, Checklist -->
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Operational Recovery Workflow</h2>
+
+            <p>
+                Every physical infrastructure incident within the JCAG-LAB environment should
+                follow the same structured troubleshooting methodology. This ensures that
+                physical changes are validated before configuration changes are introduced,
+                minimizing unnecessary downtime and reducing the likelihood of secondary
+                failures.
+            </p>
+
+            <pre><code>
+User Report / Monitoring Alert
+            │
+            ▼
+Identify Physical Scope
+            │
+            ▼
+Verify Rack Documentation
+            │
+            ▼
+Inspect Cabling
+            │
+            ▼
+Validate Link LEDs
+            │
+            ▼
+Verify Switch Port Status
+            │
+            ▼
+Correct Physical Issue
+            │
+            ▼
+Validate VLAN Connectivity
+            │
+            ▼
+Document Changes
+            │
+            ▼
+Close Incident
+</code></pre>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Practical Exercise</h2>
+
+            <h3>Exercise 1 – Complete Rack Connectivity Validation</h3>
+
+            <p>
+                Perform a complete physical validation of the deployed JCAG-LAB rack following
+                a simulated maintenance activity.
+            </p>
+
+            <p>
+                Validate the following infrastructure:
+            </p>
+
+            <ul>
+
+                <li>Patch panel labeling</li>
+
+                <li>Switch port assignments</li>
+
+                <li>Router uplink connection</li>
+
+                <li>Server network connections</li>
+
+                <li>Proxmox management interface</li>
+
+                <li>Patch cable labeling</li>
+
+                <li>Cable routing and strain relief</li>
+
+            </ul>
+
+            <p>
+                Verify switch interface status.
+            </p>
+
+            <pre><code>
+show interfaces status
+</code></pre>
+
+            <p>
+                Verify VLAN assignments.
+            </p>
+
+            <pre><code>
+show vlan brief
+</code></pre>
+
+            <p>
+                Verify trunk operation.
+            </p>
+
+            <pre><code>
+show interfaces trunk
+</code></pre>
+
+            <p>
+                Validate gateway connectivity from representative systems.
+            </p>
+
+            <p>Windows</p>
+
+            <pre><code>
+ipconfig
+
+ping 10.10.10.1
+
+ping 10.10.100.10
+</code></pre>
+
+            <p>Linux</p>
+
+            <pre><code>
+ip addr
+
+ping 10.10.10.1
+
+ping 10.10.100.10
+</code></pre>
+
+            <p>Document:</p>
+
+            <ul>
+
+                <li>Devices inspected</li>
+
+                <li>Cables replaced</li>
+
+                <li>Labels corrected</li>
+
+                <li>Ports reconfigured</li>
+
+                <li>Connectivity validation results</li>
+
+                <li>Infrastructure documentation updated</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Recovery Checklist</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Validation Task</th>
+
+                        <th>Verification</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Rack documentation reviewed</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Patch panel verified</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Cable labels validated</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Switch ports verified</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Trunk interfaces operational</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Access VLAN assignments validated</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Gateway connectivity confirmed</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Management network reachable</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Documentation updated</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Incident record completed</td>
+
+                        <td>Completed</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+
+                <li>Physical layer verification should always precede logical network troubleshooting.</li>
+
+                <li>Accurate rack elevations, cable labels, and patch panel documentation significantly reduce recovery
+                    time.</li>
+
+                <li>Every cable movement should be reflected in the infrastructure documentation.</li>
+
+                <li>Switch interface validation confirms whether a fault is physical or configuration-related.</li>
+
+                <li>Standardized replacement procedures minimize service interruption during hardware maintenance.</li>
+
+                <li>Structured cabling practices simplify future expansions and troubleshooting activities.</li>
+
+                <li>The JCAG-LAB rack serves as the authoritative reference for all physical infrastructure recovery
+                    exercises throughout this project.</li>
+
+            </ul>
+
+        </div>
+
+        <!-- ========================================================= -->
+
+        <div class="step-section">
+
+            <h2>Playbook Completion Outcome</h2>
+
+            <p>
+                At the completion of this playbook: Capable of performing
+                structured physical infrastructure troubleshooting within the deployed
+                JCAG-LAB environment. This includes validating rack documentation, inspecting
+                structured cabling, diagnosing patch panel and switch connectivity issues,
+                replacing physical network components using standardized procedures,
+                confirming Layer 1 connectivity, restoring enterprise network services, and
+                accurately documenting all maintenance activities to maintain configuration
+                integrity across the infrastructure.
+            </p>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PAGE NAVIGATION -->
+        <!-- ===================================================== -->
+
+        <div class="page-nav">
+
+            <a class="btn btn-primary" href="1landing-page.html">
+                ← Main Page
+            </a>
+            <a class="btn btn-primary" href="../../index.html">
+                Home
+            </a>
+            <a class="btn btn-primary" href="../recovery-troubleshooting/playbook3.html">
+                Playbook 3 →
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
