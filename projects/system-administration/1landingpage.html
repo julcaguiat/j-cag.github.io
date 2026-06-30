@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Enterprise Systems Administration & Operations | Enterprise Operations Playbooks</title>
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+
+    <style>
+        :root {
+            --hero-bg-image: url("../../assets/images/backgrounds/datacenter-operations-bg.png");
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .playbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 22px;
+            margin-top: 30px;
+        }
+
+        .playbook-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .playbook-number {
+            color: #7cc7ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: .78rem;
+            margin-bottom: 10px;
+        }
+
+        .playbook-card h3 {
+            margin-top: 0;
+            margin-bottom: 14px;
+        }
+
+        .playbook-card p {
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+
+        .workflow-box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 24px;
+        }
+
+        .workflow-box pre {
+            margin: 0;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .audience-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .technology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .technology-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .structure-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .operations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .operations-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .operations-card h3 {
+            margin-top: 0;
+            margin-bottom: 14px;
+        }
+
+        .operations-card ul {
+            margin-bottom: 0;
+        }
+    </style>
+
+</head>
+
+<body id="top">
+
+    <!-- ===========================
+     NAVBAR
+=========================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="logo">
+                JULFRI CAGUIAT
+            </div>
+
+            <div class="nav-links">
+
+                <a href="../../index.html">Home</a>
+
+                <a href="#overview">Overview</a>
+
+                <a href="#methodology">Methodology</a>
+
+                <a href="#playbooks">Playbooks</a>
+
+                <a href="#technologies">Technologies</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="kb-layout">
+
+        <!-- ===========================
+     SIDEBAR
+=========================== -->
+
+        <aside class="kb-sidebar">
+
+            <div class="kb-title">
+                Navigation
+            </div>
+
+            <nav class="kb-nav">
+
+                <a href="#overview">Overview</a>
+
+                <a href="#methodology">Operations Methodology</a>
+
+                <a href="#structure">Administration Structure</a>
+
+                <a href="#philosophy">Operational Philosophy</a>
+
+                <a href="#technologies">Enterprise Technologies</a>
+
+                <a href="#playbooks">Administration Playbooks</a>
+
+                <a href="#responsibilities">Administrative Responsibilities</a>
+
+                <details class="kb-subgroup" open>
+
+                    <summary class="kb-subtitle">
+                        Playbooks
+                    </summary>
+
+                    <div class="kb-subnav">
+
+                        <a href="playbook0.html">0: Enterprise Operations Standards</a>
+
+                        <a href="playbook1.html">1: Active Directory Administration</a>
+
+                        <a href="playbook2.html">2: Windows Server Administration</a>
+
+                        <a href="playbook3.html">3: File Services Administration</a>
+
+                        <a href="playbook4.html">4: Enterprise Print Services</a>
+
+                        <a href="playbook5.html">5: Windows 11 Endpoint Administration</a>
+
+                        <a href="playbook6.html">6: Linux Server Administration</a>
+
+                        <a href="playbook7.html">7: Proxmox Virtualization Administration</a>
+
+                        <a href="playbook8.html">8: Monitoring Administration</a>
+
+                        <a href="playbook9.html">9: Automation & ITSM Administration</a>
+
+                        <a href="playbook10.html">10: Cisco Network Administration</a>
+
+                        <a href="playbook11.html">11: Security Administration</a>
+
+                        <a href="playbook12.html">12: Backup Administration</a>
+
+                        <a href="playbook13.html">13: Documentation & Change Management</a>
+
+                    </div>
+
+                </details>
+
+            </nav>
+
+        </aside>
+
+        <!-- ===========================
+     MAIN CONTENT
+=========================== -->
+
+        <main class="kb-content">
+
+            <!-- ===========================
+     HERO
+=========================== -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div class="hero-subtitle">
+
+                        Enterprise Operations Documentation Series • Volume II
+
+                    </div>
+
+                    <h1 class="hero-title">
+
+                        Enterprise Systems Administration &amp; Operations
+
+                    </h1>
+
+                    <p>
+
+                        A collection of enterprise administration playbooks documenting the
+                        operational procedures, maintenance activities, systems administration
+                        practices, monitoring workflows, automation processes, and day-to-day
+                        management of the JCAG-LAB enterprise environment. Rather than focusing
+                        on recovering failed infrastructure, these playbooks demonstrate how
+                        enterprise systems are administered, maintained, monitored, secured,
+                        documented, and continuously improved during normal business operations.
+
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="#overview" class="btn btn-primary">
+                            Overview
+                        </a>
+
+                        <a href="#methodology" class="btn">
+                            Methodology
+                        </a>
+
+                        <a href="#playbooks" class="btn">
+                            Playbooks
+                        </a>
+
+                        <a href="#technologies" class="btn">
+                            Technologies
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================================
+     OVERVIEW
+====================================================== -->
+
+            <section id="overview" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Project Overview
+                    </div>
+
+                    <h2 class="portal-title">
+                        Enterprise Systems Administration Handbook
+                    </h2>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    This project documents the day-to-day operational procedures used to
+                    administer, maintain, monitor, automate, document, and continuously
+                    improve the JCAG-LAB enterprise environment. Rather than focusing on
+                    infrastructure deployment or incident recovery, the guide demonstrates
+                    the operational responsibilities routinely performed by systems
+                    administrators, infrastructure engineers, network administrators,
+                    and enterprise IT operations teams.
+
+                </p>
+
+                <p class="section-subtitle">
+
+                    Every administration playbook follows a standardized operational
+                    methodology designed to promote consistency, repeatability, and
+                    enterprise best practices across Windows Server administration,
+                    Active Directory management, Linux systems administration,
+                    virtualization, enterprise networking, monitoring, automation,
+                    backup operations, documentation, and change management.
+
+                </p>
+
+                <p class="section-subtitle">
+
+                    All procedures are based on the production-style JCAG-LAB enterprise
+                    environment, providing practical operational guidance using the
+                    actual technologies deployed throughout the lab. Administrative
+                    activities are documented as they would be performed during normal
+                    business operations, emphasizing proactive maintenance,
+                    configuration management, service validation, operational
+                    documentation, and continuous infrastructure improvement.
+
+                </p>
+
+                <p class="section-subtitle">
+
+                    Together with <strong>Volume I — Enterprise Infrastructure Recovery &amp;
+                        Troubleshooting</strong>, this guide forms a comprehensive enterprise
+                    operations library covering both proactive administration and reactive
+                    recovery procedures within the same enterprise infrastructure.
+
+                </p>
+
+            </section>
+
+            <!-- =====================================================
+     ENTERPRISE OPERATIONS METHODOLOGY
+====================================================== -->
+
+            <section id="methodology" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Operational Workflow
+                    </div>
+
+                    <h2 class="portal-title">
+                        Standard Enterprise Operations Methodology
+                    </h2>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    Enterprise systems administration is centered on maintaining service
+                    availability, operational consistency, security, and infrastructure
+                    reliability before incidents occur. Every administrative procedure
+                    documented throughout this guide follows a repeatable workflow designed
+                    to standardize daily operations while minimizing configuration drift,
+                    service interruptions, and operational risk.
+
+                </p>
+
+                <div class="workflow-box">
+
+                    <pre>
+Daily Operations Review
+        │
+        ▼
+Verify Infrastructure Health
+        │
+        ▼
+Review Monitoring & Alerts
+        │
+        ▼
+Validate Enterprise Services
+        │
+        ▼
+Perform Administrative Tasks
+        │
+        ▼
+Apply Approved Configuration Changes
+        │
+        ▼
+Validate Service Availability
+        │
+        ▼
+Document Operational Activities
+        │
+        ▼
+Update Documentation
+        │
+        ▼
+Maintain Enterprise Baseline
+</pre>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    This methodology reflects the operational responsibilities commonly
+                    performed by Systems Administrators, Infrastructure Engineers,
+                    Enterprise Support Teams, and Network Operations personnel responsible
+                    for maintaining production enterprise environments.
+
+                </p>
+
+            </section>
+
+            <!-- =====================================================
+     STANDARD ADMINISTRATION MODULE STRUCTURE
+====================================================== -->
+
+            <section id="structure" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Documentation Standard
+                    </div>
+
+                    <h2 class="portal-title">
+                        Standard Administration Module Structure
+                    </h2>
+
+                </div>
+
+                <p class="section-subtitle">
+
+                    Every playbook within this guide follows an identical documentation
+                    structure. Standardizing module organization promotes consistency,
+                    simplifies navigation, and ensures administrative procedures are
+                    repeatable regardless of the technology being managed.
+
+                </p>
+
+                <div class="structure-grid">
+
+                    <div class="structure-card">
+
+                        <h3>1. Overview</h3>
+
+                        <p>
+
+                            Introduces the administrative topic, explains its purpose,
+                            and defines its role within the JCAG-LAB enterprise
+                            infrastructure.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>2. Learning Objectives</h3>
+
+                        <p>
+
+                            Defines the administrative skills, operational knowledge,
+                            and expected competencies developed throughout the module.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>3. Enterprise Architecture</h3>
+
+                        <p>
+
+                            Explains how the technology integrates into the overall
+                            JCAG-LAB enterprise environment and its relationship to
+                            supporting infrastructure.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>4. Administration Procedures</h3>
+
+                        <p>
+
+                            Documents routine enterprise administrative tasks,
+                            configuration procedures, validation techniques,
+                            and operational workflows.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>5. Operational Scenarios</h3>
+
+                        <p>
+
+                            Demonstrates common enterprise administration activities
+                            using realistic scenarios performed within the JCAG-LAB
+                            environment.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>6. Validation Procedures</h3>
+
+                        <p>
+
+                            Verifies that administrative changes have been successfully
+                            implemented without negatively affecting enterprise
+                            services.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>7. Practical Exercises</h3>
+
+                        <p>
+
+                            Reinforces operational knowledge through guided
+                            administrative exercises using production-style
+                            procedures.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>8. Operational Checklists</h3>
+
+                        <p>
+
+                            Provides standardized verification steps to ensure
+                            administrative tasks are completed consistently and
+                            accurately.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>9. Key Takeaways</h3>
+
+                        <p>
+
+                            Summarizes the most important concepts, procedures,
+                            and enterprise administration best practices covered
+                            throughout the module.
+
+                        </p>
+
+                    </div>
+
+                    <div class="structure-card">
+
+                        <h3>10. Module Completion Outcome</h3>
+
+                        <p>
+
+                            Defines the operational competencies and administrative
+                            capabilities expected after completing the playbook.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================================
+     ADMINISTRATION PLAYBOOKS
+====================================================== -->
+
+            <section id="playbooks" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Enterprise Administration Library
+                    </div>
+
+                    <h2 class="portal-title">
+                        Administration Playbooks
+                    </h2>
+
+                    <p class="portal-description">
+
+                        Each playbook focuses on a specific operational domain within the
+                        JCAG-LAB enterprise environment. Collectively, these playbooks
+                        document the day-to-day administrative responsibilities required
+                        to maintain a secure, reliable, and well-documented enterprise
+                        infrastructure using standardized operational procedures.
+
+                    </p>
+
+                </div>
+
+                <div class="labs-grid">
+
+                    <!-- PLAYBOOK 0 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 0</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Operations</span>
+                            <span class="tag">Standards</span>
+                            <span class="tag">Baseline</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Enterprise operational standards, administrative methodology,
+                            documentation practices, change management, maintenance
+                            scheduling, naming conventions, asset management, and
+                            enterprise operational governance.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook0.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 1 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 1</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Active Directory</span>
+                            <span class="tag">Identity</span>
+                            <span class="tag">Authentication</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Active Directory administration, Organizational Units,
+                            Group Policy management, user provisioning, security groups,
+                            authentication services, domain administration, and identity
+                            lifecycle management.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook1.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 2 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 2</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Windows Server</span>
+                            <span class="tag">Services</span>
+                            <span class="tag">Administration</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Windows Server administration, DNS, DHCP,
+                            Windows Update management, server hardening,
+                            storage administration, performance monitoring,
+                            and routine operational maintenance.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook2.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 3 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 3</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">File Services</span>
+                            <span class="tag">SMB</span>
+                            <span class="tag">Storage</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Enterprise file services administration,
+                            shared folders, NTFS permissions,
+                            SMB configuration, storage quotas,
+                            access management, and data governance.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook3.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 4 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 4</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Printing</span>
+                            <span class="tag">Enterprise</span>
+                            <span class="tag">Devices</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Enterprise print services administration,
+                            printer deployment, print queues,
+                            printer sharing, driver management,
+                            print security, and operational maintenance.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook4.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 5 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 5</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Windows 11</span>
+                            <span class="tag">Endpoints</span>
+                            <span class="tag">Support</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Windows 11 endpoint administration,
+                            workstation configuration,
+                            software deployment,
+                            user profile management,
+                            endpoint security,
+                            and enterprise desktop operations.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook5.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 6 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 6</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Linux</span>
+                            <span class="tag">Ubuntu</span>
+                            <span class="tag">Administration</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Ubuntu Server administration,
+                            user management,
+                            package management,
+                            system services,
+                            Docker administration,
+                            log management,
+                            and enterprise Linux operations.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook6.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================================
+     ADMINISTRATION PLAYBOOKS (CONTINUED)
+====================================================== -->
+
+            <section class="section">
+
+                <div class="labs-grid">
+
+                    <!-- PLAYBOOK 7 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 7</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Proxmox VE</span>
+                            <span class="tag">Virtualization</span>
+                            <span class="tag">Infrastructure</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Proxmox Virtual Environment administration,
+                            virtual machine lifecycle management,
+                            templates, snapshots, storage allocation,
+                            networking, resource optimization,
+                            and enterprise virtualization operations.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook7.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 8 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 8</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Monitoring</span>
+                            <span class="tag">Wazuh</span>
+                            <span class="tag">Observability</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Administration of Wazuh SIEM,
+                            agent management,
+                            dashboard administration,
+                            health monitoring,
+                            Sysmon telemetry validation,
+                            log management,
+                            and enterprise monitoring operations.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook8.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 9 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 9</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Automation</span>
+                            <span class="tag">n8n</span>
+                            <span class="tag">ITSM</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Administration of n8n automation workflows,
+                            Peppermint ITSM,
+                            webhook integrations,
+                            operational automation,
+                            workflow maintenance,
+                            and enterprise process orchestration.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook9.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 10 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 10</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Cisco</span>
+                            <span class="tag">Networking</span>
+                            <span class="tag">Infrastructure</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Administration of the Cisco ISR 1941,
+                            Cisco Catalyst 2960G,
+                            VLAN management,
+                            Router-on-a-Stick,
+                            interface administration,
+                            configuration management,
+                            and network operations.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook10.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 11 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 11</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Security</span>
+                            <span class="tag">Hardening</span>
+                            <span class="tag">Compliance</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Enterprise security administration,
+                            Windows and Linux hardening,
+                            account auditing,
+                            firewall administration,
+                            least privilege implementation,
+                            vulnerability management,
+                            and security baseline maintenance.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook11.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 12 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 12</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Backup</span>
+                            <span class="tag">Retention</span>
+                            <span class="tag">Validation</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Enterprise backup administration,
+                            Proxmox Backup Server operations,
+                            backup scheduling,
+                            retention policies,
+                            restore verification,
+                            backup integrity,
+                            and data protection management.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook12.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PLAYBOOK 13 -->
+
+                    <div class="card">
+
+                        <h3>Playbook 13</h3>
+
+                        <div class="tags">
+
+                            <span class="tag">Documentation</span>
+                            <span class="tag">CMDB</span>
+                            <span class="tag">Change Control</span>
+
+                        </div>
+
+                        <p class="lab-description">
+
+                            Enterprise documentation standards,
+                            infrastructure diagrams,
+                            CMDB management,
+                            asset inventory,
+                            configuration documentation,
+                            change management,
+                            operational reporting,
+                            and knowledge management.
+
+                        </p>
+
+                        <div class="lab-links">
+
+                            <a href="playbook13.html" class="btn btn-primary">
+                                Open Playbook
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================================
+     OPERATIONAL PHILOSOPHY
+====================================================== -->
+
+            <section id="philosophy" class="section">
+
+                <div class="portal-header">
+
+                    <div class="portal-label">
+                        Enterprise Operations
+                    </div>
+
+                    <h2 class="portal-title">
+                        Operational Philosophy
+                    </h2>
+
+                    <p class="portal-description">
+
+                        Enterprise administration extends beyond simply maintaining
+                        infrastructure. It emphasizes proactive management,
+                        operational consistency, standardized procedures,
+                        continuous validation, and disciplined documentation to
+                        ensure reliable, secure, and predictable service delivery
+                        throughout the JCAG-LAB enterprise environment.
+
+                    </p>
+
+                </div>
+
+                <div class="overview-grid">
+
+                    <div class="card">
+
+                        <h3>Preventive Administration</h3>
+
+                        <p>
+
+                            Administrative tasks are performed proactively to
+                            reduce operational risk, maintain service
+                            availability, and prevent configuration drift before
+                            it affects production services.
+
+                        </p>
+
+                        <ul>
+
+                            <li>Routine health validation</li>
+                            <li>Patch management</li>
+                            <li>Configuration standardization</li>
+                            <li>Security baseline maintenance</li>
+                            <li>Capacity planning</li>
+                            <li>Operational documentation</li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="card">
+
+                        <h3>Continuous Improvement</h3>
+
+                        <p>
+
+                            Every administrative activity contributes toward
+                            improving operational maturity through consistent
+                            documentation, automation, auditing, and process
+                            refinement.
+
+                        </p>
+
+                        <ul>
+
+                            <li>Automation optimization</li>
+                            <li>Operational reviews</li>
+                            <li>Performance analysis</li>
+                            <li>Infrastructure standardization</li>
+                            <li>Knowledge management</li>
+                            <li>Enterprise best practices</li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </section>
